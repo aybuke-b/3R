@@ -1,0 +1,2 @@
+-- in order to add table of contents, checkboxes, in markdown => Markdown All in One
+-- in order to see .pdf files in VSCODE (yes, you can!) => vscode-pdf
