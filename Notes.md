@@ -22,6 +22,9 @@
 ## TODO LIST
 
 - [ ] Add all references
+- [ ] Lire The Demand for clean Air
+- [ ] Lire Article `Rosen`
+- [ ] Lire page chapitres `SFA`
 
 ## `Research`
 
@@ -42,6 +45,7 @@ hedonic pricing best pratice frontier**, Business Research Quaterly vol 21 Issue
 
 - [**Autokoo.com**](https://www.autokoo.com/voiture-neuve/comparateur)
 - [**Qui est le moins cher ?**](https://www.quiestlemoinscher.leclerc)
+- [**Kayak**](https://www.kayak.fr/)
 
 ### Key Definitions
 
