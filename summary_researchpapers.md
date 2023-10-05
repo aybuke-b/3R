@@ -130,3 +130,26 @@ Relation entre les prix proposés sur le marché et les **RRP**
 ## `Hedonic Housing Prices and the demand for clean air`: *Harrison et Rubinfeld*
 
 **WTP** : Le prix maximum qu'un consommateur est prêt à payer pour un bien. Si les consos sont probablement prêts à payer moins que cette frontière, ils ne sont pas prêts à payer plus.
+
+## `Stochastic Frontier Analysis using STATA BOOK`: *Kumbhakar*
+
+- L'**efficacité technique** peut soit être modélisée comme *output-orientée* ou *input-orientée*
+- On se concentre sur l'efficacité technique output-orientée
+
+Dans ce cas, un modèle de frontière de production stochastique avec efficacité technique output-orientée peut s'écrire :
+
+> $(1)$ - $\text{ln } y_i = \text{ln }y_i^*-u_i, \text{ } u_i\geq0$ 
+
+> $(2)$ - avec $\text{ln }y_i^* = f(x_i;\beta) + v_i$
+
+- $i$ sont ici les observations (entreprises, individus,etc.)
+- $y_i=$ output observé
+- $x_i= J\times 1$ vecteur des inputs variables
+- $\beta= J\times 1$ vecteur des coefficients associés aux input variables
+- $v_i=$ est une erreur aléatoire $\Rightarrow$ variation inexpliquée par les variables indépendantes du modèle $-$ cette erreur n'a pas de biais et peut être positive comme négative d'où le $E(v_i)=0$, la valeur attendue de ces erreurs sur un grand nombre d'observations est donc égal à 0.
+- $u_i=$ innefficacité productive $\geq$ 0
+
+L'équation $(2)$ définit la fonction de la frontière stochastique de production. Étant donné $x$, la frontière donne le niveau de production maximum possible et est stochastique à cause de $v_i \Rightarrow$ 
+« stochastique » fait référence à l'inclusion du caractère aléatoire ou de la variabilité non observée dans le modèle pour tenir compte de facteurs qui affectent la production ou la rentabilité mais qui ne sont pas directement observables.
+
+- Puisque $u_i \geq 0$, l'output observé $y_i$ est limité en dessous du niveau de production frontière $y_i^*$
