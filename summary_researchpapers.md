@@ -183,3 +183,5 @@ $$
 $$
 
 - On voit ici que $\exp(-u_i)$ donne le ratio d'output produit sur l'output maximum possible. Le ratio se réfère à l'efficacité technique de la firme $i$.
+
+test
