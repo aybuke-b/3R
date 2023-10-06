@@ -15,7 +15,6 @@
     - [Hypothèses](#hypothèses-1)
   - [`Hedonic Housing Prices and the demand for clean air`: *Harrison et Rubinfeld*](#hedonic-housing-prices-and-the-demand-for-clean-air-harrison-et-rubinfeld)
   - [`Stochastic Frontier Analysis using STATA BOOK`: *Kumbhakar*](#stochastic-frontier-analysis-using-stata-book-kumbhakar)
-  - [`Estimation of hedonic price functions with incomplete information`: *Kumbhakar et Parmeter*](#estimation-of-hedonic-price-functions-with-incomplete-information-kumbhakar-et-parmeter)
 
 ## TODO List
 
@@ -205,6 +204,3 @@ $$
 $$
 
 - On voit ici que $\exp(-u_i)$ donne le ratio d'output produit sur l'output maximum possible. Le ratio se réfère à l'efficacité technique de la firme $i$.
-
-## `Estimation of hedonic price functions with incomplete information`: *Kumbhakar et Parmeter*
-
