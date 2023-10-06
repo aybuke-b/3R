@@ -1,5 +1,27 @@
 # Résumés Papiers de Recherche
 
+## <u>Liste des articles</u>
+
+
+- [Résumés Papiers de Recherche](#résumés-papiers-de-recherche)
+  - [Liste des articles](#liste-des-articles)
+  - [TODO List](#todo-list)
+  - [`Running Shoes in Spain`: *Arrrondo et Al*](#running-shoes-in-spain-arrrondo-et-al)
+    - [Hypothèses](#hypothèses)
+    - [Modèle](#modèle)
+    - [Confirmation Hypothèses](#confirmation-hypothèses)
+  - [`Hedonic wine price functions with different price`](#hedonic-wine-price-functions-with-different-price)
+  - [`A New Approach To Consumer Theory`: *Kevin Lancaster*](#a-new-approach-to-consumer-theory-kevin-lancaster)
+    - [Hypothèses](#hypothèses-1)
+  - [`Hedonic Housing Prices and the demand for clean air`: *Harrison et Rubinfeld*](#hedonic-housing-prices-and-the-demand-for-clean-air-harrison-et-rubinfeld)
+  - [`Stochastic Frontier Analysis using STATA BOOK`: *Kumbhakar*](#stochastic-frontier-analysis-using-stata-book-kumbhakar)
+  - [`Estimation of hedonic price functions with incomplete information`: *Kumbhakar et Parmeter*](#estimation-of-hedonic-price-functions-with-incomplete-information-kumbhakar-et-parmeter)
+
+## TODO List
+
+- [ ] Hedonic Pricing Rosen à lire et résumer : `Corentin`
+- [ ] The demand for clean air à lire et résumer : `Aybuke`
+- [ ] Hedonic price functions with incomplete info à lire et résumer : `Corentin`
 ## `Running Shoes in Spain`: *Arrrondo et Al*
 
 But de l'article : **déterminer les composantes principales des prix des sneakers en Espagne**
@@ -92,7 +114,7 @@ $$Log(Pik)=\alpha_k+\beta X_{ik}+e_{ik}$$
 
 - De manière plus intéressante, les dummies de marques sont elles toutes significatives au seuil de 1%, et ce sont elles qui "drivent" le prix dans une importance beaucoup plus grande que les caractéristiques associés aux chaussures.
 
-## Confirmation Hypothèses
+### Confirmation Hypothèses
 
 - Confirmation $H_1$ : Relation inverse entre l'efficacité du produit et la réduction de prix. La réduction de prix est donc d'autant plus grande que la sneakers est overprice !
 
@@ -183,3 +205,6 @@ $$
 $$
 
 - On voit ici que $\exp(-u_i)$ donne le ratio d'output produit sur l'output maximum possible. Le ratio se réfère à l'efficacité technique de la firme $i$.
+
+## `Estimation of hedonic price functions with incomplete information`: *Kumbhakar et Parmeter*
+
