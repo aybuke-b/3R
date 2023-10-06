@@ -144,12 +144,42 @@ Dans ce cas, un modèle de frontière de production stochastique avec efficacit�
 
 - $i$ sont ici les observations (entreprises, individus,etc.)
 - $y_i=$ output observé
+- $y_i^*=$ output maximum
 - $x_i= J\times 1$ vecteur des inputs variables
 - $\beta= J\times 1$ vecteur des coefficients associés aux input variables
 - $v_i=$ est une erreur aléatoire $\Rightarrow$ variation inexpliquée par les variables indépendantes du modèle $-$ cette erreur n'a pas de biais et peut être positive comme négative d'où le $E(v_i)=0$, la valeur attendue de ces erreurs sur un grand nombre d'observations est donc égal à 0.
-- $u_i=$ innefficacité productive $\geq$ 0
+- $u_i=$ innefficacité productive $\geq$ 0 $\Leftrightarrow u_i = \ln y_i^* - \ln y_i$ $-$ *en réarrangeant l'équation $(1)$*. $u_i$ correspond donc à la log-différence entre l'output réel et l'output maximum. **Dès lors, $u_i \times 100 \%$ donne le pourcentage d'output perdu à cause de l'innefficacité technique.**
 
 L'équation $(2)$ définit la fonction de la frontière stochastique de production. Étant donné $x$, la frontière donne le niveau de production maximum possible et est stochastique à cause de $v_i \Rightarrow$ 
 « stochastique » fait référence à l'inclusion du caractère aléatoire ou de la variabilité non observée dans le modèle pour tenir compte de facteurs qui affectent la production ou la rentabilité mais qui ne sont pas directement observables.
 
 - Puisque $u_i \geq 0$, l'output observé $y_i$ est limité en dessous du niveau de production frontière $y_i^*$
+
+> Etant donné l'équation $(1)$ et $(2)$, on peut ré-écrire le modèle de cette façon :
+
+$$
+\begin{cases}
+\ln y_i = \ln y_i^* - u_i\\
+\ln y_i^* = f(x_i, \beta) + v_i
+\end{cases}
+$$
+
+- On substitue alors $\ln y_i^*$ dans l'équation $(1)$ et on trouve :
+
+$$\ln y_i = f(x_i, \beta) - u_i + v_i$$
+$$\ln y_i = f(x_i, \beta) + \epsilon_i$$
+
+- Avec le terme d'erreur composé $\epsilon_i = v_i - u_i$
+
+> En réarrangeant l'équation $(1)$ :
+
+$$
+\ln y_i = \ln y_i^* - u_i\\
+\Leftrightarrow \ln y_i - \ln y_i^* = -u_i\\
+\Leftrightarrow \ln \left(\frac{y_i}{y_i^*}\right)= -u_i\\
+\Leftrightarrow \exp \ln \left(\frac{y_i}{y_i^*}\right)= \exp(-u_i)\\
+\Leftrightarrow  \frac{y_i}{y_i^*}= \exp(-u_i)\\
+\Leftrightarrow \exp(-u_i) = \frac{y_i}{y_i^*}\\
+$$
+
+- On voit ici que $\exp(-u_i)$ donne le ratio d'output produit sur l'output maximum possible. Le ratio se réfère à l'efficacité technique de la firme $i$.
