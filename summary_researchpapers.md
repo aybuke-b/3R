@@ -1,5 +1,47 @@
 # Résumés Papiers de Recherche
 
+## <u>Liste des articles</u>
+
+
+- [Résumés Papiers de Recherche](#résumés-papiers-de-recherche)
+  - [Liste des articles](#liste-des-articles)
+  - [TODO List](#todo-list)
+  - [`Running Shoes in Spain`: *Arrrondo et Al*](#running-shoes-in-spain-arrrondo-et-al)
+    - [Hypothèses](#hypothèses)
+    - [Modèle](#modèle)
+    - [Confirmation Hypothèses](#confirmation-hypothèses)
+  - [`Hedonic wine price functions with different price`](#hedonic-wine-price-functions-with-different-price)
+  - [`A New Approach To Consumer Theory`: *Kevin Lancaster*](#a-new-approach-to-consumer-theory-kevin-lancaster)
+    - [Hypothèses](#hypothèses-1)
+  - [`Hedonic Housing Prices and the demand for clean air`: *Harrison et Rubinfeld*](#hedonic-housing-prices-and-the-demand-for-clean-air-harrison-et-rubinfeld)
+  - [`Stochastic Frontier Analysis using STATA BOOK`: *Kumbhakar*](#stochastic-frontier-analysis-using-stata-book-kumbhakar)
+  - [`Hedonic Housing Prices and the Demand for Clean Air`: *David Harrison \& Daniel L. Rubinfled*](#hedonic-housing-prices-and-the-demand-for-clean-air-david-harrison--daniel-l-rubinfled)
+    - [1. Le modèle de procédure](#1-le-modèle-de-procédure)
+    - [2. Equation de la valeur immobilière](#2-equation-de-la-valeur-immobilière)
+    - [3. Equation de la disposition à payer](#3-equation-de-la-disposition-à-payer)
+    - [4. Ex : WTP pour les contrôles fédéraux des émissions automobiles](#4-ex--wtp-pour-les-contrôles-fédéraux-des-émissions-automobiles)
+    - [5. Conclusion](#5-conclusion)
+    - [Hypothèses de distribution paramétrique](#hypothèses-de-distribution-paramétrique)
+      - [Distribution Half-Normale](#distribution-half-normale)
+      - [Distribution Normale Tronquée](#distribution-normale-tronquée)
+  - [`Estimation of hedonic price functions with incomplete information`: *Kumbhakar et Parmeter*](#estimation-of-hedonic-price-functions-with-incomplete-information-kumbhakar-et-parmeter)
+    - [Résultats du modèle](#résultats-du-modèle)
+    - [Détails calculatoires](#détails-calculatoires)
+      - [Full information :](#full-information-)
+      - [Incomplete information :](#incomplete-information-)
+    - [Modèle Hédonique avec information incomplète](#modèle-hédonique-avec-information-incomplète)
+    - [The two-tier frontier method](#the-two-tier-frontier-method)
+    - [Conclusion](#conclusion)
+  - [`Hedonic Prices and Implicit Markets - Product Differentiation in Pure Competition`: *Rosen*](#hedonic-prices-and-implicit-markets---product-differentiation-in-pure-competition-rosen)
+    - [La décision de consommer](#la-décision-de-consommer)
+    - [Conclusion](#conclusion-1)
+
+## TODO List
+
+- [ ] Hedonic Pricing Rosen à lire et résumer : `Corentin`
+- [ ] The demand for clean air à lire et résumer : `Aybuke`
+- [x] Hedonic price functions with incomplete info à lire et résumer : `Corentin`
+- [ ] Voir Article Aigner & Al (1977)
 ## `Running Shoes in Spain`: *Arrrondo et Al*
 
 But de l'article : **déterminer les composantes principales des prix des sneakers en Espagne**
@@ -92,7 +134,7 @@ $$Log(Pik)=\alpha_k+\beta X_{ik}+e_{ik}$$
 
 - De manière plus intéressante, les dummies de marques sont elles toutes significatives au seuil de 1%, et ce sont elles qui "drivent" le prix dans une importance beaucoup plus grande que les caractéristiques associés aux chaussures.
 
-## Confirmation Hypothèses
+### Confirmation Hypothèses
 
 - Confirmation $H_1$ : Relation inverse entre l'efficacité du produit et la réduction de prix. La réduction de prix est donc d'autant plus grande que la sneakers est overprice !
 
@@ -179,7 +221,7 @@ $$
 \Leftrightarrow \ln \left(\frac{y_i}{y_i^*}\right)= -u_i\\
 \Leftrightarrow \exp \ln \left(\frac{y_i}{y_i^*}\right)= \exp(-u_i)\\
 \Leftrightarrow  \frac{y_i}{y_i^*}= \exp(-u_i)\\
-\Leftrightarrow \exp(-u_i) = \frac{y_i}{y_i^*}\\
+\Leftrightarrow \boxed{\exp(-u_i) = \frac{y_i}{y_i^*}}\\
 $$
 
 - On voit ici que $\exp(-u_i)$ donne le ratio d'output produit sur l'output maximum possible. Le ratio se réfère à l'efficacité technique de la firme $i$.
@@ -319,3 +361,199 @@ L'estimation en 4 étapes permet de tenir compte de la variation de la WTP en f�
 
 
 L'étude souligne égalemnt la sensibilité des estimations des avantages à la spécification de l'équation de valeur immobilière. Selon la façon dont cette relation est modélisée, les estimations des avantages peuvent varier jusqu'à 60 %. En revanche, les résultats montrent que la spécification de la fonction de volonté de payer a peu d'impact sur les estimations des avantages.
+
+### Hypothèses de distribution paramétrique
+
+**Voir page 59 du livre !** 
+
+Les procédures statistiques paramétriques se fondent sur des hypothèses sur la forme de la distribution
+(i.e., une distribution normale ou hal-normale) dans la population sous-jacente et aussi sur la forme des paramètres (i.e., moyennes & écarts-types) de la distribution.
+
+#### Distribution Half-Normale
+
+#### Distribution Normale Tronquée
+
+
+## `Estimation of hedonic price functions with incomplete information`: *Kumbhakar et Parmeter*
+
+**Dispersion en prix** : Certains acheteurs trouvent des prix bas grâce à des méthodes de recherche et d'acquisition d'information, tandis que des vendeurs font payer des prix plus élévés en obtenant des informations sur ces mêmes potentiels acheteurs.
+
+> *But du papier* : Développer un modèle de prix hédonique qui incorpore les effets de l'info incomplète sur les deux côtés du marché (**buyer/seller**) $\Rightarrow$ pour obtenir des estimations des écarts entre les prix du marché et la disposition à payer maximale (WTP) des acheteurs et la volonté minimale des vendeurs d’accepter (WTA).
+
+- Le papier a été réalisé sur l'American Housing SUvrey (AHS). On trouve que l'information incomplète a un impact important sur les prix de l'immobilier.
+
+- Dans la littérature hédonique, l'unicité des biens devient de moins en moins une raison expliquant la dispersion en prix quand plus de caracteristiques sont prises en compte. L'ignorance (manque d'information) devient le facteur principal causant les variations de prix. Whatever its cause, price dispersion
+can be taken as an empirical regularity
+
+- **Situation actuelle** : Existence de canaux d'information grâce auxquels les acheteurs et les vendeurs peuvent obtenir des informations; les petites annonces, Internet, les cookies récupérés sur les utilisateurs en sont quelques exemples. 
+
+- Bien qu'il n'existe aucun moyen de connaître la WTP la plus élevée ou la WTA la plus basse sans publicité explicite de ces prix, les vendeurs et les acheteurs peuvent obtenir des informations grâce à de la recherche. Toutefois, des *search costs* existent et donc
+les acteurs du marché ne seront jamais entièrement informés DONC des variations de prix
+dus au manque d'info existeront même après avoir contrôlé les caractéristiques du produit !
+
+- Nouvelle terminologie : les acheteurs et les vendeurs qui manquent d’informations complètes sont appelés `déficients`.
+Contrairement à l'ignorance, le terme déficient signifie que les acheteurs et les vendeurs ont un *incentive* à rassembler plus d'informations grâce à la recherche, mais une recherche plus approfondie est coûteuse et prend du temps, donc les informations incomplètes que chacun possède sont suffisantes pour entrer sur le marché.
+
+### Résultats du modèle
+
+1. Modèle de prix hédonique classique avec prise en compte d'information incomplète des deux côtés du marché puis estimation du modèle dans 
+2. Deuxièmement, généralisation de la méthode pour
+permettre que le déficit d’information dépende des caractéristiques de l’acheteur et du vendeur.
+3. Estimation d'une fonction de prix hédonique pour des données détaillées sur les maisons et examiner les effets que les caractéristiques du propriétaire/acheteur, telles que : être un premier acheteur, venir de l'extérieur de la ville, avoir des enfants, des frais de logement, etc.
+
+- Les résultats suggèrent que les acheteurs et les vendeurs de l’AHS manquent d’informations. Cela n'est pas surprenant étant donné que
+nos données proviennent de la période 1986 à 1993, ce qui représente une période de collecte où l'information était plus coûteuse qu'elle ne l'est aujourd'hui avec l'avènement d'Internet et la création de services d'annonces multiples.
+
+### Détails calculatoires
+
+En informations complète, chaque acheteur connaît
+le WTA la plus basse et chaque vendeur connaît le WTP le plus élevé. Cela oblige le marché à générer un prix unique pour chaque $z$ sur le marché. Toutefois, en cas d'informations incomplètes, le prix du marché est affecté par le niveau d'information fourni par les acheteurs et les vendeurs.
+**Autrement dit, pour un $z$ donné, il existe de nombreuses fonctions de bid et d’offer en raison de différents niveaux d’information.** La multiplicité
+des fonctions de *Bid* et *Offer* pour une caractéristique spécifique entraîne un écart entre
+l'acheteur le plus offrant et le vendeur ayant l'offre la plus basse.
+
+- $z \Rightarrow$ Caractéristiques (scalaire) du bien 
+- Les bid functions sont construites pour discerner le prix qu'un acheteur paierait pour un bien avec
+certains attributs pour un niveau fixe d’utilité et de revenu $\Rightarrow$ Elles indiquent le prix le plus élevé qu'un acheteur est prêt à payer pour le bien. L'utilité est maximisée lorsque la fonction d'enchère est
+égale et tangente à la fonction de prix du marché, ie. le prix minimum qu'un acheteur doit payer sur le marché.
+
+#### Full information : 
+
+- $\varphi(z, \pi) \Rightarrow$ `Offer Function` avec différents niveaux de profit $\pi$
+- $\psi(z:y, U) \Rightarrow$ `Bid Function` avec différents niveaux de revenu $y$ et différents niveaux d'utilités $U$
+
+> Les points de tangence entre les `Offer Functions` ie. $\varphi_1(z, \pi_1),\varphi_2(z, \pi_2), \dots, \varphi_n(z, \pi_n)$ & `Bid Functions` ie. $\psi_1(z:y_1, U_1),\psi_2(z:y_2, U_2), \dots, \psi_n(z:y_n, U_n)$  permettent de tracer la Fonction de `Hedonic Price` $P(z)$
+
+- **PROBLEME** : ce modèle implique qu'il y ait *full-information* & d'être en *perfect competition*.
+
+#### Incomplete information : 
+
+- Dans ce cas il existe une frontière de prix hédonique pour les acheteurs : $P_b(z)$, qui est définie comme l'enveloppe *haute* des `Bid Functions` $\psi_1, \psi_2, \psi_3$. Cependant, il existe aussi d'autres acheteurs dans le marché qui veulent acheter le bien avec des `Bid Functions` inférieures : $\psi_4, \psi_5, \psi_6$.
+
+- Le cas est symétrique pour les vendeurs : $P_s(z)$ qui est définie comme l'enveloppe *basse* des `Offer Functions` $\varphi_1, \varphi_2, \varphi_3$. Cependant, d'autres vendeurs sur le marché veulent aussi vendre leur bien à des offres moins avantageuses : $\varphi_4, \varphi_5, \varphi_6$.
+  
+  > Dans le modèle de `Rosen`, comme il y a *full-information* & *perfect competition* alors les acheteurs ne seront intéressés que par l'enveloppe basse des `Offer Functions` tandis que les vendeurs ne seront intéressés que par l'enveloppe haute des `Bid Functions` ! *Dans ce cas, $P_b(z) = P_s(z)$* et les fluctuations de prix ne peuvent exister qu'à cause de l'hétérogénéité.
+
+Mais ce n'est pas le cas si on est en *incomplete information* donc $P_b(z) \neq P_s(z)$ ! 
+
+***
+![](imgs/kumbhakar_incompletee_info_eq.PNG)
+
+De cette représentation on voit qu'au lieu d'avoir un prix unique pour un
+niveau donné d'une caractéristique (comme dans le modèle de Rosen en full-info), il existe une surface de prix qui se situe entre la WTP la plus élevée - courbe de bid $P_b(z)$ et la WTA la plus basse -  courbe d'offer $P_s(z)$. 
+
+- L’origine d’un point de vente dans cet espace entre les deux courbes est dictée par les niveaux d’information possédés par les deux parties. Un équilibre est néanmoins atteignable car la tangence entre les fonctions de bid et d'offer arrive quand le coût marginal de l'information augmente trop.
+- Autrement dit, au-dessus de $P_h(z)$, le seller n'a pas intérêt à aller chercher de l'info supplémentaire sur les buyers car cela lui coutera trop cher. En dessous de $P_h(z)$, le buyer n'a pas intérêt à aller chercher de l'info sur les biens car cela lui coutera lui aussi trop cher (search costs).
+
+### Modèle Hédonique avec information incomplète
+
+*Equation de prix hédonique standard* :
+
+$$\begin{equation}P_h = h(z) + v \end{equation}$$
+
+- avec $P_h$ le prix hédonique (ou le logarithme du prix hédonique)
+- avec $z$ un vecteur de
+caractéristiques du produit influençant la valeur globale du bien sur le marché
+- avec $v$ représentant le bruit aléatoire et l'erreur de mesure dans le prix
+
+**Cette fonction de prix hédonique $(1)$ correspond au modèle de full-information développé par Rosen (1974)**
+
+Pour prendre en compte les frontières de prix du point de vue du vendeur le prix proposé $P_m^s$ peut être représenté comme :
+
+$$\begin{equation}P_m^s = P_b − u\end{equation}$$
+
+- $P_b$ représente la plus haute WTP sur le marché
+- $u \geq 0$ représente la perte d'un vendeur du au manque d'information 
+
+Le prix payé $P_m^b$ peut être représenté comme :
+
+$$\begin{equation}P_m^b = P_s + w\end{equation}$$
+
+- $P_s$ représente la plus basse WTA sur le marché
+- $w \geq 0$ représente le coût de l'acheteur lié à son manque d'information
+
+Pour qu'une transaction sur le marché ait lieu, il faut que le prix de marché $P_m$ soit égal à $P_m^b=P_m^s \equiv P_m$
+
+**On obtient l'égalité suivante** : 
+
+$$
+P_m^b=P_m^s=P_m\\
+\Leftrightarrow P_s + w = P_b - u = P_m\\
+\Leftrightarrow P_s + w = P_m = P_b - u\\
+\Leftrightarrow P_s + w- w + u = P_m + u - w = P_b - u + u - w\\
+\Leftrightarrow P_s + u = \underbrace{P_m + u - w }_\text{prix en full information}= P_b - w\\
+$$
+
+- $P_s + u \Rightarrow$ Prix hédonique ajusté du *seller*
+- $P_b - w \Rightarrow$ Prix hédonique ajusté du *buyer*
+
+> Pour pouvoir continuer, on ajoute aussi l'hypothèse que le prix hédonique $h(z) + v$ est égal au terme du milieu $P_m + u -w$. Dès lors il vient :
+
+$$\begin{equation}\begin{split}h(z) + v = P_m + u - w\\ \Leftrightarrow P_m + u - w = h(z) + v\\ \Leftrightarrow \boxed{P_m = h(z) + v - u + w}\end{split}
+\end{equation}$$
+
+- L'équation ci-dessus $(4)$ montre que le prix d'un bien est constitué de :
+  - La valeur des caractéristiques $h(z)$
+  - L'hétérogénéité et le bruit aléatoire $v$
+  - Les coûts de l'info incomplète pour le *seller* $u$ et pour le *buyer* $w$
+
+Avec cette représentation, on peut trouver les effets marginaux de la valeur des attributs, mais aussi l'impact de l'info incomplète sur les prix. En utilisant les 3 erreurs $v$, $u$, $w$, on peut ré-écrire l'équation :
+
+$$\begin{equation}
+P_m = h(z) + \varepsilon
+\end{equation}$$
+
+Ici $\varepsilon = v + w − u$ est une erreur composite à 3 termes.
+
+### The two-tier frontier method
+
+- A ajouter !!
+
+### Conclusion
+
+- Utilisation d'une fonction de prix hédonique stochastique à deux niveaux pour décomposer les variations de prix en : 
+  - celles expliquées par les variables observées, 
+  - celles expliquées par l'hétérogénéité non observée des produits
+  - celles expliquées par le manque d'info : qui sont ensuite décomposées par *buyer* & *seller*
+  
+Étant donné que l’obtention d’informations est coûteuse et que ces coûts sont susceptibles de varier chez les acheteurs et les vendeurs, la présence d’informations incomplètes impose un coût à la fois chez les acheteurs et les vendeurs. 
+
+Ces coûts peuvent être optimaux (efficaces). Autrement dit, un acheteur pourrait
+payer un prix plus élevé pour un bien, sachant que la recherche (coût d'opportunité du temps)
+associée à la collecte d’informations supplémentaires nécessaires pour obtenir un prix inférieur est trop élevée. Il en va de même pour un vendeur qui pourrait vendre le bien à un prix inférieur au lieu d'attendre plus longtemps pour recueillir davantage d'informations sur les acheteurs potentiels qui
+pourraient être prêts à payer plus. L’approche de frontière stochastique à deux niveaux utilisée dans ce papier de recherche permet d’obtenir des estimations de l’efficacité des prix et du coût du déficit d’information pour chaque acheteur et vendeur. Nous avons également étendu le modèle pour permettre les coûts d'information
+dépendant des caractéristiques des acheteurs et des vendeurs. Cette formulation permet une variation systématique des coûts de l'information incomplète, dont les estimations sont utilisées pour analyser
+différences dans le coût des informations incomplètes selon les différents types d'acheteurs et
+les vendeurs.
+
+Une application du modèle aux données AHS a montré que l'impact des données incomplètes
+sur les prix du marché n'est négligeable ni pour les acheteurs ni pour les vendeurs.
+
+En moyenne, les acheteurs ont une efficacité-prix de 72 %, tandis que l'efficacité-prix des vendeurs est de 70%. Autrement dit, en raison du manque d’information, les acheteurs ont payé en moyenne 28 % au-dessus du WTA disponible le plus bas, tandis que les vendeurs ont reçu en moyenne 30 % de moins que la WTA la plus élevée. Dans le modèle étendu qui prend en compte les caractéristiques des acheteurs et des vendeurs, ces chiffres sont respectivement de 23,3 et 28,1%. Autrement dit, les coûts d'information ont conduit
+à une baisse nette des prix (à la médiane) de 4,6%, contre 2,3% dans l'indice de référence
+modèle. Ces résultats suggèrent que les acheteurs, en médiane, profitent de l’info incomplète des vendeurs.
+
+## `Hedonic Prices and Implicit Markets - Product Differentiation in Pure Competition`: *Rosen*
+
+Modèle de différenciation de produits basé sur l'hypothèse hédonique que les biens sont valorisés grâce à leurs caractéristiques.
+
+> Dans les contributions de `Lancaster` par exemple, les consommateurs sont eux aussi des producteurs $\Rightarrow$ Les biens ne possèdent pas d'attributs finaux de consommation mais son achetés en tant qu'inputs dans leur propre fonction de production de part leurs caractéristiques.
+
+Dans le modèle de `Rosen`, il y a un marché entre les acheteurs et les vendeurs. Par contre, il n'existe pas de marché secondaire où on peut revendre les biens pour éviter des complications liées à la théorie de la dépréciation du capital.
+
+- Chaque produit a un prix sur le marché associé à une valeur fixe du vecteur $z$, de sorte que les produits sur le marché révèlent implicitement une fonction $p(z)=p(z_1,\dots, z_n)$ reliant les prix et les caractéristiques. Cette fonction est équivalente à une régression hédonique des prix puisqu'elle donne **le prix minimum de n'importe quel package de caractéristiques**. 
+- Imaginons que deux entreprises vendent le même bundle d'attributs, mais à des prix différents. Les consommateurs vont alors seulement considérer le bundle le moins cher.
+
+### La décision de consommer
+
+- Les consommateurs achètent seulement une unité de marque avec une valeur particulière de $z$
+- La fonction d'utilité $U(x, z_1,z_2, \dots, z_n)$ est strictement concave, en plus d'autres propriétés usuelles, où $x$ est l'ensemble des autres biens consommés.
+
+$x:y = x + p(z)$
+
+**A DEVELOPPER**
+
+### Conclusion
+
+Cet article a mis en évidence les conséquences observationnelles de la construction de marchés implicites pour les caractéristiques incarnées dans des produits différenciés. Lorsque les biens peuvent être traités comme des ensembles liés de caractéristiques, les prix de marché observés sont également comparables dans ces conditions. Le contenu économique de la relation entre les prix observés et les caractéristiques observées devient évident une fois que les différences de prix entre les biens sont reconnues comme des différences égalisatrices pour les emballages alternatifs qu’ils incarnent. Ici comme ailleurs, les différences de prix ne s’égalisent généralement qu’au niveau de la marge et non en moyenne. Par conséquent, les fonctions hédoniques estimées des caractéristiques des prix n’identifient généralement ni la demande ni l’offre. En fait, ces observations sont décrites par une fonction d’enveloppe conjointe et ne peuvent à elles seules identifier la structure des préférences des consommateurs et les technologies des producteurs qui les génèrent.
+L'analyse formelle est compliquée par le fait que les contraintes budgétaires ne sont pas linéaires. Il n’est donc pas surprenant que des théorèmes beaucoup plus faibles que d’habitude s’appliquent. Cependant, une procédure économétrique réalisable pour estimer la structure génératrice sous-jacente a été dérivée grâce à l'utilisation de transformations dérivées. Lorsque les contraintes sont non linéaires, les prix marginaux jouent le même rôle que les prix moyens dans le cas linéaire. Enfin, le contexte spatial essentiel du problème signifie que les effets de substitution et de revenu doivent être distingués plus soigneusement que d’habitude. En effet, voici un exemple pratique majeur où les fonctions d’offre et de demande compensées deviennent les concepts fondamentaux pertinents. Ces fonctions compensées sont estimées par la méthode économétrique et des mesures du surplus du consommateur et du producteur peuvent en être dérivées directement. Nous prévoyons que le cadre conceptuel de base décrit ci-dessus aura diverses applications à de nombreux problèmes pratiques impliquant l'équilibre dans les données transversales.
