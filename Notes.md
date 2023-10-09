@@ -22,7 +22,7 @@
 ## TODO LIST
 
 - [ ] Add all references
-- [ ] Lire The Demand for clean Air
+- [X] Lire The Demand for clean Air
 - [ ] Lire Article `Rosen`
 - [ ] Lire page chapitres `SFA`
 
