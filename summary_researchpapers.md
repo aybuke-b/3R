@@ -184,4 +184,138 @@ $$
 
 - On voit ici que $\exp(-u_i)$ donne le ratio d'output produit sur l'output maximum possible. Le ratio se réfère à l'efficacité technique de la firme $i$.
 
-test
+
+## `Hedonic Housing Prices and the Demand for Clean Air`: *David Harrison & Daniel L. Rubinfled*
+
+**But de l'article** : Examiner comment les données du marché immobilier peuvent être utilisées pour évaluer la disposition à payer des consommateurs pour une meilleure qualité de l'air. **Avec l'utilisation de la régression hédonique des prix, on voit que les dommages marginaux dus à la pollution de l'air augmentent avec le niveau de pollution de l'air et le revenu des ménages.** 
+
+*Les résultats sont sensibles à la spécification de l'équation des prix immobiliers, mais insensibles à celle de l'équation de la demande de qualité de l'air.*
+
+
+**Hypothèses :**
+- évaluer le coût sociétal supplémentaire de la pollution
+- analyser le marché immobilier pour estimer la volonté de payer pour une meilleure qualité de l'air. 
+
+$\rightarrow$ Modèle en 4 étapes.
+
+On part du principe que les personnes paieront davantage pour un logement situé dans une zone où la qualité de l'air est bonne que pour un logement identique situé dans une zone où la qualité de l'air est médiocre.
+
+
+### 1. Le modèle de procédure
+
+Modèle **pour mesurer la disposition à payer des consommateurs pour des améliorations de la qualité de l'air**. 
+
+$\rightarrow$ Modèle suppose que les ménages prennent en compte le niveau de pollution de l'air, la quantité et la qualité du logement et d'autres caractéristiques de quartier pour faire leur choix. Les différences de valeur des logements sont utilisées pour estimer la disposition à payer des ménages pour des réductions de la concentration de polluants atmosphériques.
+
+Le modèle repose sur une fonction d'utilité maximisée par les ménages sous contrainte budgétaire et prend en compte la quantité de biens privés (=1), les attributs du logement (y compris la pollution de l'air), le revenu et les coûts de transport.
+
+Le modèle se "décompose" en plusieurs étapes : 
+
+1. **Spécifier la fonction de la valeur hédonique du logement**, *p(h)* : elle traduit les attributs du logement en prix, et suppose que les consommateurs perçoivent avec précision ces attributs et que le marché est en équilibre à CT.
+
+2. **Calcul de la disposition à payer pour une variation marginale de la pollution de l'air** : à l'équilibre, la disposition à payer annuelle du ménage pour une légère amélioration de la qualité de l'air est égal à l'augmentation du coût lié à l'achat d'une autre maison aux caractéristiques identiques, à l'exception d'une amélioration marginale de la qualité de l'air.
+
+ Pour déterminer : la relation entre le niveau de pollution de l'air et la disposition à payer maginale :
+
+
+3. **Estimation de la fonction de disposition à payer** : Fonction estimée en régressant les évaluations marginales des ménages (étape 2) sur la concentration de la pollution de l'air et d'autres variables comme le revenu du ménage qui pourraient influencer la demande d'air + propres.
+
+4. **Evaluer les avantages en dollars de l'amélioration de la qualité de l'air** : consiste à utiliser la fonction de disposition à payer pour attribuer une vzleur aux améliorations physiques de la qualité de l'air qui sont estimées à l'aide d'un modèle météorologique.
+
+### 2. Equation de la valeur immobilière
+
+*Données de la zone statistique métropolitaine standard de Boston en 1970, marché des propriétaires.*
+
+La **variable dépendante** de l'équation de logement est la **valeur médiane des logements occupés par les propriétaires dans la zone de recensement**. 
+
+Les **variblaes indépendantes** se composent des **attributs structurels, de quartier, des variables d'accessibilité et une variable pour la pollution de l'air**.
+
+$\rightarrow$ La variable de pollution utilisée est la concentration d'oxydes d'azote ($NOX$).
+
+Utilisation de la fonction **semi-log** car elle offre un meilleur ajustement. 
+
+
+La variable $NOX$ est non-linéaire $\rightarrow$ introduction de $NOX^p$ avec *p* paramètre inconnue (ici $p=2$). Son coefficient est négatif -> **une augmentation de la pollution de l'air entraine une baisse de la valeur immobilière**.
+
+Lorsque $NOX$ est les autres variables prennent leur valeur moyenne, le changement des valeurs médianes des logementss baisse de 1613$ pour chq variation d'un pphm de $NOX$.
+
+Même équation estimée avec $PART$ au lieu de $NOX$, les coeff sont les mêmes $\rightarrow$ les coeff des variables non liées à la pollution sont pratiquement les mêmes avec $PART$ ou $NOX$.
+
+Hétéroscédasticité : l'exposant 2 pour p n'est pas fiable, correction avec MCO pondéré en ajoutant $log(NOX)$ et $log(NOX)²$, et une autre équation avec $NOX$ et $NOX²$. Coeff similaire à ceux de l'équation de base. Pour corriger l'hétéroscédasticité, utilisation de la méthode des moindres carrés pondérés. 
+
+
+Spécification des variables non polluantes : Sppression des variables d'accessibilité a réduit l'impact mesuré de la concentration de NOX sur les valeurs immobilières.
+
+
+### 3. Equation de la disposition à payer
+
+En calculant la dériéve de l'équation de la valeur du logement par rapport à NOX (2e étape), on obtient des info sur le montant que les ménages seraient prêts à payer pour des faibles réductions des niveaux de pollution de l'air. 
+
+5 formulations d'équation de WTP, dont 2 qui supposent une relation linéaire entre WTP pour une modification marginale de la concentration de NOW ett le niveau de NOX, le revenu des lénages et le nb de personnes par unité d'habitation; les 3 autres relation log-log.
+
+> Les résultats montrent que la WTP pour une amélioration marginale de la concentration de NOX est positive pour tous les niveaux de revenu et augmente à mesure que les niveaux de NOX augmentent.
+
+> Un ménage à revenu moyen serait prêt à payer env 800$ pour une réduction de 1 pphm de NOX lorsque le niveau de NOX est de 3 pphm, et 2200$ lorsque le niveau de NOW atteint 9 pphm. 
+
+> Les ménages + aisés sont prêts à payer davantage pour les niveaux de NOX + élevés (700$ de + pour NOX = 0 pphm)
+
+**Elasticité de WTP** : on teste l'hypothèses que les ménages ont des élasticités de WTP différentes par rapport aux niveaux de NOX. **Les ménages à faible revenu ont une élasticité plus élevée** $\rightarrow$  la valorisation marginale des améliorations de la qualité de l'air diminue + rapidement pour les ménages à faible revenu lorsque la pollution de l'air diminue, que pour les ménages à revenu  moyen et élevé.
+
+
+### 4. Ex : WTP pour les contrôles fédéraux des émissions automobiles
+
+
+-> Avantages de la valeur immobilière associés à un programme de contrôle des émissions automobiles visant à améliorer la qualité de l'air dans la région de Boston. 
+
+
+La valeur moyenne en $ des améliorations physiques de la concentration de NOX dépend du montant que chq ménage est prêt à payer pour l'amélioration physique qu'il vit.
+
+
+Variation des avantages en fonction des différentes équations de WTP et de valeur immoiblière prises en compte. 
+
+> Equation linéaire de valeur linéaire : donne une estimation des avantages moyens + élevée ($118$$ par ménage).
+
+> Equation semi-log de la valeur immobilière et l'équation log-log de WTP: lorsque $p=2$ pour $NOX^p$, l'estimation des avantages est de $83$$ par ménage et par an. 
+ $\rightarrow$ l'éq° prend en compte le WTP pour des réductions marginales de la pollution peut varier en f° de la concentration de pollution et du revenu des ménages. 
+
+ **/!\ L'équation semi-log est l'éq° à laquelle on accorde le + de confiance.**
+
+
+**Sensibilité de p** : on voit que p a un impact significatif sur les avantages moyens en modifiant la valeur de p entre 1 et 3 : 
+- lorsque $p=1$ au lieu de $2$, les avantages moyens augmentent de $22\%$ (passent à $101$$).
+- lorsque $p=3$, les avantages moyens baissent de $29\%$ (passent à $59$$). 
+
+
+> Pour $p=2$, on a une erreur standard de $1.3$, $\rightarrow$ conclusion : la vraie valeur des avantages moyens pourrait varier d'env $60$$ par an à + de $100$$ par an en f° de la spécification de $NOX$. 
+
+
+
+**Test de sensibilité de l'éq° WTP** : les résultats montrent que le choix d'une f° WTP spécifique n'influence pas vraiment les avantages moyens (avec l'éq° linéaire on passe de $83$$ à $84$$).
+
+
+On continue à faire des tests pour explorer la sensibilité des avnatages moyens avec des éq° de valeurs immobilières différentes, et l'éq° WTP log-log (avec NOX et INC) : 
+
+- suppression des variables d'accessibilité ($DIS$ et $RAD$) : les avantages moyens sont passés de $83$ à $47$$. Certains avantages d'une + grande accessibilité annulent les inconvénient d'une augmentation de NOX. Donc les avantages d'une réduction de NOX semblent moindres.
+- suppression de $LSTAT$, variable (population avec CSP le plus bas) : augmentation de $83$ à $105$$.
+
+> Ces résultats montrent que les avantages d'une réduction de la concentration de la pollution atmosphérique peuvent être **sous-estimés ou sur-estimés** si l'éq° utilisée pour décrire la structure du marché du logement est mal spécifiée.
+> /!\ faire attention aux éq° avec des variables omises qui peuvent être fortement corrélées avec la pollution de l'air.
+
+
+- Modifier l'éq° de la valeur immobilière pour y ajouter une relation non-linéaire de NOX : inclut NOX et NOX² baisse les avantages ($83$ à $79$$), ou avec $logNOX$ et $logNOX²$ où l'on passe à $65$$. => montre sensibilité des avantages mesurés.
+
+- Sous-marchés : la présence de sous-marché peut avoir un impact important sur les avantages moyens. La création de sous-marché en f° du revenu, de l'accessibilité à l'emploi et du statut socio-économique peut entrainer une baisse importante des avantages moyens ($83$ à $49$$).
+- Correction de l'hétéroscédasticité : a un effet très faible sur les résultats (baisse à $76$$).
+
+
+### 5. Conclusion
+
+La plupart des études qui tentent de mesurer la WTP pour de l'air pur en f° des différences de valeur de logement  estiment une éq° hédonique dans laquelle les valeures immobilières sont régressées contre les niveaux de pollution et d'autres attributs immobiliers. Mais ils supposent souvent que la valeur attribuée à une amélioration marginale de la concentration de la pollution de l'air est indépendante du niveau de pollution de l'air, du revenu des ménages et des préférences des ménages => revient à dire que les dommages de pollution sont identiques pour tous les ménages. 
+
+
+
+L'estimation en 4 étapes permet de tenir compte de la variation de la WTP en f° du niveau de pollution de l'air et du revenu des ménages. Les résultats montrent que  les dommages marginaux dus à la pollution augmentent avec le niveau de pollution de l'air et avec le niveau de revenu des ménages. Cependant, l'utilisation incorrecte des estimations de la valorisation marginale pour calculer les avantages des améliorations non marginale entraine **une surestimation** des avantages de 30%.
+
+
+
+L'étude souligne égalemnt la sensibilité des estimations des avantages à la spécification de l'équation de valeur immobilière. Selon la façon dont cette relation est modélisée, les estimations des avantages peuvent varier jusqu'à 60 %. En revanche, les résultats montrent que la spécification de la fonction de volonté de payer a peu d'impact sur les estimations des avantages.
