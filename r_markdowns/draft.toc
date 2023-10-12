@@ -1,0 +1,12 @@
+\contentsline {subsection}{\texttt {Running\ Shoes\ in\ Spain}: \emph {Arrrondo et Al}}{1}{section*.2}%
+\contentsline {subsubsection}{Hypothèses}{2}{section*.3}%
+\contentsline {subsubsection}{Modèle}{2}{section*.4}%
+\contentsline {subsubsection}{Résultats}{2}{section*.5}%
+\contentsline {paragraph}{Index d'efficacité}{2}{section*.6}%
+\contentsline {paragraph}{Coefficients : régression hédonique}{3}{section*.7}%
+\contentsline {paragraph}{Régression estimant la relation entre la réduction de prix et la product efficiency}{3}{section*.8}%
+\contentsline {paragraph}{Régression des évaluations des experts vs product efficiency}{4}{section*.9}%
+\contentsline {subsubsection}{Confirmation Hypothèses}{4}{section*.10}%
+\contentsline {subsection}{\texttt {A\ New\ Approach\ To\ Consumer\ Theory}: \emph {Kevin Lancaster}}{4}{section*.11}%
+\contentsline {subsection}{\texttt {SFA\ BOOK}: \emph {Kumbhakar}}{5}{section*.12}%
+\contentsline {subsection}{Rosen}{6}{section*.13}%

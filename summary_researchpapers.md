@@ -142,7 +142,7 @@ Relation entre les prix proposés sur le marché et les **RRP**
 
 ## `A New Approach To Consumer Theory`: *Kevin Lancaster*
 
-**But du modèle poroposé : remplacer l'approche traditionnelle par une approche pratique et plus proche du comportement des consommateurs**
+**But du modèle proposé : remplacer l'approche traditionnelle par une approche pratique et plus proche du comportement des consommateurs**
 
 - **L'approche traditionnelle de la théorie du consommateur en microéconomie** : les consommateurs préfèrent certains biens et ces préférences vont permettre de construire leur fonction d'utilité $u(x)$ qu'ils vont chercher à maximiser. Dans ce cas, les biens sont consommés parce qu'ils procurent de l'utilité. 
   - *Exemple* : Un ordinateur peut fournir de l'utilité à un conso, quand un autre peut lui préférer une voiture.
