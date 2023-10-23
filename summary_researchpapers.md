@@ -6,6 +6,7 @@
 - [Résumés Papiers de Recherche](#résumés-papiers-de-recherche)
   - [Liste des articles](#liste-des-articles)
   - [TODO List](#todo-list)
+  - [autres infos](#autres-infos)
   - [`Running Shoes in Spain`: *Arrrondo et Al*](#running-shoes-in-spain-arrrondo-et-al)
     - [Hypothèses](#hypothèses)
     - [Modèle](#modèle)
@@ -38,10 +39,21 @@
 
 ## TODO List
 
+- [ ] Aller chercher des infos sur les smartphones dans la littérature économique : https://www.researchgate.net/profile/Ikram-Dastan-2/publication/276181974_Relationships_among_Utilitarian_and_Hedonic_Values_Brand_Affect_and_Brand_Trust_in_the_Smartphone_Industry/links/563201e908ae506cea6821d6/Relationships-among-Utilitarian-and-Hedonic-Values-Brand-Affect-and-Brand-Trust-in-the-Smartphone-Industry.pdf
+- [ ] Cet article sur les prix hédoniques des smartphones semble etre **LE PLUS PROCHE** de notre sujet : https://www.sciencedirect.com/science/article/pii/S0308596118301629?casa_token=rQYIuV-rnf4AAAAA:486BraL4eu7n9rkHcwV-TB9pJDMwFKL8l7xJN58J65Rmv2dcqVnRWffMWkUe1ixnx_czNUzGqys
 - [ ] Hedonic Pricing Rosen à lire et résumer : `Corentin`
 - [ ] The demand for clean air à lire et résumer : `Aybuke`
 - [x] Hedonic price functions with incomplete info à lire et résumer : `Corentin`
 - [ ] Voir Article Aigner & Al (1977)
+
+## autres infos
+
+The first approach was developed by Lancaster (1966), and the second by Rosen (1974). Both approaches incorporated prices and attributes based on the relationship between the actual prices of differentiated products and the attributes associated with these products. The Lancaster model assumes that goods are the member of a group and consumer consumes some or all of the goods or combinations subject to the budget constraint. Rosen's model presumes that a consumer chooses a good from the range of goods and consumes it discretely or separately. The hedonic price model does not require the joint consumption of goods within a group. Lancaster's model is based on the assumption that there is a linear relationship between the prices of goods and their characteristics and implicit prices are constant over the range of characteristics. In the case of Rosen model, there is a non-linear relationship between the prices of goods and their inherent attributes
+
+- RESET test pour choisir la forme fonctionnelle du modèle
+- Surtout, comment éviter la multicolinéarité
+- Dans le modèle proposé dans l'article, tout est sous forme de dummies
+
 ## `Running Shoes in Spain`: *Arrrondo et Al*
 
 But de l'article : **déterminer les composantes principales des prix des sneakers en Espagne**

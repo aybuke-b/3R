@@ -53,8 +53,8 @@ class Smartphone:
     `Example(s)`
     ---------
 
-    >>> Smartphone()
-    ... #_test_return_"""
+    >>> Smartphone("a","b","c","d")
+    ... Smartphone(model="a", color="b",sim_type="c", sim_number="d",...)"""
 
     model: str
     color: str
