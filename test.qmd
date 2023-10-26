@@ -1,0 +1,127 @@
+---
+title: "Application des modèles SFA à l'étude des prix"
+subtitle: "<script>const currentDT = new Date().toLocaleDateString();document.write(currentDT);</script>"
+author: "`Aybuké BICAT` & `Corentin DUCLOUX`"
+institute: <img src = https://corentinducloux.fr/Reveal.js/univ-tours.png width="70%">
+format: 
+  revealjs:
+    slide-number: true
+    mermaid-format: png
+    chalkboard: true
+    transition: slide
+    background-transition: fade
+    theme: blood
+    toc: true
+    toc-title: "Table des matières"
+    incremental: true   
+    footer: "--- Recherche, Réalisation, Restitution ---"
+    logo: https://corentinducloux.fr/dossier_img/mecen_transparent.png
+    controls : true
+    preview-links: auto
+    reference-location: document
+    bibliography: references.bib
+    include-in-header:
+        - text: |
+            <style>
+            #title-slide .title {
+            font-size: 1.75em;
+            }
+            </style>
+---
+
+## Recherche bibliographique
+
+<q> ceci est une citation </q>
+
+## Revue de la littérature
+
+- [@lancaster1966] : *17222* citations
+- [@rosen1974] :  *15791* citations
+- [@aigner1977] : *15342* citations
+- [@harrison1978] : *2493* citations
+- [@kumbhakar2009]: *65* citations
+- [@kumbhakar2015] : *899* citations
+- [@arrondo2018]: *15* citations
+
+## Nouvelle Approche de la théorie du consommateur
+
+@lancaster1966 :
+
+:::{.fragment .fade-in}
+:::{.callout-tip}
+
+## Hypothèses
+
+1. Le bien en lui même ne procure pas d'utilité au consommateur $\Rightarrow$ il possède des **caractéristiques** qui procurent de l'utilité.
+2. Un bien est un ensemble (*bundle*) de caractéristiques $-$ il possède le plus souvent de nombreuses caractéristiques.
+3. Une combinaison de biens peut posséder des caractéristiques différentes comparé à des biens consommés séparément.
+
+:::
+:::
+
+## Hedonic Pricing : aspect théorique (I)
+
+Cadre apporté par @rosen1974. On étudie un bien différencié $z$ décrit par le vecteur de ses $n$ caractéristiques mesurables tel que : 
+
+:::{.fragment .fade-in}
+$$z = (z_1, z_2, \dots, z_n)$$ 
+:::
+
+:::{.fragment .fade-in}
+> La différenciation horizontale et verticale des produits implique qu'une vaste gamme de paniers est disponible.
+:::
+
+## Hedonic Pricing : aspect théorique (II)
+
+```{python}
+import plotly.express as px
+import random
+
+num_points = 6
+random.seed(42)  # Pour obtenir des données aléatoires reproductibles
+x = [random.randint(0, 10) for _ in range(num_points)]
+y = [random.randint(0, 10) for _ in range(num_points)]
+products = ["bien 1", "bien 2", "bien 3", "bien 4", "bien 5", "bien 6"]
+
+# Création du scatterplot avec Plotly
+fig = px.scatter(
+    x=x,
+    y=y,
+    color=products,
+    title="$\\text{Plan }(z_1, z_2)\\text{ de differents biens avec 2 caracteristiques.}$",
+)
+
+fig.update_layout(
+    xaxis=dict(title=r"$z_1$", title_font=dict(size=22)),
+    yaxis=dict(title=r"$z_2$", title_font=dict(size=22)),
+    paper_bgcolor="#222222",
+    font_color="white",
+)
+
+fig.update_traces(marker=dict(size=13))
+
+# Affichage du graphique
+fig.show()
+```
+
+## Hedonic Pricing : aspect théorique (III)
+
+- Le consommateur n'achète qu'**une seule** unité de bien qui est une combinaison d'attributs $z_1, z_2, \dots, z_n$.
+- Un prix est donc défini en chaque point du plan et guide les choix de localisation des consommateurs et des producteurs concernant les ensembles de caractéristiques achetés et vendus.
+
+:::{.fragment .fade-in}
+$$\boxed{p(z) = p(z_1, z_2, \dots, z_n)}$$
+:::
+
+
+## Hedonic Pricing : aspect appliqué
+
+## Stochastic Frontier Analysis
+
+## Problématique {background-color="black" background-image="https://cdn.pixabay.com/photo/2020/05/09/11/37/coffee-5149246_1280.jpg" background-opacity="0.6"}
+
+En premier lieu, cette étude se focalisera sur les caractéristiques `quantitatives` de qualité des cafés pour déterminer si celles-ci sont propres à un groupe particulier (Arabica ou Robusta) grâce à une **ACP**.
+
+En second lieu, l'étude se concentrera sur des caractéristiques `qualitatives` qui justifieront l'utilisation d'une **ACM** puis d'une **CAH**.
+
+## References
