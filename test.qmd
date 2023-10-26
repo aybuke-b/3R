@@ -114,7 +114,17 @@ $$\boxed{p(z) = p(z_1, z_2, \dots, z_n)}$$
 :::
 
 
-## Hedonic Pricing : aspect appliqué
+## Hedonic Pricing : aspect appliqué{.smaller}
+
+@harrison1978:
+
+**Objectif** : Examiner comment les données du marché immobilier peuvent être utilisées pour évaluer la *willingness-to-pay* des consommateurs pour une meilleure qualité de l'air.
+
+-  Modèle suppose que les ménages prennent en compte le niveau de pollution de l'air, la quantité et la qualité du logement et d'autres caractéristiques de quartier pour faire leur choix.
+-  Fonction de la valeur hédonique du logement $p(h)$ : traduit les attributs du logement en prix, et suppose que les consommateurs perçoivent avec précision ces attributs et que le marché est en équilibre à court terme.
+
+**Résultats** : Les dommages marginaux dus à la pollution augmentent avec le niveau de pollution de l'air et avec le niveau de revenu des ménages.
+
 
 ## Stochastic Frontier Analysis
 
@@ -122,12 +132,16 @@ $$\boxed{p(z) = p(z_1, z_2, \dots, z_n)}$$
 
 Mettre la problématique avec les smartphones ! 
 
+
 ## Méthodologie {background-color="black" background-image="imgs/web_scraping.png" background-opacity="0.6"}
 
 > Récupération des données via scraping (revendeurs français)
 
 - Boulanger
 - Darty
+- Fnac
+- Cdiscount
+- Rue Du Commerce
 
 Schéma :  avec données web non structurées puis semi-structurées (json) puis structuration avec polars et alimentation d'une base de données SQL in-memory (duckDB) -> Application streamlit.
 
