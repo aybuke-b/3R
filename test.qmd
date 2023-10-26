@@ -59,6 +59,8 @@ format:
 :::
 :::
 
+Lancaster's model is based on the assumption that there is a linear relationship between the prices of goods and their characteristics and implicit prices are constant over the range of characteristics.
+
 ## Hedonic Pricing : aspect théorique (I)
 
 Cadre apporté par @rosen1974. On étudie un bien différencié $z$ décrit par le vecteur de ses $n$ caractéristiques mesurables tel que : 
@@ -68,7 +70,7 @@ $$z = (z_1, z_2, \dots, z_n)$$
 :::
 
 :::{.fragment .fade-in}
-> La différenciation horizontale et verticale des produits implique qu'une vaste gamme de paniers est disponible.
+> *La différenciation horizontale et verticale des produits implique qu'une vaste gamme de paniers est disponible.*
 :::
 
 ## Hedonic Pricing : aspect théorique (II)
@@ -98,9 +100,7 @@ fig.update_layout(
     font_color="white",
 )
 
-fig.update_traces(marker=dict(size=13))
-
-# Affichage du graphique
+fig.update_traces(marker=dict(size=15))
 fig.show()
 ```
 
@@ -118,10 +118,19 @@ $$\boxed{p(z) = p(z_1, z_2, \dots, z_n)}$$
 
 ## Stochastic Frontier Analysis
 
-## Problématique {background-color="black" background-image="https://cdn.pixabay.com/photo/2020/05/09/11/37/coffee-5149246_1280.jpg" background-opacity="0.6"}
+## Problématique
 
-En premier lieu, cette étude se focalisera sur les caractéristiques `quantitatives` de qualité des cafés pour déterminer si celles-ci sont propres à un groupe particulier (Arabica ou Robusta) grâce à une **ACP**.
+Mettre la problématique avec les smartphones ! 
 
-En second lieu, l'étude se concentrera sur des caractéristiques `qualitatives` qui justifieront l'utilisation d'une **ACM** puis d'une **CAH**.
+## Méthodologie {background-color="black" background-image="imgs/web_scraping.png" background-opacity="0.6"}
+
+> Récupération des données via scraping (revendeurs français)
+
+- Boulanger
+- Darty
+
+Schéma :  avec données web non structurées puis semi-structurées (json) puis structuration avec polars et alimentation d'une base de données SQL in-memory (duckDB) -> Application streamlit.
+
+## Statistiques descriptives
 
 ## References
