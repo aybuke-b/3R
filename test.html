@@ -400,6 +400,7 @@
 <li class="fragment"><a href="#/sfa-iii" id="/toc-sfa-iii">SFA (III)</a></li>
 <li class="fragment"><a href="#/sfa-hedonic-pricing" id="/toc-sfa-hedonic-pricing">SFA &amp; Hedonic Pricing</a></li>
 <li class="fragment"><a href="#/problématique" id="/toc-problématique">Problématique</a></li>
+<li class="fragment"><a href="#/smartphone-hedonic-pricing" id="/toc-smartphone-hedonic-pricing">Smartphone Hedonic Pricing</a></li>
 <li class="fragment"><a href="#/méthodologie" id="/toc-méthodologie">Méthodologie</a></li>
 <li class="fragment"><a href="#/quelques-résultats" id="/toc-quelques-résultats">Quelques résultats</a></li>
 <li class="fragment"><a href="#/references" id="/toc-references">References</a></li>
@@ -413,10 +414,31 @@
 <li class="fragment"><span class="citation" data-cites="rosen1974">(<a href="#/references" role="doc-biblioref" onclick="">Rosen 1974</a>)</span> : <em>15791</em> citations</li>
 <li class="fragment"><span class="citation" data-cites="aigner1977">(<a href="#/references" role="doc-biblioref" onclick="">Aigner, Lovell, and Schmidt 1977</a>)</span> : <em>15342</em> citations</li>
 <li class="fragment"><span class="citation" data-cites="harrison1978">(<a href="#/references" role="doc-biblioref" onclick="">Harrison Jr and Rubinfeld 1978</a>)</span> : <em>2493</em> citations</li>
-<li class="fragment"><span class="citation" data-cites="kumbhakar2009">(<a href="#/references" role="doc-biblioref" onclick="">Kumbhakar and Parmeter 2009</a>)</span>: <em>65</em> citations</li>
 <li class="fragment"><span class="citation" data-cites="kumbhakar2015">(<a href="#/references" role="doc-biblioref" onclick="">Kumbhakar, Horncastle, et al. 2015</a>)</span> : <em>899</em> citations</li>
 <li class="fragment"><span class="citation" data-cites="arrondo2018">(<a href="#/references" role="doc-biblioref" onclick="">Arrondo, Garcia, and Gonzalez 2018</a>)</span>: <em>15</em> citations</li>
+<li class="fragment"><span class="citation" data-cites="ahmad2019">(<a href="#/references" role="doc-biblioref" onclick="">Ahmad, Ahmed, and Ahmad 2019</a>)</span>: <em>16</em> citations</li>
 </ul>
+<aside class="notes">
+<p>La revue de la littérature proposée expose 2 concepts principaux :</p>
+<ul>
+<li>Le pricing Hédonique</li>
+<li>Les modèles <strong>SFA</strong></li>
+</ul>
+<p>Dans un souci de compréhension, on proposera en premier lieu une explication théorique puis une ou plusieurs utilisations empiriques.</p>
+<blockquote>
+<p>Le nombre de citations a été ajouté et évoque l’importance des 3 articles théoriques fondamentaux sur l’ensemble de la littérature économétrique que l’on va utiliser.</p>
+</blockquote>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="nouvelle-approche-de-la-théorie-du-consommateur" class="slide level2 smaller">
 <h2>Nouvelle Approche de la théorie du consommateur</h2>
@@ -443,6 +465,25 @@
 <blockquote>
 <p>Dans le modèle de Lancaster il existe une relation <strong>linéaire</strong> entre les prix des biens et leurs caractéristiques.</p>
 </blockquote>
+<aside class="notes">
+<p>En microéconomie, dans la théorie du consommateur <em>classique</em>, la fonction d’utilité <span class="math display">\[U(x_1, x_2, \dots, x_n)\]</span></p>
+<p>exprime la relation entre la quantité de biens consommés et le niveau d’utilité que ces biens procurent à un agent. En d’autres termes, dans ce cadre, la consommation de biens procure <strong>directement</strong> de l’utilité à l’agent. En pratique pourtant, on voit mal comment l’achat d’une lampe ou d’un stylo peut nous apporter de l’utilité en tant que consommateur. Et si en fait ce n’est pas le bien en lui-même qui procure de l’utilité ?</p>
+<ol type="1">
+<li>Quand on achète un ordinateur, on ne l’achète pas uniquement pour le plaisir d’avoir un ordinateur, non ? On l’achète car on peut naviguer sur Internet avec, écrire ses cours, faire du python ou du R, regarder Netflix, etc.</li>
+<li>Exemple de la gourde</li>
+<li>Prenons deux boissons : le lait et le café. En consommant les biens séparemment, les caractéristiques retirées du lait peuvent être de la vitamine D et du calcium, tandis que pour le café les caractéristiques retirées peuvent être de la caféine et un boost le matin. Un café latte est quant à lui plus doux que le café et a une pointe de mousse de lait. En bref, les caractéristiques retirées du mélange sont différentes !</li>
+</ol>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="hedonic-pricing-aspect-théorique-i" class="slide level2">
 <h2>Hedonic Pricing : aspect théorique (I)</h2>
@@ -455,15 +496,34 @@
 <p><em>La différenciation horizontale et verticale des produits implique qu’une vaste gamme de paniers est disponible.</em></p>
 </blockquote>
 </div>
+<aside class="notes">
+<p>Contrairement à Lancaster qui étudie uniquement le côté consommateur, Rosen s’intéresse à <strong>l’équilibre de marché de biens différenciés</strong> :</p>
+<ul>
+<li>avec un continuum de biens du côté de l’offre</li>
+<li>et un continuum de consommateurs hétérogènes du côté de la demande</li>
+</ul>
+<p><strong>Différenciation Horizontale</strong> <span class="math inline">\(\Rightarrow\)</span> A prix donné, il n’y a pas unanimité dans le choix des consommateurs entre 2 biens (jaune et rouge) : ce sont des différences de goûts.</p>
+<p><strong>Différenciation Verticale</strong> <span class="math inline">\(\Rightarrow\)</span> A prix donné, il y a unanimité dans le choix des consommateurs entre 2 voitures biens : l’un est meilleur que l’autre.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="hedonic-pricing-aspect-théorique-ii" class="slide level2">
 <h2>Hedonic Pricing : aspect théorique (II)</h2>
 <div class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 
-<div>                            <div id="140e1e94-59fa-47e7-b4d3-8fed17533807" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("140e1e94-59fa-47e7-b4d3-8fed17533807")) {                    Plotly.newPlot(                        "140e1e94-59fa-47e7-b4d3-8fed17533807",                        [{"hovertemplate":"color=bien 1\u003cbr\u003ex=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"bien 1","marker":{"color":"#636efa","symbol":"circle","size":15},"mode":"markers","name":"bien 1","orientation":"v","showlegend":true,"x":[10],"xaxis":"x","y":[2],"yaxis":"y","type":"scatter"},{"hovertemplate":"color=bien 2\u003cbr\u003ex=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"bien 2","marker":{"color":"#EF553B","symbol":"circle","size":15},"mode":"markers","name":"bien 2","orientation":"v","showlegend":true,"x":[1],"xaxis":"x","y":[1],"yaxis":"y","type":"scatter"},{"hovertemplate":"color=bien 3\u003cbr\u003ex=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"bien 3","marker":{"color":"#00cc96","symbol":"circle","size":15},"mode":"markers","name":"bien 3","orientation":"v","showlegend":true,"x":[0],"xaxis":"x","y":[10],"yaxis":"y","type":"scatter"},{"hovertemplate":"color=bien 4\u003cbr\u003ex=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"bien 4","marker":{"color":"#ab63fa","symbol":"circle","size":15},"mode":"markers","name":"bien 4","orientation":"v","showlegend":true,"x":[4],"xaxis":"x","y":[8],"yaxis":"y","type":"scatter"},{"hovertemplate":"color=bien 5\u003cbr\u003ex=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"bien 5","marker":{"color":"#FFA15A","symbol":"circle","size":15},"mode":"markers","name":"bien 5","orientation":"v","showlegend":true,"x":[3],"xaxis":"x","y":[1],"yaxis":"y","type":"scatter"},{"hovertemplate":"color=bien 6\u003cbr\u003ex=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"bien 6","marker":{"color":"#19d3f3","symbol":"circle","size":15},"mode":"markers","name":"bien 6","orientation":"v","showlegend":true,"x":[3],"xaxis":"x","y":[9],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"$z_1$","font":{"size":22}}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"$z_2$","font":{"size":22}}},"legend":{"title":{"text":"color"},"tracegroupgap":0},"title":{"text":"$\\text{Plan }(z_1, z_2)\\text{ de differents biens avec 2 caracteristiques.}$"},"font":{"color":"white"},"paper_bgcolor":"#222222"},                        {"responsive": true}                    ).then(function(){
+<div>                            <div id="b393ce16-60a4-4755-a40f-12f9e8641c1c" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("b393ce16-60a4-4755-a40f-12f9e8641c1c")) {                    Plotly.newPlot(                        "b393ce16-60a4-4755-a40f-12f9e8641c1c",                        [{"hovertemplate":"color=bien 1\u003cbr\u003ex=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"bien 1","marker":{"color":"#636efa","symbol":"circle","size":15},"mode":"markers","name":"bien 1","orientation":"v","showlegend":true,"x":[10],"xaxis":"x","y":[2],"yaxis":"y","type":"scatter"},{"hovertemplate":"color=bien 2\u003cbr\u003ex=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"bien 2","marker":{"color":"#EF553B","symbol":"circle","size":15},"mode":"markers","name":"bien 2","orientation":"v","showlegend":true,"x":[1],"xaxis":"x","y":[1],"yaxis":"y","type":"scatter"},{"hovertemplate":"color=bien 3\u003cbr\u003ex=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"bien 3","marker":{"color":"#00cc96","symbol":"circle","size":15},"mode":"markers","name":"bien 3","orientation":"v","showlegend":true,"x":[0],"xaxis":"x","y":[10],"yaxis":"y","type":"scatter"},{"hovertemplate":"color=bien 4\u003cbr\u003ex=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"bien 4","marker":{"color":"#ab63fa","symbol":"circle","size":15},"mode":"markers","name":"bien 4","orientation":"v","showlegend":true,"x":[4],"xaxis":"x","y":[8],"yaxis":"y","type":"scatter"},{"hovertemplate":"color=bien 5\u003cbr\u003ex=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"bien 5","marker":{"color":"#FFA15A","symbol":"circle","size":15},"mode":"markers","name":"bien 5","orientation":"v","showlegend":true,"x":[3],"xaxis":"x","y":[1],"yaxis":"y","type":"scatter"},{"hovertemplate":"color=bien 6\u003cbr\u003ex=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"bien 6","marker":{"color":"#19d3f3","symbol":"circle","size":15},"mode":"markers","name":"bien 6","orientation":"v","showlegend":true,"x":[3],"xaxis":"x","y":[9],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"$z_1$","font":{"size":22}}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"$z_2$","font":{"size":22}}},"legend":{"title":{"text":"color"},"tracegroupgap":0},"title":{"text":"$\\text{Plan }(z_1, z_2)\\text{ de differents biens avec 2 caracteristiques.}$"},"font":{"color":"white"},"paper_bgcolor":"#222222"},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('140e1e94-59fa-47e7-b4d3-8fed17533807');
+var gd = document.getElementById('b393ce16-60a4-4755-a40f-12f9e8641c1c');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -488,6 +548,19 @@ if (outputEl) {{
                         })                };                });            </script>        </div>
 </div>
 </div>
+<aside class="notes">
+<p>On est habitué à représenter les préférences des consommateurs en termes de quantités de biens <span class="math inline">\(x_1, x_2\)</span>. Ici, changement de paradigme : on va en fait représenter les préférences des consommateurs en termes de caractéristiques de biens.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="hedonic-pricing-aspect-théorique-iii" class="slide level2">
 <h2>Hedonic Pricing : aspect théorique (III)</h2>
@@ -498,6 +571,25 @@ if (outputEl) {{
 <div class="fragment fade-in">
 <p><span class="math display">\[\boxed{p(z) = p(z_1, z_2, \dots, z_n)}\]</span></p>
 </div>
+<aside class="notes">
+<p>Achat d’une seule unité de bien car historiquement, Rosen s’intéresse principalement aux biens durables.</p>
+<p><em>Exemple de biens durables</em> : Machine à laver, voitures, smartphones…</p>
+<ul>
+<li>Pour le <strong>producteur</strong>, la question est : quelle combinaison de caractéristiques lui permet de maximiser son profit ?</li>
+<li>Pour le <strong>consommateur</strong>, la question est : quelle combinaison de caractéristiques lui rapporte le plus d’utilité sous contrainte budgétaire ?</li>
+</ul>
+<p>On aboutit à une relation fonctionnelle entre les caractéristiques des biens et leur prix, appelée fonction de prix hédonique <span class="math inline">\(p(z)\)</span>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="hedonic-pricing-aspect-appliqué" class="slide level2 smaller">
 <h2>Hedonic Pricing : aspect appliqué</h2>
@@ -510,6 +602,19 @@ if (outputEl) {{
 <div class="fragment fade-in">
 <p><strong>Résultats</strong> : Les dommages marginaux dus à la pollution augmentent avec le niveau de pollution de l’air et avec le niveau de revenu des ménages.</p>
 </div>
+<aside class="notes">
+<p>Pour finir, l’approche hédonique a été utilisée empiriquement dans de très nombreux domaines comme l’automobile, l’immobilier, etc.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="fonction-de-production" class="slide level2">
 <h2>Fonction de production</h2>
@@ -536,6 +641,19 @@ if (outputEl) {{
 <li class="fragment">Avec <span class="math inline">\(x_i\)</span> le vecteur d’inputs.</li>
 <li class="fragment">Avec <span class="math inline">\(\beta\)</span> le vecteur de paramètres inconnus à estimer.</li>
 </ul>
+<aside class="notes">
+<p><span class="math inline">\(f(x_i; \beta)\)</span> est en fait la frontière de production. Pour l’instant elle n’est pas <em>stochastique</em> car elle n’inclue pas de terme aléatoire et ne prend pas en compte l’efficacité technique <span class="math inline">\(TE_i\)</span>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="sfa-i" class="slide level2 smaller">
 <h2>SFA (I)</h2>
@@ -547,9 +665,34 @@ if (outputEl) {{
 <li class="fragment"><span class="math inline">\(u_i\)</span> est un composant unilatéral qui peut être choisi parmi plusieurs distributions et <span class="math inline">\(u_i \geq 0\)</span>.</li>
 </ul>
 <p>La spécification de cette méthode permet d’estimer les scores de l’efficience technique de chaque firme (historiquement), ou produit, dans notre cas.</p>
+<aside class="notes">
+<p>Avant les travaux de <code>Aigner</code>, les économètres utilisaient uniquement de fonctions de production moyennes, ie la formulation théorique était différente de la mise en pratique.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="sfa-ii" class="slide level2 smaller">
 <h2>SFA (II)</h2>
+<p><span class="math inline">\({\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}}\)</span></p>
+<p>TEi terme multiplicatif, index d’efficacité à ajouter dans une slide aussi.</p>
+<p>TEi denotes the technical efficiency defined as the ratio of observed output to maximum feasible output. TEi = 1 shows that the i-th firm obtains the maximum feasible output, while TEi &lt; 1 provides a measure of the shortfall of the observed output from maximum feasible output.</p>
+<p>A stochastic component that describes random shocks affecting the production process is added. These shocks are not directly attributable to the producer or the underlying technology. These shocks may come from weather changes, economic adversities or plain luck. We denote these effects with <span class="math inline">\({\exp \left\{{v_{i}}\right\}}\)</span>. Each producer is facing a different shock, but we assume the shocks are random and they are described by a common distribution.</p>
+<p>The stochastic production frontier will become:</p>
+<p><span class="math inline">\({\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i}}\right\}}\)</span></p>
+<p>We assume that TEi is also a stochastic variable, with a specific distribution function, common to all producers.</p>
+<p>We can also write it as an exponential <span class="math inline">\({\displaystyle TE_{i}=\exp \left\{{-u_{i}}\right\}}\)</span>, where ui ≥ 0, since we required TEi ≤ 1. Thus, we obtain the following equation:</p>
+<p><span class="math inline">\({\displaystyle y_{i}=f(x_{i};\beta )\cdot \exp \left\{{-u_{i}}\right\}\cdot \exp \left\{{v_{i}}\right\}}\)</span></p>
+</section>
+<section id="sfa-iii" class="slide level2 smaller">
+<h2>SFA (III)</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <p><em><u><span class="math inline">\(^*\)</span>Exemple</u></em> :</p>
@@ -571,16 +714,43 @@ if (outputEl) {{
 </div>
 </div>
 </section>
-<section id="sfa-iii" class="slide level2 smaller">
-<h2>SFA (III)</h2>
-</section>
-<section id="sfa-hedonic-pricing" class="slide level2">
+<section id="sfa-hedonic-pricing" class="slide level2 smaller">
 <h2>SFA &amp; Hedonic Pricing</h2>
 <p><span class="citation" data-cites="arrondo2018">Arrondo, Garcia, and Gonzalez (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></p>
+<p><strong>Objectif</strong> : déterminer les attributs principaux des prix des sneakers en Espagne et leur efficacité.</p>
+<ul>
+<li class="fragment">La méthode de pricing hédonique estime que la différence de prix des sneakers est due à ses caractéristiques.</li>
+<li class="fragment">En estimant l’efficacité des produits, l’article pointe les produits overprice pour prédire le montant des réductions à leur accorder afin d’atteindre la frontière compétitive pour ces produits.</li>
+</ul>
+<div class="fragment fade-in">
+<p><strong>Résultats</strong> :</p>
+<ul>
+<li class="fragment">Relation inverse entre l’efficacité du produit et la réduction de prix : la réduction de prix est donc d’autant plus grande que la sneakers est overprice.</li>
+<li class="fragment">Le modèle permet une bonne prédiction des réductions de prix pour rendre compétitifs les sneakers overprice.</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Notes à ajouter ici !</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="problématique" class="slide level2">
 <h2>Problématique</h2>
-<p>Mettre la problématique avec les smartphones !</p>
+<p><code>Combinaison d'un modèle SFA et d'une régression hédonique pour évaluer la discordance entre les prix de smartphones et leur valeur intrinsèque.</code></p>
+</section>
+<section id="smartphone-hedonic-pricing" class="slide level2">
+<h2>Smartphone Hedonic Pricing</h2>
+<p><span class="citation" data-cites="ahmad2019">Ahmad, Ahmed, and Ahmad (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></p>
+<p><strong>RESUMER article et key findings.</strong></p>
 </section>
 <section id="méthodologie" class="slide level2">
 <h2>Méthodologie</h2>
@@ -611,6 +781,9 @@ if (outputEl) {{
 <p>— Recherche, Réalisation, Restitution —</p>
 </div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-ahmad2019" class="csl-entry" role="listitem">
+Ahmad, Waseem, Tanvir Ahmed, and Bashir Ahmad. 2019. <span>“Pricing of Mobile Phone Attributes at the Retail Level in a Developing Country: Hedonic Analysis.”</span> <em>Telecommunications Policy</em> 43 (4): 299–309. https://doi.org/<a href="https://doi.org/10.1016/j.telpol.2018.10.002">https://doi.org/10.1016/j.telpol.2018.10.002</a>.
+</div>
 <div id="ref-aigner1977" class="csl-entry" role="listitem">
 Aigner, Dennis, C. A.Knox Lovell, and Peter Schmidt. 1977. <span>“Formulation and Estimation of Stochastic Frontier Production Function Models.”</span> <em>Journal of Econometrics</em> 6 (1): 21–37. <a href="https://doi.org/10.1016/0304-4076(77)90052-5">https://doi.org/10.1016/0304-4076(77)90052-5</a>.
 </div>
@@ -622,9 +795,6 @@ Harrison Jr, David, and Daniel L Rubinfeld. 1978. <span>“Hedonic Housing Price
 </div>
 <div id="ref-kumbhakar2015" class="csl-entry" role="listitem">
 Kumbhakar, Subal, Alan Horncastle, et al. 2015. <em>A Practitioner’s Guide to Stochastic Frontier Analysis Using Stata</em>. Cambridge University Press.
-</div>
-<div id="ref-kumbhakar2009" class="csl-entry" role="listitem">
-Kumbhakar, Subal, and Christopher Parmeter. 2009. <span>“Estimation of Hedonic Price Functions with Incomplete Information.”</span> <em>Empirical Economics</em> 39: 1–25. <a href="https://doi.org/10.1007/s00181-009-0292-8">https://doi.org/10.1007/s00181-009-0292-8</a>.
 </div>
 <div id="ref-lancaster1966" class="csl-entry" role="listitem">
 Lancaster, Kelvin J. 1966. <span>“A New Approach to Consumer Theory.”</span> <em>Journal of Political Economy</em> 74 (2): 132–57. <a href="http://www.jstor.org/stable/1828835">http://www.jstor.org/stable/1828835</a>.

@@ -36,9 +36,21 @@ fig-responsive: false
 - [@rosen1974] :  *15791* citations
 - [@aigner1977] : *15342* citations
 - [@harrison1978] : *2493* citations
-- [@kumbhakar2009]: *65* citations
 - [@kumbhakar2015] : *899* citations
 - [@arrondo2018]: *15* citations
+- [@ahmad2019]: *16* citations
+
+::: {.notes}
+La revue de la littérature proposée expose 2 concepts principaux : 
+
+- Le pricing Hédonique
+- Les modèles **SFA** 
+
+Dans un souci de compréhension, on proposera en premier lieu une explication théorique puis une ou plusieurs utilisations empiriques.
+
+> Le nombre de citations a été ajouté et évoque l'importance des 3 articles théoriques fondamentaux sur l'ensemble de la littérature économétrique que l'on va utiliser.
+:::
+
 
 ## Nouvelle Approche de la théorie du consommateur {.smaller}
 
@@ -58,6 +70,18 @@ fig-responsive: false
 
 > Dans le modèle de Lancaster il existe une relation **linéaire** entre les prix des biens et leurs caractéristiques.
 
+::: {.notes}
+En microéconomie, dans la théorie du consommateur *classique*, la fonction d'utilité 
+$$U(x_1, x_2, \dots, x_n)$$
+
+exprime la relation entre la quantité de biens consommés et le niveau d'utilité que ces biens procurent à un agent. En d'autres termes, dans ce cadre, la consommation de biens procure **directement** de l'utilité à l'agent. En pratique pourtant, on voit mal comment l'achat d'une lampe ou d'un stylo peut nous apporter de l'utilité en tant que consommateur. Et si en fait ce n'est pas le bien en lui-même qui procure de l'utilité ?
+
+1. Quand on achète un ordinateur, on ne l'achète pas uniquement pour le plaisir d'avoir un ordinateur, non ? On l'achète car on peut naviguer sur Internet avec, écrire ses cours, faire du python ou du R, regarder Netflix, etc.
+2. Exemple de la gourde
+3. Prenons deux boissons : le lait et le café. En consommant les biens séparemment, les caractéristiques retirées du lait peuvent être de la vitamine D et du calcium, tandis que pour le café les caractéristiques retirées peuvent être de la caféine et un boost le matin. Un café latte est quant à lui plus doux que le café et a une pointe de mousse de lait. En bref, les caractéristiques retirées du mélange sont différentes !
+
+:::
+
 ## Hedonic Pricing : aspect théorique (I)
 
 Cadre apporté par @rosen1974. On étudie un bien différencié $z$ décrit par le vecteur de ses $n$ caractéristiques mesurables tel que : 
@@ -70,6 +94,19 @@ $$z = (z_1, z_2, \dots, z_n)$$
 > *La différenciation horizontale et verticale des produits implique qu'une vaste gamme de paniers est disponible.*
 :::
 
+::: {.notes}
+Contrairement à Lancaster qui étudie uniquement le côté consommateur, Rosen s'intéresse à
+**l’équilibre de marché de biens différenciés** : 
+
+- avec un continuum de biens du côté de l’offre
+- et un continuum de consommateurs hétérogènes du côté de la demande
+
+**Différenciation Horizontale** $\Rightarrow$ A prix donné, il n'y a pas unanimité dans le choix des consommateurs entre 2 biens (jaune et rouge) : ce sont des différences de goûts.
+
+**Différenciation Verticale** $\Rightarrow$ A prix donné, il y a unanimité dans le choix des consommateurs entre 2 voitures biens : l'un est meilleur que l'autre.
+
+:::
+
 ## Hedonic Pricing : aspect théorique (II)
 
 ```{python}
@@ -77,12 +114,11 @@ import plotly.express as px
 import random
 
 num_points = 6
-random.seed(42)  # Pour obtenir des données aléatoires reproductibles
+random.seed(42)  # fix a seed.
 x = [random.randint(0, 10) for _ in range(num_points)]
 y = [random.randint(0, 10) for _ in range(num_points)]
 products = ["bien 1", "bien 2", "bien 3", "bien 4", "bien 5", "bien 6"]
 
-# Création du scatterplot avec Plotly
 fig = px.scatter(
     x=x,
     y=y,
@@ -101,6 +137,11 @@ fig.update_traces(marker=dict(size=15))
 fig.show()
 ```
 
+:::{.notes}
+On est habitué à représenter les préférences des consommateurs en termes de quantités de biens $x_1, x_2$. Ici, changement de paradigme : on va en fait représenter les préférences des consommateurs en termes de caractéristiques de biens.
+:::
+
+
 ## Hedonic Pricing : aspect théorique (III)
 
 - Le consommateur n'achète qu'**une seule** unité de bien qui est une combinaison d'attributs $z_1, z_2, \dots, z_n$.
@@ -110,6 +151,18 @@ fig.show()
 $$\boxed{p(z) = p(z_1, z_2, \dots, z_n)}$$
 :::
 
+:::{.notes}
+
+Achat d'une seule unité de bien car historiquement, Rosen s'intéresse principalement aux biens durables.
+
+*Exemple de biens durables* : Machine à laver, voitures, smartphones...
+
+- Pour le **producteur**, la question est : quelle combinaison de caractéristiques lui permet de maximiser son profit ?
+- Pour le **consommateur**, la question est : quelle combinaison de caractéristiques lui rapporte le plus d'utilité sous contrainte budgétaire ?
+
+On aboutit à une relation fonctionnelle entre les caractéristiques des biens
+et leur prix, appelée fonction de prix hédonique $p(z)$.
+:::
 
 ## Hedonic Pricing : aspect appliqué {.smaller}
 
@@ -122,6 +175,12 @@ $$\boxed{p(z) = p(z_1, z_2, \dots, z_n)}$$
 
 :::{.fragment .fade-in}
 **Résultats** : Les dommages marginaux dus à la pollution augmentent avec le niveau de pollution de l'air et avec le niveau de revenu des ménages.
+:::
+
+:::{.notes}
+
+Pour finir, l'approche hédonique a été utilisée empiriquement dans de très nombreux domaines comme l'automobile, l'immobilier, etc.
+
 :::
 
 ## Fonction de production
@@ -144,6 +203,10 @@ $$y_i = f(x_i; \beta)$$
 - Avec $x_i$ le vecteur d'inputs.
 - Avec $\beta$ le vecteur de paramètres inconnus à estimer.
 
+:::{.notes}
+$f(x_i; \beta)$ est en fait la frontière de production. Pour l'instant elle n'est pas *stochastique* car elle n'inclue pas de terme aléatoire et ne prend pas en compte l'efficacité technique $TE_i$.
+:::
+
 ## SFA (I) {.smaller}
 
 @aigner1977:
@@ -157,7 +220,31 @@ La SFA (`Stochastic Frontier Analysis`) est une méthode paramétrique : elle re
 
 La spécification de cette méthode permet d’estimer les scores de l’efficience technique de chaque firme (historiquement), ou produit, dans notre cas.
 
+:::{.notes}
+Avant les travaux de `Aigner`, les économètres utilisaient uniquement de fonctions de production moyennes, ie la formulation théorique était différente de la mise en pratique.
+:::
+
 ## SFA (II) {.smaller}
+
+${\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}}$
+
+TEi terme multiplicatif, index d'efficacité à ajouter dans une slide aussi.
+
+TEi denotes the technical efficiency defined as the ratio of observed output to maximum feasible output. TEi = 1 shows that the i-th firm obtains the maximum feasible output, while TEi < 1 provides a measure of the shortfall of the observed output from maximum feasible output.
+
+A stochastic component that describes random shocks affecting the production process is added. These shocks are not directly attributable to the producer or the underlying technology. These shocks may come from weather changes, economic adversities or plain luck. We denote these effects with ${\exp \left\{{v_{i}}\right\}}$. Each producer is facing a different shock, but we assume the shocks are random and they are described by a common distribution. 
+
+The stochastic production frontier will become:
+
+${\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i}}\right\}}$
+
+We assume that TEi is also a stochastic variable, with a specific distribution function, common to all producers.
+
+We can also write it as an exponential ${\displaystyle TE_{i}=\exp \left\{{-u_{i}}\right\}}$, where ui ≥ 0, since we required TEi ≤ 1. Thus, we obtain the following equation:
+
+${\displaystyle y_{i}=f(x_{i};\beta )\cdot \exp \left\{{-u_{i}}\right\}\cdot \exp \left\{{v_{i}}\right\}}$ 
+
+## SFA (III) {.smaller}
 
 :::: {.columns}
 
@@ -188,17 +275,37 @@ $$\boxed{\ln y_i = f(x_i;\beta) + \epsilon_i}$$
 
 ::::
 
-## SFA (III) {.smaller}
-
-## SFA & Hedonic Pricing
+## SFA & Hedonic Pricing {.smaller}
 
 @arrondo2018
+
+**Objectif** : déterminer les attributs principaux des prix des sneakers en Espagne et leur efficacité.
+
+- La méthode de pricing hédonique estime que la différence de prix des sneakers est due à ses caractéristiques.
+- En estimant l'efficacité des produits, l'article pointe les produits overprice pour prédire le montant des réductions à leur accorder afin d'atteindre la frontière compétitive pour ces produits.
+
+:::{.fragment .fade-in}
+**Résultats** :
+
+- Relation inverse entre l'efficacité du produit et la réduction de prix : la réduction de prix est donc d'autant plus grande que la sneakers est overprice.
+- Le modèle permet une bonne prédiction des réductions de prix pour rendre compétitifs les sneakers overprice.
+
+:::
+
+::: {.notes}
+Notes à ajouter ici !
+:::
 
 
 ## Problématique
 
-Mettre la problématique avec les smartphones ! 
+`Combinaison d'un modèle SFA et d'une régression hédonique pour évaluer la discordance entre les prix de smartphones et leur valeur intrinsèque.`
 
+## Smartphone Hedonic Pricing
+
+@ahmad2019
+
+**RESUMER article et key findings.**
 
 ## Méthodologie
 
