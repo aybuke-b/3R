@@ -188,24 +188,43 @@ $$\boxed{\ln y_i = f(x_i;\beta) + \epsilon_i}$$
 
 ::::
 
+## SFA (III) {.smaller}
+
+## SFA & Hedonic Pricing
+
+@arrondo2018
+
 
 ## Problématique
 
 Mettre la problématique avec les smartphones ! 
 
 
-## Méthodologie {background-color="black" background-image="imgs/web_scraping.png" background-opacity="0.6"}
+## Méthodologie
 
 > Récupération des données via scraping (revendeurs français)
 
+:::: {.columns}
+
+::: {.column width="50%"}
+
 - Boulanger
 - Darty
-- Fnac
-- Cdiscount
-- Rue Du Commerce
+- D'autres ?
 
-Schéma :  avec données web non structurées puis semi-structurées (json) puis structuration avec polars et alimentation d'une base de données SQL in-memory (duckDB) -> Application streamlit.
+:::
 
-## Statistiques descriptives
+::: {.column width="50%"}
+
+*Diagramme fonctionnel* :
+
+![](imgs/diagram.png){width=175%}
+
+:::
+::::
+
+## Quelques résultats
+
+Boulanger a été scrapé et 435 modèles valides ont été identifiés avec ~ 30 caractéristiques.
 
 ## References
