@@ -1,0 +1,447 @@
+---
+title: "Application des modèles SFA à l'étude des prix"
+subtitle: "<script>const currentDT = new Date().toLocaleDateString();document.write(currentDT);</script>"
+author: "`Aybuké BICAT` & `Corentin DUCLOUX`"
+institute: <img src = https://corentinducloux.fr/Reveal.js/univ-tours.png width="70%">
+format: 
+  revealjs:
+    slide-number: true
+    mermaid-format: svg
+    chalkboard: true
+    transition: slide
+    background-transition: fade
+    theme: blood
+    incremental: true   
+    footer: "--- Recherche, Réalisation, Restitution ---"
+    logo: https://corentinducloux.fr/dossier_img/mecen_transparent.png
+    controls : true
+    preview-links: auto
+    view-distance: 20
+    reference-location: document
+    bibliography: references.bib
+    include-in-header:
+        - text: |
+            <style>
+            #title-slide .title {
+            font-size: 1.75em;
+            }
+            </style>
+---
+
+## Revue de la littérature {.smaller}
+
+- [@lancaster1966] : *17222* citations
+- [@rosen1974] :  *15791* citations
+- [@aigner1977] : *15342* citations
+- [@harrison1978] : *2493* citations
+- [@reinhard2000] : *803* citations
+- [@rosko2008] : *199* citations
+- [@mohamad2008] : *211* citations
+- [@kumbhakar2015] : *899* citations
+- [@arrondo2018]: *15* citations
+- [@ahmad2019]: *16* citations
+
+::: {.notes}
+La revue de la littérature proposée expose 2 concepts principaux : 
+
+- Le pricing Hédonique
+- Les modèles **SFA** 
+
+Dans un souci de compréhension, on proposera en premier lieu une explication théorique puis une ou plusieurs utilisations empiriques.
+
+> Le nombre de citations a été ajouté et évoque l'importance des 3 articles théoriques fondamentaux sur l'ensemble de la littérature économétrique que l'on va utiliser.
+:::
+
+
+## Nouvelle Approche de la théorie du consommateur {.smaller}
+
+@lancaster1966 :
+
+:::{.fragment .fade-in}
+:::{.callout-tip}
+
+## Hypothèses
+
+1. Le bien en lui même ne procure pas d'utilité au consommateur $\Rightarrow$ il possède des **caractéristiques** qui procurent de l'utilité.
+2. Un bien est un ensemble (*bundle*) de caractéristiques $-$ il possède le plus souvent de nombreuses caractéristiques.
+3. Une combinaison de biens peut posséder des caractéristiques différentes comparé à des biens consommés séparément.
+
+:::
+:::
+
+:::{.fragment .fade-in}
+> Dans le modèle de Lancaster il existe une relation **linéaire** entre les prix des biens et leurs caractéristiques.
+:::
+
+::: {.notes}
+En microéconomie, dans la théorie du consommateur *classique*, la fonction d'utilité 
+$$U(x_1, x_2, \dots, x_n)$$
+
+exprime la relation entre la quantité de biens consommés et le niveau d'utilité que ces biens procurent à un agent. En d'autres termes, dans ce cadre, la consommation de biens procure **directement** de l'utilité à l'agent. En pratique pourtant, on voit mal comment l'achat d'une lampe ou d'un stylo peut nous apporter de l'utilité en tant que consommateur. Et si en fait ce n'est pas le bien en lui-même qui procure de l'utilité ?
+
+1. Quand on achète un ordinateur, on ne l'achète pas uniquement pour le plaisir d'avoir un ordinateur, non ? On l'achète car on peut naviguer sur Internet avec, écrire ses cours, faire du python ou du R, regarder Netflix, etc.
+2. Exemple de la gourde
+3. Prenons deux boissons : le lait et le café. En consommant les biens séparemment, les caractéristiques retirées du lait peuvent être de la vitamine D et du calcium, tandis que pour le café les caractéristiques retirées peuvent être de la caféine et un boost le matin. Un café latte est quant à lui plus doux que le café et a une pointe de mousse de lait. En bref, les caractéristiques retirées du mélange sont différentes !
+:::
+
+## Hedonic Pricing : aspect théorique (I)
+
+Cadre apporté par @rosen1974. On étudie un bien différencié $z$ décrit par le vecteur de ses $n$ caractéristiques mesurables tel que : 
+
+:::{.fragment .fade-in}
+$$z = (z_1, z_2, \dots, z_n)$$ 
+:::
+
+:::{.fragment .fade-in}
+> *La différenciation horizontale et verticale des produits implique qu'une vaste gamme de paniers est disponible.*
+:::
+
+::: {.notes}
+Contrairement à Lancaster qui étudie uniquement le côté consommateur, Rosen s'intéresse à
+**l’équilibre de marché de biens différenciés** : 
+
+- avec un continuum de biens du côté de l’offre
+- et un continuum de consommateurs hétérogènes du côté de la demande
+
+**Différenciation Horizontale** $\Rightarrow$ A prix donné, il n'y a pas unanimité dans le choix des consommateurs entre 2 biens (jaune et rouge) : ce sont des différences de goûts.
+
+**Différenciation Verticale** $\Rightarrow$ A prix donné, il y a unanimité dans le choix des consommateurs entre 2 voitures biens : l'un est meilleur que l'autre.
+:::
+
+## Hedonic Pricing : aspect théorique (II)
+
+```{python}
+from Web_Scraping.plotly_figures.figure_loader import (
+    hedonic_graph_loader,
+    smartphone_graph_loader,
+)
+
+hedonic_graph_loader().show(config={"displayModeBar": False})
+```
+
+:::{.notes}
+On est habitué à représenter les préférences des consommateurs en termes de quantités de biens $x_1, x_2$. Ici, changement de paradigme : on va en fait représenter les préférences des consommateurs en termes de caractéristiques de biens.
+:::
+
+
+## Hedonic Pricing : aspect théorique (III)
+
+- Le consommateur n'achète qu'**une seule** unité de bien qui est une combinaison d'attributs $z_1, z_2, \dots, z_n$.
+- Un prix est donc défini en chaque point du plan et guide les choix de localisation des consommateurs et des producteurs concernant les ensembles de caractéristiques achetés et vendus.
+
+:::{.fragment .fade-in}
+$$\boxed{p(z) = p(z_1, z_2, \dots, z_n)}$$
+:::
+
+:::{.notes}
+Achat d'une seule unité de bien car historiquement, Rosen s'intéresse principalement aux biens durables.
+
+*Exemple de biens durables* : Machine à laver, voitures, smartphones...
+
+- Pour le **producteur**, la question est : quelle combinaison de caractéristiques lui permet de maximiser son profit ?
+- Pour le **consommateur**, la question est : quelle combinaison de caractéristiques lui rapporte le plus d'utilité sous contrainte budgétaire ?
+
+On aboutit à une relation fonctionnelle entre les caractéristiques des biens
+et leur prix, appelée fonction de prix hédonique $p(z)$.
+
+:::
+
+## Hedonic Pricing : aspect appliqué {.smaller}
+
+@harrison1978 :
+
+**Objectif** : Examiner comment les données du marché immobilier peuvent être utilisées pour évaluer la *willingness-to-pay* des consommateurs pour une meilleure qualité de l'air.
+
+- Le modèle suppose que les ménages prennent en compte le niveau de pollution de l'air, la quantité et la qualité du logement et d'autres caractéristiques de quartier pour faire leur choix.
+- La fonction de la valeur hédonique du logement $p(h)$ traduit les attributs du logement en prix, et suppose que les consommateurs perçoivent avec précision ces attributs et que le marché est en équilibre à court terme.
+
+:::{.fragment .fade-in}
+**Résultats** : Les dommages marginaux dus à la pollution augmentent avec le niveau de pollution de l'air et avec le niveau de revenu des ménages.
+:::
+
+:::{.notes}
+Pour finir, l'approche hédonique a été utilisée empiriquement dans de très nombreux domaines comme l'automobile, l'immobilier, etc.
+
+----note : voir si à ajouter dans une autre slide --- De plus, La spécification *semi-log* est généralement préférée afin d'améliorer l'ajustement du modèle et de faciliter l'interprétation des coefficients (@bello2010)
+:::
+
+## Fonction de production
+
+:::{.callout-tip}
+
+## Rappel sur les fonctions de production
+
+- Un processus de production représente la transformation d'inputs en outputs.
+
+- Dès lors, une fonction de production $f(.)$ donne la
+quantité maximum d’output $y_i$ pouvant être produite à partir de vecteurs d'inputs.
+
+:::
+
+:::{.fragment .fade-in}
+$$y_i = f(x_i; \beta)$$
+:::
+
+- Avec $x_i$ le vecteur d'inputs.
+- Avec $\beta$ le vecteur de paramètres inconnus à estimer.
+
+:::{.notes}
+$f(x_i; \beta)$ est en fait la frontière de production. Pour l'instant elle ne prend pas en compte l'efficacité technique $TE_i$ et elle n'est pas *stochastique* car elle n'inclut pas de terme aléatoire.
+:::
+
+## SFA (I) {.smaller}
+
+@aigner1977 :
+
+**Objectif** : Formulation et estimation de fonctions de frontière de production stochastique.
+
+:::{.fragment .fade-in}
+$${\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}}$$
+:::
+
+- $TE_i$ représente l'efficacité technique, définie comme le ratio d'output observé sur l'output maximum réalisable, c'est à dire : $TE_i = \dfrac{y_i}{y_i^*}$.
+
+- Ils ajoutent aussi un composant **stochastique** ${\exp \left\{{v_{i}}\right\}}$ qui représente les chocs aléatoires affectant la production. La fonction de production devient alors :
+
+:::{.fragment .fade-in}
+$$\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i}}\right\}}}$$
+:::
+
+:::{.notes}
+Avant les travaux de `Aigner`, les économètres utilisaient uniquement de fonctions de production moyennes, autrement dit la formulation théorique était différente de la mise en pratique.
+
+- On repart de la fonction de production présentée à la slide précédente, mais on lui ajoute un terme multiplicatif $TE_i$.
+
+- Si $TE_i = 1$ alors la firme $i$ produit l'output maximum réalisable, alors que si $TE_i < 1$, il existe un écart entre l'output maximum et l'output effectivement observé.
+:::
+
+## SFA (II) {.smaller}
+
+On peut ré-écrire $TE_i$ sous la forme ${\displaystyle TE_{i}=\exp \left\{{-u_{i}}\right\}}$. Dès lors, nous obtenons l'équation suivante :
+
+:::{.fragment .fade-in}
+$${\displaystyle y_{i}=f(x_{i};\beta )\cdot \exp \left\{{-u_{i}}\right\}\cdot \exp \left\{{v_{i}}\right\}}$$ 
+:::
+
+La SFA (`Stochastic Frontier Analysis`) est une méthode paramétrique : elle requiert une forme fonctionnelle précise et les termes d'erreur $\epsilon_i$ ont une distribution particulière (composée) :
+
+- $v_i$ est une erreur aléatoire $\Rightarrow$ variation inexpliquée par les variables indépendantes du modèle, avec $v_i \sim \mathcal{N}(0, \sigma^2_v)$.
+- $u_i$ est un composant unilatéral qui peut être choisi parmi plusieurs distributions et $u_i \geq 0$, puisqu'il est nécessaire d'avoir $TE_i ≤ 1$.
+
+:::{.fragment .fade-in}
+> *La spécification de cette méthode permet d’estimer les scores de l’efficience technique de chaque firme (historiquement), ou produit, dans notre cas.*
+:::
+
+:::{.notes}
+Différence entre les méthodes paramétriques et non-paramétriques :
+
+- Dans les méthodes non paramétriques comme la `DEA`, la structure du modèle n'est pas spécifiée à priori mais est déterminée à partir des données.
+
+- Pour les $v_i$ : chaque producteur est face à des chocs différents, mais on fait l'hypothèse que les chocs sont aléatoires et décrits par une distribution commune. 
+:::
+
+
+## SFA (III) {.smaller}
+
+:::: {.columns}
+
+::: {.column width="60%"}
+*<u>$^*$Exemple</u>* : 
+
+![](imgs/stochastic_image.jpeg){width=95%}
+
+$*$ Droits d'auteur : [Lutz Bornmann](https://www.researchgate.net/profile/Lutz-Bornmann)
+:::
+
+::: {.column width="40%"}
+A partir de cette représentation on peut clairement distinguer les effets de $v_i$ (`noise`) et ceux de $u_i$ (`inefficiency`).
+
+***
+
+- $y_i^*=$ output maximum
+- $\Leftrightarrow \ln y_i^* = f(x_i;\beta) + v_i$
+- $y_i =$ output observé
+- $\Leftrightarrow \ln y_i = \ln y_i^* -u_i$
+- $\Leftrightarrow \ln y_i = f(x_i;\beta) + v_i -u_i$
+
+:::{.fragment} 
+$$\boxed{\ln y_i = f(x_i;\beta) + \epsilon_i}$$
+:::
+
+:::
+
+::::
+
+:::{.notes}
+L'objectif de cette slide est d'expliquer graphiquement la SFA.
+
+- On inclue aussi une transformation logarithmique permettant de manipuler plus facilement le terme d'erreur.
+:::
+
+## SFA (IV)
+
+**Quelques exemples d'application de la SFA dans le cadre de la mesure d'efficacité** :
+
+- @reinhard2000 $\Rightarrow$ Secteur Environnemental
+
+- @rosko2008 $\Rightarrow$ Secteur Hospitalier
+
+- @mohamad2008 $\Rightarrow$ Secteur Bancaire
+
+> En bref, de nombreux domaines d'application existent !
+
+::: {.notes}
+Un domaine en particulier n'a pas été évoqué ici : et si on utilisait la SFA pour mesurer l'*efficacité* d'un prix **(best-buy frontier)** ? C'est précisément le cadre du prochain article que nous allons présenter !
+:::
+
+
+## SFA & Hedonic Pricing (I) {.smaller}
+
+@arrondo2018 :
+
+**Objectif** : déterminer les attributs principaux des prix des sneakers en Espagne et leur efficacité.
+
+- La méthode de pricing hédonique estime que la différence de prix des sneakers est due à ses caractéristiques.
+
+- En estimant l'efficacité des produits, l'article pointe les produits overprice pour prédire le montant des réductions à leur accorder afin d'atteindre la frontière compétitive pour ces produits.
+
+:::{.fragment .fade-in}
+**Résultats** :
+
+- Relation inverse entre l'efficacité du produit et la réduction de prix : la réduction de prix est donc d'autant plus grande que la sneakers est overprice.
+
+- Le modèle permet une bonne prédiction des réductions de prix pour rendre compétitifs les sneakers overprice.
+:::
+
+::: {.notes}
+Caractéristiques étudiées des sneakers
+
+- **Lightweight** : poids des sneakers.
+- **Cushioning** : capacité de la chaussure à absorber les chocs au cours d'une course et tout au long du cycle de vie du produit.
+- **Flexibility** : Les baskets flexibles s'adaptent mieux à la forme naturelle du pied, elles sont plus confortables.
+- **Response** : capacité du matériau à retrouver sa forme après les déformations provoquées par l'impact sur le sol.
+- **Grip** : L'adhérence donne aux coureurs une assise sûre sur le sol meuble et les rochers.
+- **Stability** : Stabilité du pied à l'intérieur de la chaussure.
+:::
+
+## SFA & Hedonic Pricing (II) {.smaller}
+
+Dans l'article, $n=171$ sneakers ont été sélectionnées. 
+
+| Marque                 | $\hat{\theta_k}$ |
+| ---------------------  | -------          |
+| `Adidas` ($n=$ 28)     | 0.832            |
+| `Asics` ($n=$ 35)      | 0.864            |
+| `Saucony` ($n=$ 15)    | 0.875            |
+| `Nike` ($n=$ 25)       | 0.824            |
+| `Brooks` ($n=$ 16)     | 0.860            |
+| `Mizuno` ($n=$ 29)     | 0.858            |
+| `New Balance` ($n=$ 18)| 0.848            |
+| `Reebok` ($n=$ 5)      | 0.859            |
+
+- `Nike` est la marque qui possède les sneakers les moins "efficientes"
+- `Saucony` est la marque qui possède les sneakers les plus "efficientes"
+
+::: {.notes}
+
+$\hat{\theta_k}$ correspond à l'indice d'efficacité moyen des sneakers par marque
+
+- Sur les modèles étudiés, Nike possède la pire relation prix~attributs.
+- Sur les modèles étudiés, Saucony possède la meilleure relation prix~attributs.
+:::
+
+
+## Problématique {background-color="black" background-image="https://vivreaulycee.fr/wp-content/uploads/2018/12/question-mark-2492009_1280-1200x480.jpg" background-size="cover" background-opacity="0.75"}
+
+`Combinaison d'un modèle SFA et d'une régression hédonique pour évaluer la discordance entre les prix de smartphones et leur valeur intrinsèque.`
+
+## Smartphone Timeline
+
+```{python}
+smartphone_graph_loader().show(config={"displayModeBar": False})
+```
+
+::: {.notes}
+Depuis l'apparition des téléphones mobiles au début des années 1990, de nombreuses innovations technologiques ont ajouté des caractéristiques rendant ces téléphones de plus en plus polyvalents :
+
+- *Nokia 1011* : Premier écran LCD
+- *IBM Simon* : Premier véritable smartphone avec stylet, échec commercial
+- *Motorola StarTAC* : Téléphone le plus léger et compact de l'époque (<100 grammes)
+- *Nokia 3210* : Un des téléphones les plus vendus au monde - il intègre les SMS et plusieurs jeux
+- *Sharp J-SH04* : Premier Téléphone équipé d'un appareil photo intégré (capteur à l'arrière)
+- *Blackberry Quark* : Au début des années 2000 et jusqu'en 2010, Blackberry est leader avec 20% de parts de marché à son apogée, même après l'apparition de l'Iphone - les téléphones BlackBerry ont un clavier complet et peuvent ouvrir de nombreux fichiers.
+- *Apple Iphone* : En 2007, l'iPhone va bouleverser le marché des téléphones mobiles - la frontière entre téléphone et ordinateur s'amincit.
+- *HTC Dream* : Un an après la sortie de l'iPhone, les constructeurs bataillent pour le concurrencer - HTC est est le premier constructeur à intégrer Android OS. Il reste un entre-deux ~ il a un clavier et un écran tactile. 
+- *Apple Iphone 4* : Premier smartphone avec une caméra frontale, appareil photo de 5mpx et espace de stockage de 32 Go
+- *Samsung Galaxy S* : Avec le Galaxy S, Samsung concurrence Apple et sort un téléphone meilleur en tout point : écran plus grand, possibilité d'augmenter le stockage, meilleur cpu et meilleure batterie.
+- Etc.
+
+***
+
+**Difficulté** : Finalement, il existe relativement peu d'articles d'études sur les prix hédoniques des smartphones, ou alors ils sont assez anciens (2004-2005), et on l'a vu, étant donné la vitesse à laquelle évolue le marché, avoir des données récentes est primordial pour estimer correctement les caractéristiques valorisées par les consommateurs à un instant $T$.
+:::
+
+
+## Smartphone Hedonic Pricing {.smaller}
+
+@ahmad2019 :
+
+**Objectif** : Pricing des attributs de smartphones au Pakistan 
+
+$$
+\scriptstyle{\ln(PRICE_i) = \beta_0 + \sum_{i=1}^n\beta_{1i}BRAND_i + \sum_{i=1}^n\beta_{2i}WEIGHT_i\\
++ \sum_{i=1}^n\beta_{3i}BATTERY_i + \sum_{i=1}^n\beta_{4i}OS_i + \sum_{i=1}^n\beta_{5i}RAM_i\\
++ \sum_{i=1}^n\beta_{6i}MEMORY_i + \sum_{i=1}^n\beta_{7i}DISPLAY_i + \sum_{i=1}^n\beta_{8i}NETWORK_i\\
++ \sum_{i=1}^n\beta_{9i}BCAM_i + \sum_{i=1}^n\beta_{10i}FCAM_i + \epsilon_i}
+$$
+
+- $n=348$ smartphones. Les données des attributs ont été collectées sur des sites webs et les prix pratiqués relevés dans les magasins de 2 villes du Pakistan.
+
+:::{.fragment .fade-in}
+**Résultats** :
+
+- La marque, la batterie, le poids, l'OS, la RAM, la mémoire et la taille de l'écran ont un effet positif statistiquement significatif sur les prix des smartphones.
+:::
+
+:::{.notes}
+Plus précisément, les résultats indiquent que les fabricants doivent se concentrer sur un téléphone :
+
+- avec une RAM de plus d'1 Go
+- avec une Mémoire de plus de 8 Go
+- avec un Ecran de plus de 5 pouces
+- compatible avec la 4G
+- avec une caméra arrière de plus de 15 mégapixels
+
+Le Pakistan étant un pays en voie de développement, et l'étude datant de 2019, on peut s'attendre à trouver des résultats sensiblement différents dans nos données.
+
+De plus, sur les 348 smartphones, 127, c'est à dire + d'un tiers, sont de la marque **QMOBILE**, une société Pakistanaise qui vend des smartphones à bas prix.
+:::
+
+## Méthodologie
+
+> Récupération des données via scraping (revendeurs français)
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+- Boulanger
+- Darty
+- D'autres ?
+
+:::
+
+::: {.column width="50%"}
+
+*Diagramme fonctionnel* :
+
+![](imgs/diagram.png){width=175%}
+
+:::
+::::
+
+## Quelques résultats
+
+Boulanger a été scrapé et 435 modèles valides ont été identifiés avec ~ 30 caractéristiques.
+
+## References
