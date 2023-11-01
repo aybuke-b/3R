@@ -162,7 +162,7 @@ et leur prix, appelée fonction de prix hédonique $p(z)$.
 :::{.notes}
 Pour finir, l'approche hédonique a été utilisée empiriquement dans de très nombreux domaines comme l'automobile, l'immobilier, etc.
 
-----note : voir si à ajouter dans une autre slide --- De plus, La spécification *semi-log* est généralement préférée afin d'améliorer l'ajustement du modèle et de faciliter l'interprétation des coefficients (@bello2010)
+De plus, La spécification *semi-log* est généralement préférée afin d'améliorer l'ajustement du modèle et de faciliter l'interprétation des coefficients @bello2010.
 :::
 
 ## Fonction de production
@@ -412,7 +412,9 @@ Plus précisément, les résultats indiquent que les fabricants doivent se conce
 - compatible avec la 4G
 - avec une caméra arrière de plus de 15 mégapixels
 
-Le Pakistan étant un pays en voie de développement, et l'étude datant de 2019, on peut s'attendre à trouver des résultats sensiblement différents dans nos données.
+Le Pakistan étant un pays en voie de développement, et l'étude datant de 2019, on peut s'attendre à trouver des résultats sensiblement différents dans nos données. 
+
+Par exemple, le prix moyen d'un smartphone dans l'étude est de 136,35 $, alors qu'on peut se douter que celui qu'on va trouver sera plus important. Note intéressante, l'**écart-type** du prix des smartphones est particulièrement elevé (181), c'est à dire que la dispersion en prix est très importante, ce qui confirme que les smartphones sont des biens hautement différenciés.
 
 De plus, sur les 348 smartphones, 127, c'est à dire + d'un tiers, sont de la marque **QMOBILE**, une société Pakistanaise qui vend des smartphones à bas prix.
 :::
@@ -442,6 +444,10 @@ De plus, sur les 348 smartphones, 127, c'est à dire + d'un tiers, sont de la ma
 
 ## Quelques résultats
 
-Boulanger a été scrapé et 435 modèles valides ont été identifiés avec ~ 30 caractéristiques.
+Boulanger a été scrapé et 435 modèles valides ont été identifiés avec une trentaine de caractéristiques.
+
+## Statistiques descriptives
+
+**TODO**
 
 ## References

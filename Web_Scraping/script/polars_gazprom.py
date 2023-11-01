@@ -17,10 +17,16 @@ def drop_and_filter(df: pl.DataFrame) -> pl.DataFrame:
     BRAND_SET = set(list(chain.from_iterable(BRAND_ARRAY.tolist())))
     df = df.filter(pl.col("brand").is_in(BRAND_SET))
     df = df.drop(
-        "warranty", "refresh_rate", "cpu_details", "sim_number", "bluetooth", "os"
+        "warranty",
+        "refresh_rate",
+        "cpu_details",
+        "sim_number",
+        "bluetooth",
+        "os",
+        "sim_type",
     )
     # note : on dégage la garantie car c'est tout le temps 2 ans, et 2 cartes sim tt le temps
-    df = df.filter(pl.col("repairability_index").is_not_null())
+    # df = df.filter(pl.col("repairability_index").is_not_null())
     df = df.filter((pl.col("ram").is_not_null()) & (pl.col("ram") != "Non communiqué"))
     df = df.filter(pl.col("screen_resolution") != "Non communiqué")
     return df
@@ -91,6 +97,46 @@ def get_screen_type(df: pl.DataFrame) -> pl.DataFrame:
         .then(pl.lit("Borderless"))
         .otherwise(pl.col("screen_type"))
         .alias("screen_type")
+    )
+    return df
+
+
+def logprice(df: pl.DataFrame) -> pl.DataFrame:
+    df = df.with_columns(pl.col("price").log().alias("logprice"))
+    return df
+
+
+def network_cleaner(df: pl.DataFrame) -> pl.DataFrame:
+    df = df.with_columns(pl.col("network").str.replace("\+", ""))
+    return df
+
+
+def valid_das_chest(df: pl.DataFrame) -> pl.DataFrame:
+    df = df.with_columns(
+        pl.col("das_chest")
+        .str.replace(" W/kg", "")
+        .str.replace(",", ".")
+        .cast(pl.Float64)
+    )
+    return df
+
+
+def valid_das_head(df: pl.DataFrame) -> pl.DataFrame:
+    df = df.with_columns(
+        pl.col("das_head")
+        .str.replace(" W/kg", "")
+        .str.replace(",", ".")
+        .cast(pl.Float64)
+    )
+    return df
+
+
+def valid_das_limbs(df: pl.DataFrame) -> pl.DataFrame:
+    df = df.with_columns(
+        pl.col("das_limbs")
+        .str.replace(" W/kg", "")
+        .str.replace(",", ".")
+        .cast(pl.Float64)
     )
     return df
 
@@ -168,7 +214,36 @@ def get_valid_screen_size(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
+def get_ppi(df: pl.DataFrame) -> pl.DataFrame:
+    """On obtient les pixels per inch"""
+    df = df.with_columns(
+        pl.col("diagonal_pixels").truediv(pl.col("screen_size")).alias("ppi")
+    )
+    return df
+
+
 def get_valid_storage(df: pl.DataFrame) -> pl.DataFrame:
+    """`get_valid_storage`:
+
+    - Transforms the storage from 1000 Go to 1000
+    - Unit of measurement : Go
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # polars DataFrame
+
+    `Returns`
+    --------- ::
+
+        pl.DataFrame
+
+    `Example(s)`
+    ---------
+
+    >>> get_valid_storage()
+    ... #_test_return_"""
     df = df.with_columns(
         pl.when(pl.col("storage") == "1 To")
         .then(pl.lit("1000 Go"))
@@ -176,6 +251,125 @@ def get_valid_storage(df: pl.DataFrame) -> pl.DataFrame:
         .then(pl.lit("512 Go"))
         .otherwise(pl.col("storage"))
         .alias("storage")
+        .str.replace(" Go", "")
+        .cast(pl.Int64)
+    )
+    return df
+
+
+def get_valid_ram(df: pl.DataFrame) -> pl.DataFrame:
+    df = df.with_columns(pl.col("ram").str.replace(" Go", "").cast(pl.Int64))
+    return df
+
+
+def get_valid_induction(df: pl.DataFrame) -> pl.DataFrame:
+    df = df.with_columns(
+        pl.when(pl.col("charging_type") == "Possibilité de charger par induction")
+        .then(pl.lit(True))
+        .otherwise(pl.lit(False))
+        .alias("induction")
+    ).drop("charging_type")
+    return df
+
+
+def get_valid_height(df: pl.DataFrame) -> pl.DataFrame:
+    """`get_valid_height`:
+
+    - Transforms the height
+    - Unit of measurement : millimeters
+    """
+    df = df.with_columns(
+        pl.col("height").str.replace(" mm", "").str.replace(",", ".").cast(pl.Float64)
+    )
+    return df
+
+
+def get_valid_width(df: pl.DataFrame) -> pl.DataFrame:
+    """`get_valid_width`:
+
+    - Transforms the width
+    - Unit of measurement : millimeters
+    """
+    df = df.with_columns(
+        pl.col("width").str.replace(" mm", "").str.replace(",", ".").cast(pl.Float64)
+    )
+    return df
+
+
+def get_valid_thickness(df: pl.DataFrame) -> pl.DataFrame:
+    """`get_valid_thickness`:
+
+    - Transforms the width
+    - Unit of measurement : millimeters
+    """
+    df = df.with_columns(
+        pl.col("thickness")
+        .str.replace(" mm", "")
+        .str.replace(",", ".")
+        .cast(pl.Float64)
+    )
+    return df
+
+
+def get_valid_repairability(df: pl.DataFrame) -> pl.DataFrame:
+    """`get_valid_repairability`:
+
+    - Transforms the repairability index from 8,6 /10 to 8.6
+    - Unit of measurement : /10
+
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # polars DataFrame
+
+    `Returns`
+    --------- ::
+
+        pl.DataFrame
+
+    `Example(s)`
+    ---------
+
+    >>> get_valid_repairability()
+    ... #_test_return_"""
+    df = df.with_columns(
+        pl.col("repairability_index")
+        .str.replace(" /10", "")
+        .str.replace(",", ".")
+        .cast(pl.Float64)
+    )
+    return df
+
+
+def get_valid_weight(df: pl.DataFrame) -> pl.DataFrame:
+    """`get_valid_weight`:
+
+    - Transforms the net weight from 192,8 g to 192.8
+    - Unit of measurement : grams
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # polars DataFrame
+
+    `Returns`
+    --------- ::
+
+        pl.DataFrame
+
+    `Example(s)`
+    ---------
+
+    >>> get_valid_weight()
+    ... #_test_return_"""
+    df = df.with_columns(
+        pl.col("net_weight")
+        .str.replace(" g", "")
+        .str.replace(",", ".")
+        .cast(pl.Float64)
     )
     return df
 
@@ -194,6 +388,19 @@ def NordStream(df: pl.DataFrame) -> pl.DataFrame:
         .pipe(valid_fast_charging)
         .pipe(get_diagonal_pixels)
         .pipe(get_valid_screen_size)
+        .pipe(get_ppi)
         .pipe(get_valid_storage)
+        .pipe(get_valid_ram)
+        .pipe(get_valid_repairability)
+        .pipe(get_valid_weight)
+        .pipe(get_valid_height)
+        .pipe(get_valid_width)
+        .pipe(get_valid_thickness)
+        .pipe(logprice)
+        .pipe(network_cleaner)
+        .pipe(valid_das_chest)
+        .pipe(valid_das_head)
+        .pipe(valid_das_limbs)
+        .pipe(get_valid_induction)
     )
     return df
