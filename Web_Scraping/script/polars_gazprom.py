@@ -2,7 +2,9 @@
 
 
 import polars as pl
+import polars.selectors as cs
 from itertools import chain
+import random
 
 
 def drop_and_filter(df: pl.DataFrame) -> pl.DataFrame:
@@ -374,6 +376,61 @@ def get_valid_weight(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
+def mpx_cams(df: pl.DataFrame) -> pl.DataFrame:
+    df = (
+        df.with_columns(
+            pl.col("sensor_resolution")
+            .str.extract_all(r"(\d+)")
+            .list.to_struct(fields=["cam_1", "cam_2", "cam_3"])
+        )
+        .unnest("sensor_resolution")
+        .with_columns(
+            pl.col("cam_1", "cam_2", "cam_3")
+            .cast(pl.Float64)
+            .fill_null(strategy="zero")
+        )
+        .with_columns(
+            pl.col("cam_1")
+            .add(pl.col("cam_2").add(pl.col("cam_3")))
+            .alias("mpx_backward_cam")
+        )
+    )
+    return df
+
+
+def random_feature(df: pl.DataFrame) -> pl.DataFrame:
+    """`random_feature`:
+
+    - Add a completely random feature
+    - Especially useful for variable importance and in the selection phase
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): #_description_
+
+    `Returns`
+    --------- ::
+
+        pl.DataFrame
+
+    `Example(s)`
+    ---------
+
+    >>> random_feature()
+    ... #_test_return_"""
+    df = df.with_columns(random_col=pl.lit(0)).with_columns(
+        pl.col("random_col").map_elements(lambda x: random.randint(-1000, 1000))
+    )
+    return df
+
+
+def drop_col_nulls(df: pl.DataFrame) -> pl.DataFrame:
+    df = df.drop_nulls(subset=cs.contains({"made_in", "width"}))
+    return df
+
+
 def NordStream(df: pl.DataFrame) -> pl.DataFrame:
     df = (
         df.pipe(drop_and_filter)
@@ -388,7 +445,6 @@ def NordStream(df: pl.DataFrame) -> pl.DataFrame:
         .pipe(valid_fast_charging)
         .pipe(get_diagonal_pixels)
         .pipe(get_valid_screen_size)
-        .pipe(get_ppi)
         .pipe(get_valid_storage)
         .pipe(get_valid_ram)
         .pipe(get_valid_repairability)
@@ -402,5 +458,8 @@ def NordStream(df: pl.DataFrame) -> pl.DataFrame:
         .pipe(valid_das_head)
         .pipe(valid_das_limbs)
         .pipe(get_valid_induction)
+        .pipe(mpx_cams)
+        .pipe(random_feature)
+        .pipe(drop_col_nulls)
     )
     return df
