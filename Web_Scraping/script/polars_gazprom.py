@@ -6,6 +6,42 @@ import polars.selectors as cs
 from itertools import chain
 import random
 
+# TODO: Ajouter une fonction pour extraire le nombre total de pixels
+
+
+def fill_iphone_15(df: pl.DataFrame) -> pl.DataFrame:
+    df = df.with_columns(
+        pl.when(pl.col("model") == "iPhone 15")
+        .then(pl.lit("6 Go"))
+        .when(pl.col("model") == "iPhone 15 Plus")
+        .then(pl.lit("6 Go"))
+        .when(pl.col("model") == "iPhone 15 Pro")
+        .then(pl.lit("8 Go"))
+        .when(pl.col("model") == "iPhone 15 Pro Max")
+        .then(pl.lit("8 Go"))
+        .otherwise(pl.col("ram"))
+        .alias("ram")
+    )
+    df = df.with_columns(
+        pl.when(pl.col("model") == "iPhone 15")
+        .then(pl.lit("3877 mAh"))
+        .when(pl.col("model") == "iPhone 15 Plus")
+        .then(pl.lit("4912 mAh"))
+        .when(pl.col("model") == "iPhone 15 Pro")
+        .then(pl.lit("3650 mAh"))
+        .when(pl.col("model") == "iPhone 15 Pro Max")
+        .then(pl.lit("4852 mAh"))
+        .otherwise(pl.col("battery"))
+        .alias("battery")
+    )
+    df = df.with_columns(
+        pl.when(pl.col("model").str.contains("iPhone 15"))
+        .then(pl.lit("Chine"))
+        .otherwise(pl.col("made_in"))
+        .alias("made_in")
+    )
+    return df
+
 
 def drop_and_filter(df: pl.DataFrame) -> pl.DataFrame:
     BRAND_ARRAY = (
@@ -28,7 +64,6 @@ def drop_and_filter(df: pl.DataFrame) -> pl.DataFrame:
         "sim_type",
     )
     # note : on dégage la garantie car c'est tout le temps 2 ans, et 2 cartes sim tt le temps
-    # df = df.filter(pl.col("repairability_index").is_not_null())
     df = df.filter((pl.col("ram").is_not_null()) & (pl.col("ram") != "Non communiqué"))
     df = df.filter(pl.col("screen_resolution") != "Non communiqué")
     return df
@@ -187,17 +222,17 @@ def valid_fast_charging(df: pl.DataFrame) -> pl.DataFrame:
 
 def get_diagonal_pixels(df: pl.DataFrame) -> pl.DataFrame:
     df = df.with_columns(
-        pl.col("screen_resolution").str.replace(" pixels", "").str.split_exact("x", 1)
+        pl.col("screen_resolution")
+        .str.replace(" pixels", "")
+        .str.split_exact("x", 1)
+        .struct.rename_fields(["resolution_1", "resolution_2"])
     ).unnest("screen_resolution")
-    df = df.with_columns(pl.col("field_0", "field_1").str.strip_chars().cast(pl.Int64))
+    df = df.with_columns(pl.col("resolution_1", "resolution_2").str.strip_chars().cast(pl.Int64))
     df = df.with_columns(
         (
-            pl.col("field_0").pow(2).alias("diagonal_pixels") + pl.col("field_1").pow(2)
+            pl.col("resolution_1").pow(2).alias("diagonal_pixels") + pl.col("resolution_2").pow(2)
         ).sqrt()
     )  # correspond à sqrt(field_0**2 + field_1**2)
-    df = df.drop(
-        "field_0", "field_1"
-    )  # a voir, on peut les garder plus tard pour la resolution
     return df
 
 
@@ -433,7 +468,8 @@ def drop_col_nulls(df: pl.DataFrame) -> pl.DataFrame:
 
 def NordStream(df: pl.DataFrame) -> pl.DataFrame:
     df = (
-        df.pipe(drop_and_filter)
+        df.pipe(fill_iphone_15)
+        .pipe(drop_and_filter)
         .pipe(fill_usb_c)
         .pipe(get_valid_price)
         .pipe(get_valid_reviews)
@@ -458,6 +494,7 @@ def NordStream(df: pl.DataFrame) -> pl.DataFrame:
         .pipe(valid_das_head)
         .pipe(valid_das_limbs)
         .pipe(get_valid_induction)
+        .pipe(get_ppi)
         .pipe(mpx_cams)
         .pipe(random_feature)
         .pipe(drop_col_nulls)
