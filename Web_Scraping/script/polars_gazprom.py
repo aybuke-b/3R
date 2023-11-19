@@ -6,8 +6,6 @@ import polars.selectors as cs
 from itertools import chain
 import random
 
-# TODO: Ajouter une fonction pour extraire le nombre total de pixels
-
 
 def fill_iphone_15(df: pl.DataFrame) -> pl.DataFrame:
     df = df.with_columns(
@@ -39,6 +37,26 @@ def fill_iphone_15(df: pl.DataFrame) -> pl.DataFrame:
         .then(pl.lit("Chine"))
         .otherwise(pl.col("made_in"))
         .alias("made_in")
+    )
+    return df
+
+
+def fill_weight(df: pl.DataFrame) -> pl.DataFrame:
+    df = df.with_columns(
+        pl.when(pl.col("model") == "Google Pixel 8")
+        .then(pl.lit("187,00 g"))
+        .when(pl.col("model") == "Google Pixel 8 Pro")
+        .then(pl.lit("213,00 g"))
+        .when(pl.col("model") == "Sony Xperia 1 V")
+        .then(pl.lit("187,00 g"))
+        .when(pl.col("model") == "SONY Xperia 5 V")
+        .then(pl.lit("182,00 g"))
+        .when(pl.col("model") == "SONY Xperia 10 V")
+        .then(pl.lit("159,00 g"))
+        .when(pl.col("model") == "Sony Xperia 5 IV")
+        .then(pl.lit("172,00 g"))
+        .otherwise(pl.col("net_weight"))
+        .alias("net_weight")
     )
     return df
 
@@ -227,10 +245,13 @@ def get_diagonal_pixels(df: pl.DataFrame) -> pl.DataFrame:
         .str.split_exact("x", 1)
         .struct.rename_fields(["resolution_1", "resolution_2"])
     ).unnest("screen_resolution")
-    df = df.with_columns(pl.col("resolution_1", "resolution_2").str.strip_chars().cast(pl.Int64))
+    df = df.with_columns(
+        pl.col("resolution_1", "resolution_2").str.strip_chars().cast(pl.Int64)
+    )
     df = df.with_columns(
         (
-            pl.col("resolution_1").pow(2).alias("diagonal_pixels") + pl.col("resolution_2").pow(2)
+            pl.col("resolution_1").pow(2).alias("diagonal_pixels")
+            + pl.col("resolution_2").pow(2)
         ).sqrt()
     )  # correspond à sqrt(field_0**2 + field_1**2)
     return df
@@ -469,6 +490,7 @@ def drop_col_nulls(df: pl.DataFrame) -> pl.DataFrame:
 def NordStream(df: pl.DataFrame) -> pl.DataFrame:
     df = (
         df.pipe(fill_iphone_15)
+        .pipe(fill_weight)
         .pipe(drop_and_filter)
         .pipe(fill_usb_c)
         .pipe(get_valid_price)

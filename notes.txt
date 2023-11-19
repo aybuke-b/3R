@@ -1,0 +1,72 @@
+Notes : 
+
+Liens à suivre 
+https://rstudio-pubs-static.s3.amazonaws.com/205694_3b195f29e9504d23aeb483ff1ffafeba.html
+https://forums.cirad.fr/logiciel-r/viewtopic.php?t=7204
+https://stats.stackexchange.com/questions/15608/vcovhc-vcovhac-neweywest-which-function-to-use
+https://cran.r-project.org/web/packages/vimp/vignettes/introduction-to-vimp.html
+
+---------------- 
+Note : récupérer les predictions de la SFA et les passer en exponentielle pour récup prix
+
+Dans les modèles paramétriques, il faut choisir les distributions:
+- Ajouter des graphiques loi normale tronquée et loi half-normale.
+
+---------------
+
+Commentaires sur la slide 17 : 
+
+effet marque => effet de réputation à mentionner ? 
+peut etre des questions d'analyse de la concurrence ?
+
+https://www.cairn.info/revue-management-et-avenir-2008-3-page-9.htm
+
+Exemple de volkswagen : La golf etait vendue à des prix différents dans différents pays.
+
+-------
+
+Faire du scraping la semaine du Black Friday, ça pourrait etre intéressant.
+
+---
+
+Stat Desc --> Distribution de prix à faire + ecarts de prix avec l'ecart type 
+Analyse de données exploratoire --> ACP ou t-SNE
+
+----
+
+Stepwise/ leaps package (R) =>
+Méthode ascendante / descendante pour faire de la sélection de variables
+production de régression 
+
+Présentation du plot du R^2 ajusté.
+
+--> Explication méthode "descendante" & "ascendante"
+---> Comment varie le R2, R2 Ajusté, le BIC, etc...
+
+------- 
+
+Pour la SFA : est ce que les résidus de la régression sont symétriques ?
+
+Pour le package frontier, plutot utiliser frontière de cout & de production.
+
+-> test de skewness sur les résidus 
+
+------ 
+
+Liste parcimonieuse de variables qui sont déterminantes dans le niveau du prix.
+
+--> sous-ensemble de caractéristiques à préciser.
+
+---> bouton à ajouter sur l'appli entre modèle SFA "frontière prod" et modèle SFA "frontière cout"
+------> entre intéret du producteur et du consommateur.
+
+---------------
+
+Différences de prix vs différences de caractéristiques (pairwise observations)
+
+------- Article 
+
+--> Estimation with pairwise Observations
+--> Using pairwise differences as variable in regression 
+
+Stat desc sur les différences de prix des téléphones (487)*486/2 obs 

@@ -1,6 +1,9 @@
 import plotly.express as px
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+from itertools import chain
 import pandas as pd
+import polars as pl
 import random
 
 
@@ -148,7 +151,7 @@ def smartphone_graph_loader() -> go.Figure:
     source["start"] = pd.to_datetime(source["start"])
     source["end"] = pd.to_datetime(source["end"])
 
-    fig = px.timeline(
+    timeline = px.timeline(
         source.sort_values("start"),
         x_start="start",
         x_end="end",
@@ -157,9 +160,9 @@ def smartphone_graph_loader() -> go.Figure:
         color="catégorie",
         color_discrete_sequence=["#4E6766", "#E4572E", "#A5C882", "#1E152A", "#5AB1BB"],
     )
-    fig.update_yaxes(title="y", visible=False, showticklabels=False)
+    timeline.update_yaxes(title="y", visible=False, showticklabels=False)
 
-    fig.update_layout(
+    timeline.update_layout(
         xaxis_range=["1989", "2027"],
         paper_bgcolor="#222222",
         font_color="black",
@@ -169,4 +172,127 @@ def smartphone_graph_loader() -> go.Figure:
         margin=dict(l=30, r=30, b=30, t=30, pad=3),
     )
 
-    return fig
+    return timeline
+
+
+def table_null_values(df: pl.DataFrame) -> pl.DataFrame:
+    null_count = list(
+        chain.from_iterable(df.select(pl.all().is_null().sum()).to_numpy().tolist())
+    )
+    df_missing_values = pl.DataFrame(
+        {
+            "variables": df.columns,
+            "somme_nulls": null_count,
+        }
+    )
+
+    df_missing_values = df_missing_values.with_columns(
+        pl.col("somme_nulls")
+        .truediv(df.shape[0])
+        .mul(100)
+        .round(2)
+        .alias("%age valeurs manquantes")
+    )
+
+    return df_missing_values.sort("somme_nulls", descending=True).limit(9)
+
+
+def prices_graph_loader(df: pl.DataFrame) -> go.Figure:
+    df_prices = (
+        df.group_by("brand")
+        .agg([pl.mean("price").round(2).alias("avg_price")])
+        .sort("avg_price", descending=True)
+    )
+    mean_price = df.select("price").mean().item()
+    bar = px.bar(
+        x="brand",
+        y="avg_price",
+        title="Prix moyen des smartphones par marque",
+        height=375,
+        color_discrete_sequence=["white"],
+        data_frame=df_prices,
+    )
+
+    bar.add_hline(
+        mean_price,
+        line_dash="dash",
+        line_color="#ffa07a",
+        annotation_text=f"prix moyen de la sélection : {round(mean_price,2)} €",
+        annotation_position="top right",
+    )
+    bar.update_layout(
+        yaxis=dict(ticksuffix=" €"),
+        paper_bgcolor="#222222",
+        plot_bgcolor="#222222",
+        font_color="white",
+        margin=dict(l=30, r=30, b=30, pad=3),
+    )
+    bar.update_yaxes(title="")
+    bar.update_xaxes(title="")
+    return bar
+
+
+def count_graph_loader(df: pl.DataFrame) -> go.Figure:
+    df_models = (
+        df.group_by(pl.col("brand"))
+        .count()
+        .sort("count", descending=True)
+        .with_columns(
+            pl.col("count").truediv(len(df)).mul(100).alias("part relative").round(2)
+        )
+        .with_columns(pl.cumsum("part relative").alias("cumsum"))
+    )
+
+    subfig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    bar = px.bar(
+        x="brand",
+        y="count",
+        text="count",
+        color_discrete_sequence=["white"],
+        data_frame=df_models,
+    )
+    bar.update_yaxes(title="")
+    bar.update_xaxes(title="")
+
+    line = px.line(
+        x="brand",
+        y="cumsum",
+        color_discrete_sequence=["green"],
+        data_frame=df_models,
+    )
+    line.update_traces(yaxis="y2")
+
+    subfig.add_traces(bar.data + line.data)
+    subfig.update_layout(
+        paper_bgcolor="#222222",
+        plot_bgcolor="#222222",
+        font_color="white",
+        margin=dict(l=30, r=30, b=30, pad=3),
+        title="Nombre de smartphones proposés par marque",
+        yaxis2=dict(ticksuffix=" %"),
+        height=375,
+    )
+    subfig.update_yaxes(showgrid=False)
+    return subfig
+
+
+def hist_prices_loader(df: pl.DataFrame) -> go.Figure:
+    hist = px.histogram(
+        x="price",
+        opacity=0.8,
+        data_frame=df,
+        histnorm="probability density",
+        title="Distribution des prix - fonction de densité de probabilité",
+        height=400,
+    )
+    hist.update_layout(
+        xaxis=dict(ticksuffix=" €"),
+        paper_bgcolor="#222222",
+        plot_bgcolor="#222222",
+        font_color="white",
+        margin=dict(l=30, r=30, b=30, pad=3),
+    )
+    hist.update_yaxes(title="")
+    hist.update_xaxes(title="")
+    return hist
