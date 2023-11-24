@@ -29,18 +29,12 @@ Faire du scraping la semaine du Black Friday, ça pourrait etre intéressant.
 
 ---
 
-Stat Desc --> Distribution de prix à faire + ecarts de prix avec l'ecart type 
 Analyse de données exploratoire --> ACP ou t-SNE
 
 ----
 
-Stepwise/ leaps package (R) =>
-Méthode ascendante / descendante pour faire de la sélection de variables
-production de régression 
-
 Présentation du plot du R^2 ajusté.
 
---> Explication méthode "descendante" & "ascendante"
 ---> Comment varie le R2, R2 Ajusté, le BIC, etc...
 
 ------- 
@@ -52,10 +46,6 @@ Pour le package frontier, plutot utiliser frontière de cout & de production.
 -> test de skewness sur les résidus 
 
 ------ 
-
-Liste parcimonieuse de variables qui sont déterminantes dans le niveau du prix.
-
---> sous-ensemble de caractéristiques à préciser.
 
 ---> bouton à ajouter sur l'appli entre modèle SFA "frontière prod" et modèle SFA "frontière cout"
 ------> entre intéret du producteur et du consommateur.

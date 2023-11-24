@@ -47,6 +47,8 @@ jupyter: python3
 :::
 
 ::: {.notes}
+*Corentin*
+
 La revue de la littérature proposée expose 2 concepts principaux : 
 
 - Le pricing Hédonique
@@ -83,6 +85,8 @@ Dans un souci de compréhension, on proposera en premier lieu une explication th
 :::
 
 ::: {.notes}
+*Corentin*
+
 En microéconomie, dans la théorie du consommateur *classique*, la fonction d'utilité 
 $$U(x_1, x_2, \dots, x_n)$$
 
@@ -110,6 +114,8 @@ $$z = (z_1, z_2, \dots, z_n)$$
 :::
 
 ::: {.notes}
+*Aybuké*
+
 Contrairement à Lancaster qui étudie uniquement le côté consommateur, Rosen s'intéresse à
 **l’équilibre de marché de biens différenciés** : 
 
@@ -152,6 +158,8 @@ $$\boxed{p(z) = p(z_1, z_2, \dots, z_n)}$$
 :::
 
 :::{.notes}
+*Corentin*
+
 Achat d'une seule unité de bien car historiquement, Rosen s'intéresse principalement aux biens durables.
 
 *Exemple de biens durables* : Machine à laver, voitures, smartphones...
@@ -182,6 +190,8 @@ et leur prix, appelée fonction de prix hédonique $p(z)$.
 :::
 
 :::{.notes}
+*Aybuké*
+
 Pour finir, l'approche hédonique a été utilisée empiriquement dans de très nombreux domaines comme l'automobile, l'immobilier, etc.
 
 De plus, La spécification *semi-log* est généralement préférée afin d'améliorer l'ajustement du modèle et de faciliter l'interprétation des coefficients @bello2010.
@@ -212,6 +222,7 @@ $$y_i = f(x_i; \beta)$$
 :::
 
 :::{.notes}
+*Corentin*
 $f(x_i; \beta)$ est en fait la frontière de production. Pour l'instant elle ne prend pas en compte l'efficacité technique $TE_i$ et elle n'est pas *stochastique* car elle n'inclut pas de terme aléatoire.
 :::
 
@@ -238,6 +249,8 @@ $$\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i
 :::
 
 :::{.notes}
+*Aybuké*
+
 Avant les travaux de `Aigner`, les économètres utilisaient uniquement de fonctions de production moyennes, autrement dit la formulation théorique était différente de la mise en pratique.
 
 - On repart de la fonction de production présentée à la slide précédente, mais on lui ajoute un terme multiplicatif $TE_i$.
@@ -267,6 +280,8 @@ La SFA (`Stochastic Frontier Analysis`) est une méthode paramétrique : elle re
 :::
 
 :::{.notes}
+*Corentin*
+
 Différence entre les méthodes paramétriques et non-paramétriques :
 
 - Il faut donc choisir la distribution que vont suivre les termes d'erreurs $u_i$
@@ -364,6 +379,8 @@ Un domaine en particulier n'a pas été évoqué ici : et si on utilisait la SFA
 :::
 
 ::: {.notes}
+*Aybuké*
+
 Caractéristiques étudiées des sneakers
 
 - **Lightweight** : poids des sneakers.
@@ -399,11 +416,12 @@ Dans l'article, $n=171$ sneakers ont été sélectionnées.
 :::
 
 ::: {.notes}
+*Corentin*
 
 $\hat{\theta_k}$ correspond à l'indice d'efficacité moyen des sneakers par marque
 
-- Sur les modèles étudiés, Nike possède la pire relation prix~attributs.
-- Sur les modèles étudiés, Saucony possède la meilleure relation prix~attributs.
+- Sur les modèles étudiés, Nike possède la pire relation prix~attributs : c'est le pire *rapport qualité-prix*
+- Sur les modèles étudiés, Saucony possède la meilleure relation prix~attributs : c'est le meilleur *rapport qualité-prix*
 :::
 
 
@@ -426,6 +444,8 @@ smartphone_graph_loader().show(config={"displayModeBar": False})
 :::
 
 ::: {.notes}
+*Corentin*
+
 Depuis l'apparition des téléphones mobiles au début des années 1990, de nombreuses innovations technologiques ont ajouté des caractéristiques rendant ces téléphones de plus en plus polyvalents :
 
 - *Nokia 1011* : Premier écran LCD
@@ -441,6 +461,8 @@ Depuis l'apparition des téléphones mobiles au début des années 1990, de nomb
 - Etc.
 
 ***
+
+*Aybuké*
 
 **Difficulté** : Finalement, il existe relativement peu d'articles d'études sur les prix hédoniques des smartphones, ou alors ils sont assez anciens (2004-2005), et on l'a vu, étant donné la vitesse à laquelle évolue le marché, avoir des données récentes est primordial pour estimer correctement les caractéristiques valorisées par les consommateurs à un instant $T$.
 :::
@@ -472,6 +494,8 @@ $$
 :::
 
 :::{.notes}
+*Aybuké*
+
 Plus précisément, les résultats indiquent que les fabricants doivent se concentrer sur un téléphone :
 
 - avec une RAM de plus d'1 Go
@@ -511,6 +535,8 @@ De plus, sur les 348 smartphones, 127, c'est à dire + d'un tiers, sont de la ma
 :::
 
 :::{.notes}
+*Corentin*
+
 Le diagramme fonctionnel permet de comprendre comment interagissent les différents composants logiciels.
 
 - On a déporté la partie modélisation sur `R` car les packages de régression et de SFA sont plus perfectionnés et mieux documentés.
@@ -581,6 +607,8 @@ count_graph_loader(df).show()
 :::
 
 :::{.notes}
+*Corentin*
+
 - L'écart-type du prix est ici 4 fois plus important que dans l'étude de 2019 au Pakistan ! 
 - On n'est pas non plus surpris de voir que le prix moyen d'un smartphone est sensiblement plus elevé.
 
@@ -610,6 +638,8 @@ $$SK = \dfrac{3(\bar{x} - \tilde{x})}{\sigma} \simeq 0.67$$
 :::
 
 :::{.notes}
+*Aybuké*
+
 La distribution est asymétrique, le test le confirme et le résultat indique que l'asymétrie de la distribution est positive $\Rightarrow$ Il y a beaucoup plus de valeurs concentrées à gauche de la distribution qu'à droite.
 :::
 
@@ -632,13 +662,13 @@ Package `{glmulti}` $-$ *Les algorithmes génétiques*
 
 - Permet de trouver le meilleur modèle en explorant seulement un sous-ensemble de modèles (de manière aléatoire) mais avec un biais vers de meilleurs modèles grâce à la sélection.
 
-**TODO : Liste parcimonieuse de variables qui sont déterminantes dans le niveau du prix.**
-
 ::: {.footer}
 --- Recherche, `Réalisation`, Restitution ---
 :::
 
 :::{.notes}
+*Corentin*
+
 Avec 35 prédicteurs, le choix des variables *essentielles* à retenir est important.
 
 En effet, si on sélectionne trop de prédicteurs, on va faire de l'**OVERFITTING** !
@@ -663,7 +693,7 @@ Autre approche $\Rightarrow$ Les algorithmes génétiques. Contrairement à la s
 
 ## Sélection de variables (II) {.smaller}
 
-Variables importantes dans la détermination du prix :
+**Liste de variables déterminantes dans la niveau de prix** :
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -685,6 +715,11 @@ Variables importantes dans la détermination du prix :
 :::
 ::::
 
+
+<hr>
+:::{.fragment .fade-in}
+**A suivre** ! 
+:::
 
 ::: {.footer}
 --- Recherche, `Réalisation`, Restitution ---
