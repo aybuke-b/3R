@@ -42,6 +42,10 @@ jupyter: python3
 - [@arrondo2018]: *15* citations
 - [@ahmad2019]: *16* citations
 
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
 ::: {.notes}
 La revue de la littérature proposée expose 2 concepts principaux : 
 
@@ -74,6 +78,10 @@ Dans un souci de compréhension, on proposera en premier lieu une explication th
 > Dans le modèle de Lancaster il existe une relation **linéaire** entre les prix des biens et leurs caractéristiques.
 :::
 
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
 ::: {.notes}
 En microéconomie, dans la théorie du consommateur *classique*, la fonction d'utilité 
 $$U(x_1, x_2, \dots, x_n)$$
@@ -97,6 +105,10 @@ $$z = (z_1, z_2, \dots, z_n)$$
 > *La différenciation horizontale et verticale des produits implique qu'une vaste gamme de paniers est disponible.*
 :::
 
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
 ::: {.notes}
 Contrairement à Lancaster qui étudie uniquement le côté consommateur, Rosen s'intéresse à
 **l’équilibre de marché de biens différenciés** : 
@@ -117,6 +129,10 @@ from Web_Scraping.plotly_figures.figure_loader import *
 hedonic_graph_loader().show(config={"displayModeBar": False})
 ```
 
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
 :::{.notes}
 On est habitué à représenter les préférences des consommateurs en termes de quantités de biens $x_1, x_2$. Ici, changement de paradigme : on va en fait représenter les préférences des consommateurs en termes de caractéristiques de biens.
 :::
@@ -129,6 +145,10 @@ On est habitué à représenter les préférences des consommateurs en termes de
 
 :::{.fragment .fade-in}
 $$\boxed{p(z) = p(z_1, z_2, \dots, z_n)}$$
+:::
+
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
 :::
 
 :::{.notes}
@@ -157,6 +177,10 @@ et leur prix, appelée fonction de prix hédonique $p(z)$.
 **Résultats** : Les dommages marginaux dus à la pollution augmentent avec le niveau de pollution de l'air et avec le niveau de revenu des ménages.
 :::
 
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
 :::{.notes}
 Pour finir, l'approche hédonique a été utilisée empiriquement dans de très nombreux domaines comme l'automobile, l'immobilier, etc.
 
@@ -183,6 +207,10 @@ $$y_i = f(x_i; \beta)$$
 - Avec $x_i$ le vecteur d'inputs.
 - Avec $\beta$ le vecteur de paramètres inconnus à estimer.
 
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
 :::{.notes}
 $f(x_i; \beta)$ est en fait la frontière de production. Pour l'instant elle ne prend pas en compte l'efficacité technique $TE_i$ et elle n'est pas *stochastique* car elle n'inclut pas de terme aléatoire.
 :::
@@ -203,6 +231,10 @@ $${\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}}$$
 
 :::{.fragment .fade-in}
 $$\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i}}\right\}}}$$
+:::
+
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
 :::
 
 :::{.notes}
@@ -228,6 +260,10 @@ La SFA (`Stochastic Frontier Analysis`) est une méthode paramétrique : elle re
 
 :::{.fragment .fade-in}
 > *La spécification de cette méthode permet d’estimer les scores de l’efficience technique de chaque firme (historiquement), ou produit, dans notre cas.*
+:::
+
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
 :::
 
 :::{.notes}
@@ -274,6 +310,10 @@ $$\boxed{\ln y_i = f(x_i;\beta) + \epsilon_i}$$
 
 ::::
 
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
 :::{.notes}
 L'objectif de cette slide est d'expliquer graphiquement la SFA.
 
@@ -291,6 +331,10 @@ L'objectif de cette slide est d'expliquer graphiquement la SFA.
 - @mohamad2008 $\Rightarrow$ Secteur Bancaire
 
 > En bref, de nombreux domaines d'application existent !
+
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
 
 ::: {.notes}
 Un domaine en particulier n'a pas été évoqué ici : et si on utilisait la SFA pour mesurer l'*efficacité* d'un prix **(best-buy frontier)** ? C'est précisément le cadre du prochain article que nous allons présenter !
@@ -313,6 +357,10 @@ Un domaine en particulier n'a pas été évoqué ici : et si on utilisait la SFA
 - Relation inverse entre l'efficacité du produit et la réduction de prix : la réduction de prix est donc d'autant plus grande que la sneakers est overprice.
 
 - Le modèle permet une bonne prédiction des réductions de prix pour rendre compétitifs les sneakers overprice.
+:::
+
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
 :::
 
 ::: {.notes}
@@ -346,6 +394,10 @@ Dans l'article, $n=171$ sneakers ont été sélectionnées.
 - `Nike` est la marque qui possède les sneakers les moins "efficientes"
 - `Saucony` est la marque qui possède les sneakers les plus "efficientes"
 
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
 ::: {.notes}
 
 $\hat{\theta_k}$ correspond à l'indice d'efficacité moyen des sneakers par marque
@@ -359,11 +411,19 @@ $\hat{\theta_k}$ correspond à l'indice d'efficacité moyen des sneakers par mar
 
 `Combinaison d'un modèle SFA et d'une régression hédonique pour évaluer la discordance entre les prix de smartphones et leur valeur intrinsèque.`
 
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
 ## Smartphone Timeline
 
 ```{python}
 smartphone_graph_loader().show(config={"displayModeBar": False})
 ```
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
 
 ::: {.notes}
 Depuis l'apparition des téléphones mobiles au début des années 1990, de nombreuses innovations technologiques ont ajouté des caractéristiques rendant ces téléphones de plus en plus polyvalents :
@@ -407,6 +467,10 @@ $$
 - La marque, la batterie, le poids, l'OS, la RAM, la mémoire et la taille de l'écran ont un effet positif statistiquement significatif sur les prix des smartphones.
 :::
 
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
 :::{.notes}
 Plus précisément, les résultats indiquent que les fabricants doivent se concentrer sur un téléphone :
 
@@ -442,6 +506,10 @@ De plus, sur les 348 smartphones, 127, c'est à dire + d'un tiers, sont de la ma
 
 ::::
 
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
 :::{.notes}
 Le diagramme fonctionnel permet de comprendre comment interagissent les différents composants logiciels.
 
@@ -470,6 +538,10 @@ print(table_null_values(df_brut))
 ```
 
 **535** modèles de smartphones scrapés sur le site [Boulanger](https://www.boulanger.com/).
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
 
 ## Statistiques descriptives (I) {.smaller}
 
@@ -504,6 +576,10 @@ count_graph_loader(df).show()
 :::
 ::::
 
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
 :::{.notes}
 - L'écart-type du prix est ici 4 fois plus important que dans l'étude de 2019 au Pakistan ! 
 - On n'est pas non plus surpris de voir que le prix moyen d'un smartphone est sensiblement plus elevé.
@@ -528,30 +604,90 @@ On peut tester l'`asymétrie` avec le coefficient d'asymétrie de *Pearson* :
 
 $$SK = \dfrac{3(\bar{x} - \tilde{x})}{\sigma} \simeq 0.67$$
 
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
 :::{.notes}
 La distribution est asymétrique, le test le confirme et le résultat indique que l'asymétrie de la distribution est positive $\Rightarrow$ Il y a beaucoup plus de valeurs concentrées à gauche de la distribution qu'à droite.
 :::
 
-## Statistiques descriptives (III) {.smaller}
 
-ACP à faire.
+## Sélection de variables (I) {.smaller}
 
-## Sélection de variables {.smaller}
-
-Avec 35 prédicteurs, le choix des variables *essentielles* à retenir est important.
-
-*Forward stepwise selection* (**Voir qui a implémenté cette méthode pour le citer**)
+@efroymson1960 $-$ *Stepwise Selection* (Forward)
 
 1. On commence par un modèle $\mathcal{M}_0$, c'est à dire avec constante seulement.
 2. On ajoute les variables $X_i$ une à une dans le modèle.
-3. On retient la variable avec la $p-value$ la plus faible.
+3. Parmi ces variables, on retient la variable **la plus significative** dans le modèle.
+4. On réitère la procédure jusqu'à atteindre un modèle contenant uniquement des variables significatives à un seuil spécifié.
 
-L’algorithme génétique
+:::{.fragment .fade-in}
+Package `{glmulti}` $-$ *Les algorithmes génétiques*
+:::
+- On les utilise quand le nombre de variables est très important.
 
-- On l’utilise quand le nombre de variables devient de plus en plus important et qu’une recherche exhaustive est impossible et une recherche pas à pas peut mener à une solution qui n’est pas tout à fait optimale.
+- Consiste à générer au hasard une population de solutions candidates pour ensuite leur permettre d’évoluer. Cette évolution se déroule de génération en génération.
 
-- Cette méthode est donc supposée trouver le meilleur modèle sans avoir besoin de calculer le critère à considérer sur tous les modèles possibles.
+- Permet de trouver le meilleur modèle en explorant seulement un sous-ensemble de modèles (de manière aléatoire) mais avec un biais vers de meilleurs modèles grâce à la sélection.
 
 **TODO : Liste parcimonieuse de variables qui sont déterminantes dans le niveau du prix.**
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
+:::{.notes}
+Avec 35 prédicteurs, le choix des variables *essentielles* à retenir est important.
+
+En effet, si on sélectionne trop de prédicteurs, on va faire de l'**OVERFITTING** !
+Le but est donc de trouver un ensemble optimal de variables.
+
+Deux approches heurisiques similaires (heuristique = élimine progressivement les alternatives) : Backward Elimination, Forward Selection.
+
+- On va décrire plus en détail la Forward Selection.
+
+**MAIS IL Y A PLUSIEURS PROBLEMES DANS CES METHODES** : 
+
+- La Forward & La Backward ne convergent pas tout le temps vers le même modèle.
+- Le modèle final n'est pas forcément optimal.
+
+Une autre approche consiste à faire une recherche exhaustive, c'est à dire d'explorer l'*ensemble* des modèles possibles.
+C'est une méthode tout à fait faisable quand il y a peu de prédicteurs (moins de 5-6) mais dès qu'il y en a plus on commence à avoir des millions de combinaisons de modèles possibles donc sauf si on veut rester 300 ans devant l'écran il faut oublier.
+
+Autre approche $\Rightarrow$ Les algorithmes génétiques. Contrairement à la stepwise selection qui est déterministe, les algorithmes génétiques sont eux stochastiques (ie. il y a un composant aléatoire)
+
+- On vous la présente parce que c'est cette méthode qu'on a utilisé pour sélectionner notre meilleur modèle
+:::
+
+## Sélection de variables (II) {.smaller}
+
+Variables importantes dans la détermination du prix :
+
+:::: {.columns}
+::: {.column width="50%"}
+- *ram* : RAM du téléphone
+- *storage* : Capacité de stockage
+- *brand* : Marque 
+- *made_in* : Lieu de fabrication
+- *screen_type* : Type d'écran
+- *screen_size* : Taille de l'écran
+:::
+
+::: {.column width="50%"}
+- *fast_charging* : Charge rapide
+- *upgrade_storage* : Carte SD
+- *induction* : Charge par induction
+- *das_limbs* : DAS membres
+- *das_head* : DAS tête
+- *repairability_index* : Indice de réparabilité
+:::
+::::
+
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
 
 ## References

@@ -4,6 +4,7 @@ library(leaps)
 library(tidyverse)
 library(glmulti)
 library(stargazer)
+library(FactoMineR)
 
 df_init <- read_delim("Web_Scraping/data/df_clean.csv", delim = ";")
 
@@ -35,15 +36,12 @@ print(results$adjr2)
 
 plot(sub, scale = "adjr2")
 
-res2 <- glmulti(price ~ ., data = df_phones, level = 1, method = "g", fitfunction = lm, crit = "bic")
-
-res_2 <- summary(res2)
-print(res_2)
-
-f <- res_2$bestmodel
-
-level_linreg <- lm(f, data = df_phones)
-# level_linreg <- lm(price ~ screen_type + das_limbs + das_head + upgrade_storage + screen_size + fast_charging + repairability_index + made_in + ram + storage + brand + induction, data = df_phones)
+# res2 <- glmulti(price ~ ., data = df_phones, level = 1, method = "g", fitfunction = lm, crit = "bic")
+# res_2 <- summary(res2)
+# print(res_2)
+# f <- res_2$bestmodel
+# level_linreg <- lm(f, data = df_phones)
+level_linreg <- lm(price ~ screen_type + das_limbs + das_head + upgrade_storage + screen_size + fast_charging + repairability_index + made_in + ram + storage + brand + induction, data = df_phones)
 log_linreg <- lm(log(price) ~ screen_type + das_limbs + das_head + upgrade_storage + screen_size + fast_charging + repairability_index + made_in + ram + storage + brand + induction, data = df_phones)
 
 stargazer(level_linreg, log_linreg, type = "text")
@@ -63,7 +61,16 @@ qqnorm(df_phones$price, pch = 1, frame = FALSE)
 qqline(df_phones$price, col = "steelblue", lwd = 2)
 
 # le qqplot montre quant à lui que le prix ne suit pas une distribution normale
-plot(res2, type = "s")
+# plot(res2, type = "s")
+
+df_pca <- df_phones |> select(where(is.numeric))
+
+res_pca <- PCA(df_pca)
+
+print(res_pca$eig)
+
+plot(res_pca, choix = "var")
+
 
 # La valeur de l’importance d’une variable est égale à la somme des poids divisées
 # par les probabilités des modèles dans lesquels la variable apparaît.
