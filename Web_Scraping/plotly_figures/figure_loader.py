@@ -284,7 +284,7 @@ def hist_prices_loader(df: pl.DataFrame) -> go.Figure:
         data_frame=df,
         histnorm="probability density",
         title="Distribution des prix - fonction de densité de probabilité",
-        height=400,
+        height=375,
     )
     hist.update_layout(
         xaxis=dict(ticksuffix=" €"),

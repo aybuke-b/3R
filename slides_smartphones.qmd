@@ -511,6 +511,42 @@ Aussi, le prix moyen d'un smartphone dans l'étude est de 136,35 $. Note intére
 De plus, sur les 348 smartphones, 127, c'est à dire + d'un tiers, sont de la marque **QMOBILE**, une société Pakistanaise qui vend des smartphones à bas prix.
 :::
 
+## Effet de reputation {.smaller}
+
+@boistel2008
+
+**Objectif :** Analyser l'impact de la réputation sur les fonctions clés de l'entreprise et son intégration dans le management stratégique actuel.
+
+**Réputation et marketing**
+
+- Considéré comme une des « Gold Research Priorities » (une priorité majeure)
+- A une influence sur le comportement des consommateurs
+- Corrélation positive avec le prix
+- Avantage compétitif
+
+:::{.fragment .fade-in}
+$\Rightarrow$ La réputation d'entreprise : un impact **majeur** sur les ressources de l'entreprise
+:::
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
+:::{.notes}
+*Aybuké*
+
+- **Considéré comme une des priorités majeures** : La réputation est une ressource essentielle, reconnue comme une priorité de recherche par le Marketing Science Institute, et est considérée comme une ressource cruciale et intangible
+
+- **Influence le comportement des consommateurs**: La réputation impacte l'intention d'achat, la confiance envers les nouveaux produits et est liée à la satisfaction client. Elle agit comme une « garantie »
+
+- **Corrélation positive avec le prix** : Une meilleure réputation va permettre de fixer des prix + élevés et d'avoir un avantage sur les ventes par rapport à la concurrence. Ex : Toyota et GM forment une join-venture New United Motor Manufacturing Inc. La société a produit 2 voitures identiques Toyota Corrola et la GM’s Geo Prizm. La meilleure réputation de Toyota lui a permis de vendre 200 000 voitures à 11 100$ dans les années 90, contre seulement 80 000 véhicules à 10 700$ vendu pour GM.
+
+- **Avantage compétitif** : Une solide réputation permet de gagner un avantage compétitif sur le marché, voire un avantage concurrentiel, en attirant les clients et en se différenciant des concurrents.
+
+- **Limitation de la concurrence** : les produits ou services d'une entreprise réputée sont moins facilement remplaçables ou imitables en raison de la perception limitée des consommateurs (au lieu d’examiner les caractéristiques en détail, ils vont se fier à la marque, réputation, avis,…).
+:::
+
+
 ## Méthodologie
 
 :::: {.columns}
@@ -626,7 +662,13 @@ count_graph_loader(df).show()
 ```{python}
 #| fig-align: center
 hist_prices_loader(df).show()
+
+min_price = df.select("price").min().select(pl.col("price").round(2)).item()
+max_price = df.select("price").max().select(pl.col("price").round(2)).item()
+
+Markdown(f"- **Prix minimum** : *{min_price}* € | **Prix maximum** : *{max_price}* €")
 ```
+
 
 On peut tester l'`asymétrie` avec le coefficient d'asymétrie de *Pearson* : 
 
@@ -723,6 +765,12 @@ Autre approche $\Rightarrow$ Les algorithmes génétiques. Contrairement à la s
 
 ::: {.footer}
 --- Recherche, `Réalisation`, Restitution ---
+:::
+
+:::{.notes}
+*Aybuké*
+
+**DAS** = Débit d'Absorption Spécifique $\Rightarrow$ C'est le rayonnement électromagnétique qui est absorbé par le corps lorsqu'on utilise un smartphone.
 :::
 
 ## References
