@@ -14,21 +14,6 @@ Dans les modèles paramétriques, il faut choisir les distributions:
 
 ---------------
 
-Commentaires sur la slide 17 : 
-
-effet marque => effet de réputation à mentionner ? 
-peut etre des questions d'analyse de la concurrence ?
-
-https://www.cairn.info/revue-management-et-avenir-2008-3-page-9.htm
-
-Exemple de volkswagen : La golf etait vendue à des prix différents dans différents pays.
-
--------
-
-Faire du scraping la semaine du Black Friday, ça pourrait etre intéressant.
-
----
-
 Analyse de données exploratoire --> ACP ou t-SNE
 
 ----
