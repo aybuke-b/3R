@@ -285,12 +285,11 @@ La SFA (`Stochastic Frontier Analysis`) est une méthode paramétrique : elle re
 Différence entre les méthodes paramétriques et non-paramétriques :
 
 - Il faut donc choisir la distribution que vont suivre les termes d'erreurs $u_i$
-    - Distribution **semi-noramale**
+    - Distribution **semi-normale**
     - Distribution **normale tronquée**
 
 - Dans les méthodes non paramétriques comme la `DEA`, la structure du modèle n'est pas spécifiée à priori mais est déterminée à partir des données.
 
-- Pour les $v_i$ : chaque producteur est face à des chocs différents, mais on fait l'hypothèse que les chocs sont aléatoires et décrits par une distribution commune. 
 :::
 
 
@@ -448,17 +447,20 @@ smartphone_graph_loader().show(config={"displayModeBar": False})
 
 Depuis l'apparition des téléphones mobiles au début des années 1990, de nombreuses innovations technologiques ont ajouté des caractéristiques rendant ces téléphones de plus en plus polyvalents :
 
+Cette chronologie présente en X les années et les rectangles des différentes catégories correspondent à des débuts et des fins de commercialisation. L'axe Y ne représente rien de particulier, il est juste là pour améliorer la lisibilité.
+
 - *Nokia 1011* : Premier écran LCD
 - *IBM Simon* : Premier véritable smartphone avec stylet, échec commercial
-- *Motorola StarTAC* : Téléphone le plus léger et compact de l'époque (<100 grammes)
 - *Nokia 3210* : Un des téléphones les plus vendus au monde - il intègre les SMS et plusieurs jeux
 - *Sharp J-SH04* : Premier Téléphone équipé d'un appareil photo intégré (capteur à l'arrière)
-- *Blackberry Quark* : Au début des années 2000 et jusqu'en 2010, Blackberry est leader avec 20% de parts de marché à son apogée, même après l'apparition de l'Iphone - les téléphones BlackBerry ont un clavier complet et peuvent ouvrir de nombreux fichiers.
-- *Apple Iphone* : En 2007, l'iPhone va bouleverser le marché des téléphones mobiles - la frontière entre téléphone et ordinateur s'amincit.
-- *HTC Dream* : Un an après la sortie de l'iPhone, les constructeurs bataillent pour le concurrencer - HTC est est le premier constructeur à intégrer Android OS. Il reste un entre-deux ~ il a un clavier et un écran tactile. 
-- *Apple Iphone 4* : Premier smartphone avec une caméra frontale, appareil photo de 5mpx et espace de stockage de 32 Go
+- *Blackberry Quark* : Au début des années 2000 et jusqu'en 2010, Blackberry est leader sur le marché de la téléphonie mobile avec 20% de parts de marché à son apogée, même après l'apparition de l'Iphone - les téléphones BlackBerry ont un clavier complet et peuvent ouvrir de nombreux fichiers.
+- *Apple Iphone* : En 2007, Apple sort l'iPhone qui va bouleverser le marché des téléphones mobiles en intégrant un écran tactile multitouch - un des avantages c'est que ça va permettre d'accélérer le développement d'applications mobiles puisque le verrou du clavier saute.
+- *HTC Dream* : Un an après la sortie de l'iPhone, les constructeurs bataillent pour le concurrencer - HTC est le premier constructeur à intégrer Android OS. Il reste un entre-deux ~ il a un clavier et un écran tactile. 
+- *Apple Iphone 4* : Premier smartphone avec une caméra frontale et un espace de stockage de 32 Go
 - *Samsung Galaxy S* : Avec le Galaxy S, Samsung concurrence Apple et sort un téléphone meilleur en tout point : écran plus grand, possibilité d'augmenter le stockage, meilleur cpu et meilleure batterie.
 - Etc.
+
+$\Rightarrow$ Si j'ai mentionné tout ça, c'est précisément parce que toutes ces innovations vont avoir un impact dans les caractéristiques les plus valorisées par les consommateurs.
 
 ***
 
@@ -504,9 +506,9 @@ Plus précisément, les résultats indiquent que les fabricants doivent se conce
 - compatible avec la 4G
 - avec une caméra arrière de plus de 15 mégapixels
 
-Le Pakistan étant un pays en voie de développement, et l'étude datant de 2019, on peut s'attendre à trouver des résultats sensiblement différents dans nos données. 
+Le Pakistan étant un pays en voie de développement, et l'étude datant de 2019, on peut s'attendre à trouver des résultats très différents dans nos données. 
 
-Aussi, le prix moyen d'un smartphone dans l'étude est de 136,35 $. Note intéressante, l'**écart-type** du prix des smartphones est particulièrement elevé (181), c'est à dire que la dispersion en prix est très importante, ce qui confirme que les smartphones sont des biens hautement différenciés.
+Aussi, le prix moyen d'un smartphone dans l'étude est de 136,35 $. Note intéressante, l'**écart-type** du prix des smartphones est elevé (181), c'est à dire que la dispersion en prix est assez importante, ce qui confirme que les smartphones sont des biens différenciés.
 
 De plus, sur les 348 smartphones, 127, c'est à dire + d'un tiers, sont de la marque **QMOBILE**, une société Pakistanaise qui vend des smartphones à bas prix.
 :::
@@ -572,6 +574,8 @@ $\Rightarrow$ La réputation d'entreprise : un impact **majeur** sur les ressour
 
 :::{.notes}
 *Corentin*
+
+Après avoir fait une petite digression sur des sujets d'analyse de la concurrence, et avant de passer aux statistiques descriptives, on voulait vous décrire rapidement le processus de récupération de nos données (le bloc jaune) et le processus de modélisation (le bloc bleu). L'objectif final étant d'avoir une application qui permet aux consommateurs ou aux producteurs de comparer l'efficacité des smartphones en fonction de leurs caractéristiques et de leur indiquer quel est le meilleur choix.
 
 Le diagramme fonctionnel permet de comprendre comment interagissent les différents composants logiciels.
 
@@ -716,7 +720,7 @@ Avec 35 prédicteurs, le choix des variables *essentielles* à retenir est impor
 En effet, si on sélectionne trop de prédicteurs, on va faire de l'**OVERFITTING** !
 Le but est donc de trouver un ensemble optimal de variables.
 
-Deux approches heurisiques similaires (heuristique = élimine progressivement les alternatives) : Backward Elimination, Forward Selection.
+Traditionnellement, deux approches heurisiques similaires (heuristique = élimine progressivement les alternatives) : Backward Elimination, Forward Selection.
 
 - On va décrire plus en détail la Forward Selection.
 
@@ -771,6 +775,12 @@ Autre approche $\Rightarrow$ Les algorithmes génétiques. Contrairement à la s
 *Aybuké*
 
 **DAS** = Débit d'Absorption Spécifique $\Rightarrow$ C'est le rayonnement électromagnétique qui est absorbé par le corps lorsqu'on utilise un smartphone.
+
+*Corentin*
+
+On arrive donc à la fin de cette première partie de recherche et de réalisation du sujet. Il faut savoir qu'on a déjà des résultats pour les régressions hédoniques et de la SFA mais on a décidé des les garder pour plus tard.
+
+Si vous avez des questions, n'hésites pas !
 :::
 
 ## References
