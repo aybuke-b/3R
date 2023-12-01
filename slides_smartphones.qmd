@@ -95,6 +95,7 @@ exprime la relation entre la quantité de biens consommés et le niveau d'utilit
 1. Quand on achète un ordinateur, on ne l'achète pas uniquement pour le plaisir d'avoir un ordinateur, non ? On l'achète car on peut naviguer sur Internet avec, écrire ses cours, faire du python ou du R, regarder Netflix, etc.
 2. Exemple de la gourde
 3. Prenons deux boissons : le lait et le café. En consommant les biens séparemment, les caractéristiques retirées du lait peuvent être de la vitamine D et du calcium, tandis que pour le café les caractéristiques retirées peuvent être de la caféine et un boost le matin. Un café latte est quant à lui plus doux que le café et a une pointe de mousse de lait. En bref, les caractéristiques retirées du mélange sont différentes !
+
 :::
 
 ## Hedonic Pricing : aspect théorique (I)
@@ -160,15 +161,17 @@ $$\boxed{p(z) = p(z_1, z_2, \dots, z_n)}$$
 :::{.notes}
 *Corentin*
 
-Achat d'une seule unité de bien car historiquement, Rosen s'intéresse principalement aux biens durables.
-
-*Exemple de biens durables* : Machine à laver, voitures, smartphones...
+Achat d'une seule unité de bien car historiquement, Rosen s'intéresse principalement aux biens durables (Machine à laver, logements, voitures, smartphones...). Pourquoi ? C'est parce que c'est beaucoup plus simple d'obtenir des caractéristiques observables sur ces biens durables que sur des biens consommables.
 
 - Pour le **producteur**, la question est : quelle combinaison de caractéristiques lui permet de maximiser son profit ?
 - Pour le **consommateur**, la question est : quelle combinaison de caractéristiques lui rapporte le plus d'utilité sous contrainte budgétaire ?
 
 On aboutit à une relation fonctionnelle entre les caractéristiques des biens
 et leur prix, appelée fonction de prix hédonique $p(z)$.
+
+***
+
+Il n'en reste pas moins qu'il subsiste un problème indéniable : Ce qu'on aimerait réellement mesurer c'est le **service rendu par un produit** et non pas les caractéristiques de ce produit, et ça c'est complètement inobservable. Donc en bref il va falloir faire attention pour interpréter correctement les résultats des régressions.
 
 :::
 
@@ -223,6 +226,11 @@ $$y_i = f(x_i; \beta)$$
 
 :::{.notes}
 *Corentin*
+
+Avant de passer à une seconde partie théorique, c'est à dire les modèles SFA, on va faire une transition et ré-expliquer ce qu'est une fonction de production.
+
+**Si vous ne voyez pas le rapport pour l'instant entre le modèle de Pricing Hedonic et la SFA pour l'instant, pas d'inquiétude, on va réunir ces 2 modèles plus tard.**
+
 $f(x_i; \beta)$ est en fait la frontière de production. Pour l'instant elle ne prend pas en compte l'efficacité technique $TE_i$ et elle n'est pas *stochastique* car elle n'inclut pas de terme aléatoire.
 :::
 
@@ -460,7 +468,9 @@ Cette chronologie présente en X les années et les rectangles des différentes 
 - *Samsung Galaxy S* : Avec le Galaxy S, Samsung concurrence Apple et sort un téléphone meilleur en tout point : écran plus grand, possibilité d'augmenter le stockage, meilleur cpu et meilleure batterie.
 - Etc.
 
-$\Rightarrow$ Si j'ai mentionné tout ça, c'est précisément parce que toutes ces innovations vont avoir un impact dans les caractéristiques les plus valorisées par les consommateurs.
+$\Rightarrow$ Si j'ai mentionné tout ça, c'est précisément parce que toutes ces innovations vont avoir un impact dans les caractéristiques les plus valorisées par les consommateurs. Par exemple, on a du mal à imaginer acheter un téléphone sans capteur de caméra frontale et arrière et qui serait incapable d'envoyer des SMS.
+
+Cette slide permet d'ailleurs d'évoquer une des limites majeures des modèles de pricing hédoniques qu'on va faire. Comment est ce qu'on va pouvoir modéliser l'arrivée d'une nouvelle caractéristique ? On ne peut pas trouver dans le passé quelle va être la valorisation de cette nouvelle caractéristique. C'est particulièrement parlant si on prend l'exemple d'Apple avec l'iPhone, si on avait fait un modèle de régression des prix hédoniques juste avant la sortie de l'iPhone on aurait probablement trouvé que BlackBerry était la marque la plus valorisée et qu'il faut augmenter la taille du téléphone pour lui permettre d'avoir un plus grand clavier. 2 mois plus tard, tout ça tombe à l'eau à cause d'une innovation technologique.
 
 ***
 
@@ -536,6 +546,8 @@ $\Rightarrow$ La réputation d'entreprise : un impact **majeur** sur les ressour
 
 :::{.notes}
 *Aybuké*
+
+On l'a vu à la slide précédente dans nos résultats, mais la marque a un effet statistiquement significatif sur le prix des smartphones, c'est pourquoi on va explorer rapidement des questions d'analyse de la concurrence qu'on peut relier à notre sujet.
 
 - **Considéré comme une des priorités majeures** : La réputation est une ressource essentielle, reconnue comme une priorité de recherche par le Marketing Science Institute, et est considérée comme une ressource cruciale et intangible
 
@@ -704,7 +716,7 @@ Package `{glmulti}` $-$ *Les algorithmes génétiques*
 :::
 - On les utilise quand le nombre de variables est très important.
 
-- Consiste à générer au hasard une population de solutions candidates pour ensuite leur permettre d’évoluer. Cette évolution se déroule de génération en génération.
+- Consiste à générer au hasard une population de modèles candidats pour ensuite leur permettre d’évoluer. Cette évolution se déroule de génération en génération.
 
 - Permet de trouver le meilleur modèle en explorant seulement un sous-ensemble de modèles (de manière aléatoire) mais avec un biais vers de meilleurs modèles grâce à la sélection.
 
@@ -715,7 +727,9 @@ Package `{glmulti}` $-$ *Les algorithmes génétiques*
 :::{.notes}
 *Corentin*
 
-Avec 35 prédicteurs, le choix des variables *essentielles* à retenir est important.
+**On va maintenant chercher les liens statistiques existants entre les prix et les caractéristiques des smartphones avec des régressions.**
+
+Sauf qu'avec 35 prédicteurs, le choix des variables *essentielles* à retenir est important. Donc la première question qui se pose est celle de la sélection de variables.
 
 En effet, si on sélectionne trop de prédicteurs, on va faire de l'**OVERFITTING** !
 Le but est donc de trouver un ensemble optimal de variables.
@@ -726,14 +740,15 @@ Traditionnellement, deux approches heurisiques similaires (heuristique = élimin
 
 **MAIS IL Y A PLUSIEURS PROBLEMES DANS CES METHODES** : 
 
-- La Forward & La Backward ne convergent pas tout le temps vers le même modèle.
+- La Forward & La Backward ne convergent pas tout le temps vers le même modèle. (Par exemple, parfois on avait la variable network (4G, 5G) qui était retenue, parfois non).
 - Le modèle final n'est pas forcément optimal.
 
-Une autre approche consiste à faire une recherche exhaustive, c'est à dire d'explorer l'*ensemble* des modèles possibles.
-C'est une méthode tout à fait faisable quand il y a peu de prédicteurs (moins de 5-6) mais dès qu'il y en a plus on commence à avoir des millions de combinaisons de modèles possibles donc sauf si on veut rester 300 ans devant l'écran il faut oublier.
+Une autre approche possible et qui permet de pallier à ces problèmes consiste à faire une recherche exhaustive, c'est à dire d'explorer l'*ensemble* des modèles possibles.
+C'est une méthode tout à fait faisable quand il y a peu de prédicteurs (moins de 5-6) mais dès qu'il y en a plus on commence à avoir des millions voire des milliards de combinaisons de modèles possibles donc sauf si on veut rester 300 ans devant l'écran il faut oublier.
 
-Autre approche $\Rightarrow$ Les algorithmes génétiques. Contrairement à la stepwise selection qui est déterministe, les algorithmes génétiques sont eux stochastiques (ie. il y a un composant aléatoire)
+Autre approche plus moderne $\Rightarrow$ Les algorithmes génétiques. Contrairement à la stepwise selection qui est déterministe, les algorithmes génétiques sont eux stochastiques (ie. il y a un composant aléatoire)
 
+- On peut s'intéresser à plusieurs critères qu'on connait tous : le $R^2$, le $R^2$ ajusté, l'$AIC$, le $BIC$, etc.
 - On vous la présente parce que c'est cette méthode qu'on a utilisé pour sélectionner notre meilleur modèle
 :::
 
@@ -778,9 +793,9 @@ Autre approche $\Rightarrow$ Les algorithmes génétiques. Contrairement à la s
 
 *Corentin*
 
-On arrive donc à la fin de cette première partie de recherche et de réalisation du sujet. Il faut savoir qu'on a déjà des résultats pour les régressions hédoniques et de la SFA mais on a décidé des les garder pour plus tard.
+On arrive donc à la fin de cette première partie de recherche et de réalisation du sujet. Il faut savoir qu'on a déjà des résultats pour les régressions hédoniques et de la SFA mais on a décidé des les garder pour plus tard, sans oublier que l'objectif final c'est la création d'un **outil ergonomique d'aide à la décision pour l'acheteur et le vendeur**. L'intérêt c'est que c'est plus élaboré que de simples comparateurs de prix qu'on a l'habitude de voir.
 
-Si vous avez des questions, n'hésites pas !
+Si vous avez des questions, n'hésitez pas !
 :::
 
 ## References
