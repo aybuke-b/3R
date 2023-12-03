@@ -1,0 +1,187 @@
+---
+title: "**Application des modèles SFA à l'étude des prix**"
+author: "*Aybuke BICAT* & *Corentin DUCLOUX*"
+subtitle: "--- Recherche, Réalisation, Restitution ---"
+lang: fr
+date: today
+date-format: long
+execute :
+    echo: false
+    warning: false
+format:
+    pdf:
+        toc: true
+        include-in-header: 
+        - "config.tex"
+        include-before-body:
+            text: | 
+                %% Style the page number
+                \fancypagestyle{mystyle}{
+                %\fancyhf{}
+                \fancyfootoffset{3.5cm}
+                }
+                \setlength{\footskip}{20pt}
+        colorlinks: true
+        linkcolor: highlight
+        urlcolor: highlight
+        keep-tex: false
+        bibliography: references.bib
+        reference-location: document
+---
+
+```{r imports}
+#| echo: false
+library(tidyverse)
+library(extrafont)
+```
+
+```{r colors}
+#| echo: false
+darkgray <- "#393E46"
+```
+
+# Introduction
+
+## Un prix
+
+En tant que consommateur, nous nous retrouvons souvent face à une question infiniment plus complexe qu'elle n'en a l'air. En des termes simples, elle se traduit par : Pourquoi ce prix ? Pour quelle raison ce stylo, cette nouvelle télévision, ou ce smartphone coûte tant ? Est-ce une là une simple question 
+
+Comment modéliser l'utilité ? par le service rendu ? par les caractéristiques ?
+
+
+## test
+
+Here is a footnote reference,[^1]
+
+[^1]: Here is the footnote <https://corentinducloux.fr>
+
+- un petit `test`
+- des puces [^2]
+
+[^2]: `Quarto` : open-source scientific and technical publishing system
+
+du latex $\dfrac{2}{x} = 5$
+
+> Un test comme ça qui est très long et qui fait 2,3 lignes assez longues on va tester le débordement tetsjeelfnezfejfhezozhhhfezuoueeeeeeeeeeee
+
+```{r}
+2 + 2
+```
+
+# Revue de la littérature
+
+## Une nouvelle approche de la théorie du consommateur
+
+En microéconomie, dans la théorie du consommateur *classique*, le choix du meilleur ensemble de consommation dépend des préférences d'un individu. Les préférences de cet individu sont classiquement représentées par la fonction d'utilité :
+
+$$
+U(x) = U(x_1, x_2, \dots, x_n)
+$$ {#eq-umax}
+
+*Avec $x_1, x_2, \dots, x_n$ un vecteur de $n$ biens.* L'@eq-umax exprime donc la relation entre la quantité de biens consommés et le niveau d'utilité que ces biens procurent à un agent. Dès lors, dans ce cadre, la consommation de biens procure **directement** de l'utilité à l'agent. En pratique pourtant, il est difficile de concevoir comment l'achat d'un bien comme une lampe ou un stylo peut nous apporter de l'utilité en tant que consommateur. 
+
+Pour répondre à cette difficulté, @lancaster1966, propose un nouveau cadre conceptuel théorique décrit par les hypothèses suivantes.
+
+:::{.callout-tip}
+
+## Hypothèses
+
+1. Le bien en lui même ne procure pas d'utilité au consommateur $\Rightarrow$ il possède des **caractéristiques** qui procurent de l'utilité.
+2. Un bien est un ensemble (*bundle*) de caractéristiques $-$ il possède le plus souvent de nombreuses caractéristiques.
+3. Une combinaison de biens peut posséder des caractéristiques différentes comparé à des biens consommés séparément.
+
+:::
+
+*Illustrons ces points avec quelques exemples* :
+
+- Un ordinateur n'est pas acheté pour le simple plaisir de posséder un ordinateur. On l'achète car il permet de naviguer sur Internet, écrire des cours, programmer, regarder une série, etc. On l'achète donc pour les services qu'il  nous rend, ce qui est modélisé ici par les caractéristiques possédées du bien.
+
+- Les biens possèdent généralement un grand nombre de caractéristiques. Prenons l'exemple d'une gourde : la couleur, la forme, les dimensions et la capacité isothermique sont autant de caractéristiques qui peuvent influer sur la décision d'achat.
+
+- En consommant du lait et du café séparemment, les caractéristiques retirées du lait sont de la vitamine D et du calcium, tandis que pour le café les caractéristiques retirées sont de la caféine, une boisson chaude, un *"boost"* le matin. En revanche, consommer un café latte permettra d'obtenir une boisson plus douce, moins cafféiné, un goût différent. En bref, on aperçoit bien en quelle mesure les caractéristiques retirées du mélange sont différentes.
+
+Dans le modèle de Lancaster il existe une relation **linéaire** entre les prix des biens et leurs caractéristiques. **DEVELOPPER POURQUOI??**
+
+## Pricing Hédonique
+
+@rosen1974 étend ce qui a été apporté par le cadre théorique de @lancaster1966. La différence entre eux est que Rosen s'intéresse à **l’équilibre de marché de biens différenciés**, (là où Lancaster s'intéresse uniquement à la demande) avec : 
+
+- un continuum de biens du côté de l’offre,
+
+- un continuum de consommateurs hétérogènes du côté de la demande.
+
+
+L'objet de sa contribution est d'étudier un bien différencié $z$ décrit par le vecteur de ses $n$ caractéristiques mesurables tel que : 
+
+$$
+z = (z_1, z_2, \dots, z_n)
+$$ {#eq-hedonic} 
+
+Afin de comprendre pourquoi il est important d'étudier des biens différenciés dans ce cadre, regardons en détail le graphique suivant.
+
+```{r hedonic_example}
+#| label: fig-hedonic
+#| fig-align: center
+#| fig-cap: "Plan $(z_1, z_2)$ de différents biens avec 2 caractéristiques."
+
+## note ===> changer la palette du graph, elle est ignoble là
+## note 2 ===> changer le "figure:" et le personnaliser.
+hedonic_graph_loader <- function() {
+    set.seed(43)
+    num_points <- 6
+    x <- sample(0:10, num_points, replace = TRUE)
+    y <- sample(0:10, num_points, replace = TRUE)
+    produits <- c("bien 1", "bien 2", "bien 3", "bien 4", "bien 5", "bien 6")
+
+    data <- data.frame(x = x, y = y, produits = factor(produits))
+
+    plot <- ggplot(data, aes(x = x, y = y, color = produits)) +
+        geom_point(size = 4) +
+        labs(
+            x = expression(z[1]), y = expression(z[2])
+        ) +
+        theme(
+            text = element_text(family = "Garamond"),
+            legend.title = element_blank(),
+            legend.text = element_text(color = darkgray),
+        )
+    return(plot)
+}
+graph <- hedonic_graph_loader()
+print(graph)
+```
+
+On est habitué à représenter les préférences des consommateurs en termes de quantités de biens $x_1, x_2$. Ici, on assite à un changement de paradigme : on va représenter les préférences des consommateurs en termes de caractéristiques de biens, c'est à dire dans l'espace $z_1, z_2$ (on choisit de prendre seulement 2 caractéristiques et 6 biens pour simplifier).
+
+On peut en déduire que les consommateurs achetant le *bien 5* valorisent plus les caractéristiques $z_1$ que $z_2$, et inversement pour le *bien 4*.
+
+*En fait, la différenciation horizontale et verticale des produits implique qu'une vaste gamme de paniers est disponible dans cet espace de consommation !*
+
+- **Différenciation Horizontale** $\Rightarrow$ A prix donné, il n'y a pas unanimité dans le choix des consommateurs entre 2 biens (jaune et rouge) : ce sont des différences de goûts.
+
+- **Différenciation Verticale** $\Rightarrow$ A prix donné, il y a unanimité dans le choix des consommateurs entre 2 voitures biens : l'un est meilleur que l'autre.
+
+Il faut aussi noter que dans le modèle de Rosen, le consommateur n'achète qu'**une seule** unité de bien qui est une combinaison d'attributs $z_1, z_2, \dots, z_n$. Historiquement, cela s'explique car Rosen s'intéresse principalement aux biens durables (logements, voitures, smartphones...). Il est en effet beaucoup plus simple d'obtenir des caractéristiques observables sur ces biens durables : que ce soit le nombre de pièces pour un logement, la superficie, ou bien la puissance et la longueur d'une voiture.
+
+De toutes ces informations, on peut formuler 2 questions.
+
+- Pour le **producteur**, quelle combinaison de caractéristiques lui permet de maximiser son profit ?
+- Pour le **consommateur**, quelle combinaison de caractéristiques lui rapporte le plus d'utilité sous contrainte budgétaire ?
+
+On aboutit à une relation fonctionnelle entre les caractéristiques des biens
+et leur prix, appelée fonction de prix hédonique $p(z)$.
+
+$$
+\boxed{p(z) = p(z_1, z_2, \dots, z_n)}
+$$ {#eq-price}
+
+Un prix est donc défini en chaque point du plan et guide les choix de localisation des consommateurs et des producteurs concernant les ensembles de caractéristiques achetés et vendus.
+
+::: {.callout-warning}
+
+## Limites
+
+Il n'en reste pas moins qu'il subsiste un problème indéniable : ce qu'on aimerait réellement mesurer c'est le **service rendu par un produit** et non pas les caractéristiques de ce produit. Mais ce premier est complètement inobservable. Un défi est donc de faire attention pour interpréter correctement les résultats des régressions.
+:::
+
+\newpage

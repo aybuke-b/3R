@@ -1,0 +1,45 @@
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage{fontspec}
+\usepackage{titlesec}
+\usepackage{kpfonts}
+\usepackage[most]{tcolorbox}
+
+%% Set page size with a wider right margin
+\geometry{a4paper, total={170mm,257mm}, left=15mm, top=15mm, bottom=15mm, right=45mm}
+
+%% Let's define some colours
+\definecolor{light}{HTML}{EEEEEE}
+\definecolor{highlight}{HTML}{FFD369}
+\definecolor{dark}{HTML}{393E46}
+\definecolor{titles}{HTML}{222831}
+\definecolor{StackOgray}{HTML}{e3e6e8}
+
+%% Let's add the border on the right hand side 
+\AddToShipoutPicture{% 
+    \AtPageLowerLeft{% 
+        \put(\LenToUnit{\dimexpr\paperwidth-3cm},0){% 
+            \color{light}\rule{3cm}{\LenToUnit\paperheight}%
+          }%
+     }%
+     % logo
+    \AtPageLowerLeft{% start the bar at the bottom right of the page
+        \put(\LenToUnit{\dimexpr\paperwidth-2.25cm},27.2cm){% move it to the top right
+            \color{light}\includegraphics[width=1.5cm]{imgs/mecen_transparent.png}
+          }%
+     }%
+}
+
+
+%% style the chapter/section fonts
+\chapterfont{\color{titles}\fontsize{20}{16.8}\selectfont}
+\sectionfont{\color{titles}\fontsize{20}{16.8}\selectfont}
+\subsectionfont{\color{titles}\fontsize{14}{16.8}\selectfont}
+\titleformat{\subsection}
+    {\sffamily\Large\bfseries}{\thesection}{1em}{}[{\titlerule[0.5pt]}]
+
+
+\renewcommand{\texttt}[1]{\colorbox{light}{\color{dark}{\ttfamily{#1}}}}
