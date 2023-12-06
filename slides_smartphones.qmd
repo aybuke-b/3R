@@ -470,7 +470,9 @@ Cette chronologie présente en X les années et les rectangles des différentes 
 
 $\Rightarrow$ Si j'ai mentionné tout ça, c'est précisément parce que toutes ces innovations vont avoir un impact dans les caractéristiques les plus valorisées par les consommateurs. Par exemple, on a du mal à imaginer acheter un téléphone sans capteur de caméra frontale et arrière et qui serait incapable d'envoyer des SMS.
 
-Cette slide permet d'ailleurs d'évoquer une des limites majeures des modèles de pricing hédoniques qu'on va faire. Comment est ce qu'on va pouvoir modéliser l'arrivée d'une nouvelle caractéristique ? On ne peut pas trouver dans le passé quelle va être la valorisation de cette nouvelle caractéristique. C'est particulièrement parlant si on prend l'exemple d'Apple avec l'iPhone, si on avait fait un modèle de régression des prix hédoniques juste avant la sortie de l'iPhone on aurait probablement trouvé que BlackBerry était la marque la plus valorisée et qu'il faut augmenter la taille du téléphone pour lui permettre d'avoir un plus grand clavier. 2 mois plus tard, tout ça tombe à l'eau à cause d'une innovation technologique.
+Cette slide permet d'ailleurs d'évoquer une des limites majeures des modèles de pricing hédoniques qu'on va faire. Comment est ce qu'on va pouvoir modéliser l'arrivée d'une nouvelle caractéristique ? On ne peut pas trouver dans le passé quelle va être la valorisation de cette nouvelle caractéristique. 
+
+C'est particulièrement parlant si on prend l'exemple d'Apple avec l'iPhone, si on avait fait un modèle de régression des prix hédoniques juste avant la sortie de l'iPhone on aurait probablement trouvé que BlackBerry était la marque la plus valorisée et qu'il faut augmenter la taille du téléphone pour lui permettre d'avoir un plus grand clavier. 2 mois plus tard, tout ça tombe à l'eau à cause d'une innovation technologique.
 
 ***
 
@@ -531,7 +533,7 @@ De plus, sur les 348 smartphones, 127, c'est à dire + d'un tiers, sont de la ma
 
 **Réputation et marketing**
 
-- Considéré comme une des « Gold Research Priorities » (une priorité majeure)
+- Considéré comme une priorité majeure
 - A une influence sur le comportement des consommateurs
 - Corrélation positive avec le prix
 - Avantage compétitif
@@ -799,3 +801,41 @@ Si vous avez des questions, n'hésitez pas !
 :::
 
 ## References
+
+:::{.notes}
+**QUESTIONS**
+
+**Slide** $7)$ Dommages marginaux ?
+
+*Aybuke*
+
+**Slide** $9)$ C'est quoi une fonction de production moyenne ?
+
+Une fonction de production moyenne c'est **la production totale (outputs) divisée par le nombre total d'inputs utilisés** - en sachant que les inputs utilisés peuvent être du $K$ (capital) ou du $L$ (labour), par exemple.
+
+**Slide** $10)$ A quoi ressemblent les distributions semi-normale et normale tronquée ?
+
+Si les $u_i$ ont la même distribution que les $v_i$, c'est à dire une distribution normale d'éspérance 0, les $u_i$ vont être aussi considérés comme des chocs aléatoires. Il faut que ces $u_i$ aient une distribution différente.
+
+**Slide** $23)$ Qu'est ce qu'une génération dans les algo. génétiques ?
+
+Chaque génération représente une population de modèles potentiels
+
+Ensuite, les modèles les mieux adaptés sont sélectionnés pour créer la prochaine génération. En fait une génération c'est une population de modèles candidats dans notre cadre.
+
+**Slide** $23)$ Quel critère utilisé dans l'algo. génétique utilisé ?
+
+Evidemment on a pas utilisé le $R^2$ car il augmente mécaniquement avec l'introduction de nouvelles variables même quand elles sont très peu corrélées avec le prix.
+
+le BIC car il est plus parcimonieux que l'AIC $\Rightarrow$ pénalise
+plus le nombre de variables présentent dans le modèle. L'intêrét c'est d'éviter d'avoir trop de variables.
+
+On aurait pu choisir un autre critère d'arrêt comme les $C_p$ de *Mallows*. Un $C_p$ plus faible indique généralement un meilleur compromis entre l'ajustement du modèle et sa complexité, ce qui suggère un modèle plus performant.
+
+
+**Pour plus tard dans le pdf**
+
+Note à garder sur le $R^2_{adj}$ $\Rightarrow$ Possibilité de comparer deux modèles n’ayant pas le même nombre de variables à l’aide du $R^2_{adj}$ et choisir le modèle pour lequel $R^2_{adj}$ est le plus grand.
+
+https://irma.math.unistra.fr/~fbertran/enseignement/Master1_2018_2/Master2Cours3.pdf
+:::

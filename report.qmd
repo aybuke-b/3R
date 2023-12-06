@@ -30,13 +30,11 @@ format:
 ---
 
 ```{r imports}
-#| echo: false
 library(tidyverse)
 library(extrafont)
 ```
 
 ```{r colors}
-#| echo: false
 darkgray <- "#393E46"
 ```
 
@@ -44,7 +42,7 @@ darkgray <- "#393E46"
 
 ## Un prix
 
-En tant que consommateur, nous nous retrouvons souvent face à une question infiniment plus complexe qu'elle n'en a l'air. En des termes simples, elle se traduit par : Pourquoi ce prix ? Pour quelle raison ce stylo, cette nouvelle télévision, ou ce smartphone coûte tant ? Est-ce une là une simple question 
+En tant que consommateur, nous nous retrouvons souvent face à une question infiniment plus complexe qu'elle n'en a l'air. En des termes simples, elle se traduit par : Pourquoi ce prix ? Pour quelle raison ce stylo, cette nouvelle télévision, ou ce smartphone coûte tant ? Est-ce une là une simple question de coût de production
 
 Comment modéliser l'utilité ? par le service rendu ? par les caractéristiques ?
 
@@ -65,6 +63,7 @@ du latex $\dfrac{2}{x} = 5$
 > Un test comme ça qui est très long et qui fait 2,3 lignes assez longues on va tester le débordement tetsjeelfnezfejfhezozhhhfezuoueeeeeeeeeeee
 
 ```{r}
+#| echo: true
 2 + 2
 ```
 
@@ -103,6 +102,8 @@ Pour répondre à cette difficulté, @lancaster1966, propose un nouveau cadre co
 Dans le modèle de Lancaster il existe une relation **linéaire** entre les prix des biens et leurs caractéristiques. **DEVELOPPER POURQUOI??**
 
 ## Pricing Hédonique
+
+### Aspects théoriques
 
 @rosen1974 étend ce qui a été apporté par le cadre théorique de @lancaster1966. La différence entre eux est que Rosen s'intéresse à **l’équilibre de marché de biens différenciés**, (là où Lancaster s'intéresse uniquement à la demande) avec : 
 
@@ -181,7 +182,69 @@ Un prix est donc défini en chaque point du plan et guide les choix de localisat
 
 ## Limites
 
-Il n'en reste pas moins qu'il subsiste un problème indéniable : ce qu'on aimerait réellement mesurer c'est le **service rendu par un produit** et non pas les caractéristiques de ce produit. Mais ce premier est complètement inobservable. Un défi est donc de faire attention pour interpréter correctement les résultats des régressions.
+Il n'en reste pas moins qu'il subsiste un problème indéniable : ce qu'on aimerait réellement mesurer c'est le **service rendu par un produit** et non pas les caractéristiques de ce produit. Mais ce premier est complètement inobservable. Un défi sera donc d'interpréter correctement les résultats des régressions.
 :::
+
+### Application
+
+@harrison1978 :
+
+**Objectif** : Examiner comment les données du marché immobilier peuvent être utilisées pour évaluer la *willingness-to-pay* des consommateurs pour une meilleure qualité de l'air.
+
+- Le modèle suppose que les ménages prennent en compte le niveau de pollution de l'air, la quantité et la qualité du logement et d'autres caractéristiques de quartier pour faire leur choix.
+
+- La fonction de la valeur hédonique du logement $p(h)$ traduit les attributs du logement en prix, et suppose que les consommateurs perçoivent avec précision ces attributs et que le marché est en équilibre à court terme.
+
+**Résultats** : Les dommages marginaux dus à la pollution augmentent avec le niveau de pollution de l'air et avec le niveau de revenu des ménages. \textcolor{red}{PRECISER DES RESULTATS, des tables, des régressions, la forme fonctionnelle utilisée ici, etc.}
+
+Pour finir, l'approche hédonique a été utilisée empiriquement dans de très nombreux domaines comme l'automobile, l'immobilier, etc. \textcolor{red}{DONNER DES EXEMPLES D'applications ici}
+
+De plus, La spécification *semi-log* est généralement préférée afin d'améliorer l'ajustement du modèle et de faciliter l'interprétation des coefficients @bello2010.
+
+## Fonction de production
+
+Avant de passer à l'explication de la seconde partie théorique, c'est à dire les modèles SFA, attardons-nous sur la définition d'une fonction de production, fondement important de la SFA. 
+
+:::{.callout-tip}
+
+## Rappel
+
+- Un processus de production représente la transformation d'inputs en outputs.
+
+- Dès lors, une fonction de production $f(.)$ donne la
+quantité maximum d’output $y_i$ pouvant être produite à partir de vecteurs d'inputs.
+
+:::
+
+$$
+y_i = f(x_i; \beta)
+$$ {#eq-prod}
+
+- Avec $x_i$ le vecteur d'inputs.
+- Avec $\beta$ le vecteur de paramètres inconnus à estimer.
+
+$f(x_i; \beta)$ est en fait la frontière de production. Pour l'instant cette frontière ne prend pas en compte l'efficacité technique $TE_i$ et elle n'est pas *stochastique* car elle n'inclut pas de terme aléatoire.
+
+## Le modèle SFA
+
+TODO: package d'acronyms à mettre en place.
+
+@aigner1977 :
+
+**Objectif** : Formulation et estimation de fonctions de frontière de production stochastique.
+
+$${\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}}$$
+
+- $TE_i$ représente l'efficacité technique, définie comme le ratio d'output observé sur l'output maximum réalisable, c'est à dire : $TE_i = \dfrac{y_i}{y_i^*}$.
+
+- Ils ajoutent aussi un composant **stochastique** ${\exp \left\{{v_{i}}\right\}}$ qui représente les chocs aléatoires affectant la production. La fonction de production devient alors :
+
+$$\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i}}\right\}}}$$
+
+Avant les travaux de `Aigner`, les économètres utilisaient uniquement de fonctions de production moyennes, autrement dit la formulation théorique était différente de la mise en pratique.
+
+- On repart de la fonction de production présentée à la slide précédente, mais on lui ajoute un terme multiplicatif $TE_i$.
+
+- Si $TE_i = 1$ alors la firme $i$ produit l'output maximum réalisable, alors que si $TE_i < 1$, il existe un écart entre l'output maximum et l'output effectivement observé.
 
 \newpage

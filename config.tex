@@ -3,6 +3,7 @@
 \usepackage{eso-pic}
 \usepackage{fancyhdr}
 \usepackage{sectsty}
+\usepackage{caption}
 \usepackage{fontspec}
 \usepackage{titlesec}
 \usepackage{kpfonts}
@@ -23,14 +24,14 @@
     \AtPageLowerLeft{% 
         \put(\LenToUnit{\dimexpr\paperwidth-3cm},0){% 
             \color{light}\rule{3cm}{\LenToUnit\paperheight}%
-          }%
-     }%
-     % logo
+        }%
+    }%
+    % logo
     \AtPageLowerLeft{% start the bar at the bottom right of the page
         \put(\LenToUnit{\dimexpr\paperwidth-2.25cm},27.2cm){% move it to the top right
             \color{light}\includegraphics[width=1.5cm]{imgs/mecen_transparent.png}
-          }%
-     }%
+        }%
+    }%
 }
 
 
@@ -42,4 +43,9 @@
     {\sffamily\Large\bfseries}{\thesection}{1em}{}[{\titlerule[0.5pt]}]
 
 
+%% style the `text` command
 \renewcommand{\texttt}[1]{\colorbox{light}{\color{dark}{\ttfamily{#1}}}}
+
+%% Custom figure Caption
+\DeclareCaptionFormat{myformat}{\textcolor{dark}{\textbf{Figure \thefigure} $-$ }\ #3}
+\captionsetup[figure]{format=myformat}
