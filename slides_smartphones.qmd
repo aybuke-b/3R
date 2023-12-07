@@ -817,6 +817,12 @@ Une fonction de production moyenne c'est **la production totale (outputs) divis�
 
 Si les $u_i$ ont la même distribution que les $v_i$, c'est à dire une distribution normale d'éspérance 0, les $u_i$ vont être aussi considérés comme des chocs aléatoires. Il faut que ces $u_i$ aient une distribution différente.
 
+**Slide** $22)$ Qu'est ce que le coef. d'asymétrie ?
+
+- C'est un coef d'asymétrie de médiane. (La moyenne - la médiane) sur l'écart type.
+
+On aurait pu aussi utiliser le coef. de *Yule* pour mesurer l'asymétrie avec des quartiles.
+
 **Slide** $23)$ Qu'est ce qu'une génération dans les algo. génétiques ?
 
 Chaque génération représente une population de modèles potentiels
