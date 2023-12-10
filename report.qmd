@@ -1,33 +1,31 @@
 ---
-title: "**Application des modèles SFA à l'étude des prix**"
-author: "*Aybuke BICAT* & *Corentin DUCLOUX*"
-subtitle: "--- Recherche, Réalisation, Restitution ---"
+title: \Huge \textbf{\textsf{Application des modèles SFA\\ à l'étude des prix}} \vspace{5em}
+author: \textit{Corentin DUCLOUX} et \textit{Aybuké BICAT} \vspace{2em}
 lang: fr
 date: today
+from: emoji
 date-format: long
+documentclass: report
 execute :
     echo: false
     warning: false
 format:
     pdf:
         toc: true
-        include-in-header: 
+        include-in-header:
         - "config.tex"
-        include-before-body:
-            text: | 
-                %% Style the page number
-                \fancypagestyle{mystyle}{
-                %\fancyhf{}
-                \fancyfootoffset{3.5cm}
-                }
-                \setlength{\footskip}{20pt}
         colorlinks: true
         linkcolor: highlight
         urlcolor: highlight
         keep-tex: false
         bibliography: references.bib
         reference-location: document
+        link-citations: true
+        fontsize: 12pt
+        pdf-engine: lualatex
 ---
+
+\newpage
 
 ```{r imports}
 library(tidyverse)
@@ -38,6 +36,19 @@ library(extrafont)
 darkgray <- "#393E46"
 ```
 
+# Remerciements
+
+Nous tenions à remercier chaleureusement Monsieur [*Alain BOUSQUET*](https://fr.linkedin.com/in/alain-bousquet-95466769) pour son accompagnement tout au long de ce projet **3R**, qui a toujours été ouvert à l'exploration de nouveaux sujets, à l'expérimentation, et nous a encouragé à creuser diverses pistes de réflexion. Ce sujet a été et sera pour nous l'occasion de mettre en pratique l'ensemble des connaissances acquises dans notre cursus universitaire (microéconomie, économétrie, statistiques, analyse de la concurrence, pricing, développement logiciel sous \faIcon{r-project} et `python` \faIcon{python}) sur une problématique éminemment appliquée.
+
+\macrostars
+
+\vspace{35em}
+
+*Note* : Ce document PDF a été entièrement rédigé en utilisant `Quarto`[^1], combinant la puissance et la versatilité de R, Python, et \LaTeX. Une présentation interactive `reveal.js` du sujet est aussi disponible.[^2]
+
+[^1]: `Quarto` : Système de publication technique et scientifique *open-source* $\Rightarrow$ <https://quarto.org/>.
+[^2]: Retrouvez la présentation sur <https://corentinducloux.fr>.
+
 # Introduction
 
 ## Un prix
@@ -47,16 +58,10 @@ En tant que consommateur, nous nous retrouvons souvent face à une question infi
 Comment modéliser l'utilité ? par le service rendu ? par les caractéristiques ?
 
 
-## test
-
-Here is a footnote reference,[^1]
-
-[^1]: Here is the footnote <https://corentinducloux.fr>
+## Partie 2 de l'intro
 
 - un petit `test`
-- des puces [^2]
 
-[^2]: `Quarto` : open-source scientific and technical publishing system
 
 du latex $\dfrac{2}{x} = 5$
 
@@ -93,26 +98,27 @@ Pour répondre à cette difficulté, @lancaster1966, propose un nouveau cadre co
 
 *Illustrons ces points avec quelques exemples* :
 
-- Un ordinateur n'est pas acheté pour le simple plaisir de posséder un ordinateur. On l'achète car il permet de naviguer sur Internet, écrire des cours, programmer, regarder une série, etc. On l'achète donc pour les services qu'il  nous rend, ce qui est modélisé ici par les caractéristiques possédées du bien.
+- Un ordinateur n'est pas acheté pour le simple plaisir de posséder un ordinateur. Il est acheté car il permet de naviguer sur Internet, écrire des cours, programmer, regarder une série, etc. C'est donc pour les **services qu'il  nous rend**, ce qui est modélisé ici par les caractéristiques possédées du bien.
 
 - Les biens possèdent généralement un grand nombre de caractéristiques. Prenons l'exemple d'une gourde : la couleur, la forme, les dimensions et la capacité isothermique sont autant de caractéristiques qui peuvent influer sur la décision d'achat.
 
-- En consommant du lait et du café séparemment, les caractéristiques retirées du lait sont de la vitamine D et du calcium, tandis que pour le café les caractéristiques retirées sont de la caféine, une boisson chaude, un *"boost"* le matin. En revanche, consommer un café latte permettra d'obtenir une boisson plus douce, moins cafféiné, un goût différent. En bref, on aperçoit bien en quelle mesure les caractéristiques retirées du mélange sont différentes.
+- En consommant du lait et du café séparemment, les caractéristiques retirées du lait sont de la vitamine D et du calcium, tandis que pour le café les caractéristiques retirées sont de la caféine, une boisson chaude, un *"boost"* le matin. En revanche, consommer un café latte permettra d'obtenir une boisson plus douce, moins cafféiné, un goût différent. En bref, les caractéristiques retirées du mélange sont différentes.
 
-Dans le modèle de Lancaster il existe une relation **linéaire** entre les prix des biens et leurs caractéristiques. **DEVELOPPER POURQUOI??**
+Dans le modèle de Lancaster il existe une relation **linéaire** entre les prix des biens et leurs caractéristiques. Le prix total  $p$ d'un bien peut donc être considéré comme la somme des prix individuels associé à chaque caractéristique. Cela découle du fait que les attributs des biens étudiés peuvent être considérés comme des composantes distinctes et séparables.
 
 ## Pricing Hédonique
 
 ### Aspects théoriques
 
-@rosen1974 étend ce qui a été apporté par le cadre théorique de @lancaster1966. La différence entre eux est que Rosen s'intéresse à **l’équilibre de marché de biens différenciés**, (là où Lancaster s'intéresse uniquement à la demande) avec : 
+@rosen1974 étend ce qui a été apporté par le cadre théorique de @lancaster1966. La principale différence est qu'il s'intéresse à **l’équilibre de marché de biens différenciés**, (là où Lancaster s'intéresse uniquement à la demande) avec : 
 
 - un continuum de biens du côté de l’offre,
 
 - un continuum de consommateurs hétérogènes du côté de la demande.
 
+Dans ce modèle, la relation entre les prix des biens et leurs attributs peut-être **non-linéaire** et permet aussi de capter des effets d'interaction entre plusieurs variables. Au coût d'une modélisation plus complexe que dans le modèle de @lancaster1966, les résultats gagnent en robustesse.
 
-L'objet de sa contribution est d'étudier un bien différencié $z$ décrit par le vecteur de ses $n$ caractéristiques mesurables tel que : 
+L'objet de la contribution de Rosen est d'étudier un bien différencié $z$ décrit par le vecteur de ses $n$ caractéristiques mesurables tel que : 
 
 $$
 z = (z_1, z_2, \dots, z_n)
@@ -126,7 +132,6 @@ Afin de comprendre pourquoi il est important d'étudier des biens différenciés
 #| fig-cap: "Plan $(z_1, z_2)$ de différents biens avec 2 caractéristiques."
 
 ## note ===> changer la palette du graph, elle est ignoble là
-## note 2 ===> changer le "figure:" et le personnaliser.
 hedonic_graph_loader <- function() {
     set.seed(43)
     num_points <- 6
@@ -148,11 +153,11 @@ hedonic_graph_loader <- function() {
         )
     return(plot)
 }
-graph <- hedonic_graph_loader()
+graph <- hedonic_graph_loader() + theme_minimal()
 print(graph)
 ```
 
-On est habitué à représenter les préférences des consommateurs en termes de quantités de biens $x_1, x_2$. Ici, on assite à un changement de paradigme : on va représenter les préférences des consommateurs en termes de caractéristiques de biens, c'est à dire dans l'espace $z_1, z_2$ (on choisit de prendre seulement 2 caractéristiques et 6 biens pour simplifier).
+En général, nous sommes habitués à représenter les préférences des consommateurs en termes de quantités de biens $x_1, x_2$. Ici, on assite à un changement de paradigme : on va représenter les préférences des consommateurs en termes de caractéristiques de biens, c'est à dire dans l'espace $z_1, z_2$ (on choisit de prendre seulement 2 caractéristiques et 6 biens pour simplifier).
 
 On peut en déduire que les consommateurs achetant le *bien 5* valorisent plus les caractéristiques $z_1$ que $z_2$, et inversement pour le *bien 4*.
 
@@ -189,21 +194,52 @@ Il n'en reste pas moins qu'il subsiste un problème indéniable : ce qu'on aimer
 
 @harrison1978 :
 
-**Objectif** : Examiner comment les données du marché immobilier peuvent être utilisées pour évaluer la *willingness-to-pay* des consommateurs pour une meilleure qualité de l'air.
+**Objectif** : Examiner comment les données du marché immobilier peuvent être utilisées pour évaluer la *Willingness To Pay* des consommateurs pour une meilleure qualité de l'air.
 
 - Le modèle suppose que les ménages prennent en compte le niveau de pollution de l'air, la quantité et la qualité du logement et d'autres caractéristiques de quartier pour faire leur choix.
 
 - La fonction de la valeur hédonique du logement $p(h)$ traduit les attributs du logement en prix, et suppose que les consommateurs perçoivent avec précision ces attributs et que le marché est en équilibre à court terme.
 
-**Résultats** : Les dommages marginaux dus à la pollution augmentent avec le niveau de pollution de l'air et avec le niveau de revenu des ménages. \textcolor{red}{PRECISER DES RESULTATS, des tables, des régressions, la forme fonctionnelle utilisée ici, etc.}
+\newpage
 
-Pour finir, l'approche hédonique a été utilisée empiriquement dans de très nombreux domaines comme l'automobile, l'immobilier, etc. \textcolor{red}{DONNER DES EXEMPLES D'applications ici}
+*Définition des variables*
 
-De plus, La spécification *semi-log* est généralement préférée afin d'améliorer l'ajustement du modèle et de faciliter l'interprétation des coefficients @bello2010.
+- $W$ = WTP *marginale* pour une meilleure qualité de l'air;
+- $NOX$ = Concentration des oxydes d'azote[^3]
+- $INC$ = Revenu du ménage en centaine de dollars
+
+Trois niveaux de revenu par an découpés en variable catégorielles : 
+
+- **LOW** si $INC$ $\leq \$$ 8500 $\Rightarrow Y_0$ (Catégorie de référence)
+- **MEDIUM** si $INC$  $\leq \$$ 11500 $\Rightarrow Y_1$
+- **HIGH** si $INC$ $\leq \$$ 15000 $\Rightarrow Y_2$
+
+[^3]: Variable de pollution, $NOX$ est un *proxy* pour la qualité de l'air.
+
+$$
+\log(W) = \beta_0 + \beta_1 \log(NOX) + \beta_2 \log(INC) + \beta_3[Y_1 \cdot \log(NOX)] + \beta_4[Y_2 \cdot \log(NOX)]
+$$ {#eq-WTP1}
+
+Coefficients estimés pour la régression $\log-\log$ (significatifs au seuil $p<0.01$) :
+
+$$
+\log(W) = \underbrace{2.2}_{\beta_0} + \underbrace{0.97}_{\beta_1} \log(NOX) + \underbrace{0.8}_{\beta_2} \log(INC) - \underbrace{0.03}_{\beta_3}[Y_1 \cdot \log(NOX)] - \underbrace{0.07}_{\beta_4}[Y_2 \cdot \log(NOX)]
+$$
+
+**Résultats** : La WTP marginale pour une meilleure qualité de l'air augmente avec le niveau de pollution de l'air et avec le niveau de revenu des ménages.
+
+
+Pour finir, l'approche hédonique a été utilisée empiriquement dans de très nombreux domaines comme l'automobile, l'immobilier, etc. 
+
+\textcolor{red}{DONNER DES EXEMPLES D'applications ici}
+
+Dans la littérature, une spécification *semi-log* est généralement préférée afin d'améliorer l'ajustement du modèle et de faciliter l'interprétation des coefficients $-$ voir @bello2010.
+
+\newpage
 
 ## Fonction de production
 
-Avant de passer à l'explication de la seconde partie théorique, c'est à dire les modèles SFA, attardons-nous sur la définition d'une fonction de production, fondement important de la SFA. 
+Avant de passer à l'explication de la seconde partie théorique, c'est à dire les modèles SFA, attardons-nous sur la définition d'une fonction de production, fondement important de la SFA.
 
 :::{.callout-tip}
 
@@ -225,26 +261,69 @@ $$ {#eq-prod}
 
 $f(x_i; \beta)$ est en fait la frontière de production. Pour l'instant cette frontière ne prend pas en compte l'efficacité technique $TE_i$ et elle n'est pas *stochastique* car elle n'inclut pas de terme aléatoire.
 
-## Le modèle SFA
+\macrostars
+\vspace{2em}
 
-TODO: package d'acronyms à mettre en place.
+
+@farrell1957 est le premier auteur à définir cette *Frontière de Production*.
+
+> *"When one talks about the efficiency of a firm one usually means its success in producing as large as possible an output from a given set of inputs."*
+
+Cette définition permet donc d'aboutir à la formulation évoquée à l'@eq-prod.
+
+## Le modèle SFA
 
 @aigner1977 :
 
 **Objectif** : Formulation et estimation de fonctions de frontière de production stochastique.
 
+Avant les travaux de @aigner1977, les économètres utilisaient principalement des fonctions de production moyennes dans la littérature, c'est à dire que la formulation théorique énoncée par @farrell1957 différait de l'utilisation empirique.
+
+- On repart de la fonction de production (@eq-prod), mais en lui ajoutant un terme multiplicatif $TE_i$.
+
 $${\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}}$$
 
-- $TE_i$ représente l'efficacité technique, définie comme le ratio d'output observé sur l'output maximum réalisable, c'est à dire : $TE_i = \dfrac{y_i}{y_i^*}$.
-
-- Ils ajoutent aussi un composant **stochastique** ${\exp \left\{{v_{i}}\right\}}$ qui représente les chocs aléatoires affectant la production. La fonction de production devient alors :
-
-$$\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i}}\right\}}}$$
-
-Avant les travaux de `Aigner`, les économètres utilisaient uniquement de fonctions de production moyennes, autrement dit la formulation théorique était différente de la mise en pratique.
-
-- On repart de la fonction de production présentée à la slide précédente, mais on lui ajoute un terme multiplicatif $TE_i$.
+$TE_i$ représente l'efficacité technique, définie comme le ratio d'output observé sur l'output maximum réalisable, soit $TE_i = \dfrac{y_i}{y_i^*}$.
 
 - Si $TE_i = 1$ alors la firme $i$ produit l'output maximum réalisable, alors que si $TE_i < 1$, il existe un écart entre l'output maximum et l'output effectivement observé.
 
+Un composant **stochastique** ${\exp \left\{{v_{i}}\right\}}$ est en outre ajouté pour représenter les chocs aléatoires affectant la production. La fonction de production devient alors :
+
+$$\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i}}\right\}}}$$
+
+
+On peut ré-écrire l'efficacité technique sous la forme ${\displaystyle TE_{i}=\exp \left\{{-u_{i}}\right\}}$. Dès lors :
+
+$$
+\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot \exp \left\{{-u_{i}}\right\}\cdot \exp \left\{{v_{i}}\right\}}}
+$$ {#eq-sfa}
+
+\macrostars
+\vspace{2em}
+
+![](imgs/stochastic_image.jpeg){width=80%}
+% CENTRER l'img + ajouter un caption.
+
+La SFA est une méthode paramétrique qui requiert une forme fonctionnelle précise. Les termes d'erreur $\epsilon_i$ ont ainsi une distribution particulière composée :
+
+- $v_i$ est une erreur aléatoire $\Rightarrow$ variation inexpliquée par les variables indépendantes du modèle, avec $v_i \sim \mathcal{N}(0, \sigma^2_v)$.
+
+- $u_i$ est un composant unilatéral qui peut être choisi parmi plusieurs distributions et $u_i \geq 0$, puisqu'il est nécessaire d'avoir $TE_i ≤ 1$.
+
 \newpage
+
+# Définitions
+
+WTP
+
+:   Willingness To Pay
+
+SFA
+
+:   Stochastic Frontier Analysis
+
+TE
+
+:   Technical Efficiency
+
+# Références

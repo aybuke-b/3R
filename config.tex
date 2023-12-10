@@ -1,51 +1,77 @@
-\usepackage{geometry}
+\usepackage{kpfonts} % police kp personnalisée
+\usepackage{geometry} % setup des marges du document
+\usepackage{fancyhdr} % modif des headers/footers
+\usepackage{titling} % setup du pre/post title
+\usepackage{tikz}
+\usepackage{caption} % cutomise les caption
 \usepackage{xcolor}
-\usepackage{eso-pic}
-\usepackage{fancyhdr}
-\usepackage{sectsty}
-\usepackage{caption}
-\usepackage{fontspec}
-\usepackage{titlesec}
-\usepackage{kpfonts}
-\usepackage[most]{tcolorbox}
+\usepackage{fontspec} % dépendance de FontAwesome
+\usepackage{fontawesome5} % icones FontAwesome
 
-%% Set page size with a wider right margin
-\geometry{a4paper, total={170mm,257mm}, left=15mm, top=15mm, bottom=15mm, right=45mm}
-
-%% Let's define some colours
+%% Définition des couleurs
 \definecolor{light}{HTML}{EEEEEE}
-\definecolor{highlight}{HTML}{FFD369}
+\definecolor{highlight}{HTML}{750E21}
 \definecolor{dark}{HTML}{393E46}
 \definecolor{titles}{HTML}{222831}
 \definecolor{StackOgray}{HTML}{e3e6e8}
 
-%% Let's add the border on the right hand side 
-\AddToShipoutPicture{% 
-    \AtPageLowerLeft{% 
-        \put(\LenToUnit{\dimexpr\paperwidth-3cm},0){% 
-            \color{light}\rule{3cm}{\LenToUnit\paperheight}%
-        }%
-    }%
-    % logo
-    \AtPageLowerLeft{% start the bar at the bottom right of the page
-        \put(\LenToUnit{\dimexpr\paperwidth-2.25cm},27.2cm){% move it to the top right
-            \color{light}\includegraphics[width=1.5cm]{imgs/mecen_transparent.png}
-        }%
-    }%
+%% Définition des marges, headers et footers
+\geometry{a4paper, left=20mm, top=25mm, bottom=20mm, right=20mm}
+\pagestyle{fancy}
+\fancyhead{}
+\renewcommand{\headrulewidth}{0pt} % retire la ligne du fancy header
+\fancyfoot[R]{\includegraphics[width=30pt]{imgs/MECEN_logo.png}}
+\fancyfoot[L]{\faIcon{creative-commons-by}}
+
+%% Page de garde
+\pretitle{
+    \vspace{-10em}
+    \begin{center}
+        \LARGE{\textsc{Master Économiste d'Entreprise}\\
+        \vspace{2em}}
+        \begin{minipage}[t]{0.6\textwidth}
+            \includegraphics[width=\textwidth,height=0.25\textheight,keepaspectratio]{imgs/UT_logo.jpg}
+        \end{minipage}%
+        \begin{minipage}[t]{0.4\textwidth}
+            \raisebox{0.15\height}{\includegraphics[width=\textwidth,height=0.11\textheight,keepaspectratio]{imgs/MECEN_logo.png}}
+        \end{minipage}\\
+        \vspace{7.5em}
+        \Large{\textsc{Recherche, Réalisation, Restitution}}
+        \vspace{5em}\\
+        \rule{16cm}{2pt}\vspace{1em}
+}
+
+\posttitle{\rule{16cm}{2pt}\end{center}}
+
+
+%% Améliore la commande `text`
+\renewcommand{\texttt}[1]{\colorbox{light}{\color{highlight}{\ttfamily{#1}}}}
+
+%% Améliore la commande footnote
+\renewcommand*{\thefootnote}{\textcolor{highlight}{(\arabic{footnote})}}
+
+%% Ajoute la commande pour faire ***
+\newcommand{\macrostars}{
+    \vspace{2em}
+    \begin{center}
+        \textcolor{highlight!80!black}{\Large{$\ast\ast\ast$}}
+    \end{center}
 }
 
 
-%% style the chapter/section fonts
-\chapterfont{\color{titles}\fontsize{20}{16.8}\selectfont}
-\sectionfont{\color{titles}\fontsize{20}{16.8}\selectfont}
-\subsectionfont{\color{titles}\fontsize{14}{16.8}\selectfont}
-\titleformat{\subsection}
-    {\sffamily\Large\bfseries}{\thesection}{1em}{}[{\titlerule[0.5pt]}]
-
-
-%% style the `text` command
-\renewcommand{\texttt}[1]{\colorbox{light}{\color{dark}{\ttfamily{#1}}}}
-
-%% Custom figure Caption
-\DeclareCaptionFormat{myformat}{\textcolor{dark}{\textbf{Figure \thefigure} $-$ }\ #3}
+%% Caption de Figure customisée
+\DeclareCaptionFormat{myformat}{\textcolor{highlight}{\textbf{Figure \thefigure} $-$ }\ #3}
 \captionsetup[figure]{format=myformat}
+
+%% Customisation du titre des chapitres
+\makeatletter
+\renewcommand{\chapter}{%
+    \clearpage % Nouvelle page avant chaque chapitre
+    \@startsection{chapter}%
+    {0} % Niveau de sectionnement
+    {0mm} % Indentation du titre
+    {-\baselineskip} % Espace avant
+    {2\baselineskip} % Espace après
+    {\normalfont\Huge\bfseries | \Huge\bfseries}% Style du titre avec le symbole "|"
+}
+\makeatother
