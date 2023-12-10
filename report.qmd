@@ -22,7 +22,8 @@ format:
         reference-location: document
         link-citations: true
         fontsize: 12pt
-        pdf-engine: lualatex
+        pdf-engine: xelatex
+        tbl-cap-location: top
 ---
 
 \newpage
@@ -44,7 +45,7 @@ Nous tenions à remercier chaleureusement Monsieur [*Alain BOUSQUET*](https://fr
 
 \vspace{35em}
 
-*Note* : Ce document PDF a été entièrement rédigé en utilisant `Quarto`[^1], combinant la puissance et la versatilité de R, Python, et \LaTeX. Une présentation interactive `reveal.js` du sujet est aussi disponible.[^2]
+*Note* : Ce **PDF** a été entièrement rédigé en utilisant `Quarto`[^1], combinant la puissance et la versatilité de R, Python, et \LaTeX. Une présentation interactive `reveal.js` du sujet est aussi disponible.[^2]
 
 [^1]: `Quarto` : Système de publication technique et scientifique *open-source* $\Rightarrow$ <https://quarto.org/>.
 [^2]: Retrouvez la présentation sur <https://corentinducloux.fr>.
@@ -204,7 +205,7 @@ Il n'en reste pas moins qu'il subsiste un problème indéniable : ce qu'on aimer
 
 *Définition des variables*
 
-- $W$ = WTP *marginale* pour une meilleure qualité de l'air;
+- $W$ = WTP *marginale* pour une meilleure qualité de l'air
 - $NOX$ = Concentration des oxydes d'azote[^3]
 - $INC$ = Revenu du ménage en centaine de dollars
 
@@ -273,6 +274,9 @@ Cette définition permet donc d'aboutir à la formulation évoquée à l'@eq-pro
 
 ## Le modèle SFA
 
+### Aspects théoriques
+
+
 @aigner1977 :
 
 **Objectif** : Formulation et estimation de fonctions de frontière de production stochastique.
@@ -289,7 +293,7 @@ $TE_i$ représente l'efficacité technique, définie comme le ratio d'output obs
 
 Un composant **stochastique** ${\exp \left\{{v_{i}}\right\}}$ est en outre ajouté pour représenter les chocs aléatoires affectant la production. La fonction de production devient alors :
 
-$$\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i}}\right\}}}$$
+$${\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i}}\right\}}$$
 
 
 On peut ré-écrire l'efficacité technique sous la forme ${\displaystyle TE_{i}=\exp \left\{{-u_{i}}\right\}}$. Dès lors :
@@ -298,19 +302,232 @@ $$
 \boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot \exp \left\{{-u_{i}}\right\}\cdot \exp \left\{{v_{i}}\right\}}}
 $$ {#eq-sfa}
 
+*Note* : En réarrangeant l'@eq-sfa avec le logarithme népérien, on obtient :
+
+$\Leftrightarrow \ln(y_i) = f(x_i;\beta) + \underbrace{v_i -u_i}_{\epsilon_i}$
+
+Le modèle peut alors s'écrire sous la forme suivante :
+$$
+\boxed{\ln(y_i) = f(x_i;\beta) + \epsilon_i}
+$$ {#eq-log-sfa}
+
+L'avantage de cette écriture est qu'elle facilite la manipulation des termes d'erreur, et il est très simple de retrouver le logarithme de l'output maximum. En effet :
+
+$\Leftrightarrow \ln(y_i) = \underbrace{f(x_i;\beta) + v_i}_{\ln(y_i^*)} -u_i$
+
+Et donc le logarithme de l'output observé est simplement $\ln(y_i) = \ln(y_i^*) -u_i$.
+
+Les termes d'erreur $\epsilon_i$ ont ainsi une distribution particulière composée :
+
+- $v_i$ est une **erreur aléatoire** $\Rightarrow$ variation inexpliquée par les variables indépendantes du modèle, avec $v_i \sim \mathcal{N}(0, \sigma^2_v)$.
+
+- $u_i$ est un **composant unilatéral** qui peut être choisi parmi plusieurs distributions[^4] et $u_i \geq 0$, puisqu'il est nécessaire d'avoir $TE_i ≤ 1$.
+
+[^4]: Dans la littérature, deux distributions sont couramment utilisées : la distribution **semi-normale** et **normale tronquée**.
+
+:::{.callout-tip}
+
+## Conclusion
+
+La spécification de cette méthode permet donc d’estimer les scores de l’**efficacité technique** de chaque firme.
+
+:::
+
+Enfin, @kumbhakar2015 discutent aussi dans la section **3.3** de leur livre des approches dites *distribution-free* sur $u_i$ dans lesquelles aucune hypothèse ne sont faites sur la distribution que suit les $u_i$. Nous ne nous intéresserons pas à ces méthodes puisqu'elles ont le défaut de ne pas pouvoir correctement distinguer les $v_i$ des $u_i$, et donc ne sont pas en mesure d'estimer les scores d'efficacité technique.
+
+\newpage
+
+On l'a vu ci-dessus, la SFA est une méthode **paramétrique** qui requiert une forme fonctionnelle précise. La SFA n'a cependant pas le monopole dans le domaine de l'estimation des frontières de production. 
+
+Un autre modèle (non-paramétrique) a aussi été développé : la Data Envelopment Analysis (DEA). Celui-ci a l'avantage de ne pas exiger d'hypothèse particulière sur des termes d'erreur. La structure du modèle n'est pas spécifiée à priori mais est uniquement déterminée à partir des données.
+
 \macrostars
 \vspace{2em}
 
-![](imgs/stochastic_image.jpeg){width=80%}
-% CENTRER l'img + ajouter un caption.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/stochastic_image.jpeg}
+    \caption{Représentation graphique d'une SFA.}
+    \label{fig:example}
+\end{figure}
 
-La SFA est une méthode paramétrique qui requiert une forme fonctionnelle précise. Les termes d'erreur $\epsilon_i$ ont ainsi une distribution particulière composée :
+$*$ Droits d'auteur : [Lutz Bornmann](https://www.researchgate.net/profile/Lutz-Bornmann)
 
-- $v_i$ est une erreur aléatoire $\Rightarrow$ variation inexpliquée par les variables indépendantes du modèle, avec $v_i \sim \mathcal{N}(0, \sigma^2_v)$.
+A partir de cette représentation on peut clairement distinguer les effets de $v_i$ (`noise`) et ceux de $u_i$ (`inefficiency`) dans un espace à deux dimensions avec $X$ la quantité d'inputs et $Y$ la quantité d'outputs. La frontière optimale de production est ici représentée en noir par $y = \beta_0 + \beta_1x$.
 
-- $u_i$ est un composant unilatéral qui peut être choisi parmi plusieurs distributions et $u_i \geq 0$, puisqu'il est nécessaire d'avoir $TE_i ≤ 1$.
+- 2 entreprises utilisant la même quantité d'inputs ($X=3$) sont mises en évidence dans le graph. La première se situe en dessous de la frontière de production avec $Y \simeq 2$ et la seconde est au-dessus de celle-ci avec $Y>6$.
+
+- Les 2 firmes utilisent donc la même quantité d'inputs pour une quantité d'output différente, à savoir : la première firme est moins efficace dans l'utilisation optimale de ses inputs, donc son efficacité technique est inférieure à la seconde.
 
 \newpage
+
+### Utilisation empirique
+
+**Quelques exemples d'application de la SFA dans le cadre de la mesure d'efficacité** :
+
+@reinhard2000 $\Rightarrow$ Secteur Environnemental.
+
+- L'objectif de cet article est d'estimer l'efficacité environnementale pour les fermes laitières aux Pays-Bas.
+
+@rosko2008 $\Rightarrow$ Secteur Hospitalier.
+
+- Cet article est quant à lui une méta-analyse de l'ensemble des articles de SFA et de DEA existants sur l'efficacité hospitalière aux Etats-Unis.
+
+@mohamad2008 $\Rightarrow$ Secteur Bancaire.
+
+- Compare l'efficacité des coûts et des profits de 80 banques dans 21 pays comprenant 37 banques conventionnelles et 43 banques islamiques.
+
+***
+
+**En bref, il existe de nombreux domaines d'application** !
+
+
+
+Un domaine en particulier n'a pourtant pas été évoqué jusqu'ici : pourquoi ne pas utiliser la SFA pour mesurer l'*efficacité* d'un prix **(best-buy frontier)** ? 
+
+C'est précisément le cadre du prochain article de notre revue de la littérature. 
+
+## SFA & Pricing Hédonique
+
+@arrondo2018 :
+
+**Objectif** : déterminer les attributs principaux des prix des sneakers en Espagne et leur efficacité.
+
+Six caractéristiques[^5] sont étudiées sur $n=171$ sneakers.
+
+[^5]: Variables quantitatives discrètes $\in [1,10[$.
+
+- **Lightweight** : poids des sneakers.
+
+- **Cushioning** : capacité de la chaussure à absorber les chocs au cours d'une course et tout au long du cycle de vie du produit.
+
+- **Flexibility** : les baskets flexibles s'adaptent mieux à la forme naturelle du pied.
+
+- **Response** : capacité du matériau à retrouver sa forme après les déformations provoquées par l'impact sur le sol.
+
+- **Grip** : l'adhérence donne aux coureurs une certaine assise sur le sol.
+
+- **Stability** : mesure la stabilité du pied à l'intérieur de la chaussure.
+
+En plus de ces 6 caractéristiques techniques, la marque est ajoutée en tant que variable qualitative pour mesurer la *Brand Equity* (la valeur d'une marque pour le consommateur).
+
+\newpage
+
+Le modèle s'écrit alors :
+
+$$
+\ln(p_{ik}) = \alpha_k + \beta X_{ik} + v_{ik} + u_{ik}
+$$ {#eq-arrondo}
+
+- $p_{ik}$ est le prix du $i$-ème modèle de marque $k$
+- $αk$ est l'effet marque sur le prix de la marque $k$
+- $X_{ik}$ est le vecteur des attributs mesurables du $i$-ème modèle de marque $k$
+- $β$ est un vecteur de coefficients pour ces attributs
+- $v_{ik}$ est une erreur aléatoire
+- $u_{ik}$ représente l'inefficacité
+
+*Note* : On retrouve bien la forme spécifique d'une SFA, caractérisée par la présence des termes $v_{ik}$ et $u_{ik}$. La seule différence est que le terme d'erreur composée est $\epsilon_{ik} = v_{ik} + u_{ik}$ car nous sommes dans le cadre d'une **frontière de coût** et non de production. 
+
+***
+
+**Résultats** :
+
+| **Variables**     | Coefficient | $SE$  |
+|-------------------|-------------|-------|
+| *Lightness*       | 0.007       | 0.028 |
+| *Cushioning*      | 0.064 **    | 0.025 |
+| *Flexibility*     | 0.058 **    | 0.026 |
+| *Response*        | 0.050 *     | 0.30  |
+| *Stability*       | 0.070 ***   | 0.025 |
+| *Grip*            | -0.045      | 0.028 |
+| `Adidas`          | 2.697 ***   | 0.401 |
+| `Asics`           | 2.679 ***   | 0.389 |
+| `Saucony`         | 2.779 ***   | 0.403 |
+| `Nike`            | 2.714 ***   | 0.422 |
+| `Brooks`          | 2.834 ***   | 0.404 |
+| `Mizuno`          | 2.524 ***   | 0.397 |
+| `New Balance`     | 2.544 ***   | 0.410 |
+| `Reebok`          | 2.522 ***   | 0.403 |
+
+: Résultats de la régression hédonique {#tbl-arrondo-hedonic}
+
+Les variables *Cushioning*, *Flexibility* et *Stability* sont statistiquement significatives à $p<0.05$.
+
+De plus, nous sommes ici dans le cadre d'une régression $\log$-linéaire donc les coefficients peuvent être interpretés comme des **semi-élasticités**, c'est à dire : 
+
+$\Rightarrow$ Pour une augmentation d'une unité de *Stability*, $p_{ik}$ va augmenter de 7%, *cet. par.*[^6]
+
+$\Rightarrow$ Pour une augmentation d'une unité de *Cushioning*, $p_{ik}$ va augmenter de 6.4%, *cet. par.*
+
+$\Rightarrow$ Pour une augmentation d'une unité de *Flexibility*, $p_{ik}$ va augmenter de 5.8%, *cet. par.*
+
+Par conséquent, la caractéristique *Stability* va avoir le plus grand impact sur le prix d'une sneakers, suivi de *Cushioning* et *Flexibility*.
+
+[^6]: *Toutes choses égales par ailleurs*.
+
+| **Marque**             | $\hat{\theta_k}$ |
+| ---------------------  | -------          |
+| `Adidas` ($n=$ 28)     | 0.832            |
+| `Asics` ($n=$ 35)      | 0.864            |
+| `Saucony` ($n=$ 15)    | 0.875            |
+| `Nike` ($n=$ 25)       | 0.824            |
+| `Brooks` ($n=$ 16)     | 0.860            |
+| `Mizuno` ($n=$ 29)     | 0.858            |
+| `New Balance` ($n=$ 18)| 0.848            |
+| `Reebok` ($n=$ 5)      | 0.859            |
+
+: Indice d'efficacité moyen par marque {#tbl-arrondo-brand}
+
+$\hat{\theta_k}$ représente l'indice d'efficacité moyen estimé par marque, compris entre 0 et 1.
+
+On remarque tout d'abord que cet indice est compris entre 0.8 et 0.9 pour l'ensemble des marques, c'est à dire qu'il n'y a pas de marque globalement **très inneficiente** (si une marque l'était, elle n'arriverait probablement pas à vendre et serait évincée par ses concurrents).
+
+- `Nike` est la marque qui possède la pire relation prix~attributs de la sélection
+- `Saucony` est la marque qui possède la meilleure relation prix~attributs de la sélection
+
+**Résultats**
+
+- En estimant l'efficacité des produits, l'article permet de déterminer le montant des réductions à accorder aux sneakers **overprice** afin de les rendre compétitives.
+
+- Il existe une relation inverse entre l'efficacité du produit et la réduction de prix : la réduction de prix est d'autant plus grande que la sneakers est **overprice**.
+
+
+## Problématique
+
+Combinaison d'un modèle SFA et d'une régression hédonique pour évaluer la discordance entre les prix de smartphones et leur valeur intrinsèque.
+
+\newpage
+
+## Smartphone Timeline
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.99\textwidth]{imgs/smartphones.png}
+    \caption{Smartphone Timeline.}
+    \label{fig:smartphones}
+\end{figure}
+
+
+Depuis l'apparition des téléphones mobiles au début des années 1990, de nombreuses innovations technologiques ont ajouté des caractéristiques rendant ces téléphones de plus en plus polyvalents :
+
+Cette chronologie présente en X les années et les rectangles des différentes catégories correspondent à des débuts et des fins de commercialisation. L'axe Y ne représente rien de particulier, il permet simplement d'améliorer la lisibilité.
+
+- *Nokia 1011* : Premier écran LCD
+- *IBM Simon* : Premier véritable smartphone avec stylet, échec commercial
+- *Nokia 3210* : Un des téléphones les plus vendus au monde - il intègre les SMS et plusieurs jeux
+- *Sharp J-SH04* : Premier Téléphone équipé d'un appareil photo intégré (capteur à l'arrière)
+- *Blackberry Quark* : Au début des années 2000 et jusqu'en 2010, Blackberry est leader sur le marché de la téléphonie mobile avec 20% de parts de marché à son apogée, même après l'apparition de l'Iphone - les téléphones BlackBerry ont un clavier complet et peuvent ouvrir de nombreux fichiers.
+- *Apple Iphone* : En 2007, Apple sort l'iPhone qui va bouleverser le marché des téléphones mobiles en intégrant un écran tactile multitouch - un des avantages c'est que ça va permettre d'accélérer le développement d'applications mobiles puisque le verrou du clavier saute.
+- *HTC Dream* : Un an après la sortie de l'iPhone, les constructeurs bataillent pour le concurrencer - HTC est le premier constructeur à intégrer Android OS. Il reste un entre-deux ~ il a un clavier et un écran tactile. 
+- *Apple Iphone 4* : Premier smartphone avec une caméra frontale et un espace de stockage de 32 Go
+- *Samsung Galaxy S* : Avec le Galaxy S, Samsung concurrence Apple et sort un téléphone meilleur en tout point : écran plus grand, possibilité d'augmenter le stockage, meilleur cpu et meilleure batterie.
+- Etc.
+
+$\Rightarrow$ Si j'ai mentionné tout ça, c'est précisément parce que toutes ces innovations vont avoir un impact dans les caractéristiques les plus valorisées par les consommateurs. Par exemple, on a du mal à imaginer acheter un téléphone sans capteur de caméra frontale et arrière et qui serait incapable d'envoyer des SMS.
+
+Cette slide permet d'ailleurs d'évoquer une des limites majeures des modèles de pricing hédoniques qu'on va faire. Comment est ce qu'on va pouvoir modéliser l'arrivée d'une nouvelle caractéristique ? On ne peut pas trouver dans le passé quelle va être la valorisation de cette nouvelle caractéristique. 
+
+C'est particulièrement parlant si on prend l'exemple d'Apple avec l'iPhone, si on avait fait un modèle de régression des prix hédoniques juste avant la sortie de l'iPhone on aurait probablement trouvé que BlackBerry était la marque la plus valorisée et qu'il faut augmenter la taille du téléphone pour lui permettre d'avoir un plus grand clavier. 2 mois plus tard, tout ça tombe à l'eau à cause d'une innovation technologique.
 
 # Définitions
 
@@ -321,6 +538,10 @@ WTP
 SFA
 
 :   Stochastic Frontier Analysis
+
+DEA
+
+:   Data Envelopment Analysis
 
 TE
 

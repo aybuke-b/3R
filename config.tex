@@ -25,7 +25,7 @@
 
 %% Page de garde
 \pretitle{
-    \vspace{-10em}
+    \vspace{-7.5em}
     \begin{center}
         \LARGE{\textsc{Master Économiste d'Entreprise}\\
         \vspace{2em}}
@@ -58,10 +58,16 @@
     \end{center}
 }
 
+%% Commande de divider
+\newcommand{\divider}{\setlength{\parindent}{0pt}\textcolor{StackOgray!30}{\rule{\linewidth}{0.6pt}}\smallskip}
 
-%% Caption de Figure customisée
+
+%% Caption de Figure et Table customisée
 \DeclareCaptionFormat{myformat}{\textcolor{highlight}{\textbf{Figure \thefigure} $-$ }\ #3}
 \captionsetup[figure]{format=myformat}
+
+\DeclareCaptionFormat{mytableformat}{\textcolor{highlight}{\textbf{Table \thetable} $-$ }\ #3}
+\captionsetup[table]{format=mytableformat}
 
 %% Customisation du titre des chapitres
 \makeatletter

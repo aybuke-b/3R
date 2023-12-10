@@ -359,6 +359,11 @@ L'objectif de cette slide est d'expliquer graphiquement la SFA.
 :::
 
 ::: {.notes}
+
+- L'objectif du premier article est d'estimer l'efficacité environnementale pour les fermes laitières aux pays-bas. On y retrouve Lovell qui est un des premiers chercheurs à avoir modélisé la SFA dans la littérature.
+
+- Le second article est une méta-analyse de l'ensemble des articles de SFA et de DEA existants sur l'efficacité hospitalière aux Etats-Unis
+
 Un domaine en particulier n'a pas été évoqué ici : et si on utilisait la SFA pour mesurer l'*efficacité* d'un prix **(best-buy frontier)** ? C'est précisément le cadre du prochain article que nous allons présenter !
 :::
 
