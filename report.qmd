@@ -199,9 +199,9 @@ Il n'en reste pas moins qu'il subsiste un problème indéniable : ce qu'on aimer
 
 - Le modèle suppose que les ménages prennent en compte le niveau de pollution de l'air, la quantité et la qualité du logement et d'autres caractéristiques de quartier pour faire leur choix.
 
-- La fonction de la valeur hédonique du logement $p(h)$ traduit les attributs du logement en prix, et suppose que les consommateurs perçoivent avec précision ces attributs et que le marché est en équilibre à court terme.
-
 \newpage
+
+- La fonction de la valeur hédonique du logement $p(h)$ traduit les attributs du logement en prix, et suppose que les consommateurs perçoivent avec précision ces attributs et que le marché est en équilibre à court terme.
 
 *Définition des variables*
 
@@ -482,8 +482,8 @@ $\hat{\theta_k}$ représente l'indice d'efficacité moyen estimé par marque, co
 
 On remarque tout d'abord que cet indice est compris entre 0.8 et 0.9 pour l'ensemble des marques, c'est à dire qu'il n'y a pas de marque globalement **très inneficiente** (si une marque l'était, elle n'arriverait probablement pas à vendre et serait évincée par ses concurrents).
 
-- `Nike` est la marque qui possède la pire relation prix~attributs de la sélection
-- `Saucony` est la marque qui possède la meilleure relation prix~attributs de la sélection
+- `Nike` est la marque qui possède la pire relation prix~attributs de la sélection.
+- `Saucony` est la marque qui possède la meilleure relation prix~attributs de la sélection.
 
 **Résultats**
 
@@ -492,13 +492,19 @@ On remarque tout d'abord que cet indice est compris entre 0.8 et 0.9 pour l'ense
 - Il existe une relation inverse entre l'efficacité du produit et la réduction de prix : la réduction de prix est d'autant plus grande que la sneakers est **overprice**.
 
 
-## Problématique
+# Choix et cadrage de la problématique
 
-Combinaison d'un modèle SFA et d'une régression hédonique pour évaluer la discordance entre les prix de smartphones et leur valeur intrinsèque.
+L'objectif fixé par notre sujet est de combiner les modèles SFA à une problématique d'étude des prix hédoniques, de manière similaire à ce qui a été entrepris par @arrondo2018.
 
-\newpage
+L'ensemble des articles de la littérature exposés ci-dessus ont permis d'affiner notre compréhension théorique des modèles et nous ont aidé à déterminer un marché à étudier. Pour des raisons de disponibilité des caractéristiques et parce que peu d'articles dans la littérature se sont intéressés au pricing hédonique des smartphones, nous avons fait le choix d'analyser le marché de la téléphonie mobile.
 
-## Smartphone Timeline
+Notre problématique est donc la suivante :
+
+**Combinaison d'un modèle SFA et d'une régression hédonique pour évaluer la discordance entre les prix de smartphones et leur valeur (intrinsèque).**
+
+## Le marché de la téléphonie mobile, en constante évolution
+
+Depuis l'apparition des téléphones mobiles au début des années 1990, de nombreuses innovations technologiques ont ajouté des caractéristiques rendant ces téléphones de plus en plus polyvalents. Cette chronologie présente en $X$ les années et les rectangles des différentes catégories correspondent à des **débuts** et des **fins de commercialisation**. L'axe $Y$ permet quant à lui d'améliorer la lisibilité.
 
 \begin{figure}[htbp]
     \centering
@@ -507,27 +513,81 @@ Combinaison d'un modèle SFA et d'une régression hédonique pour évaluer la di
     \label{fig:smartphones}
 \end{figure}
 
+\textcolor{colgraph1}{$\blacksquare$} Téléphone à clapet \textcolor{colgraph2}{$\blacksquare$} Téléphone à clavier \textcolor{colgraph3}{$\blacksquare$} Téléphone à appareil photo $\blacksquare$ Smartphone
 
-Depuis l'apparition des téléphones mobiles au début des années 1990, de nombreuses innovations technologiques ont ajouté des caractéristiques rendant ces téléphones de plus en plus polyvalents :
+Examinons quelques modèles de téléphone pour mieux saisir l'impact sur le marché des innovations majeures.
 
-Cette chronologie présente en X les années et les rectangles des différentes catégories correspondent à des débuts et des fins de commercialisation. L'axe Y ne représente rien de particulier, il permet simplement d'améliorer la lisibilité.
+- *Nokia 1011* : Premier écran LCD.
 
-- *Nokia 1011* : Premier écran LCD
-- *IBM Simon* : Premier véritable smartphone avec stylet, échec commercial
-- *Nokia 3210* : Un des téléphones les plus vendus au monde - il intègre les SMS et plusieurs jeux
-- *Sharp J-SH04* : Premier Téléphone équipé d'un appareil photo intégré (capteur à l'arrière)
-- *Blackberry Quark* : Au début des années 2000 et jusqu'en 2010, Blackberry est leader sur le marché de la téléphonie mobile avec 20% de parts de marché à son apogée, même après l'apparition de l'Iphone - les téléphones BlackBerry ont un clavier complet et peuvent ouvrir de nombreux fichiers.
-- *Apple Iphone* : En 2007, Apple sort l'iPhone qui va bouleverser le marché des téléphones mobiles en intégrant un écran tactile multitouch - un des avantages c'est que ça va permettre d'accélérer le développement d'applications mobiles puisque le verrou du clavier saute.
-- *HTC Dream* : Un an après la sortie de l'iPhone, les constructeurs bataillent pour le concurrencer - HTC est le premier constructeur à intégrer Android OS. Il reste un entre-deux ~ il a un clavier et un écran tactile. 
-- *Apple Iphone 4* : Premier smartphone avec une caméra frontale et un espace de stockage de 32 Go
-- *Samsung Galaxy S* : Avec le Galaxy S, Samsung concurrence Apple et sort un téléphone meilleur en tout point : écran plus grand, possibilité d'augmenter le stockage, meilleur cpu et meilleure batterie.
-- Etc.
+- *IBM Simon* : Premier véritable smartphone avec stylet, commercialisé pendant seulement 6 mois à cause d'un prix élevé de $899. 
 
-$\Rightarrow$ Si j'ai mentionné tout ça, c'est précisément parce que toutes ces innovations vont avoir un impact dans les caractéristiques les plus valorisées par les consommateurs. Par exemple, on a du mal à imaginer acheter un téléphone sans capteur de caméra frontale et arrière et qui serait incapable d'envoyer des SMS.
+- *Nokia 3210* : Premier téléphone à intégrer les SMS et plusieurs jeux. C'est encore aujourd'hui un des téléphones les plus vendus au monde.
 
-Cette slide permet d'ailleurs d'évoquer une des limites majeures des modèles de pricing hédoniques qu'on va faire. Comment est ce qu'on va pouvoir modéliser l'arrivée d'une nouvelle caractéristique ? On ne peut pas trouver dans le passé quelle va être la valorisation de cette nouvelle caractéristique. 
+- *Sharp J-SH04* : Premier téléphone équipé d'un appareil photo intégré.
 
-C'est particulièrement parlant si on prend l'exemple d'Apple avec l'iPhone, si on avait fait un modèle de régression des prix hédoniques juste avant la sortie de l'iPhone on aurait probablement trouvé que BlackBerry était la marque la plus valorisée et qu'il faut augmenter la taille du téléphone pour lui permettre d'avoir un plus grand clavier. 2 mois plus tard, tout ça tombe à l'eau à cause d'une innovation technologique.
+- *Blackberry Quark* : Les téléphones \faIcon{blackberry} BlackBerry sont les premiers à disposer d'un clavier complet, ce qui, à cette époque, est un avantage majeur. A tel point qu'au début des années 2000 et jusqu'en 2010, Blackberry devient et reste leader sur le marché de la téléphonie mobile avec 20% de parts de marché à son apogée.
+
+- *Apple Iphone* : En 2007, \faIcon{apple} Apple annonce l'iPhone. Ce téléphone, qui intègre un écran tactile multitouch, va bouleverser le marché des téléphones mobiles. La vraie révolution, plus que le téléphone en lui-même, est l'*App Store*, qui va permettre d'accélérer le développement de nombreuses applications mobiles.
+
+- *HTC Dream* : Un an après la sortie de l'iPhone, les constructeurs bataillent pour tenter de le concurrencer. HTC est dans ce cadre le premier à intégrer Android OS. Il reste néanmoins un entre-deux (il possède un clavier et un écran tactile).
+
+- *Samsung Galaxy S* : Avec le Galaxy S, Samsung concurrence directement l'Apple iPhone 4 et sort un téléphone meilleur en tout point sur le plan des caractéristiques techniques. L'écran est plus grand, il existe une possibilité d'augmenter le stockage, il possède un meilleur cpu et une meilleure autonomie, tout en étant moins cher.
+
+:::{.callout-tip}
+
+## Conclusion
+
+Toutes ces innovations vont avoir un impact dans les caractéristiques les plus valorisées par les consommateurs. Par exemple, il est difficile d'imaginer qu'un consommateur valorisera aujourd'hui un téléphone sans capteur de caméra frontale et arrière ou qui serait incapable d'envoyer des SMS.
+
+:::
+
+\vspace{2em}
+
+Cela permet d'ailleurs d'évoquer une des limites majeures des modèles de pricing hédonique. Comment va t-on pouvoir modéliser l'arrivée d'une nouvelle caractéristique ? On ne peut pas trouver dans le passé quelle va être la valorisation de cette nouvelle caractéristique. 
+
+*Illustrons cette remarque avec l'iPhone*. Un modèle de régression des prix hédoniques réalisé juste avant la sortie de l'iPhone aurait probablement trouvé (sans surprise) que BlackBerry était la marque la plus valorisée par les consommateurs et qu'il faut augmenter la taille du téléphone pour lui permettre d'avoir un plus grand clavier. Il va sans dire que deux mois plus tard, ces résultats sont inutilisables à cause d'une innovation technologique.
+
+Il existe relativement peu d'articles d'études sur les prix hédoniques des smartphones, ou alors ils sont assez anciens (2004-2005), et on l'a vu, étant donné la vitesse à laquelle évolue le marché, avoir des données récentes est primordial pour estimer correctement les caractéristiques valorisées par les consommateurs à un instant $T$.
+
+\newpage
+
+## Smartphones et Pricing Hédonique 
+
+Il existe néanmoins quelques articles récents traitant du sujet, dont celui de  @ahmad2019 :
+
+**Objectif** : Pricing des attributs de smartphones au Pakistan 
+
+$$
+\begin{split}
+\ln(PRICE_i) = \beta_0 + \beta_{1i}BRAND_i + \beta_{2i}WEIGHT_i + \beta_{3i}BATTERY_i \\
++ \beta_{4i}OS_i + \beta_{5i}RAM_i + \beta_{6i}MEMORY_i + \beta_{7i}DISPLAY_i \\
++ \beta_{8i}NETWORK_i + \beta_{9i}BCAM_i + \beta_{10i}FCAM_i + \epsilon_i
+\end{split}
+$$
+
+- $n=348$ smartphones. Les données des attributs ont été collectées sur des sites webs et les prix pratiqués relevés dans les magasins de 2 villes du Pakistan.
+
+**Résultats** :
+
+- La marque, la batterie, le poids, l'OS, la RAM, la mémoire et la taille de l'écran ont un effet positif statistiquement significatif sur les prix des smartphones.
+
+Plus précisément, les résultats indiquent que les fabricants doivent se concentrer sur un téléphone :
+
+- avec une RAM de plus d'1 Go
+- avec une Mémoire de plus de 8 Go
+- avec un Ecran de plus de 5 pouces
+- compatible avec la 4G
+- avec une caméra arrière de plus de 15 mégapixels
+
+Le Pakistan étant un pays en voie de développement, et l'étude datant de 2019, on peut s'attendre à trouver des résultats différents dans nos données. 
+
+Aussi, le prix moyen d'un smartphone dans l'étude est de $136,35. Note intéressante, l'**écart-type** du prix des smartphones est elevé (181), c'est à dire que la dispersion en prix est assez importante, ce qui confirme que les smartphones sont des biens différenciés.
+
+De plus, sur les 348 smartphones, 127, c'est à dire + d'un tiers, sont de la marque **QMOBILE**, une société Pakistanaise qui vend des smartphones à bas prix.
+
+# Statistiques Descriptives
+
+
 
 # Définitions
 
