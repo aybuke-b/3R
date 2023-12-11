@@ -232,7 +232,18 @@ $$
 
 Pour finir, l'approche hédonique a été utilisée empiriquement dans de très nombreux domaines comme l'automobile, l'immobilier, etc. 
 
-\textcolor{red}{DONNER DES EXEMPLES D'applications ici}
+
+@berndt2001 $\Rightarrow$ Secteur Informatique.
+
+- L'objectif de cet article est d'examiner l'évolution des prix ajustés en qualité des ordinateurs personnels de bureau et mobiles entre 1976 et 1999.
+
+@chen2010 $\Rightarrow$ Secteur Hôtellerie.
+
+- Analyse l'impact des caractéristiques des hôtels de Taipei sur leurs tarifs en utilisant les données de 73 hôtels collectées auprès d'un agent de voyage en ligne.
+
+@yim2014 $\Rightarrow$ Secteur de la restauration.
+
+- Explore l'impact des attributs des restaurants à Séoul sur leurs prix moyens de repas en examinant les données de 185 établissements recueillies via diverses sources.
 
 Dans la littérature, une spécification *semi-log* est généralement préférée afin d'améliorer l'ajustement du modèle et de faciliter l'interprétation des coefficients $-$ voir @bello2010.
 
