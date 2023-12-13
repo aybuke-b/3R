@@ -33,8 +33,14 @@ library(tidyverse)
 library(extrafont)
 ```
 
+```{r theme_setting}
+# Configure le thème ggplot2 globalement
+theme_set(theme_minimal())
+```
+
 ```{r colors}
 darkgray <- "#393E46"
+highlight <- "#750E21"
 ```
 
 # Remerciements
@@ -154,7 +160,7 @@ hedonic_graph_loader <- function() {
         )
     return(plot)
 }
-graph <- hedonic_graph_loader() + theme_minimal()
+graph <- hedonic_graph_loader()
 print(graph)
 ```
 
@@ -662,7 +668,7 @@ L'objectif final est de disposer d'une application permettant aux consommateurs 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{imgs/mermaid_graph.png}
-    \caption{Diagramme fonctionnel}
+    \caption{Diagramme fonctionnel.}
     \label{fig:method}
 \end{figure}
 
@@ -673,37 +679,156 @@ Le diagramme fonctionnel permet de comprendre comment interagissent les différe
 ```{r data import}
 library(tidyverse)
 library(kableExtra)
+library(ggridges)
+library(patchwork)
+
+# librairies à mettre dans un autre chunk.
+
 root <- getwd()
 df_path <- file.path(root, "Web_Scraping", "data", "df_clean.csv")
 df <- read_delim(df_path, delim = ";")
 ```
 
-```{r}
+Il y a `r nrow(df)` smartphones valides disponibles dans nos données scrapées sur Boulanger avec 35 variables.
+
+- Variables liées à l'écran (*screen_type*, *screen_size*, *screen_tech*, *diagonal_pixels*, *ppi*, *resolution_1*, *resolution_2*).
+
+- Variables liées à la caméra (*mpx_backward_cam*, *cam_1*, *cam_2*, *cam_3*, *sensor*).
+
+- Variables liées aux caractéristiques physiques du téléphone (*color*, *thickness*, *width*, *height*, *net_weight*).
+
+- Variables liées aux performances (*network*, *cpu*, *ram*, *storage*, *upgrade_storage*).
+
+- Variables liées à la batterie (*battery*, *fast_charging*, *induction*, *usb_type_c*).
+
+- Variables liées au DAS (*das_limbs*, *das_chest*, *das_head*).
+
+- Autres variables (*repairability_index*, *model*, *brand*, *made_in*, *stars*, *reviews*).
+
+Et enfin notre variable à expliquer : **price**.
+
+
+## Analyse approfondie des prix
+
+```{r metrics}
+mean_price <- round(mean(df$price), 2)
+min_price <- round(min(df$price), 2)
+max_price <- round(max(df$price), 2)
+median_price <- median(df$price)
+var_price <- round(var(df$price), 2)
+std_price <- round(sd(df$price), 2)
+qt_price <- quantile(df$price, probs = seq(0, 1, 0.1))
+```
+
+### Mesures de tendance centrale
+
+Le prix moyen d'un smartphone de la sélection est de `r mean_price` €, soit $\simeq$ 5 fois plus élevé que dans l'article de @ahmad2019. Cela peut s'expliquer notamment par la différence considérable de **PIB** par habitant.[^8]
+
+- En 2022 au Pakistan : $\$$ 1596.7
+- En 2022 en France : $\$$ 40963.8
+
+La médiane est quant à elle de `r median_price` €.
+
+[^8]: Données issues de la [*Banque Mondiale*](https://donnees.banquemondiale.org/indicator/NY.GDP.PCAP.CD?most_recent_year_desc=true) (PIB par habitant en US dollars courants)
+
+```{r plots, fig.width=8, fig.height=3}
+#| fig-align: center
+#| fig-cap: "Distribution des prix des smartphones"
+
+df |> ggplot(aes(x = price)) +
+    geom_density(fill = highlight, color = "#e9ecef", alpha = 0.7) +
+    scale_x_continuous(labels = function(x) paste(x, "€", sep = " ")) +
+    geom_vline(aes(xintercept = mean_price), linetype = "dashed", color = darkgray) +
+    geom_vline(aes(xintercept = median_price), linetype = "dashed") +
+    geom_label(aes(x = mean_price + 100, y = 0.0002, label = "moyenne")) +
+    geom_label(aes(x = median_price - 100, y = 0.0001, label = "médiane")) +
+    labs(x = "", y = "")
+```
+
+On peut aussi tester l'asymétrie de la distribution avec le coefficient d'asymétrie de *Pearson* : 
+
+$$SK = \dfrac{3(\bar{x} - \tilde{x})}{\sigma} \simeq 0.67$$
+
+Ce résultat indique que l'asymétrie de la distribution est positive. Il y a beaucoup plus de valeurs concentrées à gauche de la distribution qu'à droite. Si le coefficient était proche de 0, cela signifierait que la distribution est proche d'une loi normale $\mathcal{N}$, ce qui n'est pas le cas.
+
+### Mesures de dispersion
+
+```{r max_min_models}
+min_model <- df |>
+    select(model, price) |>
+    filter(price == min(price)) |>
+    select(model)
+
+max_model <- df |>
+    select(model, price) |>
+    filter(price == max(price)) |>
+    select(model) |>
+    unique()
+```
+
+Le prix minimal d'un smartphone dans notre sélection est de `r min_price` € pour le modèle **`r min_model`** et le prix maximal est de `r max_price` € pour le modèle **`r max_model`**.
+
+Il existe donc une grande étendue de prix, c'est à dire : `r max_price-min_price` €. De plus, l'écart-type du prix est très important (`r std_price`).
+
+Toutes ces mesures nous confirment que la dispersion en prix est très elevée.
+
+## Prix moyen en fonction des caractéristiques
+
+```{r kable_1}
 df |>
     group_by(ram) |>
     summarise(n = n(), mean_price = round(mean(price), 2)) |>
     mutate(ram = paste(ram, "Go"), mean_price = paste(mean_price, "€")) |>
-    kbl(caption = "Demo table", booktabs = T) |>
-    kable_styling(latex_options = c("striped", "hold_position"))
+    kbl(caption = "Prix moyen en fonction de la RAM.", booktabs = T) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+```
 
+```{r kable_2}
 df |>
     group_by(storage) |>
     summarise(n = n(), mean_price = round(mean(price), 2)) |>
     mutate(storage = paste(storage, "Go"), mean_price = paste(mean_price, "€")) |>
-    kbl(caption = "Demo table2", booktabs = T) |>
-    kable_styling(latex_options = c("striped", "hold_position"))
+    kbl(caption = "Prix moyen en fonction du stockage.", booktabs = T) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
 
-summary(df)
+# summary(df)
 ```
 
-relations non linéaire concernant l'ajout de stockage ou ram, à creuser.
+- On peut voir que plus la RAM augmente, plus le prix moyen du téléphone augmente (sauf à partir de 12 Gigaoctets). On a en effet remarqué plus haut que le téléphone le plus cher était le **`r max_model`**, qui possède 12 Go de RAM, et non 16. Ce constat, en plus du nombre très limité de téléphones disposant de 16 Go de RAM (7), peut expliquer pourquoi le prix moyen des téléphones ayant 16 Go de RAM est inférieur au prix moyen des téléphones disposant de 12 Go de RAM.
 
-peut etre des ggplot de boites à stachmou
+- Il existe une relation non-linéaire concernant le doublement du stockage. Par exemple, passer de 64 à 128 Go implique une augmentation du prix moyen de 250% alors que passer de 256 à 512 Go de stockage implique seulement 141% d'augmentation du prix moyen
+
+```{r fig.width=8}
+#| fig-align: center
+#| fig-cap: "Ridge plot : RAM et Stockage"
+
+p1 <- df |> ggplot(aes(x = price, y = as.factor(storage), fill = as.factor(storage), alpha = 0.75)) +
+    geom_density_ridges() +
+    theme_ridges() +
+    labs(x = "prix", y = "stockage") +
+    scale_y_discrete(labels = function(x) paste(x, "Go", sep = " ")) +
+    scale_fill_viridis_d(option = "magma") +
+    theme(legend.position = "none")
+
+p2 <- df |> ggplot(aes(x = price, y = as.factor(ram), fill = as.factor(ram), alpha = 0.75)) +
+    geom_density_ridges() +
+    theme_ridges() +
+    labs(x = "prix", y = "ram") +
+    scale_y_discrete(labels = function(x) paste(x, "Go", sep = " ")) +
+    scale_fill_viridis_d(option = "magma") +
+    theme(legend.position = "none")
+
+p1 + p2
+```
+
 
 Faire un giga tableau avec min/max/mean/q1/q2/q3, etc.
 
 Faire des barcharts pour les variables TRUE/FALSE (induction, usb_type_c, fast_charging)
-TODO => ACP, tableaux avec RAM et Storage, etc...
+
+TODO => ACP ?
 
 tests statistiques ?
 
@@ -720,6 +845,10 @@ WTP
 SFA
 
 :   Stochastic Frontier Analysis
+
+DAS
+
+:   Débit d'Absoprtion Spécifique
 
 DEA
 
