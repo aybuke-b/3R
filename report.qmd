@@ -229,15 +229,16 @@ $$
 
 **Résultats** : La WTP marginale pour une meilleure qualité de l'air augmente avec le niveau de pollution de l'air et avec le niveau de revenu des ménages.
 
+***
 
-Pour finir, l'approche hédonique a été utilisée empiriquement dans de très nombreux domaines comme l'automobile, l'immobilier, etc. 
+Pour finir, l'approche hédonique a été utilisée empiriquement dans de très nombreux domaines comme par exemple : 
 
 
-@berndt2001 $\Rightarrow$ Secteur Informatique.
+@berndt2001 $\Rightarrow$ Secteur informatique.
 
 - L'objectif de cet article est d'examiner l'évolution des prix ajustés en qualité des ordinateurs personnels de bureau et mobiles entre 1976 et 1999.
 
-@chen2010 $\Rightarrow$ Secteur Hôtellerie.
+@chen2010 $\Rightarrow$ Secteur de l'hôtellerie.
 
 - Analyse l'impact des caractéristiques des hôtels de Taipei sur leurs tarifs en utilisant les données de 73 hôtels collectées auprès d'un agent de voyage en ligne.
 
@@ -245,7 +246,7 @@ Pour finir, l'approche hédonique a été utilisée empiriquement dans de très 
 
 - Explore l'impact des attributs des restaurants à Séoul sur leurs prix moyens de repas en examinant les données de 185 établissements recueillies via diverses sources.
 
-Dans la littérature, une spécification *semi-log* est généralement préférée afin d'améliorer l'ajustement du modèle et de faciliter l'interprétation des coefficients $-$ voir @bello2010.
+Dans la littérature, une spécification *semi-log* est généralement préférée afin d'améliorer l'ajustement du modèle $-$ voir @bello2010.
 
 \newpage
 
@@ -526,7 +527,7 @@ Depuis l'apparition des téléphones mobiles au début des années 1990, de nomb
 
 \textcolor{colgraph1}{$\blacksquare$} Téléphone à clapet \textcolor{colgraph2}{$\blacksquare$} Téléphone à clavier \textcolor{colgraph3}{$\blacksquare$} Téléphone à appareil photo $\blacksquare$ Smartphone
 
-Examinons quelques modèles de téléphone pour mieux saisir l'impact sur le marché des innovations majeures.
+Examinons quelques modèles de téléphone pour mieux saisir l'impact des innovations majeures sur le marché.
 
 - *Nokia 1011* : Premier écran LCD.
 
@@ -558,15 +559,21 @@ Cela permet d'ailleurs d'évoquer une des limites majeures des modèles de prici
 
 *Illustrons cette remarque avec l'iPhone*. Un modèle de régression des prix hédoniques réalisé juste avant la sortie de l'iPhone aurait probablement trouvé (sans surprise) que BlackBerry était la marque la plus valorisée par les consommateurs et qu'il faut augmenter la taille du téléphone pour lui permettre d'avoir un plus grand clavier. Il va sans dire que deux mois plus tard, ces résultats sont inutilisables à cause d'une innovation technologique.
 
-Il existe relativement peu d'articles d'études sur les prix hédoniques des smartphones, ou alors ils sont assez anciens (2004-2005), et on l'a vu, étant donné la vitesse à laquelle évolue le marché, avoir des données récentes est primordial pour estimer correctement les caractéristiques valorisées par les consommateurs à un instant $T$.
+Enfin, il existe relativement peu d'articles sur les prix hédoniques des smartphones, ou alors ils sont assez anciens (2004-2005), et on l'a vu, étant donné la vitesse à laquelle évolue le marché, avoir des données récentes est primordial pour estimer correctement les caractéristiques valorisées par les consommateurs à un instant $T$.
 
 \newpage
 
 ## Smartphones et Pricing Hédonique 
 
-Il existe néanmoins quelques articles récents traitant du sujet, dont celui de  @ahmad2019 :
+Il existe néanmoins quelques articles récents traitant du sujet, dont celui de @ahmad2019 :
 
-**Objectif** : Pricing des attributs de smartphones au Pakistan 
+**Objectif** : Pricing des attributs des smartphones au Pakistan 
+
+Les données des attributs ont été collectées sur des sites webs et les prix pratiqués relevés dans les magasins de 2 villes du Pakistan ($n=348$ smartphones).
+
+Le prix moyen d'un smartphone dans leur étude est de $136,35. En outre, l'**écart-type** du prix des smartphones est elevé (181), c'est à dire que la dispersion en prix est assez importante, ce qui confirme l'hypothèse que les smartphones sont des biens différenciés.
+
+*Ils proposent alors l'estimation du modèle suivant avec les caractéristiques découpées en variables catégorielles.*
 
 $$
 \begin{split}
@@ -576,29 +583,133 @@ $$
 \end{split}
 $$
 
-- $n=348$ smartphones. Les données des attributs ont été collectées sur des sites webs et les prix pratiqués relevés dans les magasins de 2 villes du Pakistan.
-
 **Résultats** :
 
 - La marque, la batterie, le poids, l'OS, la RAM, la mémoire et la taille de l'écran ont un effet positif statistiquement significatif sur les prix des smartphones.
 
 Plus précisément, les résultats indiquent que les fabricants doivent se concentrer sur un téléphone :
 
-- avec une RAM de plus d'1 Go
-- avec une Mémoire de plus de 8 Go
-- avec un Ecran de plus de 5 pouces
-- compatible avec la 4G
-- avec une caméra arrière de plus de 15 mégapixels
+- avec une RAM de plus d'1 Go.
+- avec une Mémoire de plus de 8 Go.
+- avec un Ecran de plus de 5 pouces.
+- compatible avec la 4G.
+- avec une caméra arrière de plus de 15 mégapixels.
+
+***
 
 Le Pakistan étant un pays en voie de développement, et l'étude datant de 2019, on peut s'attendre à trouver des résultats différents dans nos données. 
 
-Aussi, le prix moyen d'un smartphone dans l'étude est de $136,35. Note intéressante, l'**écart-type** du prix des smartphones est elevé (181), c'est à dire que la dispersion en prix est assez importante, ce qui confirme que les smartphones sont des biens différenciés.
+De plus, sur les 348 smartphones, 127, sont de la marque **QMOBILE**, une société Pakistanaise qui vend des smartphones à bas prix, ce qui peut aussi expliquer le prix moyen assez bas.
 
-De plus, sur les 348 smartphones, 127, c'est à dire + d'un tiers, sont de la marque **QMOBILE**, une société Pakistanaise qui vend des smartphones à bas prix.
+## Effet de réputation
 
-# Statistiques Descriptives
+Dans la section précédente, les résultats de l'étude de @ahmad2019 ont permis de discerner que la marque a un effet statistiquement significatif sur le prix des smartphones, c'est pourquoi nous voulions explorer rapidement des questions d'analyse de la concurrence que l'on peut relier à notre sujet.
 
+@boistel2008 parle spécifiquement de cet effet de réputation.
 
+**Objectif :** Analyser l'impact de la réputation sur les fonctions clés de l'entreprise et son intégration dans le management stratégique actuel.
+
+**Réputation et marketing**
+
+- **Considéré comme une priorité majeure** : La réputation est une ressource essentielle, reconnue comme une priorité de recherche par le *Marketing Science Institute*.
+
+- **Influence le comportement des consommateurs**: La réputation impacte l'intention d'achat, la confiance envers les nouveaux produits et est liée à la satisfaction client. Elle agit comme une *"garantie"*.
+
+- **Avantage compétitif** : Une solide réputation permet de gagner un avantage compétitif sur le marché, voire un avantage concurrentiel, en attirant les clients et en se différenciant des concurrents.
+
+- **Limitation de la concurrence** : les produits ou services d'une entreprise réputée sont moins facilement remplaçables ou imitables en raison de la perception limitée des consommateurs. Au lieu d’examiner les caractéristiques en détail, ils vont se fier à la marque et à la réputation.
+
+- **Corrélation positive avec le prix** : Une meilleure réputation va permettre de fixer des prix plus élevés et d'obtenir un avantage sur les ventes par rapport à la concurrence. *Exemple* : *Toyota* et *General Motors* forment la joint-venture *New United Motor Manufacturing Inc.* La société a produit 2 voitures identiques :
+    - la Toyota Corrola.
+    - la GM’s Geo Prizm.
+
+$\Rightarrow$ La meilleure réputation de Toyota lui a permis de vendre 200000 voitures à $\$$ 11100, contre seulement 80000 véhicules à $\$$ 10700 vendu pour General Motors.
+
+# Acquisition des données
+
+## Scraping
+
+Il n'existe **évidemment** pas de données directement disponibles recoupant le prix et l'ensemble des caractértiques des smartphones. Ce qui pourrait le plus s'en rapprocher sont les fiches techniques de téléphones disponibles sur <https://www.01net.com/>. Scraper ce site pourrait être une idée intéressante, mais *01net* n'est pas un revendeur de smartphones. 
+
+L'idée est donc de récupérer ces données sur le site d'un revendeur (*Fnac*, *Darty*, *Boulanger*). En effet, l'avantage de la récupération des données sur un site de revente direct est que nous avons une *"photographie"* du marché au moment où le *crawler* récupère et alimente notre base de données. A ce titre, nous avons choisi de récupérer des données sur [Boulanger](https://www.boulanger.com/).
+
+::: {.callout-warning}
+
+## Encadrement du web scraping
+
+Le web scraping est encadré en droit français par l’article **L. 342-3**[^7] du Code de la propriété intellectuelle, qui autorise la pratique suivante : 
+
+- L’extraction et la réutilisation d’une partie substantielle, appréciée de façon qualitative ou quantitative, à des fins exclusives d’illustration dans le cadre de l’enseignement et de la recherche et pour un public composé d’élèves, d’étudiants, d’enseignants ou de chercheurs directement concernés. Ainsi, **ce cas de figure étant limité à des fins pédagogiques, il est totalement exclu de faire usage des données extraites à titre commercial**. 
+:::
+
+[^7]: [Plus de détail sur `legifrance.gouv.fr`](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000044365654)
+
+**Nous précisons donc que nous ne ferons en aucun usage de ces données dans un cadre commercial.**
+
+## Méthodologie
+
+L'objectif final est de disposer d'une application permettant aux consommateurs ou aux producteurs de comparer l'efficacité des smartphones en fonction de leurs caractéristiques et de leur indiquer quel est le meilleur choix.
+
+**Workflow** :
+
+- *Scraping* $\Rightarrow$ `Python`
+- *Nettoyage des données* $\Rightarrow$ `Python`
+- *Modélisation* $\Rightarrow$ `R`
+- *Application* $\Rightarrow$ `Python`
+
+\newpage
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{imgs/mermaid_graph.png}
+    \caption{Diagramme fonctionnel}
+    \label{fig:method}
+\end{figure}
+
+Le diagramme fonctionnel permet de comprendre comment interagissent les différents composants logiciels avant leur utilisation dans l'application.
+
+# Statistiques descriptives
+
+```{r data import}
+library(tidyverse)
+library(kableExtra)
+root <- getwd()
+df_path <- file.path(root, "Web_Scraping", "data", "df_clean.csv")
+df <- read_delim(df_path, delim = ";")
+```
+
+```{r}
+df |>
+    group_by(ram) |>
+    summarise(n = n(), mean_price = round(mean(price), 2)) |>
+    mutate(ram = paste(ram, "Go"), mean_price = paste(mean_price, "€")) |>
+    kbl(caption = "Demo table", booktabs = T) |>
+    kable_styling(latex_options = c("striped", "hold_position"))
+
+df |>
+    group_by(storage) |>
+    summarise(n = n(), mean_price = round(mean(price), 2)) |>
+    mutate(storage = paste(storage, "Go"), mean_price = paste(mean_price, "€")) |>
+    kbl(caption = "Demo table2", booktabs = T) |>
+    kable_styling(latex_options = c("striped", "hold_position"))
+
+summary(df)
+```
+
+relations non linéaire concernant l'ajout de stockage ou ram, à creuser.
+
+peut etre des ggplot de boites à stachmou
+
+Faire un giga tableau avec min/max/mean/q1/q2/q3, etc.
+
+Faire des barcharts pour les variables TRUE/FALSE (induction, usb_type_c, fast_charging)
+TODO => ACP, tableaux avec RAM et Storage, etc...
+
+tests statistiques ?
+
+# Modélisation économétrique
+
+Verifier les hypothèses BLUE, hétéroscédasticité, découpage en variables dichotomiques, etc.
 
 # Définitions
 
