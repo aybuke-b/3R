@@ -28,13 +28,17 @@ format:
 
 \newpage
 
-```{r imports}
+```{r lib_imports}
 library(tidyverse)
 library(extrafont)
 library(corrplot)
 library(glmulti)
 library(performance)
 library(stargazer)
+library(rJava)
+library(kableExtra)
+library(ggridges)
+library(patchwork)
 ```
 
 ```{r theme_setting}
@@ -58,30 +62,20 @@ Nous tenons à remercier chaleureusement Monsieur [*Alain BOUSQUET*](https://fr.
 *Note* : Ce **PDF** a été entièrement rédigé en utilisant `Quarto`[^1], combinant la puissance et la versatilité de R, Python, et \LaTeX. Une présentation interactive `reveal.js` du sujet est aussi disponible.[^2]
 
 [^1]: `Quarto` : Système de publication technique et scientifique *open-source* $\Rightarrow$ <https://quarto.org/>.
-[^2]: Retrouvez la présentation sur <https://corentinducloux.fr>.
+[^2]: Retrouvez la présentation sur <https://corentinducloux.fr/Reveal.js/slides_smartphones.html>.
 
 # Introduction
 
-## Un prix
+En tant que consommateur, nous nous retrouvons souvent face à une question infiniment plus complexe qu'elle n'en a l'air. En des termes simples, elle se traduit par : Pourquoi ce prix ? Pour quelle raison ce stylo, cette nouvelle télévision, ou ce smartphone coûte tant ? Est-ce une simple question de coût de production, de marge ? Ou bien cela prend-il en compte d'autres éléments, tels que la valeur perçue par le consommateur, les caractéristiques spécifiques d'un produit, ou encore le service qu'il rend ?
 
-En tant que consommateur, nous nous retrouvons souvent face à une question infiniment plus complexe qu'elle n'en a l'air. En des termes simples, elle se traduit par : Pourquoi ce prix ? Pour quelle raison ce stylo, cette nouvelle télévision, ou ce smartphone coûte tant ? Est-ce une là une simple question de coût de production
+La compréhension des mécanismes sous-jacents à la détermination des prix dans un marché est d'une importance cruciale tant pour les consommateurs que pour les entreprises. Face à ces interrogations, les modèles SFA *(Stochastic Frontier Analysis)* émergent comme un outil puissant, permettant d'évaluer et d'analyser l'efficacité des prix des produits en allant bien au-delà d'une simple évaluation du coût de production.
 
-Comment modéliser l'utilité ? par le service rendu ? par les caractéristiques ?
+En parallèle, une autre approche essentielle dans l'analyse des prix est celle des prix hédoniques. Cette approche considère que le prix d'un bien ou d'un service est influencé non seulement par ses caractéristiques, mais aussi par la valeur subjective que les individus accordent à ces caractéristiques. En ce sens, les modèles SFA, dans le cadre de l'étude des prix, entrent en synergie avec l'approche hédonique en permettant une analyse approfondie des différentes composantes qui influencent la formation des prix.
 
+\macrostars
+\vspace{2em}
 
-## Partie 2 de l'intro
-
-- un petit `test`
-
-
-du latex $\dfrac{2}{x} = 5$
-
-> Un test comme ça qui est très long et qui fait 2,3 lignes assez longues on va tester le débordement tetsjeelfnezfejfhezozhhhfezuoueeeeeeeeeeee
-
-```{r}
-#| echo: true
-2 + 2
-```
+Ainsi, cette étude se déroulera en trois étapes clés : une revue de la littérature portant sur les modèles SFA et la notion de prix hédonique. Ensuite, nous nous concentrerons sur le processus de délimitation de notre problématique d'étude (*le marché des smartphones*). Enfin, nous aborderons l'acquisition des données, les statistiques descriptives et la modélisation économétrique pour comprendre plus en détail les mécanismes de fixation des prix dans le contexte complexe et évolutif des smartphones.
 
 # Revue de la littérature
 
@@ -158,7 +152,6 @@ hedonic_graph_loader <- function() {
             x = expression(z[1]), y = expression(z[2])
         ) +
         theme(
-            text = element_text(family = "Garamond"),
             legend.title = element_blank(),
             legend.text = element_text(color = darkgray),
         )
@@ -685,13 +678,6 @@ Le diagramme fonctionnel permet de comprendre comment interagissent les différe
 # Statistiques descriptives
 
 ```{r data import}
-library(tidyverse)
-library(kableExtra)
-library(ggridges)
-library(patchwork)
-
-# librairies à mettre dans un autre chunk.
-
 root <- getwd()
 df_path <- file.path(root, "Web_Scraping", "data", "df_clean.csv")
 df <- read_delim(df_path, delim = ";")
@@ -1033,14 +1019,13 @@ Cet algorithme est implémenté dans le package \faIcon{r-project} de `{glmulti}
 
 \newpage
 
-### Modèle niveau-niveau
+## Modèle niveau-niveau
 
 Pour la facilité des interprétations, dans cette partie, nous commencerons par utiliser un modèle *level* $-$ *level*, donc notre variable à prédire **price** ne sera pas mise sous forme logarithmique. Dans une seconde partie, nous préférerons un modèle *log* $-$ *level*, qui nous permettra de comparer directement les coefficients de la régression hédonique des prix avec les coefficients de la **SFA**.
 
-```{r selection, results="hide", include = FALSE}
-## On souhaite éxécuter le chunk, mais ne récupérer aucun résultat ici
-## Sinon il y a trop de graphiques.
+Nous allons tout d'abord retirer quelques variables qui ne nous seront pas utiles pour l'analyse et qui risquent de complexifier les régressions : *cpu*, *model*, *sensor*, *screen_tech*, *stars*, *reviews*, *color*, *cam_1*, *cam_2*, *cam_3*. Par exemple, il y a presque autant de modèles distincts que de nombre d'observations, et *reviews* et *stars* sont si peu corrélées à la variable à expliquer **price** que les ajouter ne semble pas nécessaire.
 
+```{r selection, results="hide", include = FALSE}
 df_phones <- df |>
     select(-c(logprice, cpu, model, sensor, screen_tech, stars, reviews, color, cam_1, cam_2, cam_3))
 
@@ -1058,42 +1043,119 @@ forward <- step(null_model,
 )
 
 genetic_alg <- glmulti(price ~ ., data = df_phones, level = 1, method = "g", fitfunction = lm, crit = "bic")
-
-genetic <- genetic_alg@objects[[1]]
-res_gen <- summary(genetic_alg)
-f <- res_gen$bestmodel
 ```
 
 ```{r kable_perf}
+genetic <- genetic_alg@objects[[1]]
+
 compare_performance(backward, forward, genetic, metrics = c("RMSE", "R2_adj", "BIC", "AIC")) |>
     kbl(booktabs = TRUE, digits = 2, col.names = c("Méthode", "Modèle", "$AIC$", "$AIC_{wt}$", "$BIC$", "$BIC_{wt}$", "$R^2_{adj}$", "$RMSE$"), escape = FALSE, caption = "Comparaison des méthodes de sélection (1).") |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
     row_spec(0, bold = T)
 ```
 
-On préférera regarder comme critère le $BIC$ car il est plus parcimonieux que l'$AIC$. 
+**Quelques commentaires** : On s'aperçoit que la méthode *backward* et *forward* n'ont pas convergé vers le même modèle : plus précisément, certaines variables comme *diagonal_pixels* ou *battery* ont été sélectionnées dans la *backward* mais pas dans la *forward* (**On le pressentait, c'est une limite de la méthode**). Plus de détail peut être trouvé dans les résultats des régressions ci-dessous.
+
+On préférera aussi regarder comme critère le $BIC$ car il est plus parcimonieux que l'$AIC$. 
 
 $$
-BIC = -2\ln(L) + k \cdot \ln(N)
+BIC = -2\ln(\mathcal{L}) + k \cdot \ln(N)
 $$
 
-avec $L$ la vraisemblance du modèle estimée, $N$ le nombre d'observations dans l'échantillon et $k$ le nombre de paramètres libres du modèle.
+- Avec $\mathcal{L}$ la vraisemblance du modèle estimée, $N$ le nombre d'observations dans l'échantillon et $k$ le nombre de paramètres libres du modèle.
 
-Comparé à l'$AIC$, il pénalise plus le nombre de variables présentes dans le modèle. On voit d'ailleurs dans ce tableau que l'algorithme génétique possède le $BIC$ le plus bas, tout en ayant un $R^2_{adj}$ très légèrement inférieur aux méthodes *backward* et *forward*. On le verra aussi dans le tableau des résultats de régression, mais la régression trouvée par l'algorithme génétique possède moins de variables, et celles-ci sont toutes singificatives à un seuil $p<0.01$.
+Comparé à l'$AIC$, il pénalise plus le nombre de variables présentes dans le modèle. On voit d'ailleurs dans ce tableau que l'algorithme génétique possède le $BIC$ le plus bas, tout en ayant un $R^2_{adj}$ très légèrement inférieur aux méthodes *backward* et *forward*. On le verra aussi dans le tableau des résultats de régression, mais la régression trouvée par l'algorithme génétique possède moins de variables (12), et celles-ci sont toutes significatives à un seuil $p<0.01$.
+
+```{r var_importance, fig.width = 6.25, fig.height = 6.25}
+#| fig-align: center
+plot(genetic_alg, type = "s")
+```
+
+Le modèle que nous allons étudier ici sera donc :
+
+$$
+\begin{split}
+price_i = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}screen\_type_i \\
++ \beta_{5i}induction_i + \beta_{6i}screen\_size_i + \beta_{7i}repairability\_index_i \\
++ \beta_{8i}made\_in_i + \beta_{9i}upgrade\_storage_i + \beta_{10i}fast\_charging_i  \\
++ \beta_{11i}das\_limbs_i + \beta_{12i}das\_chest_i + u_i
+\end{split}
+$$ {#eq-level-hedonic}
+
+On voit que dans le modèle de l'@eq-level-hedonic, il n'y a pour l'instant aucun effet d'interaction ou d'effet non-linéaire. Pour autant, les résultats sont déjà **très satisfaisants** avec un $R^2_{adj} > 0.9$ 
 
 ```{r results, results="asis"}
+res_gen <- summary(genetic_alg)
+f <- res_gen$bestmodel
 genreg <- lm(f, data = df_phones)
 
-stargazer(forward, backward, genreg, font.size = "footnotesize", header = FALSE, title = "Comparaison des méthodes de sélection (2).", single.row = TRUE, column.labels = c("forward", "backward", "genetic"))
+stargazer(
+    forward,
+    backward,
+    genreg,
+    font.size = "footnotesize",
+    header = FALSE,
+    title = "Comparaison des méthodes de sélection (2).",
+    single.row = TRUE,
+    column.labels = c("forward", "backward", "genetic")
+)
 ```
 
 \newpage
 
-Faire une partie avec effets d'interaction plus tard.
+### Interpétations Modèle niveau-niveau
 
-https://easystats.github.io/see/articles/performance.html => pour vérifier la multicolinéarité, etc.
+- Si la capacité de stockage (*storage*) augmente de 1 Go, alors, le prix augmente de 0.74 €, *cet. par.*
 
-Verifier les hypothèses BLUE, hétéroscédasticité, découpage en variables dichotomiques, comparaison résultats régressions hédoniques, parler des problèmes de convergence de la SFA, etc.
+- En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
+    - La marque la plus valorisée derrière *Apple* est *Sony* avec -433.39 € de différence par rapport à *Apple*.
+    - La marque la moins valorisée est *Nothing* avec -896.87 € de différence par rapport à *Apple*
+
+- Une augmentation d'un Go de *ram* augmente le prix de 42.63 €, *cet. par.*
+
+- Pour le type d'écran (*screen_type*), la catégorie de référence est *borderless* (un écran sans bordure).
+    - Disposer d'un écran à bord incurvé diminue le prix de 147.11 € par rapport à la catégorie de référence, *cet. par.*
+    - Pour l'écran plat, le prix diminue de 100.5 € par rapport à la catégorie de référence, *cet. par.*
+    - Avoir un écran pliable fait augmenter le prix de 316.85 € par rapport à la catégorie de référence, *cet. par.*
+
+- Posséder un dispositif de charge à induction (*induction = `TRUE`*) augmente le prix de 156.81 €, *cet. par.*
+
+- Si la taille de l'écran augmente de 1 pouce, alors le prix augmente de 154.69 €, *cet. par.*
+
+- L'indice de réparabilité (*repairability_index*) est compris entre 1 et 10. Une augmentation de 1 point de cet indice implique une augmentation de 108.97 €, *cet. par.*
+
+- Concernant le lieu de fabrication (*made_in*), la catégorie de référence est la *Chine*.
+    - Les coefficients associés aux catégories *Inde* et *Viêt Nam* ne sont pas significatives, c'est à dire qu'il n'y a pas de différence significative de prix avec un smartphone produit en *Chine*.
+    - Comparé à un téléphone fabriqué en Chine, un téléphone produit au *Japon* augmente le prix de 562.52 €, suivi de la *Thaïlande* avec une augmentation de 540.91 € et enfin de *Taïwan* avec une augmentation du prix de 376.4 €, *cet. par.*
+
+- Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage* = `TRUE`*), alors le prix diminue de 133.05 €, *cet. par.* Comme nous l'avions remarqué dans la partie de statistiques descriptives.
+
+- Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de 145.99 €, *cet.par.* 
+
+- Pour les variables liées au DAS, l'effet de *das_limbs* est positif sur le prix, tandis que l'effet de *das_head* est quant à lui négatif. L'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de 72.88 € alors que cette même augmentation diminue le prix de 105.16 € pour *das_head*, *cet.par.* Néanmoins, l'effet peut être globalement vu comme négatif étant donné la valeur des coefficients.
+
+**$R^2_{adj} = 0.923$ donc 92.3% de la variance de la variable expliquée (price) est expliquée par la variance des variables explicatives du modèle.**
+
+```{r predicts}
+# prediction <- predict(genreg)
+# true <- df$price
+# model <- df$model
+# data.frame(true, prediction, model)
+
+# faire un tableau des prédictions les plus proches et éloignées
+```
+
+\newpage
+
+**COMING SOON**
+
+```{r todos}
+# Faire une partie avec effets d'interaction plus tard.
+
+# https://easystats.github.io/see/articles/performance.html => pour vérifier la multicolinéarité, etc.
+
+# Verifier les hypothèses BLUE, hétéroscédasticité, découpage en variables dichotomiques, comparaison résultats régressions hédoniques, parler des problèmes de convergence de la SFA, etc.
+```
 
 # Définitions
 
