@@ -31,6 +31,10 @@ format:
 ```{r imports}
 library(tidyverse)
 library(extrafont)
+library(corrplot)
+library(glmulti)
+library(performance)
+library(stargazer)
 ```
 
 ```{r theme_setting}
@@ -45,7 +49,7 @@ highlight <- "#750E21"
 
 # Remerciements
 
-Nous tenions à remercier chaleureusement Monsieur [*Alain BOUSQUET*](https://fr.linkedin.com/in/alain-bousquet-95466769) pour son accompagnement tout au long de ce projet **3R**, qui a toujours été ouvert à l'exploration de nouveaux sujets, à l'expérimentation, et nous a encouragé à creuser diverses pistes de réflexion. Ce sujet a été et sera pour nous l'occasion de mettre en pratique l'ensemble des connaissances acquises dans notre cursus universitaire (microéconomie, économétrie, statistiques, analyse de la concurrence, pricing, développement logiciel sous \faIcon{r-project} et `python` \faIcon{python}) sur une problématique éminemment appliquée.
+Nous tenons à remercier chaleureusement Monsieur [*Alain BOUSQUET*](https://fr.linkedin.com/in/alain-bousquet-95466769) pour son accompagnement tout au long de ce projet **3R**, qui a toujours été ouvert à l'exploration de nouveaux sujets, à l'expérimentation, et nous a encouragé à creuser diverses pistes de réflexion. Ce sujet a été et sera pour nous l'occasion de mettre en pratique l'ensemble des connaissances acquises dans notre cursus universitaire (microéconomie, économétrie, statistiques, analyse de la concurrence, pricing, développement logiciel sous \faIcon{r-project} et `python` \faIcon{python}) sur une problématique éminemment appliquée.
 
 \macrostars
 
@@ -631,6 +635,8 @@ Dans la section précédente, les résultats de l'étude de @ahmad2019 ont permi
 
 $\Rightarrow$ La meilleure réputation de Toyota lui a permis de vendre 200000 voitures à $\$$ 11100, contre seulement 80000 véhicules à $\$$ 10700 vendu pour General Motors.
 
+***
+
 # Acquisition des données
 
 ## Scraping
@@ -652,6 +658,8 @@ Le web scraping est encadré en droit français par l’article **L. 342-3**[^7]
 
 **Nous précisons donc que nous ne ferons en aucun usage de ces données dans un cadre commercial.**
 
+\newpage
+
 ## Méthodologie
 
 L'objectif final est de disposer d'une application permettant aux consommateurs ou aux producteurs de comparer l'efficacité des smartphones en fonction de leurs caractéristiques et de leur indiquer quel est le meilleur choix.
@@ -663,7 +671,7 @@ L'objectif final est de disposer d'une application permettant aux consommateurs 
 - *Modélisation* $\Rightarrow$ `R`
 - *Application* $\Rightarrow$ `Python`
 
-\newpage
+\vspace{2em}
 
 \begin{figure}[htbp]
     \centering
@@ -691,24 +699,23 @@ df <- read_delim(df_path, delim = ";")
 
 Il y a `r nrow(df)` smartphones valides disponibles dans nos données scrapées sur Boulanger avec 35 variables.
 
-- Variables liées à l'écran (*screen_type*, *screen_size*, *screen_tech*, *diagonal_pixels*, *ppi*, *resolution_1*, *resolution_2*).
+- Variables liées à l'écran : *screen_type*, *screen_size*, *screen_tech*, *diagonal_pixels*, *ppi*, *resolution_1*, *resolution_2*.
 
-- Variables liées à la caméra (*mpx_backward_cam*, *cam_1*, *cam_2*, *cam_3*, *sensor*).
+- Variables liées à la caméra : *mpx_backward_cam*, *cam_1*, *cam_2*, *cam_3*, *sensor*.
 
-- Variables liées aux caractéristiques physiques du téléphone (*color*, *thickness*, *width*, *height*, *net_weight*).
+- Variables liées aux caractéristiques physiques du téléphone : *color*, *thickness*, *width*, *height*, *net_weight*.
 
-- Variables liées aux performances (*network*, *cpu*, *ram*, *storage*, *upgrade_storage*).
+- Variables liées aux performances : *network*, *cpu*, *ram*, *storage*, *upgrade_storage*.
 
-- Variables liées à la batterie (*battery*, *fast_charging*, *induction*, *usb_type_c*).
+- Variables liées à la batterie : *battery*, *fast_charging*, *induction*, *usb_type_c*.
 
-- Variables liées au DAS (*das_limbs*, *das_chest*, *das_head*).
+- Variables liées au DAS : *das_limbs*, *das_chest*, *das_head*.
 
-- Autres variables (*repairability_index*, *model*, *brand*, *made_in*, *stars*, *reviews*).
+- Autres variables : *repairability_index*, *model*, *brand*, *made_in*, *stars*, *reviews*.
 
 Et enfin notre variable à expliquer : **price**.
 
-
-## Analyse approfondie des prix
+## Analyse des prix
 
 ```{r metrics}
 mean_price <- round(mean(df$price), 2)
@@ -717,7 +724,7 @@ max_price <- round(max(df$price), 2)
 median_price <- median(df$price)
 var_price <- round(var(df$price), 2)
 std_price <- round(sd(df$price), 2)
-qt_price <- quantile(df$price, probs = seq(0, 1, 0.1))
+qt_price <- quantile(df$price, probs = seq(0, 1, 0.25))
 ```
 
 ### Mesures de tendance centrale
@@ -731,9 +738,9 @@ La médiane est quant à elle de `r median_price` €.
 
 [^8]: Données issues de la [*Banque Mondiale*](https://donnees.banquemondiale.org/indicator/NY.GDP.PCAP.CD?most_recent_year_desc=true) (PIB par habitant en US dollars courants)
 
-```{r plots, fig.width=8, fig.height=3}
+```{r density_phones, fig.width=8, fig.height=3}
 #| fig-align: center
-#| fig-cap: "Distribution des prix des smartphones"
+#| fig-cap: "Distribution des prix des smartphones."
 
 df |> ggplot(aes(x = price)) +
     geom_density(fill = highlight, color = "#e9ecef", alpha = 0.7) +
@@ -768,18 +775,42 @@ max_model <- df |>
 
 Le prix minimal d'un smartphone dans notre sélection est de `r min_price` € pour le modèle **`r min_model`** et le prix maximal est de `r max_price` € pour le modèle **`r max_model`**.
 
-Il existe donc une grande étendue de prix, c'est à dire : `r max_price-min_price` €. De plus, l'écart-type du prix est très important (`r std_price`).
+Il existe donc une grande étendue de prix, c'est à dire : `r max_price-min_price` €. De plus, l'écart-type du prix est très important *(`r std_price`)*.
 
-Toutes ces mesures nous confirment que la dispersion en prix est très elevée.
+**Toutes ces mesures nous confirment que la dispersion en prix est très elevée.**
 
-## Prix moyen en fonction des caractéristiques
+### Prix moyen en fonction d'autres variables
+
+On peut s'intéresser au prix moyen par marque pour regarder si il existe des différences de prix significatives entre certaines marques pour illustrer l'article de @boistel2008 cité précédemment.
+
+```{r fig_mean_price, fig.width=8, fig.height=3.5}
+#| fig-align: center
+#| fig-cap: "Prix moyen par marque."
+
+df |>
+    group_by(brand) |>
+    summarise(mean_price = mean(price, na.rm = TRUE)) |>
+    ggplot(aes(x = reorder(brand, -mean_price), y = mean_price)) +
+    geom_bar(stat = "identity", fill = highlight, alpha = 0.7) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    scale_y_continuous(labels = function(x) paste(x, "€", sep = " ")) +
+    labs(x = "", y = "")
+```
+
+- *Apple* possède en moyenne les téléphones les plus chers dans l'échantillon (1177.75 €).
+
+- Le prix moyen des smartphones commercialisés par *Samsung* est de 848.98 €. C'est certes moins qu'Apple, mais cela peut s'expliquer car *Samsung* commercialise à la fois des téléphones très haut de gamme et des téléphones bas de gamme aux prix beaucoup plus attractifs.
+
+- En dernière position on retrouve *Xiaomi* avec des téléphones à un prix moyen aux alentours de 260 €.
+
+\newpage
 
 ```{r kable_1}
 df |>
     group_by(ram) |>
     summarise(n = n(), mean_price = round(mean(price), 2)) |>
     mutate(ram = paste(ram, "Go"), mean_price = paste(mean_price, "€")) |>
-    kbl(caption = "Prix moyen en fonction de la RAM.", booktabs = T) |>
+    kbl(caption = "Prix moyen en fonction de la RAM.", booktabs = T, col.names = c("ram", "$n$", "prix moyen $\\bar p$"), escape = F) |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
     row_spec(0, bold = T)
 ```
@@ -789,20 +820,18 @@ df |>
     group_by(storage) |>
     summarise(n = n(), mean_price = round(mean(price), 2)) |>
     mutate(storage = paste(storage, "Go"), mean_price = paste(mean_price, "€")) |>
-    kbl(caption = "Prix moyen en fonction du stockage.", booktabs = T) |>
+    kbl(caption = "Prix moyen en fonction du stockage.", booktabs = T, col.names = c("stockage", "$n$", "prix moyen $\\bar p$"), escape = F) |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
     row_spec(0, bold = T)
-
-# summary(df)
 ```
 
 - On peut voir que plus la RAM augmente, plus le prix moyen du téléphone augmente (sauf à partir de 12 Gigaoctets). On a en effet remarqué plus haut que le téléphone le plus cher était le **`r max_model`**, qui possède 12 Go de RAM, et non 16. Ce constat, en plus du nombre très limité de téléphones disposant de 16 Go de RAM (7), peut expliquer pourquoi le prix moyen des téléphones ayant 16 Go de RAM est inférieur au prix moyen des téléphones disposant de 12 Go de RAM.
 
-- Il existe une relation non-linéaire concernant le doublement du stockage. Par exemple, passer de 64 à 128 Go implique une augmentation du prix moyen de 250% alors que passer de 256 à 512 Go de stockage implique seulement 141% d'augmentation du prix moyen
+- Pour le second tableau, il existe une relation non-linéaire concernant le doublement de la capacité de stockage du téléphone. Par exemple, passer de 64 à 128 Go implique une augmentation du prix moyen de 250% alors que passer de 256 à 512 Go de stockage implique seulement 141% d'augmentation du prix moyen. Il convient aussi de préciser que $\simeq$ 70% des téléphones de notre échantillon possèdent entre 128 et 256 Go de capacité de stockage
 
-```{r fig.width=8}
+```{r fig.width=8, fig.height=2.5}
 #| fig-align: center
-#| fig-cap: "Ridge plot : RAM et Stockage"
+#| fig-cap: "Ridge plot : Stockage et RAM"
 
 p1 <- df |> ggplot(aes(x = price, y = as.factor(storage), fill = as.factor(storage), alpha = 0.75)) +
     geom_density_ridges() +
@@ -823,18 +852,248 @@ p2 <- df |> ggplot(aes(x = price, y = as.factor(ram), fill = as.factor(ram), alp
 p1 + p2
 ```
 
+\newpage
 
-Faire un giga tableau avec min/max/mean/q1/q2/q3, etc.
+## Etudes des variables catégorielles importantes
 
-Faire des barcharts pour les variables TRUE/FALSE (induction, usb_type_c, fast_charging)
+Nous allons maintenant étudier les proportions des modalités des variables catégorielles. 
 
-TODO => ACP ?
+```{r brand_prop, fig.width=8, fig.height=3.5}
+#| fig-align: center
+#| fig-cap: "Proportion des modèles par marque."
 
-tests statistiques ?
+df |>
+    group_by(brand) |>
+    count() |>
+    ggplot(aes(x = reorder(brand, -n), y = n)) +
+    geom_bar(stat = "identity", fill = highlight, alpha = 0.7) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    labs(x = "", y = "")
+```
+
+- Samsung, Apple & Xiamoi se partagent 70% des téléphones commercialisés sur Boulanger.
+
+- On retrouve la même tendance au niveau des parts de marché mondiale des smartphones par rapport à Q3 2022, c'est à dire que Samsung, Apple & Xiaomi se partagent respectivement 22, 18 et 14% de parts de marché.
+
+```{r location_prop, fig.width=8, fig.height=3}
+#| fig-align: center
+#| fig-cap: "Nombre de smartphones par lieu de fabrication et par type d'écran."
+
+p7 <- df |>
+    group_by(made_in) |>
+    count() |>
+    ggplot(aes(x = reorder(made_in, -n), y = n)) +
+    geom_bar(stat = "identity", fill = highlight, alpha = 0.7) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    labs(x = "", y = "")
+
+p8 <- df |>
+    group_by(screen_type) |>
+    count() |>
+    ggplot(aes(x = reorder(screen_type, -n), y = n)) +
+    geom_bar(stat = "identity", fill = highlight, alpha = 0.7) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    labs(x = "", y = "")
+
+p7 + p8
+```
+
+- On remarque que la majorité des smartphones sont fabriqués en Chine et au Viêt Nam (*97.5*%). Les 12 téléphones restants sont fabriqués en Thaïlande, au Japon, en Inde et à Taïwan.
+
+- Concernant les types d'écran, 76.2% des écrans sont *plats*, 14.6% sont *borderless* (bord à bord), il y a 7.4% d'écrans pliables et finalement 1.8% d'écrans à bords incurvés.
+
+\newpage
+
+## Etude des variables dichotomiques
+
+Nos données contiennent 4 variables dichotomiques aux modalités `TRUE` ou `FALSE`.
+
+Ces variables sont :
+
+- *induction* $\Rightarrow$ le téléphone dispose t-il d'une charge à induction ?
+- *fast_charging* $\Rightarrow$ le téléphone dispose t-il d'une charge rapide ?
+- *upgrade_storage* $\Rightarrow$ la capacité de stockage est-elle extensible ?
+- *usb_type_c* $\Rightarrow$ le téléphone possède t-il un port USB type C ?
+
+```{r binary_vars, fig.width=8}
+#| fig-align: center
+#| fig-cap: "Proportion de modalités des variables dichotomiques."
+
+p3 <- df |>
+    group_by(induction) |>
+    count() |>
+    ggplot(aes(x = induction, y = n)) +
+    geom_bar(stat = "identity") +
+    labs(y = "") +
+    geom_text(aes(label = n), vjust = 1.8, color = "white", size = 3.5)
+
+p4 <- df |>
+    group_by(fast_charging) |>
+    count() |>
+    ggplot(aes(x = fast_charging, y = n)) +
+    geom_bar(stat = "identity") +
+    labs(y = "") +
+    geom_text(aes(label = n), vjust = 1.8, color = "white", size = 3.5)
+
+p5 <- df |>
+    group_by(upgrade_storage) |>
+    count() |>
+    ggplot(aes(x = upgrade_storage, y = n)) +
+    geom_bar(stat = "identity") +
+    labs(y = "") +
+    geom_text(aes(label = n), vjust = 1.8, color = "white", size = 3.5)
+
+p6 <- df |>
+    group_by(usb_type_c) |>
+    count() |>
+    ggplot(aes(x = usb_type_c, y = n)) +
+    geom_bar(stat = "identity") +
+    labs(y = "") +
+    geom_text(aes(label = n), vjust = 1.8, color = "white", size = 3.5)
+
+(p3 + p4) / (p5 + p6)
+```
+
+Si les modalités sont plutôt bien équilibrées pour les variables *induction* et *upgrade_storage*, ce n'est pas le cas pour la variable *usb_type_c* et le déséquilibre est surtout présent pour *fast_charging*. En effet seulement 19 téléphones n'ont pas de charge rapide (ces 19 téléphones sont beaucoup moins chers et sont principalement des téléphones bas de gamme).
+
+Pour la variable *usb_type_c*, il y a 120 téléphones sans chargeur USB type C et le fait de ne pas avoir d'USB type C fait augmenter le prix moyen par rapport aux téléphones qui en ont (les téléphones n'ayant pas d'USB type C sont principalement de marque *Apple*, ce qui explique en partie l'effet).
+
+Le même effet d'augmentation du prix moyen s'observe avec la variable *upgrade_storage*, c'est à dire que les téléphones ne possédant pas de système leur permettant d'augmenter leur stockage sont en moyenne plus chers que les téléphones offrant la possibilité de le faire. Ce qui peut paraître à première vue contre-intuitif ne l'est peut-être pas : les téléphones offrant la possibilité d'augmenter le stockage sont ceux qui en ont le moins, d'où la nécessité de laisser au consommateur la possibilité de pouvoir le faire. Inversement, les téléphones qui n'ont pas de système d'augmentation de stockage ont déjà un stockage important.
+
+Les téléphones avec charge à induction sont eux en moyenne beaucoup plus chers que les téléphones ne disposant pas de charge à induction.
+
+\newpage
+
+## Analyse des corrélations
+
+Une analyse approfondie des corrélations entre l'ensemble des variables numériques disponibles va nous permettre de mesurer la force de la relation linéaire entre paires de variables. Cela nous sera particulièrement utile pour déterminer les variables explicatives fortement corrélées à notre variable à prédire **price**.
+
+```{r correlation, fig.width = 6.25, fig.height = 6.25}
+#| fig-cap: "Matrice des corrélations."
+
+M <- df |>
+    select(where(is.numeric), -c(sensor, random_col, logprice)) |>
+    cor()
+
+corrplot(M,
+    type = "lower", order = "hclust", tl.col = "black", tl.pos = "l",
+    cl.ratio = 0.2, tl.srt = 45, col = COL1("Reds", 200)
+)
+
+cor_ram <- round(cor(df$price, df$ram), 2)
+cor_storage <- round(cor(df$price, df$storage), 2)
+cor_height <- round(cor(df$price, df$height), 3)
+```
+
+On s'aperçoit que les corrélations les plus importantes avec **price** sont respectivement la capacité de stockage avec un coefficient de corrélation $r_{price, storage}=$ `r cor_storage` et la RAM avec $r_{price, ram}=$ `r cor_ram`. Inversement, la hauteur du téléphone, par exemple, semble ne pas avoir d'incidence sur le prix avec $r_{price, height}=$ `r cor_height`.
+
+**Compte tenu de la littérature existante et de nos observations, la RAM et la capacité de stockage sont donc des variables incontournables dans la modélisation des prix des smartphones.**
 
 # Modélisation économétrique
 
-Verifier les hypothèses BLUE, hétéroscédasticité, découpage en variables dichotomiques, etc.
+## Sélection de variables
+
+Avec 35 variables explicatives, le choix des variables *essentielles* à retenir est important. 
+
+La première question qui se pose, en amont de la modélisation, est celle de la **sélection de variables**. En effet, si nous sélectionnons trop de variables, nous risquons de faire du sur-apprentissage et de modéliser le bruit au lieu des liens statistiques existants. Le but est donc de trouver un ensemble optimal de variables.
+
+Traditionnellement en économétrie appliquée, plusieurs approches heuristiques similaires décrites par @efroymson1960 ont été utilisées pour le problème de la sélection de variables comme la *Backward Elimination* ou la *Forward Selection*.
+
+Nous allons ici décrire en détail la procédure de *Foward Selection* :
+
+1. On commence par un modèle $\mathcal{M}_0$, c'est à dire avec constante seulement.
+2. On ajoute les variables $X_i$ une à une dans le modèle.
+3. Parmi ces variables, on retient la variable **la plus significative** dans le modèle.
+4. On réitère la procédure jusqu'à atteindre un modèle contenant uniquement des variables significatives à un seuil spécifié.
+
+::: {.callout-warning}
+
+## Limites
+
+**Il existe néanmoins plusieurs problèmes dans ces méthodes.**
+
+- La *Backward Elimination* et la *Foward Selection* ne convergent pas tout le temps vers le même modèle.
+
+- Le modèle final n'est pas forcément optimal.
+:::
+
+Pour pallier à ces problèmes, une autre approche possible consiste à faire une recherche exhaustive, c'est à dire explorer l'*ensemble* des modèles possibles. Bien que ce soit la meilleure méthode pour obtenir avec certitude le modèle optimal, elle devient rapidement inadaptée dès qu'il y a un nombre de variables trop conséquent, car le nombre de combinaisons possibles de modèles explose.
+
+Il existe néanmoins une dernière approche : les *algorithmes génétiques*. Contrairement à la *forward selection* et la *backward elimination* qui sont des méthodes déterministes, les algorithmes génétiques sont eux stochastiques.
+
+- On peut s'intéresser à plusieurs critères comme : le $R^2$, le $R^2$ ajusté, l'$AIC$, le $BIC$, etc.
+
+Cet algorithme est implémenté dans le package \faIcon{r-project} de `{glmulti}`.
+
+- On les utilise quand le nombre de variables est très important.
+
+- Consiste à générer au hasard une population de modèles candidats pour ensuite leur permettre d’évoluer. Cette évolution se déroule de génération en génération.
+
+- Permet de trouver le meilleur modèle en explorant seulement un sous-ensemble de modèles (de manière aléatoire) mais avec un biais vers de meilleurs modèles grâce à la sélection.
+
+\newpage
+
+### Modèle niveau-niveau
+
+Pour la facilité des interprétations, dans cette partie, nous commencerons par utiliser un modèle *level* $-$ *level*, donc notre variable à prédire **price** ne sera pas mise sous forme logarithmique. Dans une seconde partie, nous préférerons un modèle *log* $-$ *level*, qui nous permettra de comparer directement les coefficients de la régression hédonique des prix avec les coefficients de la **SFA**.
+
+```{r selection, results="hide", include = FALSE}
+## On souhaite éxécuter le chunk, mais ne récupérer aucun résultat ici
+## Sinon il y a trop de graphiques.
+
+df_phones <- df |>
+    select(-c(logprice, cpu, model, sensor, screen_tech, stars, reviews, color, cam_1, cam_2, cam_3))
+
+full_model <- lm(price ~ ., data = df_phones)
+null_model <- lm(price ~ 1, data = df_phones)
+
+backward <- step(full_model,
+    direction = "backward",
+    scope = list(upper = full_model, lower = null_model)
+)
+
+forward <- step(null_model,
+    direction = "forward",
+    scope = list(upper = full_model, lower = null_model)
+)
+
+genetic_alg <- glmulti(price ~ ., data = df_phones, level = 1, method = "g", fitfunction = lm, crit = "bic")
+
+genetic <- genetic_alg@objects[[1]]
+res_gen <- summary(genetic_alg)
+f <- res_gen$bestmodel
+```
+
+```{r kable_perf}
+compare_performance(backward, forward, genetic, metrics = c("RMSE", "R2_adj", "BIC", "AIC")) |>
+    kbl(booktabs = TRUE, digits = 2, col.names = c("Méthode", "Modèle", "$AIC$", "$AIC_{wt}$", "$BIC$", "$BIC_{wt}$", "$R^2_{adj}$", "$RMSE$"), escape = FALSE, caption = "Comparaison des méthodes de sélection (1).") |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+```
+
+On préférera regarder comme critère le $BIC$ car il est plus parcimonieux que l'$AIC$. 
+
+$$
+BIC = -2\ln(L) + k \cdot \ln(N)
+$$
+
+avec $L$ la vraisemblance du modèle estimée, $N$ le nombre d'observations dans l'échantillon et $k$ le nombre de paramètres libres du modèle.
+
+Comparé à l'$AIC$, il pénalise plus le nombre de variables présentes dans le modèle. On voit d'ailleurs dans ce tableau que l'algorithme génétique possède le $BIC$ le plus bas, tout en ayant un $R^2_{adj}$ très légèrement inférieur aux méthodes *backward* et *forward*. On le verra aussi dans le tableau des résultats de régression, mais la régression trouvée par l'algorithme génétique possède moins de variables, et celles-ci sont toutes singificatives à un seuil $p<0.01$.
+
+```{r results, results="asis"}
+genreg <- lm(f, data = df_phones)
+
+stargazer(forward, backward, genreg, font.size = "footnotesize", header = FALSE, title = "Comparaison des méthodes de sélection (2).", single.row = TRUE, column.labels = c("forward", "backward", "genetic"))
+```
+
+\newpage
+
+Faire une partie avec effets d'interaction plus tard.
+
+https://easystats.github.io/see/articles/performance.html => pour vérifier la multicolinéarité, etc.
+
+Verifier les hypothèses BLUE, hétéroscédasticité, découpage en variables dichotomiques, comparaison résultats régressions hédoniques, parler des problèmes de convergence de la SFA, etc.
 
 # Définitions
 
