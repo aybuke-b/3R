@@ -1202,6 +1202,10 @@ stargazer(loghedonic,
 )
 ```
 
+```{r}
+loghedonic$fitted.values
+```
+
 \newpage
 
 ### Interpétations Modèle log-niveau
@@ -1320,6 +1324,8 @@ outliers <- check_outliers(loghedonic)
 plot(outliers, type = "dots")
 ```
 
+- Les résidus ne suivent pas une loi normale et les *outliers* n'influent pas sur les résultats des prédictions.
+
 \newpage
 
 Enfin, la dernière étape visuelle que l'on peut mettre en oeuvre est de vérifier l'ajustement du modèle. Une vérification prédictive a posteriori est la comparaison entre ce que prédit le modèle ajusté et les données réellement observées. 
@@ -1330,23 +1336,54 @@ $\Rightarrow$ **L’objectif est de détecter si le modèle est inadéquat pour 
 check_posterior_predictions(loghedonic)
 ```
 
-- On s'aperçoit que le modèle a du mal à représenter le second pic de la distribution des prix. Globalement, le modèle est assez proche de la réalité.
+- On s'aperçoit que le modèle a du mal à représenter le second pic de la distribution des prix. Globalement, les prédictions sont assez proches de la réalité.
 
 ## Modèles SFA
 
-```{r}
+### Frontière de coût
+
+Le modèle reste le même que celui de l'@eq-log-hedonic, mais le terme d'erreur $\epsilon_i$ devient un terme d'erreur composé $u_i + v_i$. 
+
+Pour modéliser cette frontière de coût, il suffit d'utiliser l'argument `ineffDecrease = FALSE`, autrement dit l'inefficacité augmente la variable endogène.
+
+Il faut maintenant sélectionner la distribution des $u_i$. Deux distributions sont disponibles dans le package `{frontier}`:
+
+- La distribution normale tronquée : `truncNorm = TRUE`.
+- La distribution semi-normale : `truncNorm = FALSE`.
+
+Nous avons décidé de choisir la distribution *semi-normale*.
+
+$$
+\begin{split}
+\ln(price_i) = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}induction_i \\
++ \beta_{5i}screen\_size_i + \beta_{6i}made\_in_i + \beta_{7i}upgrade\_storage_i \\
++ \beta_{8i}das\_head_i + \beta_{9i}das\_limbs_i + \beta_{10i}das\_chest_i  \\
++ \beta_{11i}fast\_charging_i + \beta_{12i}network_i + \beta_{13i}ppi_i + \underbrace{\epsilon_i}_{u_i + v_i}
+\end{split}
+$$ {#eq-sfa-cost}
+
+```{r stochastic_cost}
 scf <- sfa(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + +fast_charging + das_chest + network + ppi,
     data = df_phones,
-    truncNorm = TRUE, # TRUE ou FALSE, à voir.
+    truncNorm = FALSE,
     ineffDecrease = FALSE
-) # scf => Stochastic Cost Function
+)
 
 scf_summary <- summary(scf)
-
-scf_summary
-se <- as.vector(coef(summary(scf))[, 2])
-coefs <- as.vector(coef(summary(scf))[, 1])
 ```
+
+```{r scf_results}
+scf_summary$mleParam |>
+    kbl(booktabs = TRUE, digits = 4, caption = "Résultats de l'estimation du modèle SFA (Cost Frontier).") |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+```
+
+```{r mean_eff}
+mean_eff <- round(mean(efficiencies(scf)), 4)
+```
+
+Dans ce modèle, l'efficacité moyenne calculée est de **`r mean_eff*100`**%, c'est à dire qu'en moyenne, les smartphones de notre échantillon sont *overprice* de **`r 100-(mean_eff)*100`**% !
 
 ```{r}
 eff_df <- as_tibble(efficiencies(scf))
@@ -1358,6 +1395,11 @@ brand_groups <- new_df |>
 
 print(brand_groups |> summarise(mean_eff = mean(efficiency), n_count = n()) |> arrange(mean_eff))
 ```
+
+Note $\Rightarrow$ Mettre les 5 téléphones les plus efficients et les 5 téléphones les moins efficients, ainsi que leurs caractéristiques principales.
+
+
+### Frontière de production
 
 
 ```{r predicts}
@@ -1396,5 +1438,15 @@ DEA
 TE
 
 :   Technical Efficiency
+
+BLUE
+
+:   Best Linear Unbiased Estimator
+
+MCO
+
+:   Moindres Carrés Ordinaires
+
+# Glossaire des variables
 
 # Références
