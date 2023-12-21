@@ -436,12 +436,12 @@ $$
 \ln(p_{ik}) = \alpha_k + \beta X_{ik} + v_{ik} + u_{ik}
 $$ {#eq-arrondo}
 
-- $p_{ik}$ est le prix du $i$-ème modèle de marque $k$
-- $αk$ est l'effet marque sur le prix de la marque $k$
-- $X_{ik}$ est le vecteur des attributs mesurables du $i$-ème modèle de marque $k$
-- $β$ est un vecteur de coefficients pour ces attributs
-- $v_{ik}$ est une erreur aléatoire
-- $u_{ik}$ représente l'inefficacité
+- $p_{ik}$ est le prix du $i$-ème modèle de marque $k$.
+- $α_k$ est l'effet marque sur le prix de la marque $k$.
+- $X_{ik}$ est le vecteur des attributs mesurables du $i$-ème modèle de marque $k$.
+- $β$ est un vecteur de coefficients pour ces attributs.
+- $v_{ik}$ est une erreur aléatoire.
+- $u_{ik}$ représente l'inefficacité.
 
 *Note* : On retrouve bien la forme spécifique d'une SFA, caractérisée par la présence des termes $v_{ik}$ et $u_{ik}$. La seule différence est que le terme d'erreur composée est $\epsilon_{ik} = v_{ik} + u_{ik}$ car nous sommes dans le cadre d'une **frontière de coût** et non de production. 
 
@@ -1021,7 +1021,7 @@ Cet algorithme est implémenté dans le package \faIcon{r-project} de `{glmulti}
 
 \newpage
 
-## Modèle niveau-niveau
+## Modèle Hédonique niveau-niveau
 
 Pour la facilité des interprétations, dans cette partie, nous commencerons par utiliser un modèle *level* $-$ *level*, donc notre variable à prédire **price** ne sera pas mise sous forme logarithmique. Dans une seconde partie, nous préférerons un modèle *log* $-$ *level*, qui nous permettra de comparer directement les coefficients de la régression hédonique des prix avec les coefficients de la **SFA**.
 
@@ -1075,7 +1075,7 @@ $$
 price_i = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}screen\_type_i \\
 + \beta_{5i}induction_i + \beta_{6i}screen\_size_i + \beta_{7i}repairability\_index_i \\
 + \beta_{8i}made\_in_i + \beta_{9i}upgrade\_storage_i + \beta_{10i}fast\_charging_i  \\
-+ \beta_{11i}das\_limbs_i + \beta_{12i}das\_chest_i + u_i
++ \beta_{11i}das\_limbs_i + \beta_{12i}das\_chest_i + \epsilon_i
 \end{split}
 $$ {#eq-level-hedonic}
 
@@ -1151,7 +1151,7 @@ stargazer(
 
 \newpage
 
-## Modèle log-niveau
+## Modèle Hédonique log-niveau
 
 Dans cette partie, nous n'effectuerons pas de sélection de variables avec `{glmulti}` car le meilleur modèle de régression hédonique proposé en *log* $-$ *level* aboutit à des difficultés de convergence pour le modèle **SFA**. Or, nous voulons comparer les coefficients de cette régression hédonique avec les modèles SFA que nous mettrons en place dans une troisième phase.
 
@@ -1181,7 +1181,7 @@ $$
 \ln(price_i) = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}induction_i \\
 + \beta_{5i}screen\_size_i + \beta_{6i}made\_in_i + \beta_{7i}upgrade\_storage_i \\
 + \beta_{8i}das\_head_i + \beta_{9i}das\_limbs_i + \beta_{10i}das\_chest_i  \\
-+ \beta_{11i}fast\_charging_i + \beta_{12i}network_i + \beta_{13i}ppi_i + u_i
++ \beta_{11i}fast\_charging_i + \beta_{12i}network_i + \beta_{13i}ppi_i + \epsilon_i
 \end{split}
 $$ {#eq-log-hedonic}
 
@@ -1200,10 +1200,6 @@ stargazer(loghedonic,
     title = "Modèle de Pricing Hédonique Log-Linéaire ",
     single.row = TRUE
 )
-```
-
-```{r}
-loghedonic$fitted.values
 ```
 
 \newpage
@@ -1231,12 +1227,12 @@ Un aspect crucial lors de la construction des modèles de régressions linéaire
 pvalue_hyp2 <- t.test(loghedonic$residuals)$p.value
 ```
 
-L'hypothèse **(1)** est vérifiée par la formulation de notre modèle. Pour l'hypothèse **(2)**, on peut effectuer un test de *Student* pour vérifier si $E(u_i) = 0$. Les hypothèses $H_0$ et $H_1$ sont les suivantes : 
+L'hypothèse **(1)** est vérifiée par la formulation de notre modèle. Pour l'hypothèse **(2)**, on peut effectuer un test de *Student* pour vérifier si $E(\epsilon_i) = 0$. Les hypothèses $H_0$ et $H_1$ sont les suivantes : 
 
 $$
 \begin{cases}
-H_0 : E(u_i) = 0\\
-H_1 : E(u_i) \neq 0
+H_0 : E(\epsilon_i) = 0\\
+H_1 : E(\epsilon_i) \neq 0
 \end{cases}
 $$
 
@@ -1255,7 +1251,7 @@ check_collinearity(loghedonic) |>
     row_spec(0, bold = T)
 ```
 
-- *Note* : La **Tolérance** correspond à $\frac{1}{\text{VIF}}$, c'est à dire que plus le *VIF* sera élevé, et plus la **Tolérance** sera proche de 0.
+- *Note* : La **Tolérance** correspond à $\dfrac{1}{\text{VIF}}$, c'est à dire que plus le *VIF* sera élevé, et plus la **Tolérance** sera proche de 0.
 
 \newpage
 
@@ -1293,8 +1289,8 @@ plot(heterosced)
 
 $$
 \begin{cases}
-H_0 : V(u_i) = \sigma^2\\
-H_1 : V(u_i) = \sigma^2_i
+H_0 : V(\epsilon_i) = \sigma^2\\
+H_1 : V(\epsilon_i) = \sigma^2_i
 \end{cases}
 $$
 
@@ -1362,6 +1358,22 @@ $$
 \end{split}
 $$ {#eq-sfa-cost}
 
+
+```{r stars_func}
+# **stars**
+# *p-values* to stars.
+# ***
+# # Description
+# Fonction permettant d'associer des "`***`" à des seuils de *p-values*.
+stars <- function(pvalue) {
+    ifelse(pvalue < 0.001, "***",
+        ifelse(pvalue < 0.01, "**",
+            ifelse(pvalue < 0.05, "*", "")
+        )
+    )
+}
+```
+
 ```{r stochastic_cost}
 scf <- sfa(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + +fast_charging + das_chest + network + ppi,
     data = df_phones,
@@ -1372,20 +1384,30 @@ scf <- sfa(log(price) ~ storage + brand + ram + induction + screen_size + made_i
 scf_summary <- summary(scf)
 ```
 
-```{r scf_results}
-scf_summary$mleParam |>
-    kbl(booktabs = TRUE, digits = 4, caption = "Résultats de l'estimation du modèle SFA (Cost Frontier).") |>
-    kable_styling(latex_options = c("striped", "hold_position")) |>
-    row_spec(0, bold = T)
-```
-
 ```{r mean_eff}
 mean_eff <- round(mean(efficiencies(scf)), 4)
 ```
 
 Dans ce modèle, l'efficacité moyenne calculée est de **`r mean_eff*100`**%, c'est à dire qu'en moyenne, les smartphones de notre échantillon sont *overprice* de **`r 100-(mean_eff)*100`**% !
 
-```{r}
+\newpage
+
+```{r scf_results}
+scf_results <- cbind(
+    round(scf_summary$mleParam[, 1], 5),
+    stars(scf_summary$mleParam[, 4]),
+    round(scf_summary$mleParam[, 2], 5)
+)
+
+scf_results |>
+    kbl(booktabs = TRUE, caption = "Résultats de l'estimation du modèle SFA (Cost Frontier).", col.names = c("Variable", "Coefficient", "Significativité", "SE")) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+```
+
+\newpage
+
+```{r eff_brands}
 eff_df <- as_tibble(efficiencies(scf))
 new_df <- bind_cols(df, eff_df)
 
@@ -1393,11 +1415,39 @@ brand_groups <- new_df |>
     select(brand, efficiency) |>
     group_by(brand)
 
-print(brand_groups |> summarise(mean_eff = mean(efficiency), n_count = n()) |> arrange(mean_eff))
+brand_groups |>
+    summarise(mean_eff = round(mean(efficiency), 3), n_count = n()) |>
+    arrange(mean_eff) |>
+    kbl(booktabs = TRUE, caption = "Indice d'efficacité moyen par marque.", col.names = c("Marque", "$\\hat{\\theta_k}$", "$n$"), escape = FALSE) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
 ```
 
-Note $\Rightarrow$ Mettre les 5 téléphones les plus efficients et les 5 téléphones les moins efficients, ainsi que leurs caractéristiques principales.
+- **OPPO** est la marque qui possède la pire relation prix~attributs de notre sélection.
+- **NOTHING** est la marque qui possède la meilleure relation prix~attributs de notre sélection.
 
+**APPLE** fait partie du Top 3 des marques les plus efficientes, derrière **NOTHING** et **FAIRPHONE** (Il faut néanmoins se souvenir que ces 2 marques ne proposent que très peu de téléphones, contre 105 pour **APPLE**).
+
+
+```{r worst}
+new_df |>
+    select(model, efficiency, ram, storage, screen_size, price) |>
+    arrange(efficiency) |>
+    slice_head(n = 5) |>
+    kbl(booktabs = TRUE, digits = 3, caption = "Les 5 téléphones les moins efficients.") |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+```
+
+```{r best}
+new_df |>
+    select(model, efficiency, ram, storage, screen_size, price) |>
+    arrange(efficiency) |>
+    slice_tail(n = 5) |>
+    kbl(booktabs = TRUE, digits = 3, caption = "Les 5 téléphones les plus efficients.") |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+```
 
 ### Frontière de production
 
