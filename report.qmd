@@ -30,15 +30,17 @@ format:
 
 ```{r lib_imports}
 library(tidyverse)
-library(extrafont)
+library(ggridges)
 library(corrplot)
 library(glmulti)
 library(performance)
 library(stargazer)
 library(rJava)
 library(kableExtra)
-library(ggridges)
 library(patchwork)
+library(see)
+library(frontier)
+library(lmtest)
 ```
 
 ```{r theme_setting}
@@ -815,7 +817,7 @@ df |>
 
 - Pour le second tableau, il existe une relation non-linéaire concernant le doublement de la capacité de stockage du téléphone. Par exemple, passer de 64 à 128 Go implique une augmentation du prix moyen de 250% alors que passer de 256 à 512 Go de stockage implique seulement 141% d'augmentation du prix moyen. Il convient aussi de préciser que $\simeq$ 70% des téléphones de notre échantillon possèdent entre 128 et 256 Go de capacité de stockage
 
-```{r fig.width=8, fig.height=2.5}
+```{r ggplots, fig.width=8, fig.height=2.5}
 #| fig-align: center
 #| fig-cap: "Ridge plot : Stockage et RAM"
 
@@ -1011,7 +1013,7 @@ Il existe néanmoins une dernière approche : les *algorithmes génétiques*. Co
 
 Cet algorithme est implémenté dans le package \faIcon{r-project} de `{glmulti}`.
 
-- On les utilise quand le nombre de variables est très important.
+- On l'utilise quand le nombre de variables est très important.
 
 - Consiste à générer au hasard une population de modèles candidats pour ensuite leur permettre d’évoluer. Cette évolution se déroule de génération en génération.
 
@@ -1066,11 +1068,6 @@ $$
 
 Comparé à l'$AIC$, il pénalise plus le nombre de variables présentes dans le modèle. On voit d'ailleurs dans ce tableau que l'algorithme génétique possède le $BIC$ le plus bas, tout en ayant un $R^2_{adj}$ très légèrement inférieur aux méthodes *backward* et *forward*. On le verra aussi dans le tableau des résultats de régression, mais la régression trouvée par l'algorithme génétique possède moins de variables (12), et celles-ci sont toutes significatives à un seuil $p<0.01$.
 
-```{r var_importance, fig.width = 6.25, fig.height = 6.25}
-#| fig-align: center
-plot(genetic_alg, type = "s")
-```
-
 Le modèle que nous allons étudier ici sera donc :
 
 $$
@@ -1083,6 +1080,21 @@ price_i = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i +
 $$ {#eq-level-hedonic}
 
 On voit que dans le modèle de l'@eq-level-hedonic, il n'y a pour l'instant aucun effet d'interaction ou d'effet non-linéaire. Pour autant, les résultats sont déjà **très satisfaisants** avec un $R^2_{adj} > 0.9$ 
+
+\newpage
+
+```{r var_importance, fig.width = 6.25, fig.height = 6.25}
+#| fig-align: center
+#| fig-cap: "Importance des variables."
+
+plot(genetic_alg, type = "s", col = highlight, col.main = "white")
+abline(v = 0.8, col = "black")
+par(cex.axis = 0.8)
+```
+
+L'importance d'une variable, dans ce contexte, est égale à la somme des probabilités pour les modèles dans lesquels la variable apparaît. Ainsi, une variable présente dans de nombreux modèles avec des poids importants recevra une valeur d'importance élevée. La ligne rouge verticale est tracée à 0.8, correspondant au seuil différenciant les variables importantes des variables moins importantes, mais ce choix (80%) est arbitraire.
+
+Ainsi, on remarque que 11 variables sont présentes dans l'ensemble des modèles, donc ces variables sont très importantes. Ensuite, une seule variable est au-dessus de la ligne de *cutoff* mais inférieure à 1 : *das_head*. L'ensemble des autres variables sont comprises entre 0 et 0.25. On peut donc considérer que l'importance de ces variables dans notre modèle est négligeable.
 
 ```{r results, results="asis"}
 res_gen <- summary(genetic_alg)
@@ -1108,8 +1120,8 @@ stargazer(
 - Si la capacité de stockage (*storage*) augmente de 1 Go, alors, le prix augmente de 0.74 €, *cet. par.*
 
 - En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
-    - La marque la plus valorisée derrière *Apple* est *Sony* avec -433.39 € de différence par rapport à *Apple*.
-    - La marque la moins valorisée est *Nothing* avec -896.87 € de différence par rapport à *Apple*
+    - La marque la plus valorisée derrière *Apple* est *Sony* avec 433.39 € de différence par rapport à *Apple*.
+    - La marque la moins valorisée est *Nothing* avec 896.87 € de différence par rapport à *Apple*
 
 - Une augmentation d'un Go de *ram* augmente le prix de 42.63 €, *cet. par.*
 
@@ -1136,6 +1148,218 @@ stargazer(
 
 **$R^2_{adj} = 0.923$ donc 92.3% de la variance de la variable expliquée (price) est expliquée par la variance des variables explicatives du modèle.**
 
+
+\newpage
+
+## Modèle log-niveau
+
+Dans cette partie, nous n'effectuerons pas de sélection de variables avec `{glmulti}` car le meilleur modèle de régression hédonique proposé en *log* $-$ *level* aboutit à des difficultés de convergence pour le modèle **SFA**. Or, nous voulons comparer les coefficients de cette régression hédonique avec les modèles SFA que nous mettrons en place dans une troisième phase.
+
+:::{.callout-warning}
+
+## Difficultés de convergence d'un modèle SFA
+
+Dans une **SFA**, les difficultés de convergence peuvent être dues à de vastes zones très plates de la fonction de vraisemblance, pouvant être causées par une forte multicolinéarité entre l'intercept du modèle de frontière et l'intercept du modèle d'inefficacité. Par conséquent, supprimer l'intercept du modèle d'inefficacité améliore parfois la convergence, mais risque aussi d'introduire un biais de variable omise.
+
+\vspace{1em}
+
+Dans le package `{frontier}` que nous utilisons pour effectuer la SFA, ces difficultés sont en général indiquées par le message d'avertissement suivant :
+
+\vspace{1em}
+
+- *"le paramètre gamma est proche de la limite de l'espace des paramètres [0,1]"*
+
+\vspace{1em}
+
+Cela signifie que l'estimation du paramètre $\gamma$ est soit proche de la limite inférieure de son espace de paramètres (0), soit proche de la limite supérieure de son espace de paramètres (1). Par exemple, un $\gamma$ proche de zéro indique qu'il n'y a preque aucune inefficacité, donc qu'il serait possible d'estimer le modèle par MCO, tandis qu'un $\gamma$ proche de un indique qu'il n'y a presque aucun bruit, donc qu'il serait possible d'utiliser une DEA. Plus globalement, cela indique une mauvaise spécification du modèle ou que d'autres modèles pourraient être plus appropriés dans ce cadre.
+:::
+
+Après plusieurs essais, le modèle que nous avons choisi d'étudier est :
+
+$$
+\begin{split}
+\ln(price_i) = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}induction_i \\
++ \beta_{5i}screen\_size_i + \beta_{6i}made\_in_i + \beta_{7i}upgrade\_storage_i \\
++ \beta_{8i}das\_head_i + \beta_{9i}das\_limbs_i + \beta_{10i}das\_chest_i  \\
++ \beta_{11i}fast\_charging_i + \beta_{12i}network_i + \beta_{13i}ppi_i + u_i
+\end{split}
+$$ {#eq-log-hedonic}
+
+Par rapport au modèle en niveau, il n'y a plus les variables *screen_type* et *repairability_index*, qui posaient des problèmes de convergence. D'autres variables ont néanmoins été introduites comme *network* ou *ppi*.
+
+***
+
+```{r log_hedonic, results="asis"}
+loghedonic <- lm(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + das_chest + fast_charging + network + ppi,
+    data = df_phones
+)
+
+stargazer(loghedonic,
+    font.size = "footnotesize",
+    header = FALSE,
+    title = "Modèle de Pricing Hédonique Log-Linéaire ",
+    single.row = TRUE
+)
+```
+
+\newpage
+
+### Interpétations Modèle log-niveau
+
+
+\newpage
+
+### Vérification des hypothèses
+
+Un aspect crucial lors de la construction des modèles de régressions linéaires est d’évaluer la qualité de l’ajustement du modèle, mais aussi de vérifier les hypothèses de **Gauss-Markov** :
+
+1. Linéarité dans les paramètres.
+2. Les résidus sont d'espérance nulle.
+3. Absence de multicolinéarité.
+4. Homoscédasticité des résidus.
+5. Pas d'autocorrélation des résidus.
+
+**Sous toutes ces hypothèses sont satisfaites, l'estimateur fourni par les MCO est dit BLUE (Best Linear Unbiased Estimator).** Pour les vérifier, on peut utiliser les packages `{performance}` et `{see}` en conjonction[^9].
+
+[^9]: Plus d'infos sur les packages : [`see`](https://easystats.github.io/see/articles/performance.html) et [`performance`](https://easystats.github.io/performance/index.html)
+
+```{r hyp2}
+pvalue_hyp2 <- t.test(loghedonic$residuals)$p.value
+```
+
+L'hypothèse **(1)** est vérifiée par la formulation de notre modèle. Pour l'hypothèse **(2)**, on peut effectuer un test de *Student* pour vérifier si $E(u_i) = 0$. Les hypothèses $H_0$ et $H_1$ sont les suivantes : 
+
+$$
+\begin{cases}
+H_0 : E(u_i) = 0\\
+H_1 : E(u_i) \neq 0
+\end{cases}
+$$
+
+\vspace{1em}
+
+- La $p-value$ issue du test est égale à `r pvalue_hyp2`, donc l'hypothèse **(2)** est vérifiée.
+
+```{r collinearity, fig.width=6}
+check_collinearity(loghedonic) |>
+    select("Term", "VIF", "VIF_CI_low", "VIF_CI_high", "Tolerance") |>
+    kbl(
+        booktabs = TRUE, digits = 2,
+        col.names = c("Variable", "VIF", "IC {low}", "IC {high}", "Tolérance"), caption = "Vérification de la multicolinéarité."
+    ) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+```
+
+- *Note* : La **Tolérance** correspond à $\frac{1}{\text{VIF}}$, c'est à dire que plus le *VIF* sera élevé, et plus la **Tolérance** sera proche de 0.
+
+\newpage
+
+:::{.callout-tip}
+
+## Mesure de la multicolinéarité
+
+Le Variance Inflation Factor (*VIF*) est une mesure permettant d'analyser l'ampleur de la multicolinéarité des termes du modèle. Plus précisément :
+
+\vspace{1em}
+
+- Un *VIF* inférieur à 5 indique une faible corrélation de ce prédicteur avec d'autres prédicteurs. 
+- Une valeur comprise entre 5 et 10 indique une corrélation modérée.
+- Enfin, des valeurs de *VIF* supérieures à 10 sont le signe d'une corrélation très elevée.
+
+\vspace{1em}
+
+Ce que le VIF apporte en plus d'une simple analyse des corrélations est l'analyse d'un cas où une variable est fortement corrélée à une combinaison linéaire de plusieurs variables.
+:::
+
+Avec un *VIF* estimé de 470.82, il n'est pas surprenant de constater que la marque est extrêmement corrélée à une combinaison linéaire de plusieurs variables. On peut par exemple penser au choix de localisation de la production, le fait de disposer ou non d'un port USB type C, etc. L'hypothèse **(3)** n'est donc pas vérifiée, mais cela est cohérent dans le cadre du modèle.
+
+***
+
+Concernant l'hypothèse **(4)** - l'Homoscédasticité pour les modèles de régression linéaire signifie que les résidus du modèle ont une variance constante. Si cette hypothèse n'est pas respectée, alors les *erreurs-types* et les $p-values$ du modèle ne sont plus fiables. On peut par exemple détecter la présente d'hétéroscédasticité graphiquement :
+
+```{r heteroscedasticity, fig.width=6}
+#| fig-align: center
+#| fig-cap: "Homoscédasticité des résidus."
+heterosced <- check_heteroscedasticity(loghedonic)
+plot(heterosced)
+```
+
+- Il est clair que notre modèle présente des résidus hétéroscédastiques. On peut aussi le vérifier avec le test de *Breusch-Pagan*. Les hypothèses $H_0$ et $H_1$ sont les suivantes :
+
+$$
+\begin{cases}
+H_0 : V(u_i) = \sigma^2\\
+H_1 : V(u_i) = \sigma^2_i
+\end{cases}
+$$
+
+```{r bp_test}
+bp_pvalue <- round(bptest(loghedonic)$p.value, 2)
+```
+
+\vspace{1em}
+
+- La $p-value$ issue du test est égale à `r bp_pvalue`, donc l'hypothèse **(4)** n'est pas vérifiée.
+
+**Il existe néanmoins plusieurs façons de corriger le problème d'hétéroscédasticité que nous verrons dans la section suivante.**
+
+En complément, on peut aussi tester la normalité des résidus, et vérifier si certaines observations ont une influence très importante.
+
+```{r normality, fig.width=6, fig.height=3}
+#| fig-align: center
+#| fig-cap: "Normalité des résidus (QQ Plot)."
+norm <- check_normality(loghedonic)
+plot(norm, type = "qq")
+```
+
+```{r outliers, fig.width=6, fig.height=3}
+#| fig-align: center
+#| fig-cap: "Influence des valeurs extrêmes."
+outliers <- check_outliers(loghedonic)
+plot(outliers, type = "dots")
+```
+
+\newpage
+
+Enfin, la dernière étape visuelle que l'on peut mettre en oeuvre est de vérifier l'ajustement du modèle. Une vérification prédictive a posteriori est la comparaison entre ce que prédit le modèle ajusté et les données réellement observées. 
+
+$\Rightarrow$ **L’objectif est de détecter si le modèle est inadéquat pour décrire les données.**
+
+```{r posterior, fig.width=8}
+check_posterior_predictions(loghedonic)
+```
+
+- On s'aperçoit que le modèle a du mal à représenter le second pic de la distribution des prix. Globalement, le modèle est assez proche de la réalité.
+
+## Modèles SFA
+
+```{r}
+scf <- sfa(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + +fast_charging + das_chest + network + ppi,
+    data = df_phones,
+    truncNorm = TRUE, # TRUE ou FALSE, à voir.
+    ineffDecrease = FALSE
+) # scf => Stochastic Cost Function
+
+scf_summary <- summary(scf)
+
+scf_summary
+se <- as.vector(coef(summary(scf))[, 2])
+coefs <- as.vector(coef(summary(scf))[, 1])
+```
+
+```{r}
+eff_df <- as_tibble(efficiencies(scf))
+new_df <- bind_cols(df, eff_df)
+
+brand_groups <- new_df |>
+    select(brand, efficiency) |>
+    group_by(brand)
+
+print(brand_groups |> summarise(mean_eff = mean(efficiency), n_count = n()) |> arrange(mean_eff))
+```
+
+
 ```{r predicts}
 # prediction <- predict(genreg)
 # true <- df$price
@@ -1145,16 +1369,10 @@ stargazer(
 # faire un tableau des prédictions les plus proches et éloignées
 ```
 
-\newpage
-
-**COMING SOON**
 
 ```{r todos}
 # Faire une partie avec effets d'interaction plus tard.
-
-# https://easystats.github.io/see/articles/performance.html => pour vérifier la multicolinéarité, etc.
-
-# Verifier les hypothèses BLUE, hétéroscédasticité, découpage en variables dichotomiques, comparaison résultats régressions hédoniques, parler des problèmes de convergence de la SFA, etc.
+# découpage en variables dichotomiques, comparaison résultats régressions hédoniques, etc.
 ```
 
 # Définitions
