@@ -254,7 +254,7 @@ Pour finir, l'approche hédonique a été utilisée empiriquement dans de très 
 
 - Explore l'impact des attributs des restaurants à Séoul sur leurs prix moyens de repas en examinant les données de 185 établissements recueillies via diverses sources.
 
-Dans la littérature, une spécification *semi-log* est généralement préférée en raison de sa capacité à mieux modéliser les relations non linéaires entre les variables. De plus, cette forme  permet d'améliorer l'ajustement du modèle aux données observées, et offre un R² supéiruer à celui obtenu avec d'autres spécifications $-$ voir @bello2010.
+Dans la littérature, une spécification *semi-log* est généralement préférée en raison de sa capacité à mieux modéliser les relations non linéaires entre les variables. De plus, cette forme  permet d'améliorer l'ajustement du modèle aux données observées, et offre un $R²$ supéiruer à celui obtenu avec d'autres spécifications $-$ voir @bello2010.
 
 \newpage
 
@@ -1208,6 +1208,37 @@ stargazer(loghedonic,
 
 ### Interpétations Modèle log-niveau
 
+- Si la capacité de stockage (*storage*) augmente de 1 Go, alors le prix augmente de 0.1%, *cet. par.*
+
+- En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
+    - La marque la plus valorisée derrière *Apple* est *Samsung* avec une différence de prix de $15.1\%$.
+    - La marque la moins valorisée est *Honor* avec une différence de prix de $98.7\%$ par rapport à *Apple*.
+
+- Si la *ram* augmente de 1 Go, alors le prix augmente de $8.2\%$, *cet. par.*
+
+- Si le téléphone dispose d'une charge à induction (*induction = `TRUE`*), alors le prix augmente de $27.2\%$, *cet. par.*
+
+- Si la taille de l'écran augmente de 1 pouce (*screen_size*), alors le prix augmente de $24.1\%$, *cet. par.*
+
+- Pour le lieu de fabrication (*made_in*), la catégorie de référence est la *Chine*.
+    - Le coefficient associé à la catégorie *Inde* n'est pas significatif.
+    - Un téléphone qui est fabriqué au *Viêt Nam* est $14.9\%$  moins cher qu'un téléphone fabriqué en *Chine*, *cet. par.*
+    - Comparé à un téléphone produit en *Chine*, un téléphone produit en *Thaïlande* augmente le prix de $54.3\%$, suivi de *Taïwan* avec une augmentation de $47.5\%$ et enfin du *Japon* avec une augmentation du prix de $41.4\%$, *cet. par.*
+
+- Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage = `TRUE`*), alors le prix diminue de $36.3\%$, *cet. par*.
+
+- Pour les variables liées au DAS :
+    - l'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de $9.2\%$, *cet. par.*
+    - au contraire, le prix diminue de $20.9\%$ pour le *das_head* et de $29.9\%$ pour le *das_chest* lorsque qu'ils augmentent d'une unité de W/kg, *cet. par.*
+
+- Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de $13.9\%$, *cet.par.* 
+
+- Si le téléphone est compatible avec la 5G (*network5G = `TRUE`*), alors le prix augmente de $30.6\%$, *cet. par.*
+
+- Lorsque le *ppi* (*pixels par pouce*) augmente d'une unité, alors le prix augmente de $0.1\%$, *cet. par.*
+
+
+**$R^2_{adj} = 0.929$ donc 92.3% de la variance de la variable expliquée (log(price)) est expliquée par la variance des variables explicatives du modèle.**
 
 \newpage
 
