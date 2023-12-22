@@ -41,6 +41,7 @@ library(patchwork)
 library(see)
 library(frontier)
 library(lmtest)
+library(dplyr)
 ```
 
 ```{r theme_setting}
@@ -70,9 +71,11 @@ Nous tenons à remercier chaleureusement Monsieur [*Alain BOUSQUET*](https://fr.
 
 En tant que consommateur, nous nous retrouvons souvent face à une question infiniment plus complexe qu'elle n'en a l'air. En des termes simples, elle se traduit par : Pourquoi ce prix ? Pour quelle raison ce stylo, cette nouvelle télévision, ou ce smartphone coûte tant ? Est-ce une simple question de coût de production, de marge ? Ou bien cela prend-il en compte d'autres éléments, tels que la valeur perçue par le consommateur, les caractéristiques spécifiques d'un produit, ou encore le service qu'il rend ?
 
-La compréhension des mécanismes sous-jacents à la détermination des prix dans un marché est d'une importance cruciale tant pour les consommateurs que pour les entreprises. Face à ces interrogations, les modèles SFA *(Stochastic Frontier Analysis)* émergent comme un outil puissant, permettant d'évaluer et d'analyser l'efficacité des prix des produits en allant bien au-delà d'une simple évaluation du coût de production.
-
 En parallèle, une autre approche essentielle dans l'analyse des prix est celle des prix hédoniques. Cette approche considère que le prix d'un bien ou d'un service est influencé non seulement par ses caractéristiques, mais aussi par la valeur subjective que les individus accordent à ces caractéristiques. En ce sens, les modèles SFA, dans le cadre de l'étude des prix, entrent en synergie avec l'approche hédonique en permettant une analyse approfondie des différentes composantes qui influencent la formation des prix.
+
+La compréhension des mécanismes sous-jacents à la détermination des prix dans un marché est d'une importance cruciale tant pour les consommateurs que pour les entreprises. Face à ces interrogations, les modèles SFA *(Stochastic Frontier Analysis)* émergent comme un outil puissant, permettant d'évaluer et d'analyser l'efficacité des prix des produits en allant bien au-delà d'une simple évaluation du coût de production. Ces modèles supposent que les prix sont à l’équilibre, et prennent en compte à la fois les valorisations du côté des consommateurs et les coûts de production du côté des producteurs pour comprendre comment se forment réellement les prix.
+
+
 
 \macrostars
 \vspace{2em}
@@ -89,9 +92,9 @@ $$
 U(x) = U(x_1, x_2, \dots, x_n)
 $$ {#eq-umax}
 
-*Avec $x_1, x_2, \dots, x_n$ un vecteur de $n$ biens.* L'@eq-umax exprime donc la relation entre la quantité de biens consommés et le niveau d'utilité que ces biens procurent à un agent. Dès lors, dans ce cadre, la consommation de biens procure **directement** de l'utilité à l'agent. En pratique pourtant, il est difficile de concevoir comment l'achat d'un bien comme une lampe ou un stylo peut nous apporter de l'utilité en tant que consommateur. 
+Avec *$x_1, x_2, \dots, x_n$* un vecteur de $n$ biens. L'@eq-umax exprime donc la relation entre la quantité de biens consommés et le niveau d'utilité que ces biens procurent à un agent. Dès lors, dans ce cadre, la consommation de biens procure **directement** de l'utilité à l'agent. En pratique pourtant, il est difficile de concevoir comment l'achat d'un bien comme une lampe ou un stylo peut nous apporter de l'utilité en tant que consommateur. 
 
-Pour répondre à cette difficulté, @lancaster1966, propose un nouveau cadre conceptuel théorique décrit par les hypothèses suivantes.
+Pour répondre à cette difficulté, @lancaster1966 propose un nouveau cadre conceptuel théorique décrit par les hypothèses suivantes.
 
 :::{.callout-tip}
 
@@ -99,7 +102,7 @@ Pour répondre à cette difficulté, @lancaster1966, propose un nouveau cadre co
 
 1. Le bien en lui même ne procure pas d'utilité au consommateur $\Rightarrow$ il possède des **caractéristiques** qui procurent de l'utilité.
 2. Un bien est un ensemble (*bundle*) de caractéristiques $-$ il possède le plus souvent de nombreuses caractéristiques.
-3. Une combinaison de biens peut posséder des caractéristiques différentes comparé à des biens consommés séparément.
+3. Une combinaison de biens peut procurer une utilité qui ne serait pas la somme des utilités procurées par les biens séparément.
 
 :::
 
@@ -107,11 +110,11 @@ Pour répondre à cette difficulté, @lancaster1966, propose un nouveau cadre co
 
 - Un ordinateur n'est pas acheté pour le simple plaisir de posséder un ordinateur. Il est acheté car il permet de naviguer sur Internet, écrire des cours, programmer, regarder une série, etc. C'est donc pour les **services qu'il  nous rend**, ce qui est modélisé ici par les caractéristiques possédées du bien.
 
-- Les biens possèdent généralement un grand nombre de caractéristiques. Prenons l'exemple d'une gourde : la couleur, la forme, les dimensions et la capacité isothermique sont autant de caractéristiques qui peuvent influer sur la décision d'achat.
+- Les biens possèdent généralement un grand nombre de caractéristiques. Prenons l'exemple d'une gourde : la couleur, la forme, les dimensions et la capacité isothermique sont autant de caractéristiques qui peuvent influer sur la décision d'achat et la disposition à payer.
 
 - En consommant du lait et du café séparemment, les caractéristiques retirées du lait sont de la vitamine D et du calcium, tandis que pour le café les caractéristiques retirées sont de la caféine, une boisson chaude, un *"boost"* le matin. En revanche, consommer un café latte permettra d'obtenir une boisson plus douce, moins cafféiné, un goût différent. En bref, les caractéristiques retirées du mélange sont différentes.
 
-Dans le modèle de Lancaster il existe une relation **linéaire** entre les prix des biens et leurs caractéristiques. Le prix total  $p$ d'un bien peut donc être considéré comme la somme des prix individuels associé à chaque caractéristique. Cela découle du fait que les attributs des biens étudiés peuvent être considérés comme des composantes distinctes et séparables.
+Dans le modèle de Lancaster on pose une relation **linéaire** entre les prix des biens et leurs caractéristiques. Le prix total  $p$ d'un bien peut donc être considéré comme la somme des prix individuels associé à chaque caractéristique. Cela découle du fait que les attributs des biens étudiés peuvent être considérés comme des composantes distinctes et séparables.
 
 ## Pricing Hédonique
 
@@ -187,13 +190,13 @@ $$
 \boxed{p(z) = p(z_1, z_2, \dots, z_n)}
 $$ {#eq-price}
 
-Un prix est donc défini en chaque point du plan et guide les choix de localisation des consommateurs et des producteurs concernant les ensembles de caractéristiques achetés et vendus.
+Un produit est donc défini en chaque point du plan et guide les choix de localisation des consommateurs et des producteurs concernant les ensembles de caractéristiques.
 
 ::: {.callout-warning}
 
 ## Limites
 
-Il n'en reste pas moins qu'il subsiste un problème indéniable : ce qu'on aimerait réellement mesurer c'est le **service rendu par un produit** et non pas les caractéristiques de ce produit. Mais ce premier est complètement inobservable. Un défi sera donc d'interpréter correctement les résultats des régressions.
+Il n'en reste pas moins qu'il subsiste un problème indéniable : ce qu'on aimerait réellement mesurer c'est le **service rendu par un produit pour lequel le lien précis entre ses fonctionnalités et les services rendus par ce bien reste inconnu** et non pas les caractéristiques de ce produit. Mais ce premier est complètement inobservable. Un défi sera donc d'interpréter correctement les résultats des régressions.
 :::
 
 ### Application
@@ -206,7 +209,7 @@ Il n'en reste pas moins qu'il subsiste un problème indéniable : ce qu'on aimer
 
 \newpage
 
-- La fonction de la valeur hédonique du logement $p(h)$ traduit les attributs du logement en prix, et suppose que les consommateurs perçoivent avec précision ces attributs et que le marché est en équilibre à court terme.
+- La fonction de la valeur hédonique du logement traduit les attributs du logement en prix, et suppose que les consommateurs perçoivent avec précision ces attributs et que le marché est en équilibre à court terme.
 
 *Définition des variables*
 
@@ -232,7 +235,7 @@ $$
 \log(W) = \underbrace{2.2}_{\beta_0} + \underbrace{0.97}_{\beta_1} \log(NOX) + \underbrace{0.8}_{\beta_2} \log(INC) - \underbrace{0.03}_{\beta_3}[Y_1 \cdot \log(NOX)] - \underbrace{0.07}_{\beta_4}[Y_2 \cdot \log(NOX)]
 $$
 
-**Résultats** : La WTP marginale pour une meilleure qualité de l'air augmente avec le niveau de pollution de l'air et avec le niveau de revenu des ménages.
+**Résultats** : La WTP marginale pour une meilleure qualité de l'air augmente avec le niveau de pollution de l'air et avec le niveau de revenu des ménages. Malgré la présence d'effets d’interaction significatifs mais faibles, il est observé que toutes choses égales par ailleurs, lorsque le niveau de $NOX$ et le revenu du ménage augmentent, le prix a tendance à augmenter également.
 
 ***
 
@@ -251,7 +254,7 @@ Pour finir, l'approche hédonique a été utilisée empiriquement dans de très 
 
 - Explore l'impact des attributs des restaurants à Séoul sur leurs prix moyens de repas en examinant les données de 185 établissements recueillies via diverses sources.
 
-Dans la littérature, une spécification *semi-log* est généralement préférée afin d'améliorer l'ajustement du modèle $-$ voir @bello2010.
+Dans la littérature, une spécification *semi-log* est généralement préférée en raison de sa capacité à mieux modéliser les relations non linéaires entre les variables. De plus, cette forme  permet d'améliorer l'ajustement du modèle aux données observées, et offre un R² supéiruer à celui obtenu avec d'autres spécifications $-$ voir @bello2010.
 
 \newpage
 
@@ -266,7 +269,7 @@ Avant de passer à l'explication de la seconde partie théorique, c'est à dire 
 - Un processus de production représente la transformation d'inputs en outputs.
 
 - Dès lors, une fonction de production $f(.)$ donne la
-quantité maximum d’output $y_i$ pouvant être produite à partir de vecteurs d'inputs.
+quantité maximum d’output $y$ pouvant être produite à partir de vecteurs d'inputs.
 
 :::
 
@@ -274,8 +277,7 @@ $$
 y_i = f(x_i; \beta)
 $$ {#eq-prod}
 
-- Avec $x_i$ le vecteur d'inputs.
-- Avec $\beta$ le vecteur de paramètres inconnus à estimer.
+Avec $x_i$ le vecteur d'inputs et $\beta$ le vecteur de paramètres inconnus à estimer.
 
 $f(x_i; \beta)$ est en fait la frontière de production. Pour l'instant cette frontière ne prend pas en compte l'efficacité technique $TE_i$ et elle n'est pas *stochastique* car elle n'inclut pas de terme aléatoire.
 
@@ -298,7 +300,7 @@ Cette définition permet donc d'aboutir à la formulation évoquée à l'@eq-pro
 
 **Objectif** : Formulation et estimation de fonctions de frontière de production stochastique.
 
-Avant les travaux de @aigner1977, les économètres utilisaient principalement des fonctions de production moyennes dans la littérature, c'est à dire que la formulation théorique énoncée par @farrell1957 différait de l'utilisation empirique.
+Avant les travaux de @aigner1977, les économètres utilisaient principalement des fonctions de production pour étudier le lien entre le niveau de production et les quantités d'inputs utilisées dans la littérature. Cela signifie que la formulation théorique énoncée par @farrell1957 différait de son utilisation empirique. En effet, @farrell1957 a introduit la notion d'efficacité au sens du niveau maximum de production qu'on devrait obtenir étant donné une combinaison spécifique d'inputs.
 
 - On repart de la fonction de production (@eq-prod), mais en lui ajoutant un terme multiplicatif $TE_i$.
 
@@ -321,16 +323,16 @@ $$ {#eq-sfa}
 
 *Note* : En réarrangeant l'@eq-sfa avec le logarithme népérien, on obtient :
 
-$\Leftrightarrow \ln(y_i) = f(x_i;\beta) + \underbrace{v_i -u_i}_{\epsilon_i}$
+$\Leftrightarrow \ln(y_i) = \ln(f(x_i;\beta)) + \underbrace{v_i -u_i}_{\epsilon_i}$
 
 Le modèle peut alors s'écrire sous la forme suivante :
 $$
-\boxed{\ln(y_i) = f(x_i;\beta) + \epsilon_i}
+\boxed{\ln(y_i) = \ln(f(x_i;\beta)) + \epsilon_i}
 $$ {#eq-log-sfa}
 
 L'avantage de cette écriture est qu'elle facilite la manipulation des termes d'erreur, et il est très simple de retrouver le logarithme de l'output maximum. En effet :
 
-$\Leftrightarrow \ln(y_i) = \underbrace{f(x_i;\beta) + v_i}_{\ln(y_i^*)} -u_i$
+$\Leftrightarrow \ln(y_i) = \underbrace{\ln(f(x_i;\beta)) + v_i}_{\ln(y_i^*)} -u_i$
 
 Et donc le logarithme de l'output observé est simplement $\ln(y_i) = \ln(y_i^*) -u_i$.
 
@@ -346,7 +348,7 @@ Les termes d'erreur $\epsilon_i$ ont ainsi une distribution particulière compos
 
 ## Conclusion
 
-La spécification de cette méthode permet donc d’estimer les scores de l’**efficacité technique** de chaque firme.
+La spécification de cette méthode permet d'estimer, à travers l'espérance conditionnelle $u_i$ sachant $\epsilon_i$, les scores de l’**efficacité technique** de chaque firme.
 
 :::
 
@@ -430,7 +432,7 @@ En plus de ces 6 caractéristiques techniques, la marque est ajoutée en tant qu
 
 \newpage
 
-Le modèle s'écrit alors :
+Le modèle  pour la marque $k$ s'écrit alors :
 
 $$
 \ln(p_{ik}) = \alpha_k + \beta X_{ik} + v_{ik} + u_{ik}
@@ -517,7 +519,7 @@ L'ensemble des articles de la littérature exposés ci-dessus ont permis d'affin
 
 Notre problématique est donc la suivante :
 
-**Combinaison d'un modèle SFA et d'une régression hédonique pour évaluer la discordance entre les prix de smartphones et leur valeur (intrinsèque).**
+**Combinaison d'un modèle SFA et d'une régression hédonique pour évaluer l'écart entre les prix de smartphones et leur valeur (intrinsèque).**
 
 ## Le marché de la téléphonie mobile, en constante évolution
 
@@ -1400,9 +1402,9 @@ scf_results <- cbind(
 )
 
 scf_results |>
-    kbl(booktabs = TRUE, caption = "Résultats de l'estimation du modèle SFA (Cost Frontier).", col.names = c("Variable", "Coefficient", "Significativité", "SE")) |>
+    kbl(booktabs = TRUE, caption = "Résultats de l'estimation du modèle SFA (Cost Frontier).", col.names = c("Variable", "Coefficient", "Significativité")) |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
-    row_spec(0, bold = T)
+    row_spec(0, bold = T) 
 ```
 
 \newpage
