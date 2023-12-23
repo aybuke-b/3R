@@ -1689,7 +1689,7 @@ MV
 
 *mpx_backward_cam*
 
-:   Somme des résolution des caméras 1, 2 et 3 en mégapixels $\Rightarrow$ `ìnt`
+:   Somme des résolutions des caméras 1, 2 et 3 en mégapixels $\Rightarrow$ `ìnt`
 
 *sensor*
 
