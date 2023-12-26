@@ -1440,7 +1440,7 @@ scf_results <- cbind(
 )
 
 scf_results |>
-    kbl(booktabs = TRUE, caption = "Résultats de l'estimation du modèle SFA (Cost Frontier).", col.names = c("Variable", "Coefficient", "Significativité", "SE")) |>
+    kbl(booktabs = TRUE, caption = "Résultats de l'estimation du modèle SFA (Cost Frontier).", col.names = c("Variable", "Coefficient", "Significativité")) |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
     row_spec(0, bold = T)
 ```
