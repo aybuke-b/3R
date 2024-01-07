@@ -40,8 +40,6 @@ scf <- sfa(
 # si `truncNorm` = TRUE alors on a une distribution normale tronquée.
 # si `truncNorm` = FALSE alors on a une dsitribution
 
-# se référer au livre de Kumbakar si on ajoute des explications dans les slides dessus.
-
 # print(summary(spf))
 print(summary(scf))
 print(resettestFrontier(scf))

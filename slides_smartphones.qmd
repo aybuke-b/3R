@@ -494,10 +494,11 @@ C'est particulièrement parlant si on prend l'exemple d'Apple avec l'iPhone, si 
 **Objectif** : Pricing des attributs de smartphones au Pakistan 
 
 $$
-\scriptstyle{\ln(PRICE_i) = \beta_0 + \sum_{i=1}^n\beta_{1i}BRAND_i + \sum_{i=1}^n\beta_{2i}WEIGHT_i\\
-+ \sum_{i=1}^n\beta_{3i}BATTERY_i + \sum_{i=1}^n\beta_{4i}OS_i + \sum_{i=1}^n\beta_{5i}RAM_i\\
-+ \sum_{i=1}^n\beta_{6i}MEMORY_i + \sum_{i=1}^n\beta_{7i}DISPLAY_i + \sum_{i=1}^n\beta_{8i}NETWORK_i\\
-+ \sum_{i=1}^n\beta_{9i}BCAM_i + \sum_{i=1}^n\beta_{10i}FCAM_i + \epsilon_i}
+\begin{split}
+\ln(PRICE_i) = \beta_0 + \beta_{1i}BRAND_i + \beta_{2i}WEIGHT_i + \beta_{3i}BATTERY_i \\
++ \beta_{4i}OS_i + \beta_{5i}RAM_i + \beta_{6i}MEMORY_i + \beta_{7i}DISPLAY_i \\
++ \beta_{8i}NETWORK_i + \beta_{9i}BCAM_i + \beta_{10i}FCAM_i + \epsilon_i
+\end{split}
 $$
 
 - $n=348$ smartphones. Les données des attributs ont été collectées sur des sites webs et les prix pratiqués relevés dans les magasins de 2 villes du Pakistan.

@@ -53,6 +53,7 @@ residuals_plot <- ggplot(data = df_phones, aes(x = fitted(level_linreg), y = res
     ggtitle("Residuals vs Fitted Values") +
     theme_minimal()
 print(residuals_plot)
+
 print(bptest(level_linreg))
 
 # les résidus sont hétéroscédastiques ! cf le bptest & le residuals_plot.
