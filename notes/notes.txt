@@ -6,34 +6,15 @@ https://forums.cirad.fr/logiciel-r/viewtopic.php?t=7204
 https://stats.stackexchange.com/questions/15608/vcovhc-vcovhac-neweywest-which-function-to-use
 https://cran.r-project.org/web/packages/vimp/vignettes/introduction-to-vimp.html
 
----------------- 
+---------------
 Note : récupérer les predictions de la SFA et les passer en exponentielle pour récup prix
-
-Dans les modèles paramétriques, il faut choisir les distributions:
-- Ajouter des graphiques loi normale tronquée et loi half-normale.
 
 ---------------
 
 Analyse de données exploratoire --> ACP ou t-SNE
 
-----
-
-Présentation du plot du R^2 ajusté.
-
----> Comment varie le R2, R2 Ajusté, le BIC, etc...
-
-------- 
-
-Pour la SFA : est ce que les résidus de la régression sont symétriques ?
-
-Pour le package frontier, plutot utiliser frontière de cout & de production.
-
--> test de skewness sur les résidus 
-
------- 
-
 ---> bouton à ajouter sur l'appli entre modèle SFA "frontière prod" et modèle SFA "frontière cout"
-------> entre intéret du producteur et du consommateur.
+---> entre intéret du producteur et du consommateur.
 
 ---------------
 
