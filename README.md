@@ -2,6 +2,8 @@
 
 ![](imgs/smartphones.png)
 
+> ⚠️ Cliquez [[📂 ici]](report.pdf) pour accéder au `pdf` complet du projet ou bien [[📽 ici]](https://corentinducloux.fr/Reveal.js/slides_smartphones.html)  pour visualiser la présentation interactive !
+
 ## Introduction
 
 *En tant que consommateur, nous nous retrouvons souvent face à une question infiniment
@@ -31,12 +33,10 @@ qui influencent la formation des prix.*
 
 ***
 
-*Ainsi, cette étude se déroulera en trois étapes clés : une revue de la littérature portant sur
+*Ainsi, cette étude se déroulera en trois étapes clés. Tout d'abord, nous effectuerons une revue de la littérature portant sur
 les modèles SFA et la notion de prix hédonique. Ensuite, nous nous concentrerons sur le
 processus de délimitation de notre problématique d’étude (le marché des smartphones). Enfin,
 nous aborderons l’acquisition des données, les statistiques descriptives et la modélisation
 économétrique pour comprendre plus en détail les mécanismes de fixation des prix dans le
 contexte complexe et évolutif des smartphones.*
 
-
-> à compléter...
