@@ -75,21 +75,23 @@ Nous tenons à remercier chaleureusement Monsieur [*Alain BOUSQUET*](https://fr.
 *Note* : Ce **PDF** a été entièrement rédigé en utilisant `Quarto`[^1], combinant la puissance et la versatilité de R, Python, et \LaTeX. Une présentation interactive `reveal.js` du sujet est aussi disponible.[^2]
 
 [^1]: `Quarto` : Système de publication technique et scientifique *open-source* $\Rightarrow$ <https://quarto.org/>.
+
 [^2]: Retrouvez la présentation sur <https://corentinducloux.fr/Reveal.js/slides_smartphones.html>.
 
 # Introduction
 
 En tant que consommateur, nous nous retrouvons souvent face à une question infiniment plus complexe qu'elle n'en a l'air. En des termes simples, elle se traduit par : Pourquoi ce prix ? Pour quelle raison ce stylo, cette nouvelle télévision, ou ce smartphone coûte tant ? Est-ce une simple question de coût de production, de marge ? Ou bien cela prend-il en compte d'autres éléments, tels que la valeur perçue par le consommateur, les caractéristiques spécifiques d'un produit, ou encore le service qu'il rend ?
 
-Dans ce cadre, une approche essentielle dans l'analyse des prix est celle des prix hédoniques. Celle-ci considère que le prix d'un bien ou d'un service est influencé non seulement par ses caractéristiques, mais aussi par la valeur subjective que les individus accordent à ces caractéristiques. Ainsi, la méthode des prix hédoniques examine comment des éléments spécifiques tels que la qualité ou les fonctionnalités d'un produit impactent sa valeur perçue, reflétée dans son prix. 
+Dans ce cadre, une approche essentielle dans l'analyse des prix est celle des prix hédoniques. Celle-ci considère que le prix d'un bien ou d'un service est influencé non seulement par ses caractéristiques, mais aussi par la valeur subjective que les individus accordent à ces caractéristiques. Ainsi, la méthode des prix hédoniques examine comment des éléments spécifiques tels que la qualité ou les fonctionnalités d'un produit impactent sa valeur perçue, reflétée dans son prix.
 
 La compréhension des mécanismes sous-jacents à la détermination des prix dans un marché est d'une importance cruciale tant pour les consommateurs que pour les entreprises. Face à ces interrogations, les modèles SFA *(Stochastic Frontier Analysis)* émergent comme un outil puissant, permettant d'évaluer et d'analyser l'efficacité des prix des produits en allant bien au-delà d'une simple évaluation du coût de production. Ces modèles supposent que les prix sont à l’équilibre, et prennent en compte à la fois les valorisations du côté des consommateurs et les coûts de production du côté des producteurs pour comprendre comment se forment réellement les prix.
 
 En ce sens, les modèles SFA, dans le cadre de l'étude des prix, entrent en synergie avec l'approche hédonique en permettant une analyse approfondie des différentes composantes qui influencent la formation des prix.
 
+```{=tex}
 \macrostars
 \vspace{2em}
-
+```
 Ainsi, cette étude se déroulera en trois étapes clés : une revue de la littérature portant sur les modèles SFA et la notion de prix hédonique. Ensuite, nous nous concentrerons sur le processus de délimitation de notre problématique d'étude (*le marché des smartphones*). Enfin, nous aborderons l'acquisition des données, les statistiques descriptives et la modélisation économétrique pour comprendre plus en détail les mécanismes de fixation des prix dans le contexte complexe et évolutif des smartphones.
 
 # Revue de la littérature
@@ -102,47 +104,45 @@ $$
 U(x) = U(x_1, x_2, \dots, x_n)
 $$ {#eq-umax}
 
-Avec *$x_1, x_2, \dots, x_n$* un vecteur de $n$ biens. L'@eq-umax exprime donc la relation entre la quantité de biens consommés et le niveau d'utilité que ces biens procurent à un agent. Dès lors, dans ce cadre, la consommation de biens procure **directement** de l'utilité à l'agent. En pratique pourtant, il est difficile de concevoir comment l'achat d'un bien comme une lampe ou un stylo peut nous apporter de l'utilité en tant que consommateur. 
+Avec $x_1, x_2, \dots, x_n$ un vecteur de $n$ biens. L'@eq-umax exprime donc la relation entre la quantité de biens consommés et le niveau d'utilité que ces biens procurent à un agent. Dès lors, dans ce cadre, la consommation de biens procure **directement** de l'utilité à l'agent. En pratique pourtant, il est difficile de concevoir comment l'achat d'un bien comme une lampe ou un stylo peut nous apporter de l'utilité en tant que consommateur.
 
 Pour répondre à cette difficulté, @lancaster1966 propose un nouveau cadre conceptuel théorique décrit par les hypothèses suivantes.
 
-:::{.callout-tip}
-
+::: callout-tip
 ## Hypothèses
 
-1. Le bien en lui-même ne procure pas d'utilité au consommateur $\Rightarrow$ il possède des **caractéristiques** qui procurent de l'utilité.
-2. Un bien est un ensemble (*bundle*) de caractéristiques $-$ il possède le plus souvent de nombreuses caractéristiques.
-3. Une combinaison de biens peut procurer une utilité qui n'est pas la simple somme des utilités procurées par les biens séparément.
-
+1.  Le bien en lui-même ne procure pas d'utilité au consommateur $\Rightarrow$ il possède des **caractéristiques** qui procurent de l'utilité.
+2.  Un bien est un ensemble (*bundle*) de caractéristiques $-$ il possède le plus souvent de nombreuses caractéristiques.
+3.  Une combinaison de biens peut procurer une utilité qui n'est pas la simple somme des utilités procurées par les biens séparément.
 :::
 
 *Illustrons ces points avec quelques exemples* :
 
-- Un ordinateur n'est pas acheté pour le simple plaisir de posséder un ordinateur. Il est acheté car il permet de naviguer sur Internet, écrire des cours, programmer, regarder une série, etc. C'est donc pour les **services qu'il  nous rend**, ce qui est modélisé ici par les caractéristiques possédées du bien.
+-   Un ordinateur n'est pas acheté pour le simple plaisir de posséder un ordinateur. Il est acheté car il permet de naviguer sur Internet, écrire des cours, programmer, regarder une série, etc. C'est donc pour les **services qu'il nous rend**, ce qui est modélisé ici par les caractéristiques possédées du bien.
 
-- Les biens possèdent généralement un grand nombre de caractéristiques. Prenons l'exemple d'une gourde : la couleur, la forme, les dimensions et la capacité isothermique sont autant de caractéristiques qui peuvent influer sur la décision d'achat et la disposition à payer.
+-   Les biens possèdent généralement un grand nombre de caractéristiques. Prenons l'exemple d'une gourde : la couleur, la forme, les dimensions et la capacité isothermique sont autant de caractéristiques qui peuvent influer sur la décision d'achat et la disposition à payer.
 
-- En consommant du lait et du café séparément, les caractéristiques retirées du lait sont de la vitamine D et du calcium, tandis que pour le café les caractéristiques retirées sont de la caféine, une boisson chaude, un *"boost"* le matin. En revanche, consommer un café latte permettra d'obtenir une boisson plus douce, moins caféiné, un goût différent. En bref, les caractéristiques retirées du mélange sont différentes.
+-   En consommant du lait et du café séparément, les caractéristiques retirées du lait sont de la vitamine D et du calcium, tandis que pour le café les caractéristiques retirées sont de la caféine, une boisson chaude, un *"boost"* le matin. En revanche, consommer un café latte permettra d'obtenir une boisson plus douce, moins caféiné, un goût différent. En bref, les caractéristiques retirées du mélange sont différentes.
 
-Dans le modèle de Lancaster, on pose une relation **linéaire** entre les prix des biens et leurs caractéristiques. Le prix total  $p$ d'un bien peut donc être considéré comme la somme des prix individuels associé à chaque caractéristique. Cela découle du fait que les attributs des biens étudiés peuvent être considérés comme des composantes distinctes et séparables.
+Dans le modèle de Lancaster, on pose une relation **linéaire** entre les prix des biens et leurs caractéristiques. Le prix total $p$ d'un bien peut donc être considéré comme la somme des prix individuels associé à chaque caractéristique. Cela découle du fait que les attributs des biens étudiés peuvent être considérés comme des composantes distinctes et séparables.
 
 ## Pricing Hédonique
 
 ### Aspects théoriques
 
-@rosen1974 étend ce qui a été apporté par le cadre théorique de @lancaster1966. La principale différence est qu'il s'intéresse à **l’équilibre de marché de biens différenciés** (là où Lancaster s'intéresse uniquement à la demande) avec : 
+@rosen1974 étend ce qui a été apporté par le cadre théorique de @lancaster1966. La principale différence est qu'il s'intéresse à **l’équilibre de marché de biens différenciés** (là où Lancaster s'intéresse uniquement à la demande) avec :
 
-- un continuum de biens du côté de l’offre.
+-   un continuum de biens du côté de l’offre.
 
-- un continuum de consommateurs hétérogènes du côté de la demande.
+-   un continuum de consommateurs hétérogènes du côté de la demande.
 
 Dans ce modèle, la relation entre les prix des biens et leurs attributs peut-être **non-linéaire** et permet aussi de capter des effets d'interaction entre plusieurs variables. Au coût d'une modélisation plus complexe que dans le modèle de @lancaster1966, les résultats gagnent en robustesse.
 
-L'objet de la contribution de Rosen est d'étudier un bien différencié $z$ décrit par le vecteur de ses $n$ caractéristiques mesurables tel que : 
+L'objet de la contribution de Rosen est d'étudier un bien différencié $z$ décrit par le vecteur de ses $n$ caractéristiques mesurables tel que :
 
 $$
 z = (z_1, z_2, \dots, z_n)
-$$ {#eq-hedonic} 
+$$ {#eq-hedonic}
 
 Afin de comprendre pourquoi il est important d'étudier des biens différenciés dans ce cadre, regardons en détail le graphique suivant.
 
@@ -182,19 +182,18 @@ On peut en déduire que les consommateurs achetant le *bien 5* valorisent plus l
 
 *En fait, la différenciation horizontale et verticale des produits implique qu'une vaste gamme de paniers est disponible dans cet espace de consommation !*
 
-- **Différenciation Horizontale** $\Rightarrow$ A prix donné, il n'y a pas unanimité dans le choix des consommateurs entre 2 biens (jaune et rouge) : ce sont des différences de goûts.
+-   **Différenciation Horizontale** $\Rightarrow$ A prix donné, il n'y a pas unanimité dans le choix des consommateurs entre 2 biens (jaune et rouge) : ce sont des différences de goûts.
 
-- **Différenciation Verticale** $\Rightarrow$ A prix donné, il y a unanimité dans le choix des consommateurs entre 2 voitures biens : l'un est meilleur que l'autre.
+-   **Différenciation Verticale** $\Rightarrow$ A prix donné, il y a unanimité dans le choix des consommateurs entre 2 voitures biens : l'un est meilleur que l'autre.
 
 Il faut aussi noter que dans le modèle de Rosen, le consommateur n'achète qu'**une seule** unité de bien qui est une combinaison d'attributs $z_1, z_2, \dots, z_n$. Historiquement, cela s'explique car Rosen s'intéresse principalement aux biens durables (logements, voitures, smartphones...). Il est en effet beaucoup plus simple d'obtenir des caractéristiques observables sur ces biens durables : que ce soit le nombre de pièces pour un logement, la superficie, ou bien la puissance et la longueur d'une voiture.
 
 De toutes ces informations, on peut formuler 2 questions.
 
-- Pour le **producteur**, quelle combinaison de caractéristiques lui permet de maximiser son profit ?
-- Pour le **consommateur**, quelle combinaison de caractéristiques lui rapporte le plus d'utilité sous contrainte budgétaire ?
+-   Pour le **producteur**, quelle combinaison de caractéristiques lui permet de maximiser son profit ?
+-   Pour le **consommateur**, quelle combinaison de caractéristiques lui rapporte le plus d'utilité sous contrainte budgétaire ?
 
-On aboutit à une relation fonctionnelle entre les caractéristiques des biens
-et leur prix, appelée fonction de prix hédonique $p(z)$.
+On aboutit à une relation fonctionnelle entre les caractéristiques des biens et leur prix, appelée fonction de prix hédonique $p(z)$.
 
 $$
 \boxed{p(z) = p(z_1, z_2, \dots, z_n)}
@@ -202,8 +201,7 @@ $$ {#eq-price}
 
 Un produit est donc défini en chaque point du plan et guide les choix de localisation des consommateurs et des producteurs concernant les ensembles de caractéristiques.
 
-::: {.callout-warning}
-
+::: callout-warning
 ## Limites
 
 Il n'en reste pas moins qu'il subsiste un problème indéniable : ce qu'on aimerait réellement mesurer c'est le **service rendu par un produit** *(pour lequel le lien précis entre ses fonctionnalités et les services rendus reste inconnu)* et non pas les caractéristiques de ce produit. Mais ce premier est complètement inobservable. Un défi sera donc d'interpréter correctement les résultats des régressions.
@@ -215,25 +213,25 @@ Il n'en reste pas moins qu'il subsiste un problème indéniable : ce qu'on aimer
 
 **Objectif** : Examiner comment les données du marché immobilier peuvent être utilisées pour évaluer la *Willingness To Pay* des consommateurs pour une meilleure qualité de l'air.
 
-- Le modèle suppose que les ménages prennent en compte le niveau de pollution de l'air, la quantité et la qualité du logement et d'autres caractéristiques de quartier pour faire leur choix.
+-   Le modèle suppose que les ménages prennent en compte le niveau de pollution de l'air, la quantité et la qualité du logement et d'autres caractéristiques de quartier pour faire leur choix.
 
 \newpage
 
-- La fonction de la valeur hédonique du logement traduit les attributs du logement en prix, et suppose que les consommateurs perçoivent avec précision ces attributs et que le marché est en équilibre à court terme.
+-   La fonction de la valeur hédonique du logement traduit les attributs du logement en prix, et suppose que les consommateurs perçoivent avec précision ces attributs et que le marché est en équilibre à court terme.
 
 *Définition des variables*
 
-- $W$ = WTP *marginale* pour une meilleure qualité de l'air
-- $NOX$ = Concentration des oxydes d'azote[^3]
-- $INC$ = Revenu du ménage en centaine de dollars
-
-Trois niveaux de revenu par an découpés en variable catégorielles : 
-
-- **LOW** si $INC$ $\leq \$$ 8500 $\Rightarrow Y_0$ (Catégorie de référence)
-- **MEDIUM** si $INC$  $\leq \$$ 11500 $\Rightarrow Y_1$
-- **HIGH** si $INC$ $\leq \$$ 15000 $\Rightarrow Y_2$
+-   $W$ = WTP *marginale* pour une meilleure qualité de l'air
+-   $NOX$ = Concentration des oxydes d'azote[^3]
+-   $INC$ = Revenu du ménage en centaine de dollars
 
 [^3]: Variable de pollution, $NOX$ est un *proxy* pour la qualité de l'air.
+
+Trois niveaux de revenu par an découpés en variable catégorielles :
+
+-   **LOW** si $INC$ $\leq \$$ 8500 $\Rightarrow Y_0$ (Catégorie de référence)
+-   **MEDIUM** si $INC$ $\leq \$$ 11500 $\Rightarrow Y_1$
+-   **HIGH** si $INC$ $\leq \$$ 15000 $\Rightarrow Y_2$
 
 $$
 \log(W) = \beta_0 + \beta_1 \log(NOX) + \beta_2 \log(INC) + \beta_3[Y_1 \cdot \log(NOX)] + \beta_4[Y_2 \cdot \log(NOX)]
@@ -247,22 +245,21 @@ $$
 
 **Résultats** : La WTP marginale pour une meilleure qualité de l'air augmente avec le niveau de pollution de l'air et avec le niveau de revenu des ménages. Plus précisément, malgré la présence d'effets d’interaction significatifs mais faibles, il est observé que toutes choses égales par ailleurs, lorsque le niveau de $NOX$ et le revenu du ménage augmentent, le prix a tendance à augmenter également.
 
-***
+------------------------------------------------------------------------
 
-Pour finir, l'approche hédonique a été utilisée empiriquement dans de très nombreux domaines comme par exemple : 
-
+Pour finir, l'approche hédonique a été utilisée empiriquement dans de très nombreux domaines comme par exemple :
 
 @berndt2001 $\Rightarrow$ Secteur informatique.
 
-- L'objectif de cet article est d'examiner l'évolution des prix ajustés en qualité des ordinateurs personnels de bureau et mobiles entre 1976 et 1999.
+-   L'objectif de cet article est d'examiner l'évolution des prix ajustés en qualité des ordinateurs personnels de bureau et mobiles entre 1976 et 1999.
 
 @chen2010 $\Rightarrow$ Secteur de l'hôtellerie.
 
-- Analyse l'impact des caractéristiques des hôtels de Taipei sur leurs tarifs en utilisant les données de 73 hôtels collectées auprès d'un agent de voyage en ligne.
+-   Analyse l'impact des caractéristiques des hôtels de Taipei sur leurs tarifs en utilisant les données de 73 hôtels collectées auprès d'un agent de voyage en ligne.
 
 @yim2014 $\Rightarrow$ Secteur de la restauration.
 
-- Explore l'impact des attributs des restaurants à Séoul sur leurs prix moyens de repas en examinant les données de 185 établissements recueillies via diverses sources.
+-   Explore l'impact des attributs des restaurants à Séoul sur leurs prix moyens de repas en examinant les données de 185 établissements recueillies via diverses sources.
 
 Dans la littérature, une spécification *semi-log* est généralement préférée en raison de sa capacité à mieux modéliser les relations non linéaires entre les variables. De plus, cette forme permet d'améliorer l'ajustement du modèle aux données observées, et offre un $R^2$ supérieur à celui obtenu avec d'autres spécifications $-$ voir @bello2010.
 
@@ -272,14 +269,12 @@ Dans la littérature, une spécification *semi-log* est généralement préfér�
 
 Avant de passer à l'explication de la seconde partie théorique, c'est-à-dire les modèles SFA, attardons-nous sur la définition d'une fonction de production, fondement important de la SFA.
 
-:::{.callout-tip}
-
+::: callout-tip
 ## Rappel
 
-- Un processus de production représente la transformation d'inputs en outputs.
+-   Un processus de production représente la transformation d'inputs en outputs.
 
-- Dès lors, une fonction de production $f(.)$ donne la quantité maximum d’output $y$ pouvant être produite à partir de combinaison d'inputs.
-
+-   Dès lors, une fonction de production $f(.)$ donne la quantité maximum d’output $y$ pouvant être produite à partir de combinaison d'inputs.
 :::
 
 $$
@@ -290,10 +285,10 @@ Avec $x_i$ le vecteur d'inputs et $\beta$ le vecteur de paramètres inconnus à 
 
 $f(x_i; \beta)$ est en fait la frontière de production. Pour l'instant cette frontière ne prend pas en compte l'efficacité technique $TE_i$ et elle n'est pas *stochastique* car elle n'inclut pas de terme aléatoire.
 
+```{=tex}
 \macrostars
 \vspace{2em}
-
-
+```
 @farrell1957 est le premier auteur à définir cette *Frontière de Production*.
 
 > *"When one talks about the efficiency of a firm one usually means its success in producing as large as possible an output from a given set of inputs."*
@@ -304,25 +299,23 @@ Cette définition permet donc d'aboutir à la formulation évoquée à l'@eq-pro
 
 ### Aspects théoriques
 
-
 @aigner1977 :
 
 **Objectif** : Formulation et estimation de fonctions de frontière de production stochastique.
 
 Avant les travaux de @aigner1977, les économètres utilisaient principalement dans la littérature des fonctions de production pour étudier le lien entre le niveau de production et la quantité d'inputs utilisés. Cela signifie que la formulation théorique énoncée par @farrell1957 différait de l'utilisation empirique. En effet, @farrell1957 a lui introduit la notion d'efficacité au sens du **niveau maximum de production** atteignable étant donné une combinaison spécifique d'inputs.
 
-- On repart de la fonction de production (@eq-prod), mais en lui ajoutant un terme multiplicatif $TE_i$.
+-   On repart de la fonction de production (@eq-prod), mais en lui ajoutant un terme multiplicatif $TE_i$.
 
 $${\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}}$$
 
 $TE_i$ représente l'efficacité technique, définie comme le ratio d'output observé sur l'output maximum réalisable, soit $TE_i = \dfrac{y_i}{y_i^*}$.
 
-- Si $TE_i = 1$ alors la firme $i$ produit l'output maximum réalisable, alors que si $TE_i < 1$, il existe un écart entre l'output maximum et l'output effectivement observé.
+-   Si $TE_i = 1$ alors la firme $i$ produit l'output maximum réalisable, alors que si $TE_i < 1$, il existe un écart entre l'output maximum et l'output effectivement observé.
 
 Un composant **stochastique** ${\exp \left\{{v_{i}}\right\}}$ est en outre ajouté pour représenter les chocs aléatoires affectant la production. La fonction de production devient alors :
 
 $${\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i}}\right\}}$$
-
 
 On peut ré-écrire l'efficacité technique sous la forme ${\displaystyle TE_{i}=\exp \left\{{-u_{i}}\right\}}$. Dès lors :
 
@@ -334,7 +327,7 @@ $$ {#eq-sfa}
 
 $\Leftrightarrow \ln(y_i) = \ln(f(x_i;\beta)) + \underbrace{v_i -u_i}_{\epsilon_i}$
 
-Le modèle peut alors s'écrire sous la forme suivante :
+Le modèle peut alors s'écrire sous la forme suivante : 
 $$
 \boxed{\ln(y_i) = \ln(f(x_i;\beta)) + \epsilon_i}
 $$ {#eq-log-sfa}
@@ -347,45 +340,45 @@ Et donc le logarithme de l'output observé est simplement $\ln(y_i) = \ln(y_i^*)
 
 Les termes d'erreur $\epsilon_i$ ont ainsi une distribution particulière composée :
 
-- $v_i$ est une **erreur aléatoire** $\Rightarrow$ variation inexpliquée par les variables indépendantes du modèle, avec $v_i \sim \mathcal{N}(0, \sigma^2_v)$.
+-   $v_i$ est une **erreur aléatoire** $\Rightarrow$ variation inexpliquée par les variables indépendantes du modèle, avec $v_i \sim \mathcal{N}(0, \sigma^2_v)$.
 
-- $u_i$ est un **composant unilatéral** qui peut être choisi parmi plusieurs distributions[^4] et $u_i \geq 0$, puisqu'il est nécessaire d'avoir $TE_i ≤ 1$.
+-   $u_i$ est un **composant unilatéral** qui peut être choisi parmi plusieurs distributions[^4] et $u_i \geq 0$, puisqu'il est nécessaire d'avoir $TE_i ≤ 1$.
 
 [^4]: Dans la littérature, deux distributions sont couramment utilisées : la distribution **semi-normale** et **normale tronquée**.
 
-:::{.callout-tip}
-
+::: callout-tip
 ## Conclusion
 
 Pour chaque observation dans ce modèle, on récupère $\epsilon_i$, qui représente un écart à la frontière. La spécification de cette méthode permet donc d'estimer, à travers l'espérance conditionnelle de $u_i$ sachant $\epsilon_i$, les scores de l’**efficacité technique** de chaque firme.
-
 :::
 
 Enfin, @kumbhakar2015 discutent aussi dans la section **3.3** de leur livre des approches dites *distribution-free* sur $u_i$ dans lesquelles aucune hypothèse ne sont faites sur la distribution que suit les $u_i$. Nous ne nous intéresserons pas à ces méthodes puisqu'elles ont le défaut de ne pas pouvoir correctement distinguer les $v_i$ des $u_i$, et donc ne sont pas en mesure d'estimer les scores d'efficacité technique.
 
 \newpage
 
-On l'a vu ci-dessus, la SFA est une méthode **paramétrique** qui requiert une forme fonctionnelle précise. La SFA n'a cependant pas le monopole dans le domaine de l'estimation des frontières de production. 
+On l'a vu ci-dessus, la SFA est une méthode **paramétrique** qui requiert une forme fonctionnelle précise. La SFA n'a cependant pas le monopole dans le domaine de l'estimation des frontières de production.
 
 Un autre modèle (non-paramétrique) a aussi été développé : la Data Envelopment Analysis (DEA). Celui-ci a l'avantage de ne pas exiger d'hypothèse particulière sur des termes d'erreur. La structure du modèle n'est pas spécifiée à priori mais est uniquement déterminée à partir des données.
 
+```{=tex}
 \macrostars
 \vspace{2em}
-
+```
+```{=tex}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{imgs/stochastic_image.jpeg}
     \caption{Représentation graphique d'une SFA.}
     \label{fig:example}
 \end{figure}
-
+```
 $*$ Droits d'auteur : [Lutz Bornmann](https://www.researchgate.net/profile/Lutz-Bornmann)
 
 À partir de cette représentation, on peut clairement distinguer les effets de $v_i$ (`noise`) et ceux de $u_i$ (`inefficiency`) dans un espace à deux dimensions avec $X$ la quantité d'inputs et $Y$ la quantité d'outputs. La frontière optimale de production est ici représentée en noir par $y = \beta_0 + \beta_1x$.
 
-- 2 entreprises utilisant la même quantité d'inputs ($X=3$) sont mises en évidence dans le graph. La première se situe en dessous de la frontière de production avec $Y \simeq 2$ et la seconde est au-dessus de celle-ci avec $Y>6$.
+-   2 entreprises utilisant la même quantité d'inputs ($X=3$) sont mises en évidence dans le graph. La première se situe en dessous de la frontière de production avec $Y \simeq 2$ et la seconde est au-dessus de celle-ci avec $Y>6$.
 
-- Les 2 firmes utilisent donc la même quantité d'inputs pour une quantité d'output différente, à savoir : la première firme est moins efficace dans l'utilisation optimale de ses inputs, donc son efficacité technique est inférieure à la seconde.
+-   Les 2 firmes utilisent donc la même quantité d'inputs pour une quantité d'output différente, à savoir : la première firme est moins efficace dans l'utilisation optimale de ses inputs, donc son efficacité technique est inférieure à la seconde.
 
 \newpage
 
@@ -395,25 +388,23 @@ $*$ Droits d'auteur : [Lutz Bornmann](https://www.researchgate.net/profile/Lutz-
 
 @reinhard2000 $\Rightarrow$ Secteur Environnemental.
 
-- L'objectif de cet article est d'estimer l'efficacité environnementale pour les fermes laitières aux Pays-Bas.
+-   L'objectif de cet article est d'estimer l'efficacité environnementale pour les fermes laitières aux Pays-Bas.
 
 @rosko2008 $\Rightarrow$ Secteur Hospitalier.
 
-- Cet article est quant à lui une méta-analyse de l'ensemble des articles de SFA et de DEA existants sur l'efficacité hospitalière aux Etats-Unis.
+-   Cet article est quant à lui une méta-analyse de l'ensemble des articles de SFA et de DEA existants sur l'efficacité hospitalière aux Etats-Unis.
 
 @mohamad2008 $\Rightarrow$ Secteur Bancaire.
 
-- Compare l'efficacité des coûts et des profits de 80 banques dans 21 pays comprenant 37 banques conventionnelles et 43 banques islamiques.
+-   Compare l'efficacité des coûts et des profits de 80 banques dans 21 pays comprenant 37 banques conventionnelles et 43 banques islamiques.
 
-***
+------------------------------------------------------------------------
 
 **En bref, il existe de nombreux domaines d'application** !
 
+Un domaine en particulier n'a pourtant pas été évoqué jusqu'ici : pourquoi ne pas utiliser la SFA pour mesurer l'*efficacité* d'un prix **(best-buy frontier)** ?
 
-
-Un domaine en particulier n'a pourtant pas été évoqué jusqu'ici : pourquoi ne pas utiliser la SFA pour mesurer l'*efficacité* d'un prix **(best-buy frontier)** ? 
-
-C'est précisément le cadre du prochain article de notre revue de la littérature. 
+C'est précisément le cadre du prochain article de notre revue de la littérature.
 
 ## SFA & Pricing Hédonique
 
@@ -425,17 +416,17 @@ Six caractéristiques[^5] sont étudiées sur $n=171$ sneakers.
 
 [^5]: Variables quantitatives discrètes $\in [1,10[$.
 
-- **Lightweight** : poids des sneakers.
+-   **Lightweight** : poids des sneakers.
 
-- **Cushioning** : capacité de la chaussure à absorber les chocs au cours d'une course et tout au long du cycle de vie du produit.
+-   **Cushioning** : capacité de la chaussure à absorber les chocs au cours d'une course et tout au long du cycle de vie du produit.
 
-- **Flexibility** : les baskets flexibles s'adaptent mieux à la forme naturelle du pied.
+-   **Flexibility** : les baskets flexibles s'adaptent mieux à la forme naturelle du pied.
 
-- **Response** : capacité du matériau à retrouver sa forme après les déformations provoquées par l'impact sur le sol.
+-   **Response** : capacité du matériau à retrouver sa forme après les déformations provoquées par l'impact sur le sol.
 
-- **Grip** : l'adhérence donne aux coureurs une certaine assise sur le sol.
+-   **Grip** : l'adhérence donne aux coureurs une certaine assise sur le sol.
 
-- **Stability** : mesure la stabilité du pied à l'intérieur de la chaussure.
+-   **Stability** : mesure la stabilité du pied à l'intérieur de la chaussure.
 
 En plus de ces 6 caractéristiques techniques, la marque est ajoutée en tant que variable qualitative pour mesurer la *Brand Equity* (la valeur d'une marque pour le consommateur).
 
@@ -447,43 +438,45 @@ $$
 \ln(p_{ik}) = \alpha_k + \beta X_{ik} + v_{ik} + u_{ik}
 $$ {#eq-arrondo}
 
-- $p_{ik}$ est le prix du $i$-ème modèle de marque $k$.
-- $α_k$ est l'effet marque sur le prix de la marque $k$.
-- $X_{ik}$ est le vecteur des attributs mesurables du $i$-ème modèle de marque $k$.
-- $β$ est un vecteur de coefficients pour ces attributs.
-- $v_{ik}$ est une erreur aléatoire.
-- $u_{ik}$ représente l'inefficacité.
+-   $p_{ik}$ est le prix du $i$-ème modèle de marque $k$.
+-   $α_k$ est l'effet marque sur le prix de la marque $k$.
+-   $X_{ik}$ est le vecteur des attributs mesurables du $i$-ème modèle de marque $k$.
+-   $β$ est un vecteur de coefficients pour ces attributs.
+-   $v_{ik}$ est une erreur aléatoire.
+-   $u_{ik}$ représente l'inefficacité.
 
-*Note* : On retrouve bien la forme spécifique d'une SFA, caractérisée par la présence des termes $v_{ik}$ et $u_{ik}$. La seule différence est que le terme d'erreur composée est $\epsilon_{ik} = v_{ik} + u_{ik}$ car nous sommes dans le cadre d'une **frontière de coût** et non de production. 
+*Note* : On retrouve bien la forme spécifique d'une SFA, caractérisée par la présence des termes $v_{ik}$ et $u_{ik}$. La seule différence est que le terme d'erreur composée est $\epsilon_{ik} = v_{ik} + u_{ik}$ car nous sommes dans le cadre d'une **frontière de coût** et non de production.
 
-***
+------------------------------------------------------------------------
 
 **Résultats** :
 
-| **Variables**     | Coefficient | $SE$  |
-|-------------------|-------------|-------|
-| *Lightness*       | 0.007       | 0.028 |
-| *Cushioning*      | 0.064 **    | 0.025 |
-| *Flexibility*     | 0.058 **    | 0.026 |
-| *Response*        | 0.050 *     | 0.30  |
-| *Stability*       | 0.070 ***   | 0.025 |
-| *Grip*            | -0.045      | 0.028 |
-| `Adidas`          | 2.697 ***   | 0.401 |
-| `Asics`           | 2.679 ***   | 0.389 |
-| `Saucony`         | 2.779 ***   | 0.403 |
-| `Nike`            | 2.714 ***   | 0.422 |
-| `Brooks`          | 2.834 ***   | 0.404 |
-| `Mizuno`          | 2.524 ***   | 0.397 |
-| `New Balance`     | 2.544 ***   | 0.410 |
-| `Reebok`          | 2.522 ***   | 0.403 |
+| **Variables** | Coefficient  | $SE$  |
+|---------------|--------------|-------|
+| *Lightness*   | 0.007        | 0.028 |
+| *Cushioning*  | 0.064 \*\*   | 0.025 |
+| *Flexibility* | 0.058 \*\*   | 0.026 |
+| *Response*    | 0.050 \*     | 0.30  |
+| *Stability*   | 0.070 \*\*\* | 0.025 |
+| *Grip*        | -0.045       | 0.028 |
+| `Adidas`      | 2.697 \*\*\* | 0.401 |
+| `Asics`       | 2.679 \*\*\* | 0.389 |
+| `Saucony`     | 2.779 \*\*\* | 0.403 |
+| `Nike`        | 2.714 \*\*\* | 0.422 |
+| `Brooks`      | 2.834 \*\*\* | 0.404 |
+| `Mizuno`      | 2.524 \*\*\* | 0.397 |
+| `New Balance` | 2.544 \*\*\* | 0.410 |
+| `Reebok`      | 2.522 \*\*\* | 0.403 |
 
 : Résultats de la régression hédonique {#tbl-arrondo-hedonic}
 
 Les variables *Cushioning*, *Flexibility* et *Stability* sont statistiquement significatives à $p<0.05$.
 
-De plus, nous sommes ici dans le cadre d'une régression $\log$-linéaire donc les coefficients peuvent être interpretés comme des **semi-élasticités**, c'est à dire : 
+De plus, nous sommes ici dans le cadre d'une régression $\log$-linéaire donc les coefficients peuvent être interpretés comme des **semi-élasticités**, c'est à dire :
 
 $\Rightarrow$ Pour une augmentation d'une unité de *Stability*, $p_{ik}$ va augmenter de 7%, *cet. par.*[^6]
+
+[^6]: *Toutes choses égales par ailleurs*.
 
 $\Rightarrow$ Pour une augmentation d'une unité de *Cushioning*, $p_{ik}$ va augmenter de 6.4%, *cet. par.*
 
@@ -491,18 +484,16 @@ $\Rightarrow$ Pour une augmentation d'une unité de *Flexibility*, $p_{ik}$ va a
 
 Par conséquent, la caractéristique *Stability* va avoir le plus grand impact sur le prix d'une sneakers, suivi de *Cushioning* et *Flexibility*.
 
-[^6]: *Toutes choses égales par ailleurs*.
-
-| **Marque**             | $\hat{\theta_k}$ |
-| ---------------------  | -------          |
-| `Adidas` ($n=$ 28)     | 0.832            |
-| `Asics` ($n=$ 35)      | 0.864            |
-| `Saucony` ($n=$ 15)    | 0.875            |
-| `Nike` ($n=$ 25)       | 0.824            |
-| `Brooks` ($n=$ 16)     | 0.860            |
-| `Mizuno` ($n=$ 29)     | 0.858            |
-| `New Balance` ($n=$ 18)| 0.848            |
-| `Reebok` ($n=$ 5)      | 0.859            |
+| **Marque**              | $\hat{\theta_k}$ |
+|-------------------------|------------------|
+| `Adidas` ($n=$ 28)      | 0.832            |
+| `Asics` ($n=$ 35)       | 0.864            |
+| `Saucony` ($n=$ 15)     | 0.875            |
+| `Nike` ($n=$ 25)        | 0.824            |
+| `Brooks` ($n=$ 16)      | 0.860            |
+| `Mizuno` ($n=$ 29)      | 0.858            |
+| `New Balance` ($n=$ 18) | 0.848            |
+| `Reebok` ($n=$ 5)       | 0.859            |
 
 : Indice d'efficacité moyen par marque {#tbl-arrondo-brand}
 
@@ -510,15 +501,14 @@ $\hat{\theta_k}$ représente l'indice d'efficacité moyen estimé par marque, co
 
 On remarque tout d'abord que cet indice est compris entre 0.8 et 0.9 pour l'ensemble des marques, c'est à dire qu'il n'y a pas de marque globalement **très inefficiente** (si une marque l'était, elle n'arriverait probablement pas à vendre et serait évincée par ses concurrents).
 
-- `Nike` est la marque qui possède la pire relation prix~attributs de la sélection.
-- `Saucony` est la marque qui possède la meilleure relation prix~attributs de la sélection.
+-   `Nike` est la marque qui possède la pire relation prix\~attributs de la sélection.
+-   `Saucony` est la marque qui possède la meilleure relation prix\~attributs de la sélection.
 
 **Résultats**
 
-- En estimant l'efficacité des produits, l'article permet de déterminer le montant des réductions à accorder aux sneakers **overprice** afin de les rendre compétitives.
+-   En estimant l'efficacité des produits, l'article permet de déterminer le montant des réductions à accorder aux sneakers **overprice** afin de les rendre compétitives.
 
-- Il existe une relation inverse entre l'efficacité du produit et la réduction de prix : la réduction de prix est d'autant plus grande que la sneakers est **overprice**.
-
+-   Il existe une relation inverse entre l'efficacité du produit et la réduction de prix : la réduction de prix est d'autant plus grande que la sneakers est **overprice**.
 
 # Choix et cadrage de la problématique
 
@@ -534,44 +524,43 @@ Notre problématique est donc la suivante :
 
 Depuis l'apparition des téléphones mobiles au début des années 1990, de nombreuses innovations technologiques ont ajouté des caractéristiques rendant ces téléphones de plus en plus polyvalents. Cette chronologie présente en $X$ les années et les rectangles des différentes catégories correspondent à des **débuts** et des **fins de commercialisation**. L'axe $Y$ permet quant à lui d'améliorer la lisibilité.
 
+```{=tex}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.99\textwidth]{imgs/smartphones.png}
+    \includegraphics[width=0.99\textwidth]{imgs/smartphones_timeline.png}
     \caption{Smartphone Timeline.}
     \label{fig:smartphones}
 \end{figure}
-
+```
 \textcolor{colgraph1}{$\blacksquare$} Téléphone à clapet \textcolor{colgraph2}{$\blacksquare$} Téléphone à clavier \textcolor{colgraph3}{$\blacksquare$} Téléphone à appareil photo $\blacksquare$ Smartphone
 
 Examinons quelques modèles de téléphone pour mieux saisir l'impact des innovations majeures sur le marché.
 
-- *Nokia 1011* : Premier écran LCD.
+-   *Nokia 1011* : Premier écran LCD.
 
-- *IBM Simon* : Premier véritable smartphone avec stylet, commercialisé pendant seulement 6 mois à cause d'un prix élevé de $899. 
+-   *IBM Simon* : Premier véritable smartphone avec stylet, commercialisé pendant seulement 6 mois à cause d'un prix élevé de \$899.
 
-- *Nokia 3210* : Premier téléphone à intégrer les SMS et plusieurs jeux. C'est encore aujourd'hui un des téléphones les plus vendus au monde.
+-   *Nokia 3210* : Premier téléphone à intégrer les SMS et plusieurs jeux. C'est encore aujourd'hui un des téléphones les plus vendus au monde.
 
-- *Sharp J-SH04* : Premier téléphone équipé d'un appareil photo intégré.
+-   *Sharp J-SH04* : Premier téléphone équipé d'un appareil photo intégré.
 
-- *Blackberry Quark* : Les téléphones \faIcon{blackberry} BlackBerry sont les premiers à disposer d'un clavier complet, ce qui, à cette époque, est un avantage majeur. A tel point qu'au début des années 2000 et jusqu'en 2010, Blackberry devient et reste leader sur le marché de la téléphonie mobile avec 20% de parts de marché à son apogée.
+-   *Blackberry Quark* : Les téléphones \faIcon{blackberry} BlackBerry sont les premiers à disposer d'un clavier complet, ce qui, à cette époque, est un avantage majeur. A tel point qu'au début des années 2000 et jusqu'en 2010, Blackberry devient et reste leader sur le marché de la téléphonie mobile avec 20% de parts de marché à son apogée.
 
-- *Apple Iphone* : En 2007, \faIcon{apple} Apple annonce l'iPhone. Ce téléphone, qui intègre un écran tactile multitouch, va bouleverser le marché des téléphones mobiles. La vraie révolution, plus que le téléphone en lui-même, est l'*App Store*, qui va permettre d'accélérer le développement de nombreuses applications mobiles.
+-   *Apple Iphone* : En 2007, \faIcon{apple} Apple annonce l'iPhone. Ce téléphone, qui intègre un écran tactile multitouch, va bouleverser le marché des téléphones mobiles. La vraie révolution, plus que le téléphone en lui-même, est l'*App Store*, qui va permettre d'accélérer le développement de nombreuses applications mobiles.
 
-- *HTC Dream* : Un an après la sortie de l'iPhone, les constructeurs bataillent pour tenter de le concurrencer. HTC est dans ce cadre le premier à intégrer Android OS. Il reste néanmoins un entre-deux (il possède un clavier et un écran tactile).
+-   *HTC Dream* : Un an après la sortie de l'iPhone, les constructeurs bataillent pour tenter de le concurrencer. HTC est dans ce cadre le premier à intégrer Android OS. Il reste néanmoins un entre-deux (il possède un clavier et un écran tactile).
 
-- *Samsung Galaxy S* : Avec le Galaxy S, Samsung concurrence directement l'Apple iPhone 4 et sort un téléphone meilleur en tout point sur le plan des caractéristiques techniques. L'écran est plus grand, il existe une possibilité d'augmenter le stockage, il possède un meilleur cpu et une meilleure autonomie, tout en étant moins cher.
+-   *Samsung Galaxy S* : Avec le Galaxy S, Samsung concurrence directement l'Apple iPhone 4 et sort un téléphone meilleur en tout point sur le plan des caractéristiques techniques. L'écran est plus grand, il existe une possibilité d'augmenter le stockage, il possède un meilleur cpu et une meilleure autonomie, tout en étant moins cher.
 
-:::{.callout-tip}
-
+::: callout-tip
 ## Conclusion
 
 Toutes ces innovations vont avoir un impact dans les caractéristiques les plus valorisées par les consommateurs. Par exemple, il est difficile d'imaginer qu'un consommateur valorisera aujourd'hui un téléphone sans capteur de caméra frontale et arrière ou qui serait incapable d'envoyer des SMS.
-
 :::
 
 \vspace{2em}
 
-Cela permet d'ailleurs d'évoquer une des limites majeures des modèles de pricing hédonique. Comment va-t-on pouvoir modéliser l'arrivée d'une nouvelle caractéristique ? On ne peut pas trouver dans le passé quelle sera la valorisation de cette nouvelle caractéristique. 
+Cela permet d'ailleurs d'évoquer une des limites majeures des modèles de pricing hédonique. Comment va-t-on pouvoir modéliser l'arrivée d'une nouvelle caractéristique ? On ne peut pas trouver dans le passé quelle sera la valorisation de cette nouvelle caractéristique.
 
 *Illustrons cette remarque avec l'iPhone*. Un modèle de régression des prix hédoniques réalisé juste avant la sortie de l'iPhone aurait probablement trouvé (sans surprise) que BlackBerry était la marque la plus valorisée par les consommateurs et qu'il faut augmenter la taille du téléphone pour lui permettre d'avoir un plus grand clavier. Il va sans dire que deux mois plus tard, ces résultats sont inutilisables à cause d'une innovation technologique.
 
@@ -579,15 +568,15 @@ Enfin, il existe relativement peu d'articles sur les prix hédoniques des smartp
 
 \newpage
 
-## Smartphones et Pricing Hédonique 
+## Smartphones et Pricing Hédonique
 
 Il existe néanmoins quelques articles récents traitant du sujet, dont celui de @ahmad2019 :
 
-**Objectif** : Pricing des attributs des smartphones au Pakistan 
+**Objectif** : Pricing des attributs des smartphones au Pakistan
 
 Les données des attributs ont été collectées sur des sites webs et les prix pratiqués relevés dans les magasins de 2 villes du Pakistan ($n=348$ smartphones).
 
-Le prix moyen d'un smartphone dans leur étude est de $136,35. En outre, l'**écart-type** du prix des smartphones est elevé (181), c'est à dire que la dispersion en prix est assez importante, ce qui confirme l'hypothèse que les smartphones sont des biens différenciés.
+Le prix moyen d'un smartphone dans leur étude est de \$136,35. En outre, l'**écart-type** du prix des smartphones est elevé (181), c'est à dire que la dispersion en prix est assez importante, ce qui confirme l'hypothèse que les smartphones sont des biens différenciés.
 
 *Ils proposent alors l'estimation du modèle suivant avec les caractéristiques découpées en variables catégorielles.*
 
@@ -601,19 +590,19 @@ $$
 
 **Résultats** :
 
-- La marque, la batterie, le poids, l'OS, la RAM, la mémoire et la taille de l'écran ont un effet positif statistiquement significatif sur les prix des smartphones.
+-   La marque, la batterie, le poids, l'OS, la RAM, la mémoire et la taille de l'écran ont un effet positif statistiquement significatif sur les prix des smartphones.
 
 Plus précisément, les résultats indiquent que les fabricants doivent se concentrer sur un téléphone :
 
-- avec une RAM de plus d'1 Go.
-- avec une mémoire de plus de 8 Go.
-- avec un écran de plus de 5 pouces.
-- compatible avec la 4G.
-- avec une caméra arrière de plus de 15 mégapixels.
+-   avec une RAM de plus d'1 Go.
+-   avec une mémoire de plus de 8 Go.
+-   avec un écran de plus de 5 pouces.
+-   compatible avec la 4G.
+-   avec une caméra arrière de plus de 15 mégapixels.
 
-***
+------------------------------------------------------------------------
 
-Le Pakistan étant un pays en voie de développement, et l'étude datant de 2019, on peut s'attendre à trouver des résultats différents dans nos données. 
+Le Pakistan étant un pays en voie de développement, et l'étude datant de 2019, on peut s'attendre à trouver des résultats différents dans nos données.
 
 De plus, sur les 348 smartphones, 127, sont de la marque **QMOBILE**, une société pakistanaise qui vend des smartphones à bas prix, ce qui peut aussi expliquer le prix moyen assez bas.
 
@@ -627,39 +616,39 @@ Dans la section précédente, les résultats de l'étude de @ahmad2019 ont permi
 
 **Réputation et marketing**
 
-- **Considéré comme une priorité majeure** : la réputation est une ressource essentielle, reconnue comme une priorité de recherche par le *Marketing Science Institute*.
+-   **Considéré comme une priorité majeure** : la réputation est une ressource essentielle, reconnue comme une priorité de recherche par le *Marketing Science Institute*.
 
-- **Influence le comportement des consommateurs**: la réputation impacte l'intention d'achat, la confiance envers les nouveaux produits et est liée à la satisfaction client. Elle agit comme une *"garantie"*.
+-   **Influence le comportement des consommateurs**: la réputation impacte l'intention d'achat, la confiance envers les nouveaux produits et est liée à la satisfaction client. Elle agit comme une *"garantie"*.
 
-- **Avantage compétitif** : une solide réputation permet de gagner un avantage compétitif sur le marché, voire un avantage concurrentiel, en attirant les clients et en se différenciant des concurrents.
+-   **Avantage compétitif** : une solide réputation permet de gagner un avantage compétitif sur le marché, voire un avantage concurrentiel, en attirant les clients et en se différenciant des concurrents.
 
-- **Limitation de la concurrence** : les produits ou services d'une entreprise réputée sont moins facilement remplaçables ou imitables en raison de la perception limitée des consommateurs. Au lieu d’examiner les caractéristiques en détail, ils vont se fier à la marque et à la réputation.
+-   **Limitation de la concurrence** : les produits ou services d'une entreprise réputée sont moins facilement remplaçables ou imitables en raison de la perception limitée des consommateurs. Au lieu d’examiner les caractéristiques en détail, ils vont se fier à la marque et à la réputation.
 
-- **Corrélation positive avec le prix** : une meilleure réputation va permettre de fixer des prix plus élevés et d'obtenir un avantage sur les ventes par rapport à la concurrence. *Exemple* : *Toyota* et *General Motors* forment la joint-venture *New United Motor Manufacturing Inc.* La société a produit 2 voitures identiques :
-    - la Toyota Corrola.
-    - la GM’s Geo Prizm.
+-   **Corrélation positive avec le prix** : une meilleure réputation va permettre de fixer des prix plus élevés et d'obtenir un avantage sur les ventes par rapport à la concurrence. *Exemple* : *Toyota* et *General Motors* forment la joint-venture *New United Motor Manufacturing Inc.* La société a produit 2 voitures identiques :
+
+    -   la Toyota Corrola.
+    -   la GM’s Geo Prizm.
 
 $\Rightarrow$ La meilleure réputation de Toyota lui a permis de vendre 200000 voitures à 11100 dollars, contre seulement 80000 véhicules à 10700 dollars vendus pour General Motors.
 
-***
+------------------------------------------------------------------------
 
 # Acquisition des données
 
 ## Scraping
 
-Il n'existe **évidemment** pas de données directement disponibles regroupant le prix et l'ensemble des caractéristiques des smartphones. Ce qui pourrait le plus s'en rapprocher sont les fiches techniques de téléphones disponibles sur <https://www.01net.com/>. Scraper ce site pourrait être une idée intéressante, mais *01net* n'est pas un revendeur de smartphones. 
+Il n'existe **évidemment** pas de données directement disponibles regroupant le prix et l'ensemble des caractéristiques des smartphones. Ce qui pourrait le plus s'en rapprocher sont les fiches techniques de téléphones disponibles sur <https://www.01net.com/>. Scraper ce site pourrait être une idée intéressante, mais *01net* n'est pas un revendeur de smartphones.
 
 L'idée est donc de récupérer ces données sur le site d'un revendeur (*Fnac*, *Darty*, *Boulanger*). En effet, l'avantage de la récupération des données sur un site de revente direct est que nous avons une *"photographie"* du marché au moment où le *crawler* récupère et alimente notre base de données. A ce titre, nous avons choisi de récupérer des données sur [Boulanger](https://www.boulanger.com/).
 
-::: {.callout-warning}
-
+::: callout-warning
 ## Encadrement du web scraping
 
-Le web scraping est encadré en droit français par l’article **L. 342-3**[^7] du Code de la propriété intellectuelle, qui autorise la pratique suivante : 
+Le web scraping est encadré en droit français par l’article **L. 342-3**[^7] du Code de la propriété intellectuelle, qui autorise la pratique suivante :
 
 \vspace{1em}
 
-- L’extraction et la réutilisation d’une partie substantielle, appréciée de façon qualitative ou quantitative, à des fins exclusives d’illustration dans le cadre de l’enseignement et de la recherche et pour un public composé d’élèves, d’étudiants, d’enseignants ou de chercheurs directement concernés. Ainsi, **ce cas de figure étant limité à des fins pédagogiques, il est totalement exclu de faire usage des données extraites à titre commercial**. 
+-   L’extraction et la réutilisation d’une partie substantielle, appréciée de façon qualitative ou quantitative, à des fins exclusives d’illustration dans le cadre de l’enseignement et de la recherche et pour un public composé d’élèves, d’étudiants, d’enseignants ou de chercheurs directement concernés. Ainsi, **ce cas de figure étant limité à des fins pédagogiques, il est totalement exclu de faire usage des données extraites à titre commercial**.
 :::
 
 [^7]: [Plus de détail sur `legifrance.gouv.fr`](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000044365654)
@@ -676,20 +665,21 @@ L'objectif final est de disposer d'une application permettant aux consommateurs 
 
 **Workflow** :
 
-- *Scraping* $\Rightarrow$ `Python`
-- *Nettoyage des données* $\Rightarrow$ `Python`
-- *Modélisation* $\Rightarrow$ `R`
-- *Application* $\Rightarrow$ `Python`
+-   *Scraping* $\Rightarrow$ `Python`
+-   *Nettoyage des données* $\Rightarrow$ `Python`
+-   *Modélisation* $\Rightarrow$ `R`
+-   *Application* $\Rightarrow$ `Python`
 
 \vspace{2em}
 
+```{=tex}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{imgs/mermaid_graph.png}
     \caption{Diagramme fonctionnel.}
     \label{fig:method}
 \end{figure}
-
+```
 Le diagramme fonctionnel permet de comprendre comment interagissent les différents composants logiciels avant leur utilisation dans l'application.
 
 # Statistiques descriptives
@@ -702,19 +692,19 @@ df <- read_delim(df_path, delim = ";")
 
 Il y a `r nrow(df)` smartphones valides disponibles dans nos données scrapées sur Boulanger avec 35 variables.
 
-- Variables liées à l'écran : *screen_type*, *screen_size*, *screen_tech*, *diagonal_pixels*, *ppi*, *resolution_1*, *resolution_2*.
+-   Variables liées à l'écran : *screen_type*, *screen_size*, *screen_tech*, *diagonal_pixels*, *ppi*, *resolution_1*, *resolution_2*.
 
-- Variables liées à la caméra : *mpx_backward_cam*, *cam_1*, *cam_2*, *cam_3*, *sensor*.
+-   Variables liées à la caméra : *mpx_backward_cam*, *cam_1*, *cam_2*, *cam_3*, *sensor*.
 
-- Variables liées aux caractéristiques physiques du téléphone : *color*, *thickness*, *width*, *height*, *net_weight*.
+-   Variables liées aux caractéristiques physiques du téléphone : *color*, *thickness*, *width*, *height*, *net_weight*.
 
-- Variables liées aux performances : *network*, *cpu*, *ram*, *storage*, *upgrade_storage*.
+-   Variables liées aux performances : *network*, *cpu*, *ram*, *storage*, *upgrade_storage*.
 
-- Variables liées à la batterie : *battery*, *fast_charging*, *induction*, *usb_type_c*.
+-   Variables liées à la batterie : *battery*, *fast_charging*, *induction*, *usb_type_c*.
 
-- Variables liées au DAS : *das_limbs*, *das_chest*, *das_head*.
+-   Variables liées au DAS : *das_limbs*, *das_chest*, *das_head*.
 
-- Autres variables : *repairability_index*, *model*, *brand*, *made_in*, *stars*, *reviews*.
+-   Autres variables : *repairability_index*, *model*, *brand*, *made_in*, *stars*, *reviews*.
 
 Et enfin notre variable à expliquer : **price**.
 
@@ -734,12 +724,12 @@ qt_price <- quantile(df$price, probs = seq(0, 1, 0.25))
 
 Le prix moyen d'un smartphone de la sélection est de `r mean_price` €, soit $\simeq$ 5 fois plus élevé que dans l'article de @ahmad2019. Cela peut s'expliquer notamment par la différence considérable de **PIB** par habitant.[^8]
 
-- En 2022 au Pakistan : $\$$ 1596.7
-- En 2022 en France : $\$$ 40963.8
+[^8]: Données issues de la [*Banque Mondiale*](https://donnees.banquemondiale.org/indicator/NY.GDP.PCAP.CD?most_recent_year_desc=true) (PIB par habitant en US dollars courants)
+
+-   En 2022 au Pakistan : $\$$ 1596.7
+-   En 2022 en France : $\$$ 40963.8
 
 La médiane est quant à elle de `r median_price` €.
-
-[^8]: Données issues de la [*Banque Mondiale*](https://donnees.banquemondiale.org/indicator/NY.GDP.PCAP.CD?most_recent_year_desc=true) (PIB par habitant en US dollars courants)
 
 ```{r density_phones, fig.width=8, fig.height=3}
 #| fig-align: center
@@ -755,7 +745,7 @@ df |> ggplot(aes(x = price)) +
     labs(x = "", y = "")
 ```
 
-On peut aussi tester l'asymétrie de la distribution avec le coefficient de *Skewness* de *Pearson* : 
+On peut aussi tester l'asymétrie de la distribution avec le coefficient de *Skewness* de *Pearson* :
 
 $$SK = \dfrac{3(\bar{x} - \tilde{x})}{\sigma} \simeq 0.67$$
 
@@ -800,11 +790,11 @@ df |>
     labs(x = "", y = "")
 ```
 
-- *Apple* possède en moyenne les téléphones les plus chers dans l'échantillon (1177.75 €).
+-   *Apple* possède en moyenne les téléphones les plus chers dans l'échantillon (1177.75 €).
 
-- Le prix moyen des smartphones commercialisés par *Samsung* est de 848.98 €. C'est certes moins qu'*Apple*, mais cela peut s'expliquer car *Samsung* commercialise à la fois des téléphones très haut de gamme et des téléphones bas de gamme aux prix beaucoup plus attractifs.
+-   Le prix moyen des smartphones commercialisés par *Samsung* est de 848.98 €. C'est certes moins qu'*Apple*, mais cela peut s'expliquer car *Samsung* commercialise à la fois des téléphones très haut de gamme et des téléphones bas de gamme aux prix beaucoup plus attractifs.
 
-- En dernière position, on retrouve *Xiaomi* avec des téléphones à un prix moyen aux alentours de 260 €.
+-   En dernière position, on retrouve *Xiaomi* avec des téléphones à un prix moyen aux alentours de 260 €.
 
 \newpage
 
@@ -828,9 +818,9 @@ df |>
     row_spec(0, bold = T)
 ```
 
-- On peut voir que plus la RAM augmente, plus le prix moyen du téléphone augmente (sauf à partir de 12 Gigaoctets). On a en effet remarqué plus haut que le téléphone le plus cher était le **`r max_model`**, qui possède 12 Go de RAM, et non 16. Ce constat, en plus du nombre très limité de téléphones disposant de 16 Go de RAM (7), peut expliquer pourquoi le prix moyen des téléphones ayant 16 Go de RAM est inférieur au prix moyen des téléphones disposant de 12 Go de RAM.
+-   On peut voir que plus la RAM augmente, plus le prix moyen du téléphone augmente (sauf à partir de 12 Gigaoctets). On a en effet remarqué plus haut que le téléphone le plus cher était le **`r max_model`**, qui possède 12 Go de RAM, et non 16. Ce constat, en plus du nombre très limité de téléphones disposant de 16 Go de RAM (7), peut expliquer pourquoi le prix moyen des téléphones ayant 16 Go de RAM est inférieur au prix moyen des téléphones disposant de 12 Go de RAM.
 
-- Pour le second tableau, il existe une relation non-linéaire concernant le doublement de la capacité de stockage du téléphone. Par exemple, passer de 64 à 128 Go implique une augmentation du prix moyen de 250% alors que passer de 256 à 512 Go de stockage implique seulement 141% d'augmentation du prix moyen. Il convient aussi de préciser que $\simeq$ 70% des téléphones de notre échantillon possèdent entre 128 et 256 Go de capacité de stockage.
+-   Pour le second tableau, il existe une relation non-linéaire concernant le doublement de la capacité de stockage du téléphone. Par exemple, passer de 64 à 128 Go implique une augmentation du prix moyen de 250% alors que passer de 256 à 512 Go de stockage implique seulement 141% d'augmentation du prix moyen. Il convient aussi de préciser que $\simeq$ 70% des téléphones de notre échantillon possèdent entre 128 et 256 Go de capacité de stockage.
 
 ```{r ggplots, fig.width=8, fig.height=2.5}
 #| fig-align: center
@@ -859,7 +849,7 @@ p1 + p2
 
 ## Etudes des variables catégorielles importantes
 
-Nous allons maintenant étudier les proportions des modalités des variables catégorielles. 
+Nous allons maintenant étudier les proportions des modalités des variables catégorielles.
 
 ```{r brand_prop, fig.width=8, fig.height=3.5}
 #| fig-align: center
@@ -874,9 +864,9 @@ df |>
     labs(x = "", y = "")
 ```
 
-- Samsung, Apple & Xiamoi se partagent 70% des téléphones commercialisés sur Boulanger.
+-   Samsung, Apple & Xiamoi se partagent 70% des téléphones commercialisés sur Boulanger.
 
-- On retrouve la même tendance au niveau des parts de marché mondial des smartphones par rapport à Q3 2022, c'est-à-dire que Samsung, Apple & Xiaomi se partagent respectivement 22, 18 et 14% de parts de marché.
+-   On retrouve la même tendance au niveau des parts de marché mondial des smartphones par rapport à Q3 2022, c'est-à-dire que Samsung, Apple & Xiaomi se partagent respectivement 22, 18 et 14% de parts de marché.
 
 ```{r location_prop, fig.width=8, fig.height=3}
 #| fig-align: center
@@ -901,9 +891,9 @@ p8 <- df |>
 p7 + p8
 ```
 
-- On remarque que la majorité des smartphones sont fabriqués en Chine et au Viêt Nam (*97.5*%). Les 12 téléphones restants sont fabriqués en Thaïlande, au Japon, en Inde et à Taïwan.
+-   On remarque que la majorité des smartphones sont fabriqués en Chine et au Viêt Nam (*97.5*%). Les 12 téléphones restants sont fabriqués en Thaïlande, au Japon, en Inde et à Taïwan.
 
-- Concernant les types d'écran, 76.2% des écrans sont *plats*, 14.6% sont *borderless* (bord à bord), il y a 7.4% d'écrans pliables et finalement 1.8% d'écrans à bords incurvés.
+-   Concernant les types d'écran, 76.2% des écrans sont *plats*, 14.6% sont *borderless* (bord à bord), il y a 7.4% d'écrans pliables et finalement 1.8% d'écrans à bords incurvés.
 
 \newpage
 
@@ -913,10 +903,10 @@ Nos données contiennent 4 variables dichotomiques aux modalités `TRUE` ou `FAL
 
 Ces variables sont :
 
-- *induction* $\Rightarrow$ le téléphone dispose-t-il d'une charge à induction ?
-- *fast_charging* $\Rightarrow$ le téléphone dispose-t-il d'une charge rapide ?
-- *upgrade_storage* $\Rightarrow$ la capacité de stockage est-elle extensible ?
-- *usb_type_c* $\Rightarrow$ le téléphone possède-t-il un port USB type C ?
+-   *induction* $\Rightarrow$ le téléphone dispose-t-il d'une charge à induction ?
+-   *fast_charging* $\Rightarrow$ le téléphone dispose-t-il d'une charge rapide ?
+-   *upgrade_storage* $\Rightarrow$ la capacité de stockage est-elle extensible ?
+-   *usb_type_c* $\Rightarrow$ le téléphone possède-t-il un port USB type C ?
 
 ```{r binary_vars, fig.width=8}
 #| fig-align: center
@@ -996,7 +986,7 @@ On s'aperçoit que les corrélations les plus importantes avec **price** sont re
 
 ## Sélection de variables
 
-Avec 35 variables explicatives, le choix des variables *essentielles* à retenir est important. 
+Avec 35 variables explicatives, le choix des variables *essentielles* à retenir est important.
 
 La première question qui se pose, en amont de la modélisation, est celle de la **sélection de variables**. En effet, si nous sélectionnons trop de variables, nous risquons de faire du sur-apprentissage et de modéliser le bruit au lieu des liens statistiques existants. Le but est donc de trouver un ensemble optimal de variables.
 
@@ -1004,35 +994,34 @@ Traditionnellement en économétrie appliquée, plusieurs approches heuristiques
 
 Nous allons ici décrire en détail la procédure de *Foward Selection* :
 
-1. On commence par un modèle $\mathcal{M}_0$, c'est à dire avec constante seulement.
-2. On ajoute les variables $X_i$ une à une dans le modèle.
-3. Parmi ces variables, on retient la variable **la plus significative** dans le modèle.
-4. On réitère la procédure jusqu'à atteindre un modèle contenant uniquement des variables significatives à un seuil spécifié.
+1.  On commence par un modèle $\mathcal{M}_0$, c'est à dire avec constante seulement.
+2.  On ajoute les variables $X_i$ une à une dans le modèle.
+3.  Parmi ces variables, on retient la variable **la plus significative** dans le modèle.
+4.  On réitère la procédure jusqu'à atteindre un modèle contenant uniquement des variables significatives à un seuil spécifié.
 
-::: {.callout-warning}
-
+::: callout-warning
 ## Limites
 
 **Il existe cependant plusieurs problèmes dans ces méthodes.**
 
-- La *Backward Elimination* et la *Foward Selection* ne convergent pas tout le temps vers le même modèle.
+-   La *Backward Elimination* et la *Foward Selection* ne convergent pas tout le temps vers le même modèle.
 
-- Le modèle final n'est pas forcément optimal.
+-   Le modèle final n'est pas forcément optimal.
 :::
 
 Pour pallier à ces problèmes, une autre approche possible consiste à faire une recherche exhaustive, c'est-à-dire explorer l'*ensemble* des modèles possibles. Bien que ce soit la meilleure méthode pour obtenir avec certitude le modèle optimal, elle devient rapidement inadaptée dès qu'il y a un nombre de variables trop conséquent, car le nombre de combinaisons possibles de modèles explose.
 
 Néanmoins, une dernière approche existe : les *algorithmes génétiques*. Contrairement à la *forward selection* et la *backward elimination* qui sont des méthodes déterministes, les algorithmes génétiques sont eux stochastiques.
 
-- On peut s'intéresser à plusieurs critères comme : le $R^2$, le $R^2$ ajusté, l'$AIC$, le $BIC$, etc.
+-   On peut s'intéresser à plusieurs critères comme : le $R^2$, le $R^2$ ajusté, l'$AIC$, le $BIC$, etc.
 
 Cet algorithme est implémenté dans le package \faIcon{r-project} de `{glmulti}`.
 
-- On l'utilise quand le nombre de variables est très important.
+-   On l'utilise quand le nombre de variables est très important.
 
-- Consiste à générer au hasard une population de modèles candidats pour ensuite leur permettre d’évoluer. Cette évolution se déroule de génération en génération.
+-   Consiste à générer au hasard une population de modèles candidats pour ensuite leur permettre d’évoluer. Cette évolution se déroule de génération en génération.
 
-- Permet de trouver le meilleur modèle en explorant seulement un sous-ensemble de modèles (de manière aléatoire) mais avec un biais vers de meilleurs modèles grâce à la sélection.
+-   Permet de trouver le meilleur modèle en explorant seulement un sous-ensemble de modèles (de manière aléatoire) mais avec un biais vers de meilleurs modèles grâce à la sélection.
 
 \newpage
 
@@ -1073,13 +1062,11 @@ compare_performance(backward, forward, genetic, metrics = c("RMSE", "R2_adj", "B
 
 **Quelques commentaires** : On s'aperçoit que la méthode *backward* et *forward* n'ont pas convergé vers le même modèle : plus précisément, certaines variables comme *diagonal_pixels* ou *battery* ont été sélectionnées dans la *backward* mais pas dans la *forward* (**On le pressentait, c'est une limite de la méthode**). Plus de détail peut être trouvé dans les résultats des régressions ci-dessous.
 
-On préférera aussi regarder comme critère le $BIC$ car il est plus parcimonieux que l'$AIC$. 
+On préférera aussi regarder comme critère le $BIC$ car il est plus parcimonieux que l'$AIC$.
 
-$$
-BIC = -2\ln(\mathcal{L}) + k \cdot \ln(N)
-$$
+$$ BIC = -2\ln(\mathcal{L}) + k \cdot \ln(N) $$
 
-- Avec $\mathcal{L}$ la vraisemblance du modèle estimée, $N$ le nombre d'observations dans l'échantillon et $k$ le nombre de paramètres libres du modèle.
+-   Avec $\mathcal{L}$ la vraisemblance du modèle estimée, $N$ le nombre d'observations dans l'échantillon et $k$ le nombre de paramètres libres du modèle.
 
 Comparé à l'$AIC$, il pénalise plus le nombre de variables présentes dans le modèle. On voit d'ailleurs dans ce tableau que l'algorithme génétique possède le $BIC$ le plus bas, tout en ayant un $R^2_{adj}$ très légèrement inférieur aux méthodes *backward* et *forward*. On le verra aussi dans le tableau des résultats de régression, mais la régression trouvée par l'algorithme génétique possède moins de variables (12), et celles-ci sont toutes significatives à un seuil $p<0.01$.
 
@@ -1094,7 +1081,7 @@ price_i = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i +
 \end{split}
 $$ {#eq-level-hedonic}
 
-On voit que dans le modèle de l'@eq-level-hedonic, il n'y a pour l'instant aucun effet d'interaction ou d'effet non-linéaire. Pour autant, les résultats sont déjà **très satisfaisants** avec un $R^2_{adj} > 0.9$ 
+On voit que dans le modèle de l'@eq-level-hedonic, il n'y a pour l'instant aucun effet d'interaction ou d'effet non-linéaire. Pour autant, les résultats sont déjà **très satisfaisants** avec un $R^2_{adj} > 0.9$
 
 \newpage
 
@@ -1132,37 +1119,39 @@ stargazer(
 
 ### Interpétations Modèle niveau-niveau
 
-- Si la capacité de stockage (*storage*) augmente de 1 Go, alors, le prix augmente de 0.74 €, *cet. par.*
+-   Si la capacité de stockage (*storage*) augmente de 1 Go, alors, le prix augmente de 0.74 €, *cet. par.*
 
-- En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
-    - La marque la plus valorisée derrière *Apple* est *Sony* avec 433.39 € de différence par rapport à *Apple*.
-    - La marque la moins valorisée est *Nothing* avec 896.87 € de différence par rapport à *Apple*
+-   En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
 
-- Une augmentation d'un Go de *ram* augmente le prix de 42.63 €, *cet. par.*
+    -   La marque la plus valorisée derrière *Apple* est *Sony* avec 433.39 € de différence par rapport à *Apple*.
+    -   La marque la moins valorisée est *Nothing* avec 896.87 € de différence par rapport à *Apple*
 
-- Pour le type d'écran (*screen_type*), la catégorie de référence est *borderless* (un écran sans bordure).
-    - Disposer d'un écran à bord incurvé diminue le prix de 147.11 € par rapport à la catégorie de référence, *cet. par.*
-    - Pour l'écran plat, le prix diminue de 100.5 € par rapport à la catégorie de référence, *cet. par.*
-    - Avoir un écran pliable fait augmenter le prix de 316.85 € par rapport à la catégorie de référence, *cet. par.*
+-   Une augmentation d'un Go de *ram* augmente le prix de 42.63 €, *cet. par.*
 
-- Posséder un dispositif de charge à induction (*induction = `TRUE`*) augmente le prix de 156.81 €, *cet. par.*
+-   Pour le type d'écran (*screen_type*), la catégorie de référence est *borderless* (un écran sans bordure).
 
-- Si la taille de l'écran augmente de 1 pouce, alors le prix augmente de 154.69 €, *cet. par.*
+    -   Disposer d'un écran à bord incurvé diminue le prix de 147.11 € par rapport à la catégorie de référence, *cet. par.*
+    -   Pour l'écran plat, le prix diminue de 100.5 € par rapport à la catégorie de référence, *cet. par.*
+    -   Avoir un écran pliable fait augmenter le prix de 316.85 € par rapport à la catégorie de référence, *cet. par.*
 
-- L'indice de réparabilité (*repairability_index*) est compris entre 1 et 10. Une augmentation de 1 point de cet indice implique une augmentation de 108.97 €, *cet. par.*
+-   Posséder un dispositif de charge à induction (*induction = `TRUE`*) augmente le prix de 156.81 €, *cet. par.*
 
-- Concernant le lieu de fabrication (*made_in*), la catégorie de référence est la *Chine*.
-    - Les coefficients associés aux catégories *Inde* et *Viêt Nam* ne sont pas significatives, c'est-à-dire qu'il n'y a pas de différence significative de prix avec un smartphone produit en *Chine*.
-    - Comparé à un téléphone fabriqué en Chine, un téléphone produit au *Japon* augmente le prix de 562.52 €, suivi de la *Thaïlande* avec une augmentation de 540.91 € et enfin de *Taïwan* avec une augmentation du prix de 376.4 €, *cet. par.*
+-   Si la taille de l'écran augmente de 1 pouce, alors le prix augmente de 154.69 €, *cet. par.*
 
-- Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage* = `TRUE`*), alors le prix diminue de 133.05 €, *cet. par.* Comme nous l'avions remarqué dans la partie de statistiques descriptives.
+-   L'indice de réparabilité (*repairability_index*) est compris entre 1 et 10. Une augmentation de 1 point de cet indice implique une augmentation de 108.97 €, *cet. par.*
 
-- Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de 145.99 €, *cet.par.* 
+-   Concernant le lieu de fabrication (*made_in*), la catégorie de référence est la *Chine*.
 
-- Pour les variables liées au DAS, l'effet de *das_limbs* est positif sur le prix, tandis que l'effet de *das_head* est quant à lui négatif. L'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de 72.88 € alors que cette même augmentation diminue le prix de 105.16 € pour *das_head*, *cet.par.* Néanmoins, l'effet peut être globalement vu comme négatif étant donné la valeur des coefficients.
+    -   Les coefficients associés aux catégories *Inde* et *Viêt Nam* ne sont pas significatives, c'est-à-dire qu'il n'y a pas de différence significative de prix avec un smartphone produit en *Chine*.
+    -   Comparé à un téléphone fabriqué en Chine, un téléphone produit au *Japon* augmente le prix de 562.52 €, suivi de la *Thaïlande* avec une augmentation de 540.91 € et enfin de *Taïwan* avec une augmentation du prix de 376.4 €, *cet. par.*
 
-**$R^2_{adj} = 0.923$ donc 92.3% de la variance de la variable expliquée (price) est expliquée par la variance des variables explicatives du modèle.**
+-   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage* = `TRUE`*), alors le prix diminue de 133.05 €,* cet. par.\* Comme nous l'avions remarqué dans la partie de statistiques descriptives.
 
+-   Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de 145.99 €, *cet.par.*
+
+-   Pour les variables liées au DAS, l'effet de *das_limbs* est positif sur le prix, tandis que l'effet de *das_head* est quant à lui négatif. L'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de 72.88 € alors que cette même augmentation diminue le prix de 105.16 € pour *das_head*, *cet.par.* Néanmoins, l'effet peut être globalement vu comme négatif étant donné la valeur des coefficients.
+
+$R^2_{adj} = 0.923$ donc 92.3% de la variance de la variable expliquée (price) est expliquée par la variance des variables explicatives du modèle.
 
 \newpage
 
@@ -1170,8 +1159,7 @@ stargazer(
 
 Dans cette partie, nous n'effectuerons pas de sélection de variables avec `{glmulti}` car le meilleur modèle de régression hédonique proposé en *log* $-$ *level* aboutit à des difficultés de convergence pour le modèle **SFA**. Or, nous voulons comparer les coefficients de cette régression hédonique avec les modèles SFA que nous mettrons en place dans une troisième phase.
 
-:::{.callout-warning}
-
+::: callout-warning
 ## Difficultés de convergence d'un modèle SFA
 
 Dans une **SFA**, les difficultés de convergence peuvent être dues à de vastes zones très plates de la fonction de vraisemblance, pouvant être causées par une forte multicolinéarité entre l'intercept du modèle de frontière et l'intercept du modèle d'inefficacité. Par conséquent, supprimer l'intercept du modèle d'inefficacité améliore parfois la convergence, mais risque aussi d'introduire un biais de variable omise.
@@ -1182,7 +1170,7 @@ Dans le package `{frontier}` que nous utilisons pour effectuer la SFA, ces diffi
 
 \vspace{1em}
 
-- *"le paramètre gamma est proche de la limite de l'espace des paramètres [0,1]"*
+-   *"le paramètre gamma est proche de la limite de l'espace des paramètres \[0,1\]"*
 
 \vspace{1em}
 
@@ -1202,7 +1190,7 @@ $$ {#eq-log-hedonic}
 
 Par rapport au modèle en niveau, il n'y a plus les variables *screen_type* et *repairability_index*, qui posaient des problèmes de convergence. D'autres variables ont néanmoins été introduites comme *network* ou *ppi*.
 
-***
+------------------------------------------------------------------------
 
 ```{r log_hedonic, results="asis"}
 loghedonic <- lm(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + das_chest + fast_charging + network + ppi,
@@ -1221,37 +1209,39 @@ stargazer(loghedonic,
 
 ### Interpétations Modèle log-niveau
 
-- Si la capacité de stockage (*storage*) augmente de 1 Go, alors le prix augmente de 0.1%, *cet. par.*
+-   Si la capacité de stockage (*storage*) augmente de 1 Go, alors le prix augmente de 0.1%, *cet. par.*
 
-- En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
-    - La marque la plus valorisée derrière *Apple* est *Samsung* avec une différence de prix de $15.1\%$.
-    - La marque la moins valorisée est *Honor* avec une différence de prix de $98.7\%$ par rapport à *Apple*.
+-   En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
 
-- Si la *ram* augmente de 1 Go, alors le prix augmente de $8.2\%$, *cet. par.*
+    -   La marque la plus valorisée derrière *Apple* est *Samsung* avec une différence de prix de $15.1\%$.
+    -   La marque la moins valorisée est *Honor* avec une différence de prix de $98.7\%$ par rapport à *Apple*.
 
-- Si le téléphone dispose d'une charge à induction (*induction = `TRUE`*), alors le prix augmente de $27.2\%$, *cet. par.*
+-   Si la *ram* augmente de 1 Go, alors le prix augmente de $8.2\%$, *cet. par.*
 
-- Si la taille de l'écran augmente de 1 pouce (*screen_size*), alors le prix augmente de $24.1\%$, *cet. par.*
+-   Si le téléphone dispose d'une charge à induction (*induction = `TRUE`*), alors le prix augmente de $27.2\%$, *cet. par.*
 
-- Pour le lieu de fabrication (*made_in*), la catégorie de référence est la *Chine*.
-    - Le coefficient associé à la catégorie *Inde* n'est pas significatif.
-    - Un téléphone qui est fabriqué au *Viêt Nam* est $14.9\%$  moins cher qu'un téléphone fabriqué en *Chine*, *cet. par.*
-    - Comparé à un téléphone produit en *Chine*, un téléphone produit en *Thaïlande* augmente le prix de $54.3\%$, suivi de *Taïwan* avec une augmentation de $47.5\%$ et enfin du *Japon* avec une augmentation du prix de $41.4\%$, *cet. par.*
+-   Si la taille de l'écran augmente de 1 pouce (*screen_size*), alors le prix augmente de $24.1\%$, *cet. par.*
 
-- Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage = `TRUE`*), alors le prix diminue de $36.3\%$, *cet. par*.
+-   Pour le lieu de fabrication (*made_in*), la catégorie de référence est la *Chine*.
 
-- Pour les variables liées au DAS :
-    - l'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de $9.2\%$, *cet. par.*
-    - au contraire, le prix diminue de $20.9\%$ pour le *das_head* et de $29.9\%$ pour le *das_chest* lorsque qu'ils augmentent d'une unité de W/kg, *cet. par.*
+    -   Le coefficient associé à la catégorie *Inde* n'est pas significatif.
+    -   Un téléphone qui est fabriqué au *Viêt Nam* est $14.9\%$ moins cher qu'un téléphone fabriqué en *Chine*, *cet. par.*
+    -   Comparé à un téléphone produit en *Chine*, un téléphone produit en *Thaïlande* augmente le prix de $54.3\%$, suivi de *Taïwan* avec une augmentation de $47.5\%$ et enfin du *Japon* avec une augmentation du prix de $41.4\%$, *cet. par.*
 
-- Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de $13.9\%$, *cet.par.* 
+-   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage = `TRUE`*), alors le prix diminue de $36.3\%$, *cet. par*.
 
-- Si le téléphone est compatible avec la 5G (*network5G = `TRUE`*), alors le prix augmente de $30.6\%$, *cet. par.*
+-   Pour les variables liées au DAS :
 
-- Lorsque le *ppi* (*pixels par pouce*) augmente d'une unité, alors le prix augmente de $0.1\%$, *cet. par.*
+    -   l'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de $9.2\%$, *cet. par.*
+    -   au contraire, le prix diminue de $20.9\%$ pour le *das_head* et de $29.9\%$ pour le *das_chest* lorsque qu'ils augmentent d'une unité de W/kg, *cet. par.*
 
+-   Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de $13.9\%$, *cet.par.*
 
-**$R^2_{adj} = 0.929$ donc 92.9% de la variance de la variable expliquée est expliquée par la variance des variables explicatives du modèle.**
+-   Si le téléphone est compatible avec la 5G (*network5G = `TRUE`*), alors le prix augmente de $30.6\%$, *cet. par.*
+
+-   Lorsque le *ppi* (*pixels par pouce*) augmente d'une unité, alors le prix augmente de $0.1\%$, *cet. par.*
+
+$R^2_{adj} = 0.929$ donc 92.9% de la variance de la variable expliquée est expliquée par la variance des variables explicatives du modèle.
 
 \newpage
 
@@ -1259,11 +1249,11 @@ stargazer(loghedonic,
 
 Un aspect crucial lors de la construction des modèles de régression linéaire est d’évaluer la qualité de l’ajustement du modèle, mais aussi de vérifier les hypothèses de **Gauss-Markov** :
 
-1. Linéarité dans les paramètres.
-2. Les résidus sont d'espérance nulle.
-3. Absence de multicolinéarité.
-4. Homoscédasticité des résidus.
-5. Pas d'autocorrélation des résidus.
+1.  Linéarité dans les paramètres.
+2.  Les résidus sont d'espérance nulle.
+3.  Absence de multicolinéarité.
+4.  Homoscédasticité des résidus.
+5.  Pas d'autocorrélation des résidus.
 
 **Sous toutes ces hypothèses sont satisfaites, l'estimateur fourni par les MCO est dit BLUE (Best Linear Unbiased Estimator).** Pour les vérifier, on peut utiliser les packages `{performance}` et `{see}` en conjonction[^9].
 
@@ -1273,7 +1263,7 @@ Un aspect crucial lors de la construction des modèles de régression linéaire 
 pvalue_hyp2 <- t.test(loghedonic$residuals)$p.value
 ```
 
-L'hypothèse **(1)** est vérifiée par la formulation de notre modèle. Pour l'hypothèse **(2)**, on peut effectuer un test de *Student* pour vérifier si $E(\epsilon_i) = 0$. Les hypothèses $H_0$ et $H_1$ sont les suivantes : 
+L'hypothèse **(1)** est vérifiée par la formulation de notre modèle. Pour l'hypothèse **(2)**, on peut effectuer un test de *Student* pour vérifier si $E(\epsilon_i) = 0$. Les hypothèses $H_0$ et $H_1$ sont les suivantes :
 
 $$
 \begin{cases}
@@ -1284,7 +1274,7 @@ $$
 
 \vspace{1em}
 
-- La $p-value$ issue du test est égale à `r pvalue_hyp2`, donc l'hypothèse **(2)** est vérifiée.
+-   La $p-value$ issue du test est égale à `r pvalue_hyp2`, donc l'hypothèse **(2)** est vérifiée.
 
 ```{r collinearity, fig.width=6}
 check_collinearity(loghedonic) |>
@@ -1297,21 +1287,20 @@ check_collinearity(loghedonic) |>
     row_spec(0, bold = T)
 ```
 
-- *Note* : La **Tolérance** correspond à $\dfrac{1}{\text{VIF}}$, c'est-à-dire que plus le *VIF* sera élevé, et plus la **Tolérance** sera proche de 0.
+-   *Note* : La **Tolérance** correspond à $\dfrac{1}{\text{VIF}}$, c'est-à-dire que plus le *VIF* sera élevé, et plus la **Tolérance** sera proche de 0.
 
 \newpage
 
-:::{.callout-tip}
-
+::: callout-tip
 ## Mesure de la multicolinéarité
 
 Le Variance Inflation Factor (*VIF*) est une mesure permettant d'analyser l'ampleur de la multicolinéarité des termes du modèle. Plus précisément :
 
 \vspace{1em}
 
-- Un *VIF* inférieur à 5 indique une faible corrélation de ce prédicteur avec d'autres prédicteurs. 
-- Une valeur comprise entre 5 et 10 indique une corrélation modérée.
-- Enfin, des valeurs de *VIF* supérieures à 10 sont le signe d'une corrélation très élevée.
+-   Un *VIF* inférieur à 5 indique une faible corrélation de ce prédicteur avec d'autres prédicteurs.
+-   Une valeur comprise entre 5 et 10 indique une corrélation modérée.
+-   Enfin, des valeurs de *VIF* supérieures à 10 sont le signe d'une corrélation très élevée.
 
 \vspace{1em}
 
@@ -1320,7 +1309,7 @@ Ce que le VIF apporte en plus d'une simple analyse des corrélations est l'analy
 
 Avec un *VIF* estimé de 470.82, il n'est pas surprenant de constater que la marque est extrêmement corrélée à une combinaison linéaire de plusieurs variables. On peut par exemple penser au choix de localisation de la production, le fait de disposer ou non d'un port USB type C, etc. L'hypothèse **(3)** n'est donc pas vérifiée, mais cela est cohérent dans le cadre du modèle.
 
-***
+------------------------------------------------------------------------
 
 Concernant l'hypothèse **(4)** - l'Homoscédasticité pour les modèles de régression linéaire signifie que les résidus du modèle ont une variance constante. Si cette hypothèse n'est pas respectée, alors les *erreurs-types* et les $p-values$ du modèle ne sont plus fiables. On peut par exemple détecter la présente d'hétéroscédasticité graphiquement :
 
@@ -1331,7 +1320,7 @@ heterosced <- check_heteroscedasticity(loghedonic)
 plot(heterosced)
 ```
 
-- Il est clair que notre modèle présente des résidus hétéroscédastiques. On peut aussi le vérifier avec le test de *Breusch-Pagan*. Les hypothèses $H_0$ et $H_1$ sont les suivantes :
+-   Il est clair que notre modèle présente des résidus hétéroscédastiques. On peut aussi le vérifier avec le test de *Breusch-Pagan*. Les hypothèses $H_0$ et $H_1$ sont les suivantes :
 
 $$
 \begin{cases}
@@ -1346,7 +1335,7 @@ bp_pvalue <- round(bptest(loghedonic)$p.value, 2)
 
 \vspace{1em}
 
-- La $p-value$ issue du test est égale à `r bp_pvalue`, donc l'hypothèse **(4)** n'est pas vérifiée.
+-   La $p-value$ issue du test est égale à `r bp_pvalue`, donc l'hypothèse **(4)** n'est pas vérifiée.
 
 **Il existe néanmoins plusieurs façons de corriger le problème d'hétéroscédasticité que nous verrons dans la section suivante.**
 
@@ -1370,7 +1359,7 @@ plot(outliers, type = "dots")
 
 \newpage
 
-Enfin, la dernière étape visuelle que l'on peut mettre en œuvre est de vérifier l'ajustement du modèle. Une vérification prédictive a posteriori est la comparaison entre ce que prédit le modèle ajusté et les données réellement observées. 
+Enfin, la dernière étape visuelle que l'on peut mettre en œuvre est de vérifier l'ajustement du modèle. Une vérification prédictive a posteriori est la comparaison entre ce que prédit le modèle ajusté et les données réellement observées.
 
 $\Rightarrow$ **L’objectif est de détecter si le modèle est inadéquat pour décrire les données.**
 
@@ -1378,20 +1367,20 @@ $\Rightarrow$ **L’objectif est de détecter si le modèle est inadéquat pour 
 check_posterior_predictions(loghedonic)
 ```
 
-- On s'aperçoit que le modèle a du mal à représenter le second pic de la distribution des prix. Globalement, les prédictions sont assez proches de la réalité.
+-   On s'aperçoit que le modèle a du mal à représenter le second pic de la distribution des prix. Globalement, les prédictions sont assez proches de la réalité.
 
 ## Modèle SFA - Frontière de coût
 
-Le modèle reste le même que celui de l'@eq-log-hedonic, mais le terme d'erreur $\epsilon_i$ devient un terme d'erreur composé $u_i + v_i$. 
+Le modèle reste le même que celui de l'@eq-log-hedonic, mais le terme d'erreur $\epsilon_i$ devient un terme d'erreur composé $u_i + v_i$.
 
 Pour modéliser cette frontière de coût, il suffit d'utiliser l'argument `ineffDecrease = FALSE`, autrement dit l'inefficacité augmente la variable endogène.
 
 Il faut maintenant sélectionner la distribution des $u_i$. Deux distributions sont disponibles dans le package `{frontier}`:
 
-- La distribution normale tronquée : `truncNorm = TRUE`.
-- La distribution semi-normale : `truncNorm = FALSE`.
+-   La distribution normale tronquée : `truncNorm = TRUE`.
+-   La distribution semi-normale : `truncNorm = FALSE`.
 
-Nous avons décidé de choisir la distribution *semi-normale*.
+Nous avons décidé de choisir la distribution *semi-normale*. 
 $$
 \begin{split}
 \ln(price_i) = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}induction_i \\
@@ -1402,7 +1391,6 @@ $$
 $$ {#eq-sfa-cost}
 
 **Les résultats de l'estimation sont disponibles sur la page suivante.**
-
 
 ```{r stars_func}
 # **stars**
@@ -1420,7 +1408,7 @@ stars <- function(pvalue) {
 ```
 
 ```{r stochastic_cost}
-scf <- sfa(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + +fast_charging + das_chest + network + ppi,
+scf <- sfa(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + fast_charging + das_chest + network + ppi,
     data = df_phones,
     truncNorm = FALSE,
     ineffDecrease = FALSE
@@ -1428,7 +1416,6 @@ scf <- sfa(log(price) ~ storage + brand + ram + induction + screen_size + made_i
 
 scf_summary <- summary(scf)
 ```
-
 
 \newpage
 
@@ -1445,50 +1432,73 @@ scf_results |>
     row_spec(0, bold = T)
 ```
 
-- **SigmaSq** ($\sigma^2$) représente la variance de l'erreur composite $\epsilon_i$ dans le modèle.
+-   **SigmaSq** ($\sigma^2$) représente la variance de l'erreur composite $\epsilon_i$ dans le modèle.
 
-- **gamma** ($\gamma$) représente le paramètre d'inefficacité stochastique. $u_i$​ est modélisé en fonction de ce $\gamma$ estimé pour capturer l'inefficacité inobservable.
+-   **gamma** ($\gamma$) représente le paramètre d'inefficacité stochastique. $u_i$​ est modélisé en fonction de ce $\gamma$ estimé pour capturer l'inefficacité inobservable.
+
+\newpage
+
+```{r}
+loghedonic_summary <- summary(loghedonic)
+
+loghedonic_results <- cbind(
+    round(loghedonic_summary$coefficients[, 1], 5),
+    stars(loghedonic_summary$coefficients[, 4]),
+    round(loghedonic_summary$coefficients[, 2], 5)
+)
+
+scf_results_2 <- scf_results[1:30, 1:3]
+
+loghedonic_scf_results <- cbind(loghedonic_results, scf_results_2)
+
+
+loghedonic_scf_results |>
+    kbl(booktabs = TRUE, caption = "Comparaison des coefficients obtenus par les 2 modèles", col.names = c("Coef.", "Signif.", "Erreur Std", "Coef.", "Signif.", "Erreur Std")) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    add_header_above(c(" ", "Log-Hedonic" = 3, "SFA Cost Frontier" = 3)) |>
+    row_spec(0, bold = T)
+```
 
 \newpage
 
 ### Interprétations Modèle frontière de coût
 
-:::{.callout-tip}
-
+::: callout-tip
 ## Un estimateur différent
 
 L'estimateur utilisé dans la régression hédonique *log*$-$*level* est l'estimateur MCO. Celui-ci vise à minimiser la somme des carrés des différences entre les valeurs observées ($y_i$) et celles prédites par le modèle ($\hat{y_i}$). Dans le modèle SFA, on utilise plutôt l'approche du MV (Maximum de Vraisemblance) pour estimer les paramètres. Au lieu de se concentrer sur la minimisation des résidus, le MV cherche à maximiser la probabilité d'observer les données réellement observées, c'est-à-dire qu'il cherche à maximiser la fonction de vraisemblance.
-
 :::
 
+-   Si la capacité de stockage (*storage*) augmente de 1 Go, alors le prix augmente de 0.052%, *cet. par.*
 
-- Si la capacité de stockage (*storage*) augmente de 1 Go, alors le prix augmente de 0.052%, *cet. par.*
+-   En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
 
-- En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.* 
-    - La marque la plus valorisée derrière *Apple* est *Samsung* avec une différence de prix de $22.6\%$.
-    - La marque la moins valorisée est *Honor* avec une différence de prix de $102\%$ par rapport à *Apple*.
+    -   La marque la plus valorisée derrière *Apple* est *Samsung* avec une différence de prix de $22.6\%$.
+    -   La marque la moins valorisée est *Honor* avec une différence de prix de $102\%$ par rapport à *Apple*.
 
-- Si la *ram* augmente de 1 Go, alors le prix augmente de $8.3\%$, *cet. par.*
+-   Si la *ram* augmente de 1 Go, alors le prix augmente de $8.3\%$, *cet. par.*
 
-- Si le téléphone dispose d'une charge à induction (*induction = `TRUE`*), alors le prix augmente de $28.6\%$, *cet. par.*
+-   Si le téléphone dispose d'une charge à induction (*induction = `TRUE`*), alors le prix augmente de $28.6\%$, *cet. par.*
 
-- Si la taille de l'écran augmente de 1 pouce (*screen_size*), alors le prix augmente de $24.9\%$, *cet. par.*
+-   Si la taille de l'écran augmente de 1 pouce (*screen_size*), alors le prix augmente de $24.9\%$, *cet. par.*
 
-- Pour le lieu de fabrication (*made_in*), la catégorie de référence est la *Chine*.
-    - Le coefficient associé à la catégorie *Inde* et *Viêt Nam* n'est pas significatif.
-    - Comparé à un téléphone produit en *Chine*, un téléphone produit en *Thaïlande* augmente le prix de $55.6\%$, suivi de *Taïwan* avec une augmentation de $51\%$ et enfin du *Japon* avec une augmentation du prix de $41.6\%$, *cet. par.*
+-   Pour le lieu de fabrication (*made_in*), la catégorie de référence est la *Chine*.
 
-- Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage = `TRUE`*), alors le prix diminue de $33.8\%$, *cet. par*.
+    -   Le coefficient associé à la catégorie *Inde* et *Viêt Nam* n'est pas significatif.
+    -   Comparé à un téléphone produit en *Chine*, un téléphone produit en *Thaïlande* augmente le prix de $55.6\%$, suivi de *Taïwan* avec une augmentation de $51\%$ et enfin du *Japon* avec une augmentation du prix de $41.6\%$, *cet. par.*
 
-- Pour les variables liées au DAS :
-    - l'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de $8.5\%$, *cet. par.*
-    - au contraire, le prix diminue de $20.5\%$ pour le *das_head* et de $27\%$ pour le *das_chest* lorsque qu'ils augmentent d'une unité de W/kg, *cet. par.*
+-   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage = `TRUE`*), alors le prix diminue de $33.8\%$, *cet. par*.
 
-- Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de $15.9\%$, *cet.par.* 
+-   Pour les variables liées au DAS :
 
-- Si le téléphone est compatible avec la 5G (*network5G = `TRUE`*), alors le prix augmente de $30.5\%$, *cet. par.*
+    -   l'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de $8.5\%$, *cet. par.*
+    -   au contraire, le prix diminue de $20.5\%$ pour le *das_head* et de $27\%$ pour le *das_chest* lorsque qu'ils augmentent d'une unité de W/kg, *cet. par.*
 
-- Lorsque le *ppi* (*pixels par pouce*) augmente d'une unité, alors le prix augmente de $0.09\%$, *cet. par.*
+-   Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de $15.9\%$, *cet.par.*
+
+-   Si le téléphone est compatible avec la 5G (*network5G = `TRUE`*), alors le prix augmente de $30.5\%$, *cet. par.*
+
+-   Lorsque le *ppi* (*pixels par pouce*) augmente d'une unité, alors le prix augmente de $0.09\%$, *cet. par.*
 
 \newpage
 
@@ -1503,8 +1513,17 @@ Dans ce modèle, l'efficacité moyenne calculée est de **`r mean_eff*100`**%, c
 En utilisant l'espérance conditionnelle $E(u_i | \epsilon_i)$, on peut estimer le score d'efficacité pour chaque observation, et donc déterminer quels téléphones sont les plus/moins efficaces de notre sélection. On peut aussi les regrouper par marque.
 
 ```{r eff_brands}
-eff_df <- as_tibble(efficiencies(scf))
-new_df <- bind_cols(df, eff_df)
+eff_df <- efficiencies(scf, logDepVar = TRUE) |> as_tibble()
+
+residuals <- residuals(scf, asInData = TRUE) |>
+    as_tibble() |>
+    rename(residuals = value)
+
+predicted <- fitted(scf, asInData = TRUE) |>
+    as_tibble() |>
+    rename(prediction = value)
+
+new_df <- bind_cols(df, eff_df, predicted, residuals)
 
 brand_groups <- new_df |>
     select(brand, efficiency) |>
@@ -1518,10 +1537,10 @@ brand_groups |>
     row_spec(0, bold = T)
 ```
 
-- *Oppo* est la marque qui possède la pire relation prix~attributs de notre sélection.
-- *Nothing* est la marque qui possède la meilleure relation prix~attributs de notre sélection.
+-   *Oppo* est la marque qui possède la pire relation prix\~attributs de notre sélection.
+-   *Nothing* est la marque qui possède la meilleure relation prix\~attributs de notre sélection.
 
-On voit que la marque la moins valorisée par les consommateurs (*Honor*) n'est pas forcément celle qui propose les téléphones les plus inefficaces. 
+On voit que la marque la moins valorisée par les consommateurs (*Honor*) n'est pas forcément celle qui propose les téléphones les plus inefficaces.
 
 *Apple* fait partie du Top 3 des marques les plus efficaces, derrière *Nothing* et *Fairphone* (Il faut néanmoins se souvenir que ces 2 marques ne proposent que très peu de modèles de téléphones, contre 105 pour *Apple*).
 
@@ -1529,7 +1548,7 @@ On voit que la marque la moins valorisée par les consommateurs (*Honor*) n'est 
 
 ```{r worst}
 new_df |>
-    select(model, efficiency, ram, storage, screen_size, price) |>
+    select(model, efficiency, ram, storage, screen_size, price, logprice, prediction) |>
     arrange(efficiency) |>
     mutate(price = paste(price, "€")) |>
     slice_head(n = 5) |>
@@ -1540,29 +1559,28 @@ new_df |>
 
 \newpage
 
-- Avec une efficacité de 0.6 et un prix de 853.6 €, le *MOTOROLA Razr* est très loin de la frontière de coût : son prix est  40% *trop cher*.
+-   Avec une efficacité de 0.6 et un prix de 853.6 €, le *MOTOROLA Razr* est très loin de la frontière de coût : son prix est 40% *trop cher*.
 
-- Le *Samsung XCOVER 5* est quant à lui la preuve que même un téléphone moyen de gamme d'une marque comme *Samsung* peut être un mauvais rapport qualité-prix.
+-   Le *Samsung XCOVER 5* est quant à lui la preuve que même un téléphone moyen de gamme d'une marque comme *Samsung* peut être un mauvais rapport qualité-prix.
 
 ```{r best}
 new_df |>
-    select(model, efficiency, ram, storage, screen_size, price) |>
+    select(model, efficiency, ram, storage, screen_size, price, logprice, prediction) |>
     arrange(efficiency) |>
-    mutate(price = paste(price, "€")) |>
+    mutate(price = paste(price, "€"), prediction = paste(prediction, "€")) |>
     slice_tail(n = 5) |>
     kbl(booktabs = TRUE, digits = 3, caption = "Les 5 téléphones les plus efficaces.") |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
     row_spec(0, bold = T)
 ```
 
-- l'*ASUS ROG Phone 6* possède un très bon score d'efficacité, proche de 0.95. Avec un prix de 799 €, ce téléphone est donc un excellent rapport qualité-prix. Cela peut s'expliquer par sa capacité de stockage de 512 Go et son importante RAM de 16 Go.
+-   l'*ASUS ROG Phone 6* possède un très bon score d'efficacité, proche de 0.95. Avec un prix de 799 €, ce téléphone est donc un excellent rapport qualité-prix. Cela peut s'expliquer par sa capacité de stockage de 512 Go et son importante RAM de 16 Go.
 
-- Le *XIAOMI Redmi Note 10* est quant à lui le téléphone le plus efficace de notre échantillon. De manière intéressante, son prix est très bas.
-
+-   Le *XIAOMI Redmi Note 10* est quant à lui le téléphone le plus efficace de notre échantillon. De manière intéressante, son prix est très bas.
 
 ```{r kbl_expensive}
 new_df |>
-    select(model, efficiency, ram, storage, screen_size, price) |>
+    select(model, efficiency, ram, storage, screen_size, price, logprice, prediction) |>
     distinct() |>
     arrange(price) |>
     mutate(price = paste(price, "€")) |>
@@ -1573,14 +1591,13 @@ new_df |>
     row_spec(0, bold = T)
 ```
 
-- Parmi ces téléphones les moins chers, on remarque qu'il y a 4 modèles de marque *Xiaomi*. Cela est cohérent avec nos observations dans la partie de statistiques descriptive.
+-   Parmi ces téléphones les moins chers, on remarque qu'il y a 4 modèles de marque *Xiaomi*. Cela est cohérent avec nos observations dans la partie de statistiques descriptive.
 
-- Par ailleurs, les 5 téléphones les moins chers sont en dessous de la barre symbolique des 100 € ; pour autant, leur efficacité est $> 0.9$ pour l'ensemble des modèles. Les téléphones peu chers ne sont donc pas forcément signe d'un mauvais *rapport "qualité-prix"* !
-
+-   Par ailleurs, les 5 téléphones les moins chers sont en dessous de la barre symbolique des 100 € ; pour autant, leur efficacité est $> 0.9$ pour l'ensemble des modèles. Les téléphones peu chers ne sont donc pas forcément signe d'un mauvais *rapport "qualité-prix"* !
 
 ```{r kbl_inexpensive}
 new_df |>
-    select(model, efficiency, ram, storage, screen_size, price) |>
+    select(model, efficiency, ram, storage, screen_size, price, logprice, prediction) |>
     distinct() |>
     arrange(price) |>
     mutate(price = paste(price, "€")) |>
@@ -1590,10 +1607,9 @@ new_df |>
     row_spec(0, bold = T)
 ```
 
-
 # Conclusion
 
-La réalisation d'une étude utilisant les modèles SFA pour évaluer les prix des smartphones a permis de mieux comprendre les dynamiques complexes de ce marché en constante évolution. En explorant la littérature existante sur la SFA et la régression hédonique des prix, nous avons découvert les fondements théoriques de ces modèles, leurs apports ainsi que leurs limites. 
+La réalisation d'une étude utilisant les modèles SFA pour évaluer les prix des smartphones a permis de mieux comprendre les dynamiques complexes de ce marché en constante évolution. En explorant la littérature existante sur la SFA et la régression hédonique des prix, nous avons découvert les fondements théoriques de ces modèles, leurs apports ainsi que leurs limites.
 
 Les statistiques descriptives réalisées sur 487 smartphones vendus par un revendeur français *(octobre 2023)* ont révélé une distribution étalée des prix, confirmant la nature hautement différenciée des smartphones. En utilisant des modèles de régression hédonique, nous avons réussi à prédire avec précision les prix en utilisant différents types de spécifications, notamment *niveau-niveau* en *log-niveau*. Ces résultats ont été extrêmement satisfaisants, démontrant la capacité des modèles à correctement inférer les prix des smartphones en fonction de leurs caractéristiques.
 
@@ -1605,7 +1621,6 @@ En résumé, cette étude approfondie combinant la régression hédonique, la SF
 
 \macrostars
 
-
 ```{r predicts}
 # prediction <- predict(genreg)
 # true <- df$price
@@ -1616,7 +1631,6 @@ En résumé, cette étude approfondie combinant la régression hédonique, la SF
 
 # faire un modèle avec correction d'hétéroscédasticité. robuste.
 ```
-
 
 ```{r todos}
 # Faire une partie avec effets d'interaction plus tard.
@@ -1681,7 +1695,7 @@ MV
 
 *ppi*
 
-:   Pixels Per Inch, calculé à partir de la diagonale et de la taille de l'écran $\Rightarrow$  `float`
+:   Pixels Per Inch, calculé à partir de la diagonale et de la taille de l'écran $\Rightarrow$ `float`
 
 *cam_1, cam_2, cam_3*
 
@@ -1775,7 +1789,7 @@ MV
 
 :   Nombre de critiques $\Rightarrow$ `int`
 
-*das_head/chest/limbs* 
+*das_head/chest/limbs*
 
 :   Débit d'absorption spécifique tête/corps/membres $\Rightarrow$ `float`
 
@@ -1785,9 +1799,8 @@ MV
 
 # Licence
 
-:::{.callout-warning}
-
-## **Licence CC BY-NC-SA 4.0** | \faIcon{creative-commons}\faIcon{creative-commons-by}\faIcon{creative-commons-nc}\faIcon{creative-commons-sa}
+::: callout-warning
+## **Licence CC BY-NC-SA 4.0** \| \faIcon{creative-commons}\faIcon{creative-commons-by}\faIcon{creative-commons-nc}\faIcon{creative-commons-sa}
 
 **Vous êtes autorisé à :**
 
@@ -1826,7 +1839,6 @@ MV
 \vspace{1em}
 
 <https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr>
-
 :::
 
 # Références
