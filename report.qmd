@@ -38,7 +38,8 @@ format:
 
 \newpage
 
-```{r lib_imports}
+```{r}
+#| label: lib_imports
 library(tidyverse)
 library(ggridges)
 library(corrplot)
@@ -52,14 +53,23 @@ library(see)
 library(frontier)
 library(lmtest)
 library(dplyr)
+library(FactoMineR)
+library(factoextra)
 ```
 
-```{r theme_setting}
-# Configure le thème ggplot2 globalement
+```{r}
+#| label: scientific_notation
+options(scipen = 999)
+```
+
+```{r}
+#| label: theme_setting
 theme_set(theme_minimal())
+# Configure le thème ggplot2 globalement
 ```
 
-```{r colors}
+```{r}
+#| label: colors
 darkgray <- "#393E46"
 highlight <- "#750E21"
 ```
@@ -151,7 +161,6 @@ Afin de comprendre pourquoi il est important d'étudier des biens différenciés
 #| fig-align: center
 #| fig-cap: "Plan $(z_1, z_2)$ de différents biens avec 2 caractéristiques."
 
-## note ===> changer la palette du graph, elle est ignoble là
 hedonic_graph_loader <- function() {
     set.seed(43)
     num_points <- 6
@@ -1359,15 +1368,17 @@ plot(outliers, type = "dots")
 
 \newpage
 
-Enfin, la dernière étape visuelle que l'on peut mettre en œuvre est de vérifier l'ajustement du modèle. Une vérification prédictive a posteriori est la comparaison entre ce que prédit le modèle ajusté et les données réellement observées.
+Enfin, la dernière étape visuelle que l'on peut mettre en œuvre est de vérifier l'ajustement du modèle. Une vérification prédictive a posteriori permet de simuler des données répliquées avec le modèle ajusté puis les comparer aux données observées.
 
 $\Rightarrow$ **L’objectif est de détecter si le modèle est inadéquat pour décrire les données.**
+
+*Note* : Les données utilisées pour la vérification prédictive postérieure sont simulées à partir de la *distribution prédictive postérieure*. Celle-ci est construite après avoir utilisé les données observées $y$ et les prédicteurs $X$ pour mettre à jour les croyances sur les paramètres inconnus $\theta$ dans le modèle. Pour chaque tirage des paramètres $\theta$ à partir de la distribution a posteriori $p(\theta|y,X)$, un vecteur complet de résultats est généré.
 
 ```{r posterior, fig.width=8}
 check_posterior_predictions(loghedonic)
 ```
 
--   On s'aperçoit que le modèle a du mal à représenter le second pic de la distribution des prix. Globalement, les prédictions sont assez proches de la réalité.
+- La distribution des prix est bimodale, mais le modèle a du mal à représenter le second pic de la distribution. Cependant, les prédictions sont assez proches de la réalité.
 
 ## Modèle SFA - Frontière de coût
 
@@ -1389,8 +1400,6 @@ $$
 + \beta_{11i}fast\_charging_i + \beta_{12i}network_i + \beta_{13i}ppi_i + \underbrace{\epsilon_i}_{u_i + v_i}
 \end{split}
 $$ {#eq-sfa-cost}
-
-**Les résultats de l'estimation sont disponibles sur la page suivante.**
 
 ```{r stars_func}
 # **stars**
@@ -1421,13 +1430,13 @@ scf_summary <- summary(scf)
 
 ```{r scf_results}
 scf_results <- cbind(
-    round(scf_summary$mleParam[, 1], 5),
+    round(scf_summary$mleParam[, 1], 4),
     stars(scf_summary$mleParam[, 4]),
-    round(scf_summary$mleParam[, 2], 5)
+    round(scf_summary$mleParam[, 2], 4)
 )
 
 scf_results |>
-    kbl(booktabs = TRUE, caption = "Résultats de l'estimation du modèle SFA (Cost Frontier).", col.names = c("Variable", "Coefficient", "Significativité")) |>
+    kbl(booktabs = TRUE, caption = "Résultats de l'estimation du modèle SFA (Cost Frontier).", col.names = c("Coefficient", "Significativité", "Erreur Std")) |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
     row_spec(0, bold = T)
 ```
@@ -1435,29 +1444,6 @@ scf_results |>
 -   **SigmaSq** ($\sigma^2$) représente la variance de l'erreur composite $\epsilon_i$ dans le modèle.
 
 -   **gamma** ($\gamma$) représente le paramètre d'inefficacité stochastique. $u_i$​ est modélisé en fonction de ce $\gamma$ estimé pour capturer l'inefficacité inobservable.
-
-\newpage
-
-```{r}
-loghedonic_summary <- summary(loghedonic)
-
-loghedonic_results <- cbind(
-    round(loghedonic_summary$coefficients[, 1], 5),
-    stars(loghedonic_summary$coefficients[, 4]),
-    round(loghedonic_summary$coefficients[, 2], 5)
-)
-
-scf_results_2 <- scf_results[1:30, 1:3]
-
-loghedonic_scf_results <- cbind(loghedonic_results, scf_results_2)
-
-
-loghedonic_scf_results |>
-    kbl(booktabs = TRUE, caption = "Comparaison des coefficients obtenus par les 2 modèles", col.names = c("Coef.", "Signif.", "Erreur Std", "Coef.", "Signif.", "Erreur Std")) |>
-    kable_styling(latex_options = c("striped", "hold_position")) |>
-    add_header_above(c(" ", "Log-Hedonic" = 3, "SFA Cost Frontier" = 3)) |>
-    row_spec(0, bold = T)
-```
 
 \newpage
 
@@ -1499,6 +1485,33 @@ L'estimateur utilisé dans la régression hédonique *log*$-$*level* est l'estim
 -   Si le téléphone est compatible avec la 5G (*network5G = `TRUE`*), alors le prix augmente de $30.5\%$, *cet. par.*
 
 -   Lorsque le *ppi* (*pixels par pouce*) augmente d'une unité, alors le prix augmente de $0.09\%$, *cet. par.*
+
+\newpage
+
+### Analyse comparative des deux modèles
+
+On peut aussi s'intéresser à l'étude des coefficients obtenus par le modèle de régression log-hédonique et les coefficients obtenus par le modèle SFA. On remarque globalement que la significativité est la même et que la valeur des coefficients est similaire
+
+```{r}
+#| label: loghedonic_sfa_comp
+loghedonic_summary <- summary(loghedonic)
+
+loghedonic_results <- cbind(
+    round(loghedonic_summary$coefficients[, 1], 4),
+    stars(loghedonic_summary$coefficients[, 4]),
+    round(loghedonic_summary$coefficients[, 2], 4)
+)
+
+scf_results_2 <- scf_results[1:30, 1:3]
+
+loghedonic_scf_results <- cbind(loghedonic_results, scf_results_2)
+
+loghedonic_scf_results |>
+    kbl(booktabs = TRUE, caption = "Comparaison des coefficients obtenus par les 2 modèles.", col.names = c("Coef.", "Signif.", "Erreur Std", "Coef.", "Signif.", "Erreur Std")) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    add_header_above(c(" ", "Log-Hedonic" = 3, "SFA Cost Frontier" = 3)) |>
+    row_spec(0, bold = T)
+```
 
 \newpage
 
@@ -1548,7 +1561,7 @@ On voit que la marque la moins valorisée par les consommateurs (*Honor*) n'est 
 
 ```{r worst}
 new_df |>
-    select(model, efficiency, ram, storage, screen_size, price, logprice, prediction) |>
+    select(model, efficiency, ram, storage, price, logprice, prediction) |>
     arrange(efficiency) |>
     mutate(price = paste(price, "€")) |>
     slice_head(n = 5) |>
@@ -1565,9 +1578,9 @@ new_df |>
 
 ```{r best}
 new_df |>
-    select(model, efficiency, ram, storage, screen_size, price, logprice, prediction) |>
+    select(model, efficiency, ram, storage, price, logprice, prediction) |>
     arrange(efficiency) |>
-    mutate(price = paste(price, "€"), prediction = paste(prediction, "€")) |>
+    mutate(price = paste(price, "€")) |>
     slice_tail(n = 5) |>
     kbl(booktabs = TRUE, digits = 3, caption = "Les 5 téléphones les plus efficaces.") |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
@@ -1580,7 +1593,7 @@ new_df |>
 
 ```{r kbl_expensive}
 new_df |>
-    select(model, efficiency, ram, storage, screen_size, price, logprice, prediction) |>
+    select(model, efficiency, ram, storage, price, logprice, prediction) |>
     distinct() |>
     arrange(price) |>
     mutate(price = paste(price, "€")) |>
@@ -1597,7 +1610,7 @@ new_df |>
 
 ```{r kbl_inexpensive}
 new_df |>
-    select(model, efficiency, ram, storage, screen_size, price, logprice, prediction) |>
+    select(model, efficiency, ram, storage, price, logprice, prediction) |>
     distinct() |>
     arrange(price) |>
     mutate(price = paste(price, "€")) |>
@@ -1606,6 +1619,135 @@ new_df |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
     row_spec(0, bold = T)
 ```
+
+\newpage
+
+### ACP
+
+```{r}
+
+variance_plot <- function(pca_results, color) {
+    eigenvalues <- pca_results$eig |>
+        as_tibble() |>
+        rename(var = `percentage of variance`, cum_var = `cumulative percentage of variance`)
+
+    eigenvalues <- eigenvalues |> mutate(highlight = if_else(row_number() %in% c(1, 2), TRUE, FALSE))
+
+    max_variance <- eigenvalues |>
+        select(var) |>
+        slice(1) |>
+        pull()
+
+    var_barplot <- eigenvalues |> ggplot(
+        aes(
+            x = factor(seq_along(var)),
+            y = var,
+            fill = highlight
+        )
+    ) +
+        geom_bar(stat = "identity", alpha = 0.7) +
+        geom_point(color = "black", size = 2.5) +
+        geom_line(aes(group = 1), color = "black", linewidth = 0.75) +
+        scale_fill_manual(name = "highlight", values = c("grey50", color)) +
+        theme(legend.position = "none") +
+        ylim(0, max_variance + 2) +
+        labs(x = "Dimensions", y = "Variance cumulée")
+    return(var_barplot)
+}
+
+cor_circle <- function(pca_results) {
+    var_names <- rownames(pca_results$var$coord)
+    pca_vars <- pca_results$var$coord |> as_tibble()
+    pca_vars <- pca_vars |> add_column(variable = var_names, .before = "Dim.1")
+
+    theta <- seq(0, 2 * pi, length.out = 100)
+    x_circle <- cos(theta)
+    y_circle <- sin(theta)
+
+    eigenvalues <- pca_res$eig |>
+        as_tibble() |>
+        rename(var = `percentage of variance`, cum_var = `cumulative percentage of variance`)
+    var_1 <- eigenvalues |>
+        select(var) |>
+        slice(1)
+    var_2 <- eigenvalues |>
+        select(var) |>
+        slice(2)
+
+    circle <- ggplot() +
+        geom_path(aes(x_circle, y_circle), color = "darkgray") +
+        geom_hline(yintercept = 0, linetype = "dashed") +
+        geom_vline(xintercept = 0, linetype = "dashed") +
+        coord_fixed() +
+        geom_segment(
+            data = pca_vars, aes(
+                x = 0, y = 0,
+                xend = Dim.1,
+                yend = Dim.2
+            ),
+            arrow = arrow(length = unit(0.1, "inches")),
+            color = "black"
+        ) +
+        geom_text(
+            data = pca_vars,
+            aes(x = Dim.1, y = Dim.2, label = variable),
+            hjust = 0.2, vjust = -1, color = "black"
+        ) +
+        labs(
+            x = glue::glue("Dimension 1 : ({round(var_1,2)} %)"),
+            y = glue::glue("Dimension 2 : ({round(var_2,2)} %)")
+        )
+    return(circle)
+}
+```
+
+```{r}
+pca_df <- new_df |> select(brand, ram, storage, logprice, efficiency, screen_size)
+
+pca_res <- PCA(pca_df, quali.sup = 1, scale.unit = TRUE)
+
+# storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + fast_charging + das_chest + network + ppi
+
+afdm_df <- new_df |> select(efficiency, logprice, fast_charging, upgrade_storage, induction, network, ram, storage, brand)
+
+# mca_df <- mca_df |> mutate(ram = as_factor(ram), storage = as_factor(storage))
+
+afdm_res <- FAMD(mca_df, ncp = 5)
+
+```
+
+```{r}
+#| fig.width: 8
+#| fig.height: 3.5
+#| fig-align: center
+#| fig-cap: "Inerties."
+variance_plot(afdm_res, highlight)
+
+
+ind_coords <- afdm_res$ind$coord |> as_tibble()
+
+brands <- afdm_df |>
+    select(brand)
+
+ind_coords <- bind_cols(brands, ind_coords)
+
+ind_coords |> ggplot() +
+    geom_point(aes(x = Dim.1, y = Dim.2, color = brand))
+
+#afdm_res$quanti.var
+
+```
+
+- le nuage des individus avec les variables qualis sup + les contributions.
+
+```{r}
+#| fig.width: 4.5
+#| fig.height: 4.5
+#| fig-align: center
+#| fig-cap: "Cercle des corrélations."
+cor_circle(pca_res)
+```
+
 
 # Conclusion
 
@@ -1630,11 +1772,6 @@ En résumé, cette étude approfondie combinant la régression hédonique, la SF
 # faire un tableau des prédictions les plus proches et éloignées
 
 # faire un modèle avec correction d'hétéroscédasticité. robuste.
-```
-
-```{r todos}
-# Faire une partie avec effets d'interaction plus tard.
-# découpage en variables dichotomiques, comparaison résultats régressions hédoniques, etc.
 ```
 
 # Acronymes
