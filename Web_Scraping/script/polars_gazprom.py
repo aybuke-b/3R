@@ -487,6 +487,13 @@ def drop_col_nulls(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
+def get_resolution(df: pl.DataFrame) -> pl.DataFrame:
+    df = df.with_columns(
+        pl.concat_str([df["resolution_1"], pl.lit(" x "), df["resolution_2"]]).alias("resolution")
+    )
+    return df
+
+
 def NordStream(df: pl.DataFrame) -> pl.DataFrame:
     df = (
         df.pipe(fill_iphone_15)
@@ -520,5 +527,6 @@ def NordStream(df: pl.DataFrame) -> pl.DataFrame:
         .pipe(mpx_cams)
         .pipe(random_feature)
         .pipe(drop_col_nulls)
+        .pipe(get_resolution)
     )
     return df
