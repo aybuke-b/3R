@@ -1391,7 +1391,7 @@ Il faut maintenant sélectionner la distribution des $u_i$. Deux distributions s
 -   La distribution normale tronquée : `truncNorm = TRUE`.
 -   La distribution semi-normale : `truncNorm = FALSE`.
 
-Nous avons décidé de choisir la distribution *semi-normale*. 
+Nous avons décidé de choisir la distribution *normale tronquée*.  
 $$
 \begin{split}
 \ln(price_i) = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}induction_i \\
@@ -1419,7 +1419,7 @@ stars <- function(pvalue) {
 ```{r stochastic_cost}
 scf <- sfa(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + fast_charging + das_chest + network + ppi,
     data = df_phones,
-    truncNorm = FALSE,
+    truncNorm = TRUE,
     ineffDecrease = FALSE
 )
 
@@ -1441,9 +1441,9 @@ scf_results |>
     row_spec(0, bold = T)
 ```
 
--   **SigmaSq** ($\sigma^2$) représente la variance de l'erreur composite $\epsilon_i$ dans le modèle.
+- **SigmaSq** ($\sigma^2$) représente la variance de l'erreur composite $\epsilon_i$ dans le modèle.
 
--   **gamma** ($\gamma$) représente le paramètre d'inefficacité stochastique. $u_i$​ est modélisé en fonction de ce $\gamma$ estimé pour capturer l'inefficacité inobservable.
+- **gamma** ($\gamma$) représente le paramètre d'inefficacité stochastique. $u_i$​ est modélisé en fonction de ce $\gamma$ estimé pour capturer l'inefficacité inobservable.
 
 \newpage
 
@@ -1455,32 +1455,32 @@ scf_results |>
 L'estimateur utilisé dans la régression hédonique *log*$-$*level* est l'estimateur MCO. Celui-ci vise à minimiser la somme des carrés des différences entre les valeurs observées ($y_i$) et celles prédites par le modèle ($\hat{y_i}$). Dans le modèle SFA, on utilise plutôt l'approche du MV (Maximum de Vraisemblance) pour estimer les paramètres. Au lieu de se concentrer sur la minimisation des résidus, le MV cherche à maximiser la probabilité d'observer les données réellement observées, c'est-à-dire qu'il cherche à maximiser la fonction de vraisemblance.
 :::
 
--   Si la capacité de stockage (*storage*) augmente de 1 Go, alors le prix augmente de 0.052%, *cet. par.*
+- Si la capacité de stockage (*storage*) augmente de 1 Go, alors le prix augmente de 0.052%, *cet. par.*
 
--   En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
+- En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
 
-    -   La marque la plus valorisée derrière *Apple* est *Samsung* avec une différence de prix de $22.6\%$.
-    -   La marque la moins valorisée est *Honor* avec une différence de prix de $102\%$ par rapport à *Apple*.
+    - La marque la plus valorisée derrière *Apple* est *Samsung* avec une différence de prix de $25.7\%$.
+    - La marque la moins valorisée est *Honor* avec une différence de prix de $103.3\%$ par rapport à *Apple*.
 
--   Si la *ram* augmente de 1 Go, alors le prix augmente de $8.3\%$, *cet. par.*
+- Si la *ram* augmente de 1 Go, alors le prix augmente de $8.4\%$, *cet. par.*
 
--   Si le téléphone dispose d'une charge à induction (*induction = `TRUE`*), alors le prix augmente de $28.6\%$, *cet. par.*
+- Si le téléphone dispose d'une charge à induction (*induction = `TRUE`*), alors le prix augmente de $28.9\%$, *cet. par.*
 
--   Si la taille de l'écran augmente de 1 pouce (*screen_size*), alors le prix augmente de $24.9\%$, *cet. par.*
+- Si la taille de l'écran augmente de 1 pouce (*screen_size*), alors le prix augmente de $25\%$, *cet. par.*
 
 -   Pour le lieu de fabrication (*made_in*), la catégorie de référence est la *Chine*.
 
     -   Le coefficient associé à la catégorie *Inde* et *Viêt Nam* n'est pas significatif.
-    -   Comparé à un téléphone produit en *Chine*, un téléphone produit en *Thaïlande* augmente le prix de $55.6\%$, suivi de *Taïwan* avec une augmentation de $51\%$ et enfin du *Japon* avec une augmentation du prix de $41.6\%$, *cet. par.*
+    -   Comparé à un téléphone produit en *Chine*, un téléphone produit en *Thaïlande* augmente le prix de $56\%$, suivi de *Taïwan* avec une augmentation de $51.6\%$ et enfin du *Japon* avec une augmentation du prix de $42\%$, *cet. par.*
 
--   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage = `TRUE`*), alors le prix diminue de $33.8\%$, *cet. par*.
+-   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage = `TRUE`*), alors le prix diminue de $32.9\%$, *cet. par*.
 
 -   Pour les variables liées au DAS :
 
-    -   l'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de $8.5\%$, *cet. par.*
-    -   au contraire, le prix diminue de $20.5\%$ pour le *das_head* et de $27\%$ pour le *das_chest* lorsque qu'ils augmentent d'une unité de W/kg, *cet. par.*
+    -   L'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de $7.8\%$, *cet. par.*
+    -   Au contraire, le prix diminue de $19.9\%$ pour le *das_head* et de $25.8\%$ pour le *das_chest* lorsque qu'ils augmentent d'une unité de W/kg, *cet. par.*
 
--   Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de $15.9\%$, *cet.par.*
+-   Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de $17.1\%$, *cet.par.*
 
 -   Si le téléphone est compatible avec la 5G (*network5G = `TRUE`*), alors le prix augmente de $30.5\%$, *cet. par.*
 
@@ -1490,7 +1490,9 @@ L'estimateur utilisé dans la régression hédonique *log*$-$*level* est l'estim
 
 ### Analyse comparative des deux modèles
 
-On peut aussi s'intéresser à l'étude des coefficients obtenus par le modèle de régression log-hédonique et les coefficients obtenus par le modèle SFA. On remarque globalement que la significativité est la même et que la valeur des coefficients est similaire
+On peut aussi s'intéresser à l'étude des coefficients obtenus par le modèle de régression log-hédonique et les coefficients obtenus par le modèle SFA. 
+
+$\Rightarrow$ On remarque que la significativité et le signe des coefficients restent inchangés. La valeur des coefficients est aussi similaire. Il y a donc une certaine stabilité des résultats.
 
 ```{r}
 #| label: loghedonic_sfa_comp
@@ -1515,7 +1517,7 @@ loghedonic_scf_results |>
 
 \newpage
 
-### Analyse de l'inefficacité
+### Analyse de l'efficacité
 
 ```{r mean_eff}
 mean_eff <- round(mean(efficiencies(scf)), 4)
@@ -1553,7 +1555,7 @@ brand_groups |>
 -   *Oppo* est la marque qui possède la pire relation prix\~attributs de notre sélection.
 -   *Nothing* est la marque qui possède la meilleure relation prix\~attributs de notre sélection.
 
-On voit que la marque la moins valorisée par les consommateurs (*Honor*) n'est pas forcément celle qui propose les téléphones les plus inefficaces.
+On remarque que la marque la moins valorisée par les consommateurs (*Honor*) ne commercialise pas, en moyenne, les téléphones les plus inefficaces.
 
 *Apple* fait partie du Top 3 des marques les plus efficaces, derrière *Nothing* et *Fairphone* (Il faut néanmoins se souvenir que ces 2 marques ne proposent que très peu de modèles de téléphones, contre 105 pour *Apple*).
 
@@ -1572,9 +1574,9 @@ new_df |>
 
 \newpage
 
--   Avec une efficacité de 0.6 et un prix de 853.6 €, le *MOTOROLA Razr* est très loin de la frontière de coût : son prix est 40% *trop cher*.
+- Avec une efficacité de 0.564 et un prix de 1022.14 €, le *OPPO Find X5* est très loin de la frontière de coût : son prix est 43.6% *trop cher*.
 
--   Le *Samsung XCOVER 5* est quant à lui la preuve que même un téléphone moyen de gamme d'une marque comme *Samsung* peut être un mauvais rapport qualité-prix.
+- Le *Samsung XCOVER 5* est un autre cas *polaire* : même un téléphone moyen de gamme d'une marque comme *Samsung* peut être un mauvais rapport qualité-prix.
 
 ```{r best}
 new_df |>
@@ -1587,9 +1589,9 @@ new_df |>
     row_spec(0, bold = T)
 ```
 
--   l'*ASUS ROG Phone 6* possède un très bon score d'efficacité, proche de 0.95. Avec un prix de 799 €, ce téléphone est donc un excellent rapport qualité-prix. Cela peut s'expliquer par sa capacité de stockage de 512 Go et son importante RAM de 16 Go.
+-   L'*ASUS ROG Phone 6* possède un très bon score d'efficacité, supérieur à 0.95. Avec un prix de 799 €, ce téléphone est donc un excellent rapport qualité-prix. Cela peut s'expliquer par sa capacité de stockage de 512 Go et son importante RAM de 16 Go.
 
--   Le *XIAOMI Redmi Note 10* est quant à lui le téléphone le plus efficace de notre échantillon. De manière intéressante, son prix est très bas.
+-   Le *XIAOMI Redmi Note 10* est quant à lui le téléphone le plus efficace de l'ensemble de notre échantillon.
 
 ```{r kbl_expensive}
 new_df |>
@@ -1604,9 +1606,9 @@ new_df |>
     row_spec(0, bold = T)
 ```
 
--   Parmi ces téléphones les moins chers, on remarque qu'il y a 4 modèles de marque *Xiaomi*. Cela est cohérent avec nos observations dans la partie de statistiques descriptive.
+-   Parmi ces téléphones les moins chers, on remarque qu'il y a une prépondérance de modèles issus de marque *Xiaomi*. Cela est cohérent avec nos observations dans la partie de **statistiques descriptives**.
 
--   Par ailleurs, les 5 téléphones les moins chers sont en dessous de la barre symbolique des 100 € ; pour autant, leur efficacité est $> 0.9$ pour l'ensemble des modèles. Les téléphones peu chers ne sont donc pas forcément signe d'un mauvais *rapport "qualité-prix"* !
+-   Par ailleurs, les 5 téléphones les moins chers sont en dessous de la barre symbolique des 100 € et pour autant, leur efficacité est supérieure à $0.9$ pour l'ensemble des modèles. Les téléphones peu chers ne sont donc pas forcément signe d'un mauvais *rapport "qualité-prix"*. 
 
 ```{r kbl_inexpensive}
 new_df |>
@@ -1622,98 +1624,51 @@ new_df |>
 
 \newpage
 
-### ACP
+Les tableaux de la section précédente nous donnent un aperçu des valeurs extrêmes, mais on peut synthétiser l'ensemble des informations grâce au nuage de points des efficacités individuelles par téléphone en fonction des prix.
 
 ```{r}
+#| fig.width: 8
+#| fig.height: 3.5
+#| fig-align: center
+#| fig-cap: "Efficacités en fonction des prix."
 
-variance_plot <- function(pca_results, color) {
-    eigenvalues <- pca_results$eig |>
-        as_tibble() |>
-        rename(var = `percentage of variance`, cum_var = `cumulative percentage of variance`)
-
-    eigenvalues <- eigenvalues |> mutate(highlight = if_else(row_number() %in% c(1, 2), TRUE, FALSE))
-
-    max_variance <- eigenvalues |>
-        select(var) |>
-        slice(1) |>
-        pull()
-
-    var_barplot <- eigenvalues |> ggplot(
-        aes(
-            x = factor(seq_along(var)),
-            y = var,
-            fill = highlight
-        )
-    ) +
-        geom_bar(stat = "identity", alpha = 0.7) +
-        geom_point(color = "black", size = 2.5) +
-        geom_line(aes(group = 1), color = "black", linewidth = 0.75) +
-        scale_fill_manual(name = "highlight", values = c("grey50", color)) +
-        theme(legend.position = "none") +
-        ylim(0, max_variance + 2) +
-        labs(x = "Dimensions", y = "Variance cumulée")
-    return(var_barplot)
-}
-
-cor_circle <- function(pca_results) {
-    var_names <- rownames(pca_results$var$coord)
-    pca_vars <- pca_results$var$coord |> as_tibble()
-    pca_vars <- pca_vars |> add_column(variable = var_names, .before = "Dim.1")
-
-    theta <- seq(0, 2 * pi, length.out = 100)
-    x_circle <- cos(theta)
-    y_circle <- sin(theta)
-
-    eigenvalues <- pca_res$eig |>
-        as_tibble() |>
-        rename(var = `percentage of variance`, cum_var = `cumulative percentage of variance`)
-    var_1 <- eigenvalues |>
-        select(var) |>
-        slice(1)
-    var_2 <- eigenvalues |>
-        select(var) |>
-        slice(2)
-
-    circle <- ggplot() +
-        geom_path(aes(x_circle, y_circle), color = "darkgray") +
-        geom_hline(yintercept = 0, linetype = "dashed") +
-        geom_vline(xintercept = 0, linetype = "dashed") +
-        coord_fixed() +
-        geom_segment(
-            data = pca_vars, aes(
-                x = 0, y = 0,
-                xend = Dim.1,
-                yend = Dim.2
-            ),
-            arrow = arrow(length = unit(0.1, "inches")),
-            color = "black"
-        ) +
-        geom_text(
-            data = pca_vars,
-            aes(x = Dim.1, y = Dim.2, label = variable),
-            hjust = 0.2, vjust = -1, color = "black"
-        ) +
-        labs(
-            x = glue::glue("Dimension 1 : ({round(var_1,2)} %)"),
-            y = glue::glue("Dimension 2 : ({round(var_2,2)} %)")
-        )
-    return(circle)
-}
+new_df |> ggplot(aes(x = price, y = efficiency)) +
+    geom_point() +
+    geom_smooth(method = "loess", color = highlight) +
+    scale_x_continuous(labels = function(x) paste(x, "€", sep = " ")) +
+    labs(x = "", y = "Efficacité")
 ```
 
+On remarque une fois de plus que moins les téléphones sont chers, et plus ils sont efficaces. Une des explications que nous proposons est qu'il existe une intensité concurrentielle élevée entre les fabricants dans cette gamme de prix et peu de marge disponible lorsque le prix est bas.
+
 ```{r}
-pca_df <- new_df |> select(brand, ram, storage, logprice, efficiency, screen_size)
+#| fig.width: 8
+#| fig.height: 3.5
+#| fig-align: center
+#| fig-cap: "Distribution des efficacités."
 
-pca_res <- PCA(pca_df, quali.sup = 1, scale.unit = TRUE)
+new_df |> ggplot(aes(x = efficiency)) +
+    geom_histogram(binwidth = 0.025, fill = highlight, alpha = 0.7) +
+    labs(
+        x = "Efficacité",
+        y = ""
+    )
+```
 
-# storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + fast_charging + das_chest + network + ppi
+La distribution est dite *left skewed*, et l’asymétrie de la distribution est négative. Il y a beaucoup plus de valeurs concentrées à droite de la distribution qu’à gauche.
 
-afdm_df <- new_df |> select(efficiency, logprice, fast_charging, upgrade_storage, induction, network, ram, storage, brand)
+\newpage
 
-# mca_df <- mca_df |> mutate(ram = as_factor(ram), storage = as_factor(storage))
+### Analyse Factorielle de Données Mixtes
 
-afdm_res <- FAMD(mca_df, ncp = 5)
+A posteriori, on cherche à synthétiser l'ensemble des variables de notre modèle de **Stochastic Cost Frontier**. Pour cela, nous allons effectuer une analyse factorielle qui nous permet de prendre en compte simultanément des variables quantitatives et qualitatives en tant que variables actives : une **AFDM** (Analyse Factorielle de Données Mixtes).
 
+```{r}
+# made_in + das_head + das_limbs + das_chest
+
+afdm_df <- new_df |> select(efficiency, logprice, fast_charging, upgrade_storage, induction, network, ram, storage, brand, screen_size, ppi)
+
+afdm_res <- FAMD(afdm_df, ncp = 10)
 ```
 
 ```{r}
@@ -1721,33 +1676,126 @@ afdm_res <- FAMD(mca_df, ncp = 5)
 #| fig.height: 3.5
 #| fig-align: center
 #| fig-cap: "Inerties."
-variance_plot(afdm_res, highlight)
 
+scree <- factoextra::fviz_screeplot(afdm_res, barfill = highlight, barcolor = highlight, addlabels = TRUE, main = "", ylim = c(0, 22.5), ylab = "")
+
+scree
+
+cum_var_4 <- factoextra::get_eig(afdm_res) |>
+    as_tibble() |>
+    select(`cumulative.variance.percent`) |>
+    slice(4) |>
+    pull()
+```
+
+- Sur les quatre premières dimensions, l'inertie cumulée est de **`r round(cum_var_4,2)`%**, on peut donc se concentrer sur ces dimensions pour notre analyse.
+
+```{r}
+#| fig.width: 8
+#| fig.height: 3.5
+#| fig-align: center
+#| fig-cap: "Nuage des individus (Dimension 1 et 2)."
 
 ind_coords <- afdm_res$ind$coord |> as_tibble()
+
+rownames <- rownames(afdm_res$quali.var$coord) |>
+    as_tibble() |>
+    rename(rownames = value)
+
+quali_vars <- afdm_res$quali.var$coord |> as_tibble()
+
+quali_vars_df <- bind_cols(rownames, quali_vars)
 
 brands <- afdm_df |>
     select(brand)
 
+eigenvalues <- afdm_res$eig |>
+    as_tibble() |>
+    rename(var = `percentage of variance`, cum_var = `cumulative percentage of variance`)
+
+var_1 <- eigenvalues |>
+    select(var) |>
+    slice(1) |>
+    pull()
+var_2 <- eigenvalues |>
+    select(var) |>
+    slice(2) |>
+    pull()
+
 ind_coords <- bind_cols(brands, ind_coords)
 
 ind_coords |> ggplot() +
-    geom_point(aes(x = Dim.1, y = Dim.2, color = brand))
-
-#afdm_res$quanti.var
-
+    geom_point(aes(x = Dim.1, y = Dim.2, color = brand)) +
+    labs(
+        x = glue::glue("Dimension 1 : ({round(var_1, 2)}%)"),
+        y = glue::glue("Dimension 2 : ({round(var_2, 2)}%)")
+    )
 ```
 
-- le nuage des individus avec les variables qualis sup + les contributions.
+$\Rightarrow$ On voit un cône de variables dans la dimension 1.
+
+
+```{r}
+#| fig.width: 8
+#| fig.height: 6
+#| fig-align: center
+#| fig-cap: "Contribution des variables (Dimensions 1 -- 4)."
+
+dim_1_vars <- factoextra::fviz_contrib(afdm_res, "var", axes = 1, fill = highlight, color = highlight)
+
+dim_1_vars$layers[[2]]$aes_params$colour <- "black"
+dim_1_vars$labels$title <- ""
+
+dim_2_vars <- factoextra::fviz_contrib(afdm_res, "var", axes = 2, fill = highlight, color = highlight)
+
+dim_2_vars$layers[[2]]$aes_params$colour <- "black"
+dim_2_vars$labels$title <- ""
+
+dim_3_vars <- factoextra::fviz_contrib(afdm_res, "var", axes = 3, fill = highlight, color = highlight)
+
+dim_3_vars$layers[[2]]$aes_params$colour <- "black"
+dim_3_vars$labels$title <- ""
+
+dim_4_vars <- factoextra::fviz_contrib(afdm_res, "var", axes = 4, fill = highlight, color = highlight)
+
+dim_4_vars$layers[[2]]$aes_params$colour <- "black"
+dim_4_vars$labels$title <- ""
+
+(dim_1_vars + dim_2_vars) / (dim_3_vars + dim_4_vars)
+```
+
+```{r}
+#| fig.width: 8
+#| fig.height: 3.5
+#| fig-align: center
+#| fig-cap: "$\\eta^2$ des variables qualitatives (Dimensions 1 -- 4)."
+
+eta_dim_12 <- factoextra::fviz_famd_var(afdm_res, repel = TRUE, axes = c(1, 2))
+
+eta_dim_34 <- factoextra::fviz_famd_var(afdm_res, repel = TRUE, axes = c(3, 4))
+
+eta_dim_12 + eta_dim_34
+```
+
+Les $eta^2$ permettent de distinguer les variables les plus structurantes.
+
+- Sur les dimensions 2,3 et 4, la variable *brand* est la plus structurante
+
 
 ```{r}
 #| fig.width: 4.5
 #| fig.height: 4.5
 #| fig-align: center
-#| fig-cap: "Cercle des corrélations."
-cor_circle(pca_res)
-```
+#| fig-cap: "Cercle des corrélations (Dimensions 1 -- 4)."
 
+circle_dim_12 <- fviz_famd_var(afdm_res, "quanti.var", repel = TRUE, col.var = "black")
+
+circle_dim_34 <- fviz_famd_var(afdm_res, "quanti.var", repel = TRUE, col.var = "black", axes = c(3, 4))
+
+circle_dim_12
+
+circle_dim_34
+```
 
 # Conclusion
 
@@ -1773,6 +1821,54 @@ En résumé, cette étude approfondie combinant la régression hédonique, la SF
 
 # faire un modèle avec correction d'hétéroscédasticité. robuste.
 ```
+
+# Annexe {.appendix}
+
+- [ ] TODO linker les explications vers ici dans le doc.
+
+## Dérivation de la fonction de vraisemblance
+
+$$
+f(v) = \frac{1}{\sqrt{2\pi}\sigma_v}\exp{\left(-\frac{v^2}{2\sigma^2_v} \right)}
+$$ {#eq-fv}
+
+$$
+\begin{gathered}
+f(u) = \frac{1}{\sqrt{2\pi}\sigma_u\left[1-\Phi(-\frac{\mu}{\sigma_u})\right]}\exp\left[-\frac{1}{2}\left(\frac{u-\mu}{\sigma_u}\right)^2 \right]\\
+= \frac{1}{\sqrt{2\pi}\sigma_u\Phi(\frac{\mu}{\sigma_u})}\exp\left[-\frac{1}{2}\left(\frac{u-\mu}{\sigma_u}\right)^2 \right]
+\end{gathered}
+$$ {#eq-fu}
+
+Etant donné l'hypothèse d'indépendance entre $u$ et $v$ :
+
+$$
+f(v,u) = f(v) \cdot f(u) = \frac{1}{2\pi\sigma_v\sigma_u\Phi\left(\frac{\mu}{\sigma_u}\right)}\exp\left\{-\frac{1}{2}\left[\frac{v^2}{\sigma^2_v} + \left(\frac{u-\mu}{\sigma_u}\right)^2\right] \right\}
+$$ {#eq-fv-fu}
+
+Donc,
+
+$$
+f(u-\epsilon, u) = \frac{1}{2\pi\sigma_v\sigma_u\Phi\left(\frac{\mu}{\sigma_u}\right)}\exp\left\{-\frac{1}{2}\left[\left(\frac{u-\epsilon}{\sigma_v}\right)^2 + \left(\frac{u-\mu}{\sigma_u}\right)^2\right] \right\}
+$$ {#eq-fepsilon}
+
+Cette expression peut être simplifiée. Notez que :
+
+$$
+\left(\frac{u-\epsilon}{\sigma_v}\right)^2 + \left(\frac{u-\mu}{\sigma_u}\right)^2 = \frac{\sigma^2_v + \sigma^2_u}{\sigma^2_v\sigma^2_u}\left[u^2 - 2u \left( \frac{\mu\sigma^2_v+\epsilon\sigma^2_u}{\sigma^2_v+\sigma^2_u}\right)\right] + \left(\frac{\mu^2}{\sigma^2_u}-\frac{\epsilon^2}{\sigma^2_v}\right)
+$$
+
+Définissons :
+
+$$
+\mu_* = \frac{\mu\sigma^2_v+\epsilon\sigma^2_u}{\sigma^2_v+\sigma^2_u}
+$$
+
+$$
+\sigma^2_* = \frac{\sigma^2_v\sigma^2_u}{\sigma^2_v + \sigma^2_u}
+$$
+
+Donc :
+
 
 # Acronymes
 
