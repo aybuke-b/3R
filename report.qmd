@@ -1042,7 +1042,7 @@ Nous allons tout d'abord retirer quelques variables qui ne nous seront pas utile
 
 ```{r selection, results="hide", include = FALSE}
 df_phones <- df |>
-    select(-c(logprice, cpu, model, sensor, screen_tech, stars, reviews, color, cam_1, cam_2, cam_3))
+    select(-c(logprice, cpu, model, sensor, screen_tech, stars, reviews, color, cam_1, cam_2, cam_3, wifi))
 
 full_model <- lm(price ~ ., data = df_phones)
 null_model <- lm(price ~ 1, data = df_phones)
@@ -1525,7 +1525,7 @@ mean_eff <- round(mean(efficiencies(scf)), 4)
 
 Dans ce modèle, l'efficacité moyenne calculée est de **`r mean_eff*100`**%, c'est-à-dire qu'en moyenne, les smartphones de notre échantillon sont *overprice* de **`r 100-(mean_eff)*100`**% !
 
-En utilisant l'espérance conditionnelle $E(u_i | \epsilon_i)$, on peut estimer le score d'efficacité pour chaque observation, et donc déterminer quels téléphones sont les plus/moins efficaces de notre sélection. On peut aussi les regrouper par marque.
+En utilisant l'espérance conditionnelle $E(\exp(-u_i) | \epsilon_i)$, on peut estimer le score d'efficacité pour chaque observation, et donc déterminer quels téléphones sont les plus/moins efficaces de notre sélection. On peut aussi les regrouper par marque.
 
 ```{r eff_brands}
 eff_df <- efficiencies(scf, logDepVar = TRUE) |> as_tibble()
@@ -1824,8 +1824,6 @@ En résumé, cette étude approfondie combinant la régression hédonique, la SF
 
 # Annexe {.appendix}
 
-- [ ] TODO linker les explications vers ici dans le doc.
-
 ## Dérivation de la fonction de vraisemblance
 
 $$
@@ -1855,7 +1853,7 @@ Cette expression peut être simplifiée. Notez que :
 
 $$
 \left(\frac{u-\epsilon}{\sigma_v}\right)^2 + \left(\frac{u-\mu}{\sigma_u}\right)^2 = \frac{\sigma^2_v + \sigma^2_u}{\sigma^2_v\sigma^2_u}\left[u^2 - 2u \left( \frac{\mu\sigma^2_v+\epsilon\sigma^2_u}{\sigma^2_v+\sigma^2_u}\right)\right] + \left(\frac{\mu^2}{\sigma^2_u}-\frac{\epsilon^2}{\sigma^2_v}\right)
-$$
+$$ {#eq-fepsilon-2}
 
 Définissons :
 
@@ -1867,8 +1865,35 @@ $$
 \sigma^2_* = \frac{\sigma^2_v\sigma^2_u}{\sigma^2_v + \sigma^2_u}
 $$
 
-Donc :
+Dès lors, l'[@eq-fepsilon] est simplifiée pour obtenir :
 
+$$
+f(u-\epsilon, u) = \frac{1}{2\pi\sigma_v\sigma_u\Phi\left(\frac{\mu}{\sigma_u}\right)}\exp\left\{-\frac{1}{2}\left[\left(\frac{u-\mu_*}{\sigma_*}\right)^2+\frac{\left(\mu - \epsilon\right)^2}{\sigma^2_u+\sigma^2_v}\right]\right\}
+$$
+
+Alors, la densité de $f(\epsilon)$ est :
+
+$$
+f(\epsilon) = \int_0^{\infty}f(u-\epsilon, u)du
+$$
+
+$$
+\dots
+$$
+
+$$
+f(\epsilon) = \frac{\phi\left(\frac{\mu - \epsilon}{\sqrt{\sigma^2_v+\sigma^2_u}}\right)}{\sqrt{\sigma^2_v+\sigma^2_u}\left[\frac{\Phi\left(\frac{\mu}{\sigma_u}\right)}{\Phi\left(\frac{\mu_*}{\sigma_*}\right)}\right]}
+$$
+
+En prenant le logarithme de l'équation précédente, on obtient la fonction de log-vraisemblance pour une observation $i$ dans le cadre d'un modèle avec loi normale tronquée.
+
+$$
+L_i = - \frac{1}{2}\ln\left(\sigma^2_v+\sigma^2_u\right) + \ln \phi \left(\frac{\mu - \epsilon}{\sqrt{\sigma^2_v+\sigma^2_u}}\right) + \ln \Phi \left(\frac{\mu_*}{\sigma_*}\right) - \ln \Phi\left(\frac{\mu}{\sigma_u}\right)
+$$
+
+## Dérivation des indices d'efficacité
+
+**TODO** + linker vers l'annexe.
 
 # Acronymes
 

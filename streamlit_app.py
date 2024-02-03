@@ -111,7 +111,7 @@ def main():
     df = load_df()
     df = better_countries(df)
 
-    #st.write(df.columns)
+    # st.write(df.columns)
 
     ram_available_list = df.select(pl.col("ram")).unique().to_series().to_list()
     stockage_available_list = (
@@ -119,28 +119,29 @@ def main():
     )
     brand_available_list = df.select(pl.col("brand")).unique().to_series().to_list()
 
-    
-
     with st.sidebar:
         # Configure l'ensemble de la sidebar de paramètres
         st.header("*Paramètres*")
-        ram_value = st.selectbox("RAM :", 
-                                sorted(ram_available_list), 
-                                placeholder="Choisir la RAM", 
-                                index = None)
-        
+        ram_value = st.selectbox(
+            "RAM :",
+            sorted(ram_available_list),
+            placeholder="Choisir la RAM",
+            index=None,
+        )
+
         storage_value = st.selectbox(
             "Stockage :",
             sorted(stockage_available_list),
-            index = None, 
-            placeholder = "Choisir le stockage")
+            index=None,
+            placeholder="Choisir le stockage",
+        )
 
         selected_brands = st.multiselect(
-            "Choisir une ou plusieurs marques :", 
-            sorted(brand_available_list), 
-            placeholder="Choisir la marque")
+            "Choisir une ou plusieurs marques :",
+            sorted(brand_available_list),
+            placeholder="Choisir la marque",
+        )
 
-    
     if not (ram_value or storage_value or selected_brands):
         mutable_df = df
     else:
@@ -151,15 +152,17 @@ def main():
             mutable_df = mutable_df.filter(pl.col("storage") == storage_value)
         if selected_brands:
             mutable_df = mutable_df.filter(pl.col("brand").is_in(selected_brands))
-    
+
     col1, col2 = st.columns(2)
     with col1:
-        with st.container(border=True):    
-            st.metric("Nombre total de téléphones", value = f"🎰 {len(mutable_df)}")
+        with st.container(border=True):
+            st.metric("Nombre total de téléphones", value=f"🎰 {len(mutable_df)}")
     with col2:
         with st.container(border=True):
-            st.metric("Prix moyen", value = f" 💶 {round(mutable_df.select(pl.col('price').mean()).item(),2)} €")
-
+            st.metric(
+                "Prix moyen",
+                value=f" 💶 {round(mutable_df.select(pl.col('price').mean()).item(),2)} €",
+            )
 
     st.dataframe(
         mutable_df,
@@ -188,7 +191,7 @@ def main():
             "color",
             "repairability_index",
             "usb_type_c",
-            "screen_type"
+            "screen_type",
         ],
         column_config={
             "model": "📱 Modèle de téléphone",
@@ -226,9 +229,7 @@ def main():
             "upgrade_storage": st.column_config.CheckboxColumn(
                 "⏫ Augmentation du stockage"
             ),
-            "das_head": st.column_config.NumberColumn(
-                "⚠️ DAS Tête", format="%.2f W/kg"
-            ),
+            "das_head": st.column_config.NumberColumn("⚠️ DAS Tête", format="%.2f W/kg"),
             "das_limbs": st.column_config.NumberColumn(
                 "⚠️ DAS Membres", format="%.2f W/kg"
             ),
@@ -247,7 +248,6 @@ def main():
             "resolution": st.column_config.TextColumn("💡 Résolution"),
         },
     )
-    
 
 
 if __name__ == "__main__":
