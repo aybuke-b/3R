@@ -3,7 +3,6 @@ title: \Huge \textbf{\textsf{Application des modèles SFA\\ à l'étude des prix
 author: \textit{Corentin DUCLOUX} et \textit{Aybuké BICAT} \vspace{2em}
 lang: fr
 date: today
-from: emoji
 date-format: long
 documentclass: report
 license:
@@ -1892,6 +1891,75 @@ L_i = - \frac{1}{2}\ln\left(\sigma^2_v+\sigma^2_u\right) + \ln \phi \left(\frac{
 $$
 
 ## Dérivation des indices d'efficacité
+
+$$
+f(u|\epsilon) = \frac{1}{\sqrt{2 \pi}\sigma_* \Phi(\frac{\mu_*}{\sigma_*})} \exp\left[- \frac{1}{2}\left(\frac{u - \mu_*}{\sigma_*}\right)^2\right]
+
+$$
+
+Avec $\mu_*$ et $\sigma_*$ définit plus haut :
+
+$$
+E(u | \epsilon) =  \int_{0}^{\infty} \frac{u}{\sqrt{2 \pi}\sigma_* \Phi(\frac{\mu_*}{\sigma_*})} \exp\left[- \frac{1}{2}\left(\frac{u - \mu_*}{\sigma_*}\right)^2\right] du
+$$
+
+
+Définissions :
+
+$$
+w = \frac{u - \mu_*}{\sigma_*},   w \in \left[ -\frac{\mu_*}{\sigma_*}, \infty \right), dw = \frac{du}{\sigma_*}
+$$
+
+Donc :
+
+$$
+\begin{gathered}
+E(u | \epsilon) =  \int_{- \frac{\mu_*}{\sigma_*}}^{\infty} \frac{\mu_* + w\sigma_*}{\sqrt{2 \pi} \Phi \left(\frac{\mu_*}{\sigma_*}\right)} \exp \left(- \frac{1}{2} w^2 \right) dw \\
+
+
+= \frac{\mu_*}{\Phi \left(\frac{\mu_*}{\sigma_*}\right)} \int_{- \frac{\mu_*}{\sigma_*}}^{\infty} \frac{1}{\sqrt{2 \pi}} \exp \left(- \frac{1}{2} w^2 \right)dw + \frac{\sigma_*}{\Phi \left(\frac{\mu_*}{\sigma_*} \right)} \int_{- \frac{\mu_*}{\sigma_*}}^{\infty} \frac{w}{\sqrt{2 \pi}} exp \left(- \frac{1}{2} w^2 \right)dw
+
+\\
+
+= \mu_* + \frac{\sigma_*}{\Phi \left(\frac{\mu_*}{\sigma_*} \right)} . \frac{1}{\sqrt{2 \pi}} \exp \left[- \frac{1}{2} \left(\frac{\mu_*}{\sigma_*} \right)^2 \right]
+
+\\
+
+= \mu_* + \frac{\phi \frac{\mu_*}{\sigma_*}}{\Phi \frac{\mu_*}{\sigma_*}} \sigma_*
+
+\end{gathered}
+$$
+
+
+
+Maintenant, pour $E(exp(- u) | \epsilon)$,
+
+$$
+\begin{gathered}
+E(exp(- u)| \epsilon) = \int_{0}^{\infty} \exp(-u) f(u | \epsilon) du 
+
+\\
+
+= \int_{0}^{\infty} \frac{1}{\sqrt{2 \pi}\sigma_* \Phi(\frac{\mu_*}{\sigma_*})} \exp\left[- \frac{1}{2}\left(\frac{u - \mu_*}{\sigma_*}\right)^2 - u\right] du
+
+\\
+
+= \frac{1}{\sigma_* \Phi(\frac{\mu_*}{\sigma_*})} \int_{0}^{\infty} \frac{1}{\sqrt{2 \pi}} \exp \left[- \frac{1}{2}\left(\frac{u - \mu_*}{\sigma_*}\right)^2 - u\right] du
+
+
+\end{gathered}
+$$
+
+
+Notons que 
+$$
+- \frac{1}{2}\left(\frac{u - \mu_*}{\sigma_*}\right)^2 - u = - \frac{[u - ( \mu_* - \sigma_*^2)]^2}{2 \sigma_*^2} - \frac{1}{2} (2\mu_* - \sigma_*)
+$$
+
+
+Dès lors, on peut simplifier la formule : 
+
+
 
 **TODO** + linker vers l'annexe.
 
