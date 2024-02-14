@@ -64,6 +64,7 @@ options(scipen = 999)
 ```{r}
 #| label: theme_setting
 theme_set(theme_minimal())
+thematic::thematic_on(fg = "black", accent = "purple", font = "PT Sans")
 # Configure le thème ggplot2 globalement
 ```
 
@@ -1524,7 +1525,7 @@ mean_eff <- round(mean(efficiencies(scf)), 4)
 
 Dans ce modèle, l'efficacité moyenne calculée est de **`r mean_eff*100`**%, c'est-à-dire qu'en moyenne, les smartphones de notre échantillon sont *overprice* de **`r 100-(mean_eff)*100`**% !
 
-En utilisant l'espérance conditionnelle $E(\exp(-u_i) | \epsilon_i)$, on peut estimer le score d'efficacité pour chaque observation, et donc déterminer quels téléphones sont les plus/moins efficaces de notre sélection. On peut aussi les regrouper par marque.
+En utilisant l'espérance conditionnelle $E(\exp(-u_i) | \epsilon_i)$^[Pour plus de détails de calcul, voir l'**annexe** à la fin de ce document.], on peut estimer le score d'efficacité pour chaque observation, et donc déterminer quels téléphones sont les plus/moins efficaces de notre sélection. On peut aussi les regrouper par marque.
 
 ```{r eff_brands}
 eff_df <- efficiencies(scf, logDepVar = TRUE) |> as_tibble()
@@ -1553,8 +1554,6 @@ brand_groups |>
 
 -   *Oppo* est la marque qui possède la pire relation prix\~attributs de notre sélection.
 -   *Nothing* est la marque qui possède la meilleure relation prix\~attributs de notre sélection.
-
-On remarque que la marque la moins valorisée par les consommateurs (*Honor*) ne commercialise pas, en moyenne, les téléphones les plus inefficaces.
 
 *Apple* fait partie du Top 3 des marques les plus efficaces, derrière *Nothing* et *Fairphone* (Il faut néanmoins se souvenir que ces 2 marques ne proposent que très peu de modèles de téléphones, contre 105 pour *Apple*).
 
@@ -1731,12 +1730,13 @@ ind_coords |> ggplot() +
     )
 ```
 
-$\Rightarrow$ On voit un cône de variables dans la dimension 1.
+- Le nuage des individus dans la dimension 1 et 2 permet de déterminer que les téléphones sont assez bien regroupés en fonction de leur marque et que les téléphones les moins chers se situent dans la partie négative de l'axe 1 tandis que les téléphones les plus chers se situent dans la partie positive de l'axe 1.
 
+\newpage
 
 ```{r}
 #| fig.width: 8
-#| fig.height: 6
+#| fig.height: 7
 #| fig-align: center
 #| fig-cap: "Contribution des variables (Dimensions 1 -- 4)."
 
@@ -1763,11 +1763,17 @@ dim_4_vars$labels$title <- ""
 (dim_1_vars + dim_2_vars) / (dim_3_vars + dim_4_vars)
 ```
 
+- Les variables contribuant le plus à la dimension 1 sont *logprice*,  *upgrade_storage*, *network*, *brand*, *induction*, *ram* et *storage*.
+
+- Dans la dimension 2, les proportions de contribution sont elles partagées entre 3 variables : *brand*, *screen_size* et *ram*
+
+- Pour la dimension 3 et 4, *brand* est une variable qui contribue encore plus à la construction des axes avec plus de 50% de contribution.
+
 ```{r}
-#| fig.width: 8
-#| fig.height: 3.5
+#| fig.width: 6
+#| fig.height: 4
 #| fig-align: center
-#| fig-cap: "$\\eta^2$ des variables qualitatives (Dimensions 1 -- 4)."
+#| fig-cap: "$\\eta^2$ des variables (Dimensions 1 -- 4)."
 
 eta_dim_12 <- factoextra::fviz_famd_var(afdm_res, repel = TRUE, axes = c(1, 2))
 
@@ -1776,25 +1782,42 @@ eta_dim_34 <- factoextra::fviz_famd_var(afdm_res, repel = TRUE, axes = c(3, 4))
 eta_dim_12 + eta_dim_34
 ```
 
-Les $eta^2$ permettent de distinguer les variables les plus structurantes.
+\newpage
 
-- Sur les dimensions 2,3 et 4, la variable *brand* est la plus structurante
+Les $\eta^2$ permettent de distinguer les variables les plus structurantes d'un axe 
 
+- Dans la dimension 1, la variable *logprice* et *upgrade_storage* sont les plus structurantes.
+
+- Dans les dimensions 2,3 et 4, on s'aperçoit que c'est la variable *brand* qui est la plus structurante. 
+
+- Les variables *ram* et *screen_size* sont aussi très structurantes dans la dimension 2.
+
+Opposition entre la marque et le prix (dim 1/2)
 
 ```{r}
 #| fig.width: 4.5
 #| fig.height: 4.5
 #| fig-align: center
-#| fig-cap: "Cercle des corrélations (Dimensions 1 -- 4)."
+#| fig-cap: "Cercle des corrélations (Dimensions 1 et 2)."
 
 circle_dim_12 <- fviz_famd_var(afdm_res, "quanti.var", repel = TRUE, col.var = "black")
 
 circle_dim_34 <- fviz_famd_var(afdm_res, "quanti.var", repel = TRUE, col.var = "black", axes = c(3, 4))
 
 circle_dim_12
+```
+
+```{r}
+#| fig.width: 4.5
+#| fig.height: 4.5
+#| fig-align: center
+#| fig-cap: "Cercle des corrélations (Dimensions 3 et 4)."
 
 circle_dim_34
 ```
+
+$\Rightarrow$ On voit un cône de variables dans la dimension 1.
+
 
 # Conclusion
 
@@ -1868,7 +1891,7 @@ Dès lors, l'@eq-fepsilon est simplifiée pour obtenir :
 
 $$
 f(u-\epsilon, u) = \frac{1}{2\pi\sigma_v\sigma_u\Phi\left(\frac{\mu}{\sigma_u}\right)}\exp\left\{-\frac{1}{2}\left[\left(\frac{u-\mu_*}{\sigma_*}\right)^2+\frac{\left(\mu - \epsilon\right)^2}{\sigma^2_u+\sigma^2_v}\right]\right\}
-$$
+$$ {#eq-fepsilon-3}
 
 Alors, la densité de $f(\epsilon)$ est :
 
@@ -1882,26 +1905,27 @@ $$
 
 $$
 f(\epsilon) = \frac{\phi\left(\frac{\mu - \epsilon}{\sqrt{\sigma^2_v+\sigma^2_u}}\right)}{\sqrt{\sigma^2_v+\sigma^2_u}\left[\frac{\Phi\left(\frac{\mu}{\sigma_u}\right)}{\Phi\left(\frac{\mu_*}{\sigma_*}\right)}\right]}
-$$
+$$ {#eq-fepsilon-4}
 
 En prenant le logarithme de l'équation précédente, on obtient la fonction de log-vraisemblance pour une observation $i$ dans le cadre d'un modèle avec loi normale tronquée.
 
 $$
 L_i = - \frac{1}{2}\ln\left(\sigma^2_v+\sigma^2_u\right) + \ln \phi \left(\frac{\mu - \epsilon}{\sqrt{\sigma^2_v+\sigma^2_u}}\right) + \ln \Phi \left(\frac{\mu_*}{\sigma_*}\right) - \ln \Phi\left(\frac{\mu}{\sigma_u}\right)
-$$
+$$ {#eq-log-likelihood}
 
 ## Dérivation des indices d'efficacité
 
 $$
 f(u|\epsilon) = \frac{1}{\sqrt{2 \pi}\sigma_* \Phi(\frac{\mu_*}{\sigma_*})} \exp\left[- \frac{1}{2}\left(\frac{u - \mu_*}{\sigma_*}\right)^2\right]
-$$
+$$ {#eq-f-u-epsilon}
 
 
-Avec $\mu_*$ et $\sigma_*$ définit plus haut :
+Avec $\mu_*$ et $\sigma_*$ définis plus haut :
 
 $$
 E(u | \epsilon) =  \int_{0}^{\infty} \frac{u}{\sqrt{2 \pi}\sigma_* \Phi(\frac{\mu_*}{\sigma_*})} \exp\left[- \frac{1}{2}\left(\frac{u - \mu_*}{\sigma_*}\right)^2\right] du
-$$
+$$ {#eq-expected-u-epsilon}
+
 
 Définissions :
 
@@ -1973,7 +1997,7 @@ $$
 $$
 = \exp \left(-\mu_* + \frac{1}{2} \sigma_*^2 \right) \frac{\Phi \left(\frac{\mu_*}{\sigma_*} - \sigma_* \right)}{\Phi\frac{\mu_*}{\sigma_*}}
 $$
-**TODO** + linker vers l'annexe.
+
 
 # Acronymes
 
