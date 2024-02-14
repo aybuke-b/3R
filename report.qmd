@@ -1950,8 +1950,29 @@ $$
 
 Dès lors, on peut simplifier la formule : 
 
+$$
+E(\exp(-u) | \epsilon) = \frac{1}{\sigma_* \Phi(\frac{\mu_*}{\sigma_*})}  \int_{0}^{\infty} \frac{1}{\sqrt{2 \pi}} \exp \left\{ - \frac{[ u - ( \mu_* - \sigma_*^2)]^2}{2 \sigma_*^2} - \frac{1}{2} (2\mu_* - \sigma_*^2)\right\} du
+$$
 
+$$
+= \frac{\exp \left[- \frac{1}{2} (2\mu_* - \sigma_*^2) \right]}{\sigma_* \Phi (\frac{\mu_*}{\sigma_*})}  \int_{0}^{\infty} \frac{1}{\sqrt{2 \pi}} \exp \left\{-\frac{1}{2} \left[\frac{u - (\mu_* - \sigma_*^2)}{\sigma_*} \right]^2 \right\}du
+$$
 
+Définissons : 
+
+$$
+z = \frac{u - (\mu_* - \sigma_*^2)}{\sigma_*}, z \in \left[ -\frac{\mu_*}{\sigma_*} + \sigma_*, \infty \right), dz = \frac{du}{\sigma_*}
+$$
+
+Enfin,
+
+$$
+E(\exp(-u)| \epsilon) = \frac{\exp \left[- \frac{1}{2} (2\mu_* - \sigma_*^2) \right]}{\sigma_* \Phi (\frac{\mu_*}{\sigma_*})} \int_{-\frac{\mu_*}{\sigma_*} + \sigma_*}^{\infty} \frac{1}{\sqrt{2 \pi}} \exp \left\{ - \frac{1}{2} z^2\right\} dz
+$$
+
+$$
+= \exp \left(-\mu_* + \frac{1}{2} \sigma_*^2 \right) \frac{\Phi \left(\frac{\mu_*}{\sigma_*} - \sigma_* \right)}{\Phi\frac{\mu_*}{\sigma_*}}
+$$
 **TODO** + linker vers l'annexe.
 
 # Acronymes
