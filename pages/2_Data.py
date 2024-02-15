@@ -22,8 +22,8 @@ def remove_white_space() -> DeltaGenerator:
                 .st-emotion-cache-1y4p8pa {
                     padding-top: 1rem;
                     padding-bottom: 0rem;
-                    padding-left: 1.25rem;
-                    padding-right: 1.25rem;
+                    padding-left: 0rem;
+                    padding-right: 0rem;
                 }
                 .st-emotion-cache-16txtl3{
                     padding-top: 1.5rem;
@@ -35,16 +35,6 @@ def remove_white_space() -> DeltaGenerator:
         """,
         unsafe_allow_html=True,
     )
-
-
-def page_config() -> None:
-    """`page_config`: Configure le titre et le favicon de l'application.
-
-    `Example(s)`
-    ---------
-    >>> page_config()
-    ... None"""
-    return st.set_page_config(page_title="Phone Finder", page_icon="📱")
 
 
 @st.cache_data
@@ -105,7 +95,6 @@ def load_mutable_df(
 
 
 def main():
-    page_config()
     remove_white_space()
     st.title("📱 Phone Finder")
     df = load_df()
@@ -248,6 +237,8 @@ def main():
             "resolution": st.column_config.TextColumn("💡 Résolution"),
         },
     )
+
+    st.header("Telephone")
 
 
 if __name__ == "__main__":
