@@ -2,6 +2,7 @@ import streamlit as st
 import polars as pl
 from streamlit.delta_generator import DeltaGenerator
 from pathlib import Path
+from modules_app.data_import import *
 
 
 def remove_white_space() -> DeltaGenerator:
@@ -37,61 +38,7 @@ def remove_white_space() -> DeltaGenerator:
     )
 
 
-@st.cache_data
-def load_df() -> pl.DataFrame:
-    """`load_df`: Charge notre DataFrame clean statique utilisé dans
-    la page de Statistiques Descriptives.
 
-    `Returns`
-    --------- ::
-
-        pl.DataFrame
-
-    `Example(s)`
-    ---------
-
-    >>> load_df()
-    ... shape: (4_006, 40)
-    """
-    root = Path(".").resolve()
-    data_folder = root / "Web_Scraping" / "data"
-    df = pl.read_csv(data_folder / "sfa_results.csv")
-    return df
-
-
-## Cette fonction sera à inclure dans le pipeline plutot
-
-
-@st.cache_data
-def better_countries(_df: pl.DataFrame) -> pl.DataFrame:
-    return _df.with_columns(
-        pl.when(pl.col("made_in") == "Chine")
-        .then(pl.lit("🇨🇳"))
-        .when(pl.col("made_in") == "Japon")
-        .then(pl.lit("🇯🇵"))
-        .when(pl.col("made_in") == "Viêt Nam")
-        .then(pl.lit("🇻🇳"))
-        .when(pl.col("made_in") == "Inde")
-        .then(pl.lit("🇮🇳"))
-        .when(pl.col("made_in") == "Taïwan")
-        .then(pl.lit("🇹🇼"))
-        .when(pl.col("made_in") == "Thaïlande")
-        .then(pl.lit("🇹🇭"))
-        .otherwise(pl.lit(""))
-        .alias("flag")
-    ).with_columns(pl.concat_str(["flag", "made_in"], separator=" ").alias("made_in"))
-
-
-@st.cache_data
-def load_mutable_df(
-    _df: pl.DataFrame, selected_ram, selected_storage, selected_brands
-) -> pl.DataFrame:
-    mutable_df = (
-        _df.filter(pl.col("ram") == selected_ram)
-        .filter(pl.col("storage") == selected_storage)
-        .filter(pl.col("brand").is_in(selected_brands))
-    )
-    return mutable_df
 
 
 def main():
@@ -102,32 +49,26 @@ def main():
 
     # st.write(df.columns)
 
-    ram_available_list = df.select(pl.col("ram")).unique().to_series().to_list()
-    stockage_available_list = (
-        df.select(pl.col("storage")).unique().to_series().to_list()
-    )
-    brand_available_list = df.select(pl.col("brand")).unique().to_series().to_list()
-
     with st.sidebar:
         # Configure l'ensemble de la sidebar de paramètres
         st.header("*Paramètres*")
         ram_value = st.selectbox(
             "RAM :",
-            sorted(ram_available_list),
+            sorted(ram_list(df)),
             placeholder="Choisir la RAM",
             index=None,
         )
 
         storage_value = st.selectbox(
             "Stockage :",
-            sorted(stockage_available_list),
+            sorted(storage_list(df)),
             index=None,
             placeholder="Choisir le stockage",
         )
 
         selected_brands = st.multiselect(
             "Choisir une ou plusieurs marques :",
-            sorted(brand_available_list),
+            sorted(brand_list(df)),
             placeholder="Choisir la marque",
         )
 
