@@ -12,41 +12,52 @@ df_init |>
     print()
 
 df_phones <- df_init |>
-    select(c(price, screen_type, das_limbs, das_head, upgrade_storage, screen_size, fast_charging, repairability_index, made_in, ram, storage, brand, induction))
+    select(c(price, ppi, screen_type, das_limbs, das_head, das_chest, upgrade_storage, screen_size, fast_charging, repairability_index, made_in, ram, storage, brand, induction, network))
 
 print(df_phones)
 
-spf <- sfa(
-    log(price) ~ screen_type + das_head + das_limbs + upgrade_storage + screen_size + fast_charging + repairability_index + made_in + ram + storage + brand + induction,
+loghedonic <- lm(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + das_chest + fast_charging + network + ppi,
+    data = df_phones
+)
+
+scf <- sfa(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + fast_charging + das_chest + network + ppi,
     data = df_phones,
     truncNorm = FALSE,
-    ineffDecrease = TRUE
-) # spf => Stochastic Production Function
+    ineffDecrease = FALSE
+)
 
 # ATTENTION, inclure "screen_type" dans la Stochastic Cost Frontier la fait planter...
 
-scf <- sfa(
-    log(price) ~ das_head + das_limbs + upgrade_storage + screen_size + fast_charging + repairability_index + made_in + ram + storage + brand + induction,
-    data = df_phones,
-    truncNorm = TRUE, # TRUE ou FALSE, à voir.
-    ineffDecrease = FALSE
-) # scf => Stochastic Cost Function
+mu <- predict(loghedonic)
+se <- predict(loghedonic, se.fit = TRUE)$se.fit
 
-# A typical stochastic frontier model involves a parametric frontier
-# subject to a composite error term, which is a convolution of a non-negative inefficiency
-# and a random error.
+part_1 <- exp(mu + (se^2)/2) |> as_tibble()
+part_2 <- exp(mu)
 
-# le paramètre truncNorm contrôle le type de distribution.
-# si `truncNorm` = TRUE alors on a une distribution normale tronquée.
-# si `truncNorm` = FALSE alors on a une dsitribution
+bind_cols(part_1, part_2) |> print(n=Inf)
 
-# print(summary(spf))
-print(summary(scf))
-print(resettestFrontier(scf))
-# print(residuals(spf))
+loghedonic_df <- predict(loghedonic) |>
+    as_tibble() |>
+    exp() |>
+    rename(prediction_loghedonic = value)
+
+sfa_df <- fitted(scf) |>
+    as_tibble() |>
+    exp() |>
+    rename(prediction_sfa = V1)
+
+mu_sfa <- fitted(scf)
+se_sfa <- predict(scf, se.fit = TRUE)
+
+exp(residuals(scf))
+
 
 eff_df <- as_tibble(efficiencies(scf))
-new_df <- bind_cols(df_init, eff_df)
+
+
+new_df <- bind_cols(df_init, eff_df, sfa_df, loghedonic_df)
+
+new_df
 
 brand_groups <- new_df |>
     select(brand, efficiency) |>
@@ -55,4 +66,4 @@ brand_groups <- new_df |>
 print(brand_groups |> summarise(mean_eff = mean(efficiency), n_count = n()) |> arrange(mean_eff))
 print(new_df |> select(model, efficiency, price) |> arrange(efficiency), n = 487)
 
-# write.csv(new_df, file = "Web_Scraping/data/sfa_results.csv")
+write.csv(new_df, file = "Web_Scraping/data/sfa_results.csv")
