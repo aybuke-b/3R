@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 import script.smartphone_class as sc
+from yarl import URL
+import datetime
 
 
 def _extract_nb_reviews_V0(soup: BeautifulSoup) -> str:
@@ -17,18 +19,43 @@ def _extract_price_V0(soup: BeautifulSoup) -> str:
     return price
 
 
+def _extract_image(soup: BeautifulSoup) -> str:
+    """Permet d'obtenir l'image du téléphone grâce à une URL paramétrable."""
+    try:
+        url = soup.find("img", attrs={"class": "complementary-push__main-image"})["src"]
+    except TypeError:
+        url = soup.find("img", attrs={"class": "product-viewer__placeholder-img"})[
+            "src"
+        ]
+    index_to_slice = url.find("&resMode")
+    img = url[:index_to_slice]
+    url_img = URL(img)
+    final_url_img = str(url_img.with_query("wid=2000&hei=2000"))
+    return final_url_img
+
+
+def _extract_scraped_day() -> str:
+    return str(datetime.datetime.now())
+
+
 def extract_features(soup: BeautifulSoup) -> dict:
     span_elements = soup.find_all("span", class_="is--medium")
     keys = [span_element.text[:-2] for span_element in span_elements]
     # on retire les 2 caractères " :" pour faire les clés du futur dictionnaire
-    keys.extend(["Prix", "Etoiles", "Commentaires"])
+    keys.extend(["Prix", "Etoiles", "Commentaires", "Image", "ScrapingTime"])
 
     feature_values = list()
     for span_element in span_elements:
         feature_values.append(str(span_element.find_next_sibling(text=True)).strip())
 
     feature_values.extend(
-        [_extract_price_V0(soup), _extract_stars_V0(soup), _extract_nb_reviews_V0(soup)]
+        [
+            _extract_price_V0(soup),
+            _extract_stars_V0(soup),
+            _extract_nb_reviews_V0(soup),
+            _extract_image(soup),
+            _extract_scraped_day(),
+        ]
     )
 
     characteristics = {column: feature for column, feature in zip(keys, feature_values)}
@@ -377,6 +404,24 @@ def extract_reviews(dict_features: dict):
         return reviews
 
 
+def extract_img(dict_features: dict):
+    try:
+        img = dict_features["Image"]
+    except KeyError:
+        return None
+    else:
+        return img
+
+
+def extract_scraping_time(dict_features: dict):
+    try:
+        scraping_time = dict_features["ScrapingTime"]
+    except KeyError:
+        return None
+    else:
+        return scraping_time
+
+
 def smartphone_characteristics(dict_features: dict) -> sc.Smartphone:
     model = extract_model(dict_features)
     color = extract_color(dict_features)
@@ -416,6 +461,8 @@ def smartphone_characteristics(dict_features: dict) -> sc.Smartphone:
     price = extract_price(dict_features)
     stars = extract_stars(dict_features)
     reviews = extract_reviews(dict_features)
+    image = extract_img(dict_features)
+    scraping_time = extract_scraping_time(dict_features)
 
     return sc.Smartphone(
         model=model,
@@ -456,4 +503,6 @@ def smartphone_characteristics(dict_features: dict) -> sc.Smartphone:
         price=price,
         stars=stars,
         reviews=reviews,
+        image=image,
+        scraping_time=scraping_time,
     )

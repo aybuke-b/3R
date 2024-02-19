@@ -3,6 +3,7 @@ import polars as pl
 from streamlit.delta_generator import DeltaGenerator
 from pathlib import Path
 from modules_app.data_import import *
+from modules_app.selectors import *
 
 
 def remove_white_space() -> DeltaGenerator:
@@ -38,14 +39,10 @@ def remove_white_space() -> DeltaGenerator:
     )
 
 
-
-
-
 def main():
     remove_white_space()
     st.title("📱 Phone Finder")
     df = load_df()
-    df = better_countries(df)
 
     # st.write(df.columns)
 

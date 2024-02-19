@@ -94,3 +94,5 @@ class Smartphone:
     price: str
     stars: str
     reviews: str
+    image: str
+    scraping_time: str

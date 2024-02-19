@@ -2,6 +2,7 @@ import streamlit as st
 import polars as pl
 from pathlib import Path
 
+
 @st.cache_data
 def load_df() -> pl.DataFrame:
     """`load_df`: Charge notre DataFrame clean statique utilisé dans
@@ -20,40 +21,16 @@ def load_df() -> pl.DataFrame:
     """
     root = Path(".").resolve()
     data_folder = root / "Web_Scraping" / "data"
-    df = pl.read_csv(data_folder / "sfa_results.csv")
+    df = pl.read_parquet(data_folder / "sfa_results_app.parquet")
     return df
-
-
-## Cette fonction sera à inclure dans le pipeline plutot
-
-
-@st.cache_data
-def better_countries(_df: pl.DataFrame) -> pl.DataFrame:
-    return _df.with_columns(
-        pl.when(pl.col("made_in") == "Chine")
-        .then(pl.lit("🇨🇳"))
-        .when(pl.col("made_in") == "Japon")
-        .then(pl.lit("🇯🇵"))
-        .when(pl.col("made_in") == "Viêt Nam")
-        .then(pl.lit("🇻🇳"))
-        .when(pl.col("made_in") == "Inde")
-        .then(pl.lit("🇮🇳"))
-        .when(pl.col("made_in") == "Taïwan")
-        .then(pl.lit("🇹🇼"))
-        .when(pl.col("made_in") == "Thaïlande")
-        .then(pl.lit("🇹🇭"))
-        .otherwise(pl.lit(""))
-        .alias("flag")
-    ).with_columns(pl.concat_str(["flag", "made_in"], separator=" ").alias("made_in"))
 
 
 @st.cache_data
 def link_column(_df: pl.DataFrame) -> pl.DataFrame:
     APP_URL = "http://localhost:8501"
 
-    return _df.with_columns(
+    return _df.with_columns()
 
-    )
 
 @st.cache_data
 def load_mutable_df(
@@ -67,11 +44,29 @@ def load_mutable_df(
     return mutable_df
 
 
-def ram_list(df: pl.DataFrame) -> list:
-    return df.select(pl.col("ram")).unique().to_series().to_list()
+def last_update(df: pl.DataFrame) -> str:
+    """`last_update`: Permet de récupérer la dernière date de scraping
 
-def storage_list(df: pl.DataFrame) -> list:
-    return df.select(pl.col("storage")).unique().to_series().to_list()
+    ---------
+    `Parameters`
+    --------- ::
 
-def brand_list(df: pl.DataFrame) -> list:
-    return df.select(pl.col("brand")).unique().to_series().to_list()
+        df (pl.DataFrame): # Le DataFrame statique
+
+    `Returns`
+    --------- ::
+
+        str
+
+    `Example(s)`
+    ---------
+
+    >>> last_update()
+    ... #_test_return_"""
+    last_updated = df.select(pl.col("scraping_time")).item(1, 0)
+    day, month, year = last_updated.day, last_updated.month, last_updated.year
+    if last_updated.day < 10:
+        day = f"0{last_updated.day}"
+    if last_updated.month < 10:
+        month = f"0{last_updated.month}"
+    return f"`{day}/{month}/{year}`"
