@@ -6,6 +6,8 @@ from modules_app.data_import import *
 page_config()
 remove_white_space()
 version = fontawesome_import(major=6, minor=5, patch=1)
+font_import(font="Audiowide")
+font_apply(font="Audiowide", tag="h1")
 
 
 fontawesome_icon = icon(type="brands", icon_name="font-awesome", color="#74C0FC")
