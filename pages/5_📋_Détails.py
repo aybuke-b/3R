@@ -4,44 +4,15 @@ from streamlit.delta_generator import DeltaGenerator
 from pathlib import Path
 from modules_app.data_import import *
 from modules_app.selectors import *
-
-
-def remove_white_space() -> DeltaGenerator:
-    """`remove_white_space`: Utilise du CSS pour retirer de l'espace non-utilisé.
-
-    `Returns`
-    --------- ::
-
-        DeltaGenerator
-
-    `Example(s)`
-    ---------
-    >>> remove_white_space(df)
-    ... DeltaGenerator()"""
-    return st.markdown(
-        """
-        <style>
-                .st-emotion-cache-1y4p8pa {
-                    padding-top: 1rem;
-                    padding-bottom: 0rem;
-                    padding-left: 0rem;
-                    padding-right: 0rem;
-                }
-                .st-emotion-cache-16txtl3{
-                    padding-top: 1.5rem;
-                    padding-right: 1rem;
-                    padding-bottom: 1rem;
-                    padding-left: 1rem;
-                }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-
+from modules_app.st_config import *
 
 def main():
+    page_config()
     remove_white_space()
-    st.title("📱 Phone Finder")
+    version = fontawesome_import(major=6, minor=5, patch=1)
+    font_import(font="Audiowide")
+    font_apply(font="Audiowide", tag="h1")
+    st.title("📱 Smart Specs")
     df = load_df()
 
     # st.write(df.columns)
@@ -96,6 +67,7 @@ def main():
         hide_index=True,
         column_order=[
             "model",
+            "image",
             "brand",
             "price",
             "efficiency",
@@ -118,10 +90,11 @@ def main():
             "color",
             "repairability_index",
             "usb_type_c",
-            "screen_type",
+            "screen_type"
         ],
         column_config={
             "model": "📱 Modèle de téléphone",
+            "image": st.column_config.ImageColumn("📷 Image"),
             "brand": "🏷️ Marque",
             "price": st.column_config.NumberColumn(
                 "💲 Prix Affiché",
@@ -172,11 +145,9 @@ def main():
             ),
             "usb_type_c": st.column_config.CheckboxColumn("🔌 USB Type C"),
             "screen_type": st.column_config.TextColumn("🤳 Type d'écran"),
-            "resolution": st.column_config.TextColumn("💡 Résolution"),
+            "resolution": st.column_config.TextColumn("💡 Résolution")
         },
     )
-
-    st.header("Telephone")
 
 
 if __name__ == "__main__":
