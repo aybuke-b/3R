@@ -3,8 +3,8 @@ from PIL import Image
 import plotly.express as px
 from modules_app.st_config import *
 from modules_app.data_import import *
+from modules_app.st_plots import *
 
-logo = Image.open("imgs/logo.png")
 fontawesome_icon = icon(type="brands", icon_name="font-awesome", color="#74C0FC")
 cc_by_nc_icon = icon(type="brands", icon_name="creative-commons-nc-eu", color="#74C0FC")
 
@@ -13,13 +13,11 @@ remove_white_space()
 font_import(font="Audiowide")
 font_apply(font="Audiowide", tag="h1")
 version = fontawesome_import(major=6, minor=5, patch=1)
-config = {"displayModeBar": False}
+config = modebar_config()
+
+logo = open_logo()
 
 df = load_df()
-df_mean_price = df.group_by("brand").agg(pl.col("price").mean().round(2)).sort("price")
-df_mean_price = df_mean_price.with_columns(
-    pl.format("{} €", pl.col("price")).alias("price_str")
-)
 
 with st.sidebar:
     st.caption("Crée par :")
@@ -35,39 +33,33 @@ with st.sidebar:
 
 st.title("📱 Smart Specs")
 st.header("Data Insights 🔎", divider="gray")
-st.info("▶️ Explorez les données sous un nouvel angle !")
+st.info("▶️ Découvrez les téléphones sous un nouvel angle !")
 
 
 with st.expander("✨ **Insight 1) Prix moyen par marque**"):
-    mean_price = df.select("price").mean().item()
-    fig_mean_price = px.bar(
-        df_mean_price, x="price", y="brand", opacity=0.85, text="price_str"
+    df_mean_price = load_mean_price_df(df)
+    barplot_mean_price(df_mean_price=df_mean_price, logo=logo, config=config)
+    least_expensive_brand = item_getter(
+        df_mean_price=df_mean_price, column="brand", min=True
     )
-    fig_mean_price.update_layout(
-        height=300,
-        margin=dict(t=1, b=1, l=1, r=1),
-        xaxis=dict(title="", ticksuffix=" €", fixedrange=True),
-        yaxis=dict(title=""),
+    most_expensive_brand = item_getter(
+        df_mean_price=df_mean_price, column="brand", min=False
     )
-    fig_mean_price.update_traces(
-        hovertemplate="<b>Marque :</b> %{y}<br>" "<b>Prix Moyen :</b> %{x}<br>"
+    least_expensive_price = item_getter(
+        df_mean_price=df_mean_price, column="price", min=True
     )
-    fig_mean_price.add_layout_image(
-        dict(
-            source=logo,
-            xref="paper",
-            yref="paper",
-            x=0.9,  # Position horizontale de l'image (0 à gauche, 1 à droite)
-            y=0,  # Position verticale de l'image (0 en bas, 1 en haut)
-            sizex=0.25,  # Largeur de l'image
-            sizey=0.25,  # Hauteur de l'image
-            xanchor="center",  # Point d'ancrage horizontal (centre)
-            yanchor="bottom",  # Point d'ancrage vertical (en bas)
-        )
+    most_expensive_price = item_getter(
+        df_mean_price=df_mean_price, column="price", min=False
     )
-    st.plotly_chart(fig_mean_price, use_container_width=True, config=config)
     st.markdown(
-        """
+        f"""
+        - **{least_expensive_brand}** propose les téléphones les moins chers avec un prix moyen de ⬇ {least_expensive_price} €.
+        - **{most_expensive_brand}** propose les téléphones les plus chers avec un prix moyen de ⬆ {most_expensive_price} €.
+
+        Le différentiel de prix entre les deux marques est considérable : 
+        il est en effet ~ {int(most_expensive_price/least_expensive_price)} 
+        fois plus important pour **{most_expensive_brand}** !
+
         INTERPRETATIONS A FAIRE + ajouter le seuil à 500 € pour changer la couleur de certaines barres
         selon téléphones haut/bas de gamme
         Interprétations => qui a les prix moyens les plus hauts, et les plus bas.
@@ -75,65 +67,9 @@ with st.expander("✨ **Insight 1) Prix moyen par marque**"):
     )
 
 with st.expander("✨ **Insight 2) Nombre de modèles vendus par marque**"):
-    df_brand = (
-        df.group_by("brand")
-        .agg(pl.col("brand").count().alias("count"), pl.col("price").alias("hist_col"))
-        .sort("count", descending=True)
-        .with_columns(
-            pl.when(pl.col("brand") == "XIAOMI")
-            .then(
-                pl.lit(
-                    "https://upload.wikimedia.org/wikipedia/commons/a/ae/Xiaomi_logo_%282021-%29.svg"
-                )
-            )
-            .when(pl.col("brand") == "SAMSUNG")
-            .then(
-                pl.lit(
-                    "https://upload.wikimedia.org/wikipedia/commons/b/b4/Samsung_wordmark.svg"
-                )
-            )
-            .when(pl.col("brand") == "APPLE")
-            .then(
-                pl.lit(
-                    "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
-                )
-            )
-            .when(pl.col("brand") == "MOTOROLA")
-            .then(
-                pl.lit(
-                    "https://upload.wikimedia.org/wikipedia/commons/4/45/Motorola-logo-black-and-white.png"
-                )
-            )
-            .when(pl.col("brand") == "GOOGLE")
-            .then(
-                pl.lit(
-                    "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"
-                )
-            )
-            .when(pl.col("brand") == "HONOR")
-            .then(
-                pl.lit(
-                    "https://upload.wikimedia.org/wikipedia/commons/5/5a/Huawei_Honor_Logo.svg"
-                )
-            )
-            .when(pl.col("brand") == "SONY")
-            .then(
-                pl.lit(
-                    "https://upload.wikimedia.org/wikipedia/commons/c/ca/Sony_logo.svg"
-                )
-            )
-            .when(pl.col("brand") == "OPPO")
-            .then(
-                pl.lit(
-                    "https://upload.wikimedia.org/wikipedia/commons/0/0a/OPPO_LOGO_2019.svg"
-                )
-            )
-            .otherwise(pl.lit(""))
-            .alias("brand_image")
-        )
-    )
+    df_brands = load_brands_df(df)
     st.dataframe(
-        df_brand,
+        df_brands,
         hide_index=True,
         column_order=["brand", "brand_image", "count", "hist_col"],
         column_config={

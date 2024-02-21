@@ -44,18 +44,13 @@ with st.sidebar:
             """
         )
 
-
-# st.markdown('<a href="Data#telephone" target="_self">Test</a>', unsafe_allow_html=True)
-
-# st.markdown('<a href="Détails" target="_self">Détails</a>', unsafe_allow_html=True)
-
-test = """
+catchphrase = """
     💡 Obtenez **bien plus** qu'une *simple liste* de téléphones !  
     """
 
 
 def home_stream():
-    for word in test.split():
+    for word in catchphrase.split():
         yield word + " "
         time.sleep(0.2)
 
@@ -101,7 +96,7 @@ col1, col2 = st.columns(2)
 with col2:
     st.caption(f"*Dernière date d'actualisation* : {last_update(df)}")
 
-# st.markdown(    "- [ ] Faire charger le dataframe au niveau de la page principale et le garder en mémoire ")
+# st.markdown("- [ ] Faire charger le dataframe au niveau de la page principale et le garder en mémoire ")
 
 # st.markdown("- [ ] Ajouter la page de comparateur des 2 téléphones")
 
@@ -112,3 +107,7 @@ st.write(
     """,
     unsafe_allow_html=True,
 )
+
+# st.markdown('<a href="Data#telephone" target="_self">Test</a>', unsafe_allow_html=True)
+
+# st.markdown('<a href="Détails" target="_self">Détails</a>', unsafe_allow_html=True)

@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "smartspecs"
+version = "0.1.0"
+description = "Comparateur de samrtphones en utilisant un modèle SFA"
+authors = ["CDucloux <corentin_ducloux@outlook.fr>"]
+license = "CC-BY-NC"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+streamlit = "^1.31.1"
+plotly = "5.18.0"
+polars = "0.19.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
