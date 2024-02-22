@@ -89,7 +89,7 @@ df_ram = df.sort(pl.col("ram")).with_columns(
     pl.format("{} Go", pl.col("ram").cast(pl.Int64)).alias("ram_fmt")
 )
 
-with st.expander("✨ **Insight 3) Prix en fct de la RAM**"):
+with st.expander("✨ **Insight 3) Prix en fonction de la RAM**"):
     fig_ram = px.box(df_ram, x="ram_fmt", y="price", points="all")
     fig_ram.update_traces(
         boxpoints="all",
@@ -116,8 +116,37 @@ with st.expander("✨ **Insight 3) Prix en fct de la RAM**"):
     )
     st.plotly_chart(fig_ram, use_container_width=True, config=config)
 
-with st.expander("✨ **Insight 4) Prix en fct du stockage**"):
-    st.write("**COMING SOON**")
+
+df_stockage = df.sort(pl.col("storage")).with_columns(
+    pl.format("{} Go", pl.col("storage").cast(pl.Int64)).alias("stockage_fmt")
+)
+
+with st.expander("✨ **Insight 4) Prix en fonction du stockage**"):
+        fig_stockage = px.box(df_stockage, x="stockage_fmt", y="price", points="all")
+        fig_stockage.update_traces(
+            boxpoints="all",
+            hovertemplate="<b>Prix :</b> %{y}<br>" "<b>Stockage :</b> %{x}<br>",
+        )
+        fig_stockage.update_layout(
+            height=300,
+            margin=dict(t=1, b=1, l=1, r=1),
+            yaxis=dict(title="", ticksuffix=" €"),
+            xaxis=dict(title=""),
+        )
+        fig_stockage.add_layout_image(
+            dict(
+                source=logo,
+                xref="paper",
+                yref="paper",
+                x=0.9,  # Position horizontale de l'image (0 à gauche, 1 à droite)
+                y=0,  # Position verticale de l'image (0 en bas, 1 en haut)
+                sizex=0.25,  # Largeur de l'image
+                sizey=0.25,  # Hauteur de l'image
+                xanchor="center",  # Point d'ancrage horizontal (centre)
+                yanchor="bottom",  # Point d'ancrage vertical (en bas)
+            )
+        )
+        st.plotly_chart(fig_stockage, use_container_width=True, config=config)
 
 with st.expander("✨ **Insight 5) Distribution des prix**"):
     st.subheader("⚙️ *Réglages*")
