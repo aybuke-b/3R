@@ -1,5 +1,4 @@
 import streamlit as st
-from PIL import Image
 import plotly.express as px
 from modules_app.st_config import *
 from modules_app.data_import import *
@@ -14,7 +13,6 @@ font_import(font="Audiowide")
 font_apply(font="Audiowide", tag="h1")
 version = fontawesome_import(major=6, minor=5, patch=1)
 config = modebar_config()
-
 logo = open_logo()
 
 df = load_df()
