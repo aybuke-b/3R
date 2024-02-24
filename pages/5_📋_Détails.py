@@ -34,6 +34,7 @@ def main():
             placeholder="Choisir le stockage",
         )
 
+
         selected_brands = st.multiselect(
             "Choisir une ou plusieurs marques :",
             sorted(brand_list(df)),
@@ -152,3 +153,20 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+fontawesome_icon = icon(type="brands", icon_name="font-awesome", color="#74C0FC")
+cc_by_nc_icon = icon(type="brands", icon_name="creative-commons-nc-eu", color="#74C0FC")
+font_import(font="Audiowide")
+font_apply(font="Audiowide", tag="h1")
+version = fontawesome_import(major=6, minor=5, patch=1)
+
+
+st.write(
+    f"""
+    > *Icônes* : {fontawesome_icon} **FontAwesome** version **{version[0]}**
+    &mdash; *Licence* : {cc_by_nc_icon} **CC-BY-NC**
+    """,
+    unsafe_allow_html=True,
+)

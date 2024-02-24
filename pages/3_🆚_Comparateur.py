@@ -84,6 +84,38 @@ with st.sidebar:
         )
 
 
+def resolution_description(sensor: float | None, cam_1:float, cam_2:float, cam_3:float) -> str:
+    match sensor:
+        case 1.0:
+            cams_resolution = f"{int(cam_1)} mpx"
+        case 2.0:
+            cams_resolution = f"{int(cam_1)} mpx + {int(cam_2)} mpx"
+        case 3.0:
+            cams_resolution = f"{int(cam_1)} mpx + {int(cam_2)} mpx + {int(cam_3)} mpx"
+        case 4.0:
+            cams_resolution = f"{int(cam_1)} mpx + {int(cam_2)} mpx + {int(cam_3)} mpx"
+        case _:
+            cams_resolution = "Aucune information disponible"
+    return cams_resolution
+
+
+def format_sensor(sensor: float | None) -> str | int:
+    if sensor is None:
+        sensor = "Aucune information disponible"
+    else:
+        sensor = int(sensor)
+    return sensor
+
+
+def note_description(reviews: float | None, stars: float) -> str | int:
+    nb_stars = ""
+    if reviews is not None:
+        if reviews > 0.0:
+            nb_stars = f"⭐ {round(stars, 2)}"
+    return nb_stars
+
+
+
 ctx = create_context()
 
 link_model_1 = execute_query_phone(ctx, df_1, "image", model_1, storage_1, color_1)
@@ -146,6 +178,21 @@ das_limbs_model_1 = execute_query_phone(
     ctx, df_1, "das_limbs", model_1, storage_1, color_1
 )
 
+sensor_model_1 = execute_query_phone(
+    ctx, df_1, "sensor", model_1, storage_1, color_1
+)
+
+cam_1_model_1 = execute_query_phone(
+    ctx, df_1, "cam_1", model_1, storage_1, color_1
+)
+
+cam_2_model_1 = execute_query_phone(
+    ctx, df_1, "cam_2", model_1, storage_1, color_1
+)
+
+cam_3_model_1 = execute_query_phone(
+    ctx, df_1, "cam_3", model_1, storage_1, color_1
+)
 ######## MODEL 2
 
 link_model_2 = execute_query_phone(ctx, df_2, "image", model_2, storage_2, color_2)
@@ -208,6 +255,23 @@ das_limbs_model_2 = execute_query_phone(
     ctx, df_2, "das_limbs", model_2, storage_2, color_2
 )
 
+sensor_model_2 = execute_query_phone(
+    ctx, df_2, "sensor", model_2, storage_2, color_2
+)
+
+cam_1_model_2 = execute_query_phone(
+    ctx, df_2, "cam_1", model_2, storage_2, color_2
+)
+
+cam_2_model_2 = execute_query_phone(
+    ctx, df_2, "cam_2", model_2, storage_2, color_2
+)
+
+cam_3_model_2 = execute_query_phone(
+    ctx, df_2, "cam_3", model_2, storage_2, color_2
+)
+
+
 ##### COMPARATEUR
 
 col1, col2 = st.columns(2)
@@ -233,7 +297,7 @@ with col1:
                 - **Lieu de fabrication** : {flag_model_1} *{made_in_model_1}* 
             """
         )
-        st.markdown("#### Ecran")
+        st.markdown("#### 📲 Écran")
         st.markdown(
             f"""
                 - **Type d'écran** : {screen_type_model_1}
@@ -243,7 +307,7 @@ with col1:
                 - **PPI** : {round(ppi_model_1,2)} pixels par pouce
             """
         )
-        st.markdown("#### Batterie")
+        st.markdown("#### 🔋 Batterie")
         st.markdown(
             f"""
                 - **Capacité** : {int(battery_model_1)} mAh
@@ -252,7 +316,7 @@ with col1:
                 - **USB Type-C** : {usb_type_c_model_1}
             """
         )
-        st.markdown("#### Dimensions")
+        st.markdown("#### 📏 Dimensions")
         st.markdown(
             f"""
                 - **Hauteur** : {height_model_1} mm
@@ -262,8 +326,16 @@ with col1:
             """
         )
 
+        st.markdown("#### 📷 Appareil photo")
         st.markdown(
-            "#### Débit d'absorption spécifique (DAS)",
+            f"""
+                - **Nombre de capteurs** : {format_sensor(sensor_model_1)}
+                - **Résolution** : {resolution_description(sensor_model_1, cam_1_model_1, cam_2_model_1, cam_3_model_1)}
+            """
+        )
+
+        st.markdown(
+            "#### 📡 Débit d'absorption spécifique (DAS)",
             help="Le **DAS** est un indice indiquant la quantité d’énergie électromagnétique absorbée par le corps humain lors de l’utilisation d’un téléphone.",
         )
         st.markdown(
@@ -279,7 +351,7 @@ with col1:
         with col3:
             st.markdown(f"{int(reviews_model_1)} personnes ont noté ce téléphone.")
         with col4:
-            st.markdown(f"⭐ {round(stars_model_1,2)}")
+            st.markdown(f"{note_description(reviews_model_1, stars_model_1)}")
 
 with col2:
     with st.container(border=True):
@@ -293,6 +365,7 @@ with col2:
             st.metric("Position", value="🥇")
 
         st.image(link_model_2, caption=model_model_2, width=200)
+
         st.markdown(
             f"""
                 - **Marque** : {brand_model_2}
@@ -303,7 +376,7 @@ with col2:
                 - **Lieu de fabrication** : {flag_model_2} *{made_in_model_2}* 
             """
         )
-        st.markdown("#### Ecran")
+        st.markdown("#### 📲 Écran")
         st.markdown(
             f"""
                 - **Type d'écran** : {screen_type_model_2}
@@ -313,7 +386,7 @@ with col2:
                 - **PPI** : {round(ppi_model_2,2)} pixels par pouce
             """
         )
-        st.markdown("#### Batterie")
+        st.markdown("#### 🔋 Batterie")
         st.markdown(
             f"""
                 - **Capacité** : {int(battery_model_2)} mAh
@@ -322,7 +395,7 @@ with col2:
                 - **USB Type-C** : {usb_type_c_model_2}
             """
         )
-        st.markdown("#### Dimensions")
+        st.markdown("#### 📏 Dimensions")
         st.markdown(
             f"""
                 - **Hauteur** : {height_model_2} mm
@@ -332,8 +405,16 @@ with col2:
             """
         )
 
+        st.markdown("#### 📷 Appareil photo")
         st.markdown(
-            "#### Débit d'absorption spécifique (DAS)",
+            f"""
+                - **Nombre de capteurs** : {format_sensor(sensor_model_2)}
+                - **Résolution** : {resolution_description(sensor_model_2, cam_1_model_2, cam_2_model_2, cam_3_model_2)}
+            """
+        )
+
+        st.markdown(
+            "#### 📡 Débit d'absorption spécifique (DAS)",
             help="Le **DAS** est un indice indiquant la quantité d’énergie électromagnétique absorbée par le corps humain lors de l’utilisation d’un téléphone.",
         )
         st.markdown(
@@ -349,4 +430,21 @@ with col2:
         with col3:
             st.markdown(f"{int(reviews_model_2)} personnes ont noté ce téléphone.")
         with col4:
-            st.markdown(f"⭐ {round(stars_model_2,2)}")
+            st.markdown(f"{note_description(reviews_model_2, stars_model_2)}")
+
+
+fontawesome_icon = icon(type="brands", icon_name="font-awesome", color="#74C0FC")
+cc_by_nc_icon = icon(type="brands", icon_name="creative-commons-nc-eu", color="#74C0FC")
+font_import(font="Audiowide")
+font_apply(font="Audiowide", tag="h1")
+version = fontawesome_import(major=6, minor=5, patch=1)
+
+
+
+st.write(
+    f"""
+    > *Icônes* : {fontawesome_icon} **FontAwesome** version **{version[0]}**
+    &mdash; *Licence* : {cc_by_nc_icon} **CC-BY-NC**
+    """,
+    unsafe_allow_html=True,
+)
