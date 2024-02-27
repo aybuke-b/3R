@@ -90,7 +90,9 @@ with st.sidebar:
         st.switch_page("Accueil.py")
 
 
-def resolution_description(sensor: float | None, cam_1:float, cam_2:float, cam_3:float) -> str:
+def resolution_description(
+    sensor: float | None, cam_1: float, cam_2: float, cam_3: float
+) -> str:
     match sensor:
         case 1.0:
             cams_resolution = f"{int(cam_1)} mpx"
@@ -217,21 +219,13 @@ das_limbs_model_1 = execute_query_phone(
     ctx, df_1, "das_limbs", model_1, storage_1, color_1
 )
 
-sensor_model_1 = execute_query_phone(
-    ctx, df_1, "sensor", model_1, storage_1, color_1
-)
+sensor_model_1 = execute_query_phone(ctx, df_1, "sensor", model_1, storage_1, color_1)
 
-cam_1_model_1 = execute_query_phone(
-    ctx, df_1, "cam_1", model_1, storage_1, color_1
-)
+cam_1_model_1 = execute_query_phone(ctx, df_1, "cam_1", model_1, storage_1, color_1)
 
-cam_2_model_1 = execute_query_phone(
-    ctx, df_1, "cam_2", model_1, storage_1, color_1
-)
+cam_2_model_1 = execute_query_phone(ctx, df_1, "cam_2", model_1, storage_1, color_1)
 
-cam_3_model_1 = execute_query_phone(
-    ctx, df_1, "cam_3", model_1, storage_1, color_1
-)
+cam_3_model_1 = execute_query_phone(ctx, df_1, "cam_3", model_1, storage_1, color_1)
 ######## MODEL 2
 
 link_model_2 = execute_query_phone(ctx, df_2, "image", model_2, storage_2, color_2)
@@ -294,21 +288,13 @@ das_limbs_model_2 = execute_query_phone(
     ctx, df_2, "das_limbs", model_2, storage_2, color_2
 )
 
-sensor_model_2 = execute_query_phone(
-    ctx, df_2, "sensor", model_2, storage_2, color_2
-)
+sensor_model_2 = execute_query_phone(ctx, df_2, "sensor", model_2, storage_2, color_2)
 
-cam_1_model_2 = execute_query_phone(
-    ctx, df_2, "cam_1", model_2, storage_2, color_2
-)
+cam_1_model_2 = execute_query_phone(ctx, df_2, "cam_1", model_2, storage_2, color_2)
 
-cam_2_model_2 = execute_query_phone(
-    ctx, df_2, "cam_2", model_2, storage_2, color_2
-)
+cam_2_model_2 = execute_query_phone(ctx, df_2, "cam_2", model_2, storage_2, color_2)
 
-cam_3_model_2 = execute_query_phone(
-    ctx, df_2, "cam_3", model_2, storage_2, color_2
-)
+cam_3_model_2 = execute_query_phone(ctx, df_2, "cam_3", model_2, storage_2, color_2)
 
 
 ##### COMPARATEUR
@@ -477,7 +463,6 @@ cc_by_nc_icon = icon(type="brands", icon_name="creative-commons-nc-eu", color="#
 font_import(font="Audiowide")
 font_apply(font="Audiowide", tag="h1")
 version = fontawesome_import(major=6, minor=5, patch=1)
-
 
 
 st.write(

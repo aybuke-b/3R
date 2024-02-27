@@ -57,10 +57,6 @@ with st.expander("✨ **Insight 1) Prix moyen par marque**"):
         Le différentiel de prix entre les deux marques est considérable : 
         il est en effet ~ {int(most_expensive_price/least_expensive_price)} 
         fois plus important pour **{most_expensive_brand}** !
-
-        INTERPRETATIONS A FAIRE + ajouter le seuil à 500 € pour changer la couleur de certaines barres
-        selon téléphones haut/bas de gamme
-        Interprétations => qui a les prix moyens les plus hauts, et les plus bas.
         """
     )
 
