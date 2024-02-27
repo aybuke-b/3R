@@ -23,7 +23,7 @@ with st.sidebar:
         st.markdown(
             """
             💻 [**Corentin DUCLOUX**](https://github.com/CDucloux) \n
-            💻 [**Aybuké BICAT**](https://github.com/CDucloux)
+            💻 [**Aybuké BICAT**](https://github.com/aybuke-b)
             """
         )
     if st.button("🏠 **Retourner à l'accueil**"):

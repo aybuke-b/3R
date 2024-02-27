@@ -65,6 +65,10 @@ def main():
         if ram_value != None:
             ram_value = float(ram_value.replace("Go", ""))
 
+        if st.button("🏠 **Retourner à l'accueil**"):
+            st.switch_page("Accueil.py")
+
+
     if not (ram_value or storage_value or selected_brands):
         mutable_df = df
     else:

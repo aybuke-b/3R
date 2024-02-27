@@ -16,7 +16,7 @@ version = fontawesome_import(major=6, minor=5, patch=1)
 
 st.title("📱 Smart Specs")
 
-logo = open_logo()
+logo = open_logo()  
 config = modebar_config()
 
 df = load_df()
@@ -58,6 +58,9 @@ with st.sidebar:
             value=0.8,
             placeholder="Entrer entre un nombre décimal entre 0 et 1",
         )
+    
+    if st.button("🏠 **Retourner à l'accueil**"):
+        st.switch_page("Accueil.py")
 
 efficiency_df = load_efficiency_df(df, selected_brands, price_max)
 

@@ -82,6 +82,12 @@ with st.sidebar:
             .to_list(),
             key="color_2_selectbox",
         )
+    st.caption(f"*Dernière date d'actualisation* : {last_update(df_1)}")
+
+    show_symbols = st.toggle("Comparaison des caractéristiques")
+
+    if st.button("🏠 **Retourner à l'accueil**"):
+        st.switch_page("Accueil.py")
 
 
 def resolution_description(sensor: float | None, cam_1:float, cam_2:float, cam_3:float) -> str:
@@ -114,6 +120,39 @@ def note_description(reviews: float | None, stars: float) -> str | int:
             nb_stars = f"⭐ {round(stars, 2)}"
     return nb_stars
 
+
+def check_symbol(value1, value2, show_symbols):
+    ### more is better
+    if not show_symbols:
+        return ""
+    if value1 == value2:
+        return "🟰"  
+    elif value1 > value2:
+        return "✅"  
+    elif value2 > value1:
+        return "❌"
+
+def check_symbol_2(value1, value2, show_symbols):
+    ### less is better
+    if not show_symbols:
+        return ""
+    if value1 == value2:
+        return "🟰"  
+    elif value1 < value2:
+        return "✅"  
+    elif value2 < value1:
+        return "❌"
+
+
+def check_symbol_binaire(value1, value2, show_symbols):
+    if not show_symbols:
+        return ""
+    if value1 == value2:
+        return "🟰"  
+    elif value1 == "Oui" and value2 == "Non":
+        return "✅"  
+    elif value2 == "Oui" and value1 == "Non" :
+        return "❌"   
 
 
 ctx = create_context()
@@ -290,10 +329,10 @@ with col1:
         st.markdown(
             f"""
                 - **Marque** : {brand_model_1}
-                - **RAM** : {int(ram_model_1)} Go
-                - **Stockage** : {int(storage_model_1)} Go
+                - **RAM** : {int(ram_model_1)} Go {check_symbol(ram_model_1, ram_model_2, show_symbols)}
+                - **Stockage** : {int(storage_model_1)} Go {check_symbol(storage_model_1, storage_model_2, show_symbols)}
                 - **CPU** : {cpu_model_1}
-                - **Réseau** : {network_model_1}
+                - **Réseau** : {network_model_1} {check_symbol(network_model_1, network_model_2, show_symbols)}
                 - **Lieu de fabrication** : {flag_model_1} *{made_in_model_1}* 
             """
         )
@@ -304,16 +343,16 @@ with col1:
                 - **Taille de l'écran** : {screen_size_model_1} pouces ({round(screen_size_model_1*2.54,2)} cm)
                 - **Technologie** : {screen_tech_model_1}
                 - **Résolution** : {resolution_model_1} pixels
-                - **PPI** : {round(ppi_model_1,2)} pixels par pouce
+                - **PPI** : {round(ppi_model_1,2)} pixels par pouce {check_symbol(ppi_model_1, ppi_model_2, show_symbols)}
             """
         )
         st.markdown("#### 🔋 Batterie")
         st.markdown(
             f"""
-                - **Capacité** : {int(battery_model_1)} mAh
-                - **Charge Rapide** : {fast_charging_model_1}
-                - **Charge à induction** : {induction_model_1}
-                - **USB Type-C** : {usb_type_c_model_1}
+                - **Capacité** : {int(battery_model_1)} mAh {check_symbol(battery_model_1, battery_model_2, show_symbols)}
+                - **Charge Rapide** : {fast_charging_model_1} {check_symbol_binaire(fast_charging_model_1, fast_charging_model_2, show_symbols)}
+                - **Charge à induction** : {induction_model_1} {check_symbol_binaire(induction_model_1, induction_model_1, show_symbols)}
+                - **USB Type-C** : {usb_type_c_model_1} {check_symbol_binaire(usb_type_c_model_1, usb_type_c_model_2, show_symbols)}
             """
         )
         st.markdown("#### 📏 Dimensions")
@@ -322,14 +361,14 @@ with col1:
                 - **Hauteur** : {height_model_1} mm
                 - **Largeur** : {width_model_1} mm
                 - **Epaisseur** : {thickness_model_1} mm
-                - **Poids** : {int(net_weight_model_1)} grammes
+                - **Poids** : {int(net_weight_model_1)} grammes {check_symbol_2(net_weight_model_1, net_weight_model_2, show_symbols)}
             """
         )
 
         st.markdown("#### 📷 Appareil photo")
         st.markdown(
             f"""
-                - **Nombre de capteurs** : {format_sensor(sensor_model_1)}
+                - **Nombre de capteurs** : {format_sensor(sensor_model_1)} 
                 - **Résolution** : {resolution_description(sensor_model_1, cam_1_model_1, cam_2_model_1, cam_3_model_1)}
             """
         )
@@ -340,9 +379,9 @@ with col1:
         )
         st.markdown(
             f"""
-                - **DAS Tête** : {das_head_model_1} W/kg
-                - **DAS Tronc** : {das_chest_model_1} W/kg
-                - **DAS Membres** : {das_limbs_model_1} W/kg
+                - **DAS Tête** : {das_head_model_1} W/kg {check_symbol_2(das_head_model_1, das_head_model_2, show_symbols)}
+                - **DAS Tronc** : {das_chest_model_1} W/kg {check_symbol_2(das_chest_model_1, das_chest_model_2, show_symbols)}
+                - **DAS Membres** : {das_limbs_model_1} W/kg {check_symbol_2(das_limbs_model_1, das_limbs_model_2, show_symbols)}
             """
         )
         st.markdown(f"> :rainbow[*Coloris*] : {color_model_1}")
@@ -369,10 +408,10 @@ with col2:
         st.markdown(
             f"""
                 - **Marque** : {brand_model_2}
-                - **RAM** : {int(ram_model_2)} Go
-                - **Stockage** : {int(storage_model_2)} Go
+                - **RAM** : {int(ram_model_2)} Go {check_symbol(ram_model_2, ram_model_1, show_symbols)}
+                - **Stockage** : {int(storage_model_2)} Go {check_symbol(storage_model_2, storage_model_1, show_symbols)}
                 - **CPU** : {cpu_model_2}
-                - **Réseau** : {network_model_2}
+                - **Réseau** : {network_model_2} {check_symbol(network_model_2, network_model_1, show_symbols)}
                 - **Lieu de fabrication** : {flag_model_2} *{made_in_model_2}* 
             """
         )
@@ -383,16 +422,16 @@ with col2:
                 - **Taille de l'écran** : {screen_size_model_2} pouces ({round(screen_size_model_2*2.54,2)} cm)
                 - **Technologie** : {screen_tech_model_2}
                 - **Résolution** : {resolution_model_2} pixels
-                - **PPI** : {round(ppi_model_2,2)} pixels par pouce
+                - **PPI** : {round(ppi_model_2,2)} pixels par pouce {check_symbol(ppi_model_2, ppi_model_1, show_symbols)}
             """
         )
         st.markdown("#### 🔋 Batterie")
         st.markdown(
             f"""
-                - **Capacité** : {int(battery_model_2)} mAh
-                - **Charge Rapide** : {fast_charging_model_2}
-                - **Charge à induction** : {induction_model_2}
-                - **USB Type-C** : {usb_type_c_model_2}
+                - **Capacité** : {int(battery_model_2)} mAh {check_symbol(battery_model_2, battery_model_1, show_symbols)}
+                - **Charge Rapide** : {fast_charging_model_2} {check_symbol_binaire(fast_charging_model_2, fast_charging_model_1, show_symbols)}
+                - **Charge à induction** : {induction_model_2} {check_symbol_binaire(induction_model_2, induction_model_1, show_symbols)}
+                - **USB Type-C** : {usb_type_c_model_2} {check_symbol_binaire(usb_type_c_model_2, usb_type_c_model_1, show_symbols)}
             """
         )
         st.markdown("#### 📏 Dimensions")
@@ -401,14 +440,14 @@ with col2:
                 - **Hauteur** : {height_model_2} mm
                 - **Largeur** : {width_model_2} mm
                 - **Epaisseur** : {thickness_model_2} mm
-                - **Poids** : {int(net_weight_model_2)} grammes
+                - **Poids** : {int(net_weight_model_2)} grammes {check_symbol_2(net_weight_model_2, net_weight_model_1, show_symbols)}
             """
         )
 
         st.markdown("#### 📷 Appareil photo")
         st.markdown(
             f"""
-                - **Nombre de capteurs** : {format_sensor(sensor_model_2)}
+                - **Nombre de capteurs** : {format_sensor(sensor_model_2)} 
                 - **Résolution** : {resolution_description(sensor_model_2, cam_1_model_2, cam_2_model_2, cam_3_model_2)}
             """
         )
@@ -419,9 +458,9 @@ with col2:
         )
         st.markdown(
             f"""
-                - **DAS Tête** : {das_head_model_2} W/kg
-                - **DAS Tronc** : {das_chest_model_2} W/kg
-                - **DAS Membres** : {das_limbs_model_2} W/kg
+                - **DAS Tête** : {das_head_model_2} W/kg {check_symbol_2(das_head_model_2, das_head_model_1, show_symbols)}
+                - **DAS Tronc** : {das_chest_model_2} W/kg {check_symbol_2(das_chest_model_2, das_chest_model_1, show_symbols)}
+                - **DAS Membres** : {das_limbs_model_2} W/kg {check_symbol_2(das_limbs_model_2, das_limbs_model_1, show_symbols)}
             """
         )
         st.markdown(f"> :rainbow[*Coloris*] : {color_model_2}")
