@@ -160,14 +160,46 @@ else:
     )
 
     st.plotly_chart(fig_efficiency, use_container_width=True, config=config)
-    
 
-st.info(
-    """
-    ℹ **Note** : Dans le graphique ci-dessous, les téléphones compris dans la zone en surbrillance sont considérés
+    st.info(
+        """
+    ℹ **Note** : Dans le graphique ci-dessus, les téléphones compris dans la zone en surbrillance sont considérés
     comme étant trop chers par rapport à leurs caractéristiques.
     """
-)
+    )
+
+    st.subheader("Efficacité moyenne par marque")
+
+    grouped_eff_df = (
+        efficiency_df.group_by("brand")
+        .agg(pl.col("efficiency").mean().round(3))
+        .sort("efficiency", descending=True)
+    )
+
+    fig_efficiency_2 = px.bar(
+        grouped_eff_df,
+        x="efficiency",
+        y="brand",
+        opacity=0.85,
+        text="efficiency",
+        color="brand",
+    )
+    fig_efficiency_2.update_layout(
+        height=300,
+        margin=dict(t=1, b=1, l=1, r=1),
+        xaxis=dict(title="", fixedrange=True, showticklabels=False),
+        yaxis=dict(title=""),
+        showlegend=False,
+    )
+    fig_efficiency_2.update_traces(
+        hovertemplate="<b>Marque :</b> %{y}<br>" "<b>Efficacité moyenne :</b> %{x}<br>",
+        textfont_size=13,
+        textangle=0,
+        textposition="inside",
+        insidetextanchor="middle",
+        cliponaxis=False,
+    )
+    st.plotly_chart(fig_efficiency_2, use_container_width=True, config=config)
 
 
 st.write(
