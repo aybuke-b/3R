@@ -7,8 +7,14 @@ from modules_app.st_plots import *
 
 page_config()
 remove_white_space()
+fontawesome_icon = icon(type="brands", icon_name="font-awesome", color="#74C0FC")
+cc_by_nc_icon = icon(type="brands", icon_name="creative-commons-nc-eu", color="#74C0FC")
 font_import(font="Audiowide")
 font_apply(font="Audiowide", tag="h1")
+version = fontawesome_import(major=6, minor=5, patch=1)
+
+
+
 
 st.title("📱 Smart Specs")
 
@@ -161,4 +167,14 @@ st.info(
     ℹ **Note** : Dans le graphique ci-dessous, les téléphones compris dans la zone en surbrillance sont considérés
     comme étant trop chers par rapport à leurs caractéristiques.
     """
+)
+
+
+
+st.write(
+    f"""
+    > *Icônes* : {fontawesome_icon} **FontAwesome** version **{version[0]}**
+    &mdash; *Licence* : {cc_by_nc_icon} **CC-BY-NC**
+    """,
+    unsafe_allow_html=True,
 )

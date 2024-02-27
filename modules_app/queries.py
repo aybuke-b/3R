@@ -105,3 +105,5 @@ def execute_query_phone(
             .item(0, 0)
         )
     return query_result
+
+
