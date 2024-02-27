@@ -14,8 +14,6 @@ font_apply(font="Audiowide", tag="h1")
 version = fontawesome_import(major=6, minor=5, patch=1)
 
 
-
-
 st.title("📱 Smart Specs")
 
 logo = open_logo()
@@ -143,6 +141,7 @@ else:
             ticksuffix=" €",
         ),
         hovermode="x unified",
+        hoverlabel=dict(bgcolor="rgba(255,255,255,0.95)"),
         legend=dict(title="🏷️ Marque"),
     )
 
@@ -161,6 +160,7 @@ else:
     )
 
     st.plotly_chart(fig_efficiency, use_container_width=True, config=config)
+    
 
 st.info(
     """
@@ -168,7 +168,6 @@ st.info(
     comme étant trop chers par rapport à leurs caractéristiques.
     """
 )
-
 
 
 st.write(

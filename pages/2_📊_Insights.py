@@ -69,7 +69,7 @@ with st.expander("✨ **Insight 2) Nombre de modèles vendus par marque**"):
     st.dataframe(
         df_brands,
         hide_index=True,
-        column_order=["brand", "brand_image", "count", "hist_col"],
+        column_order=["brand", "brand_image", "count", "percent_count", "hist_col"],
         column_config={
             "brand": "🏷️ Marque",
             "brand_image": st.column_config.ImageColumn("Logo ™", width="medium"),
@@ -78,12 +78,16 @@ with st.expander("✨ **Insight 2) Nombre de modèles vendus par marque**"):
                 help="Le nombre de téléphones actuellement commercialisés par la marque",
                 format="%.0f 📱",
             ),
+            "percent_count": st.column_config.NumberColumn(
+                "➗ Pourcentage du total",
+                help="La **part de marché** de la marque sur la plateforme",
+                format="%.2f %%",
+            ),
             "hist_col": st.column_config.BarChartColumn(
                 "📊 Diagramme en barres des prix"
             ),
         },
     )
-    st.markdown("**Ajouter aussi le %age de modèles du total**")
 
 df_ram = df.sort(pl.col("ram")).with_columns(
     pl.format("{} Go", pl.col("ram").cast(pl.Int64)).alias("ram_fmt")
@@ -122,31 +126,31 @@ df_stockage = df.sort(pl.col("storage")).with_columns(
 )
 
 with st.expander("✨ **Insight 4) Prix en fonction du stockage**"):
-        fig_stockage = px.box(df_stockage, x="stockage_fmt", y="price", points="all")
-        fig_stockage.update_traces(
-            boxpoints="all",
-            hovertemplate="<b>Prix :</b> %{y}<br>" "<b>Stockage :</b> %{x}<br>",
+    fig_stockage = px.box(df_stockage, x="stockage_fmt", y="price", points="all")
+    fig_stockage.update_traces(
+        boxpoints="all",
+        hovertemplate="<b>Prix :</b> %{y}<br>" "<b>Stockage :</b> %{x}<br>",
+    )
+    fig_stockage.update_layout(
+        height=300,
+        margin=dict(t=1, b=1, l=1, r=1),
+        yaxis=dict(title="", ticksuffix=" €"),
+        xaxis=dict(title=""),
+    )
+    fig_stockage.add_layout_image(
+        dict(
+            source=logo,
+            xref="paper",
+            yref="paper",
+            x=0.9,  # Position horizontale de l'image (0 à gauche, 1 à droite)
+            y=0,  # Position verticale de l'image (0 en bas, 1 en haut)
+            sizex=0.25,  # Largeur de l'image
+            sizey=0.25,  # Hauteur de l'image
+            xanchor="center",  # Point d'ancrage horizontal (centre)
+            yanchor="bottom",  # Point d'ancrage vertical (en bas)
         )
-        fig_stockage.update_layout(
-            height=300,
-            margin=dict(t=1, b=1, l=1, r=1),
-            yaxis=dict(title="", ticksuffix=" €"),
-            xaxis=dict(title=""),
-        )
-        fig_stockage.add_layout_image(
-            dict(
-                source=logo,
-                xref="paper",
-                yref="paper",
-                x=0.9,  # Position horizontale de l'image (0 à gauche, 1 à droite)
-                y=0,  # Position verticale de l'image (0 en bas, 1 en haut)
-                sizex=0.25,  # Largeur de l'image
-                sizey=0.25,  # Hauteur de l'image
-                xanchor="center",  # Point d'ancrage horizontal (centre)
-                yanchor="bottom",  # Point d'ancrage vertical (en bas)
-            )
-        )
-        st.plotly_chart(fig_stockage, use_container_width=True, config=config)
+    )
+    st.plotly_chart(fig_stockage, use_container_width=True, config=config)
 
 with st.expander("✨ **Insight 5) Distribution des prix**"):
     st.subheader("⚙️ *Réglages*")

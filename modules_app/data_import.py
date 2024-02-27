@@ -50,6 +50,9 @@ def load_brands_df(_df: pl.DataFrame) -> pl.DataFrame:
         .agg(pl.col("brand").count().alias("count"), pl.col("price").alias("hist_col"))
         .sort("count", descending=True)
         .with_columns(
+            (pl.col("count") / pl.sum("count")).alias("percent_count").mul(100)
+        )
+        .with_columns(
             pl.when(pl.col("brand") == "XIAOMI")
             .then(
                 pl.lit(

@@ -6,6 +6,7 @@ from modules_app.data_import import *
 from modules_app.selectors import *
 from modules_app.st_config import *
 
+
 def main():
     page_config()
     remove_white_space()
@@ -20,26 +21,49 @@ def main():
     with st.sidebar:
         # Configure l'ensemble de la sidebar de paramètres
         st.header("*Paramètres*")
-        ram_value = st.selectbox(
-            "RAM :",
-            sorted(ram_list(df)),
-            placeholder="Choisir la RAM",
-            index=None,
+
+        selected_brands = st.multiselect(
+            "Choisir une ou plusieurs marques :",
+            options=sorted(brand_list(df)),
+            placeholder="Choisir la marque",
         )
 
         storage_value = st.selectbox(
             "Stockage :",
-            sorted(storage_list(df)),
+            (
+                df.filter(pl.col("brand").is_in(selected_brands))
+                .select(pl.col("storage"))
+                .unique()
+                .cast(pl.Int64)
+                .sort("storage")
+                .to_series()
+                + " Go"
+            ).to_list(),
             index=None,
             placeholder="Choisir le stockage",
         )
 
+        if storage_value != None:
+            storage_value = float(storage_value.replace("Go", ""))
 
-        selected_brands = st.multiselect(
-            "Choisir une ou plusieurs marques :",
-            sorted(brand_list(df)),
-            placeholder="Choisir la marque",
+        ram_value = st.selectbox(
+            "RAM :",
+            (
+                df.filter(pl.col("brand").is_in(selected_brands))
+                .filter(pl.col("storage").is_in(storage_value))
+                .select(pl.col("ram"))
+                .unique()
+                .cast(pl.Int64)
+                .sort("ram")
+                .to_series()
+                + " Go"
+            ).to_list(),
+            placeholder="Choisir la RAM",
+            index=None,
         )
+
+        if ram_value != None:
+            ram_value = float(ram_value.replace("Go", ""))
 
     if not (ram_value or storage_value or selected_brands):
         mutable_df = df
@@ -91,7 +115,7 @@ def main():
             "color",
             "repairability_index",
             "usb_type_c",
-            "screen_type"
+            "screen_type",
         ],
         column_config={
             "model": "📱 Modèle de téléphone",
@@ -146,14 +170,13 @@ def main():
             ),
             "usb_type_c": st.column_config.CheckboxColumn("🔌 USB Type C"),
             "screen_type": st.column_config.TextColumn("🤳 Type d'écran"),
-            "resolution": st.column_config.TextColumn("💡 Résolution")
+            "resolution": st.column_config.TextColumn("💡 Résolution"),
         },
     )
 
 
 if __name__ == "__main__":
     main()
-
 
 
 fontawesome_icon = icon(type="brands", icon_name="font-awesome", color="#74C0FC")
