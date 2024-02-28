@@ -616,7 +616,7 @@ pl.Config.set_tbl_hide_dataframe_shape(True)
 
 root = Path(".").resolve()
 data_folder = root / "Web_Scraping" / "data"
-phones = data_folder / "smartphones.json"
+phones = data_folder / "smartphones_2.json"
 
 df_brut = pl.read_json(phones)
 
