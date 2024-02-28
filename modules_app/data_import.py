@@ -1,3 +1,9 @@
+"""
+# `data_import`
+
+Le module d'import des donnéees de l'app.
+"""
+
 import streamlit as st
 import polars as pl
 from pathlib import Path
@@ -24,13 +30,6 @@ def load_df() -> pl.DataFrame:
     return df
 
 
-# @st.cache_data
-# def link_column(_df: pl.DataFrame) -> pl.DataFrame:
-#    APP_URL = "http://localhost:8501"
-#
-#    return _df.with_columns()
-
-
 @st.cache_data
 def load_mutable_df(
     _df: pl.DataFrame, selected_ram, selected_storage, selected_brands
@@ -44,7 +43,55 @@ def load_mutable_df(
 
 
 @st.cache_data
+def load_efficiency_df(
+    _df: pl.DataFrame, selected_brands: list, price_max
+) -> pl.DataFrame:
+    """`load_efficiency_df`: (PAGE 4) DataFrame mutable de l'efficacité SFA.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        _df (pl.DataFrame): #_description_
+        selected_brands (list): #_description_
+        price_max (_type_): #_description_
+
+    `Returns`
+    --------- ::
+
+        pl.DataFrame
+
+    `Example(s)`
+    ---------
+
+    >>> load_efficiency_df()
+    ... #_test_return_"""
+    efficiency_df = _df.filter(pl.col("brand").is_in(selected_brands)).filter(
+        pl.col("price") < price_max
+    )
+    return efficiency_df
+
+
+@st.cache_data
 def load_brands_df(_df: pl.DataFrame) -> pl.DataFrame:
+    """`load_brands_df`: (PAGE 2) DataFrame du count et pourcentage de téléphones par marque.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        _df (pl.DataFrame): #_description_
+
+    `Returns`
+    --------- ::
+
+        pl.DataFrame
+
+    `Example(s)`
+    ---------
+
+    >>> load_brands_df()
+    ... #_test_return_"""
     df_brands = (
         _df.group_by(pl.col("brand"))
         .agg(pl.col("brand").count().alias("count"), pl.col("price").alias("hist_col"))
@@ -110,13 +157,13 @@ def load_brands_df(_df: pl.DataFrame) -> pl.DataFrame:
 
 @st.cache_data
 def load_mean_price_df(_df: pl.DataFrame) -> pl.DataFrame:
-    """`load_mean_price_df`: DataFrame statique des prix moyens par marque.
+    """`load_mean_price_df`: (PAGE 2) DataFrame statique des prix moyens par marque.
 
     ---------
     `Parameters`
     --------- ::
 
-        _df (pl.DataFrame): # Le DataFrame sratique initial
+        _df (pl.DataFrame): # Le DataFrame statique initial
 
     `Returns`
     --------- ::
@@ -136,32 +183,56 @@ def load_mean_price_df(_df: pl.DataFrame) -> pl.DataFrame:
     )
 
 
-def last_update(df: pl.DataFrame) -> str:
-    """`last_update`: Permet de récupérer la dernière date de scraping
+@st.cache_data
+def load_ram_df(_df: pl.DataFrame) -> pl.DataFrame:
+    """`load_ram_df`: (PAGE 2) DataFrame formattant la RAM.
 
     ---------
     `Parameters`
     --------- ::
 
-        df (pl.DataFrame): # Le DataFrame statique
+        _df (pl.DataFrame): #_description_
 
     `Returns`
     --------- ::
 
-        str
+        pl.DataFrame
 
     `Example(s)`
     ---------
 
-    >>> last_update()
+    >>> load_ram_df()
     ... #_test_return_"""
-    last_updated = df.select(pl.col("scraping_time")).item(1, 0)
-    day, month, year = last_updated.day, last_updated.month, last_updated.year
-    if last_updated.day < 10:
-        day = f"0{last_updated.day}"
-    if last_updated.month < 10:
-        month = f"0{last_updated.month}"
-    return f"`{day}/{month}/{year}`"
+    df_ram = _df.sort(pl.col("ram")).with_columns(
+        pl.format("{} Go", pl.col("ram").cast(pl.Int64)).alias("ram_fmt")
+    )
+    return df_ram
+
+
+@st.cache_data
+def load_storage_df(_df: pl.DataFrame) -> pl.DataFrame:
+    """`load_storage_df`: (PAGE 2) DataFrame formattant le stockage.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        _df (pl.DataFrame): #_description_
+
+    `Returns`
+    --------- ::
+
+        pl.DataFrame
+
+    `Example(s)`
+    ---------
+
+    >>> load_storage_df()
+    ... #_test_return_"""
+    df_storage = _df.sort(pl.col("storage")).with_columns(
+        pl.format("{} Go", pl.col("storage").cast(pl.Int64)).alias("stockage_fmt")
+    )
+    return df_storage
 
 
 def item_getter(

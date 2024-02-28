@@ -1,14 +1,39 @@
 import streamlit as st
-import plotly.express as px
-from modules_app.st_config import *
-from modules_app.data_import import *
-from modules_app.st_plots import *
+import polars as pl
+from modules_app.st_config import (
+    page_config,
+    remove_white_space,
+    fontawesome_import,
+    font_import,
+    font_apply,
+    icon,
+    underline_decoration,
+)
+from modules_app.data_import import (
+    load_df,
+    load_mean_price_df,
+    load_brands_df,
+    load_ram_df,
+    load_storage_df,
+    item_getter,
+)
+from modules_app.st_plots import (
+    modebar_config,
+    open_logo,
+    barplot_mean_price,
+    boxplot_ram,
+    boxplot_storage,
+    hist_price,
+)
+from modules_app.st_tables import brand_table
 
 fontawesome_icon = icon(type="brands", icon_name="font-awesome", color="#74C0FC")
 cc_by_nc_icon = icon(type="brands", icon_name="creative-commons-nc-eu", color="#74C0FC")
+github_icon = icon(type="brands", icon_name="github", size="lg")
 
 page_config()
 remove_white_space()
+underline_decoration()
 font_import(font="Audiowide")
 font_apply(font="Audiowide", tag="h1")
 version = fontawesome_import(major=6, minor=5, patch=1)
@@ -21,10 +46,11 @@ with st.sidebar:
     st.caption("Crée par :")
     with st.container(border=True):
         st.markdown(
-            """
-            💻 [**Corentin DUCLOUX**](https://github.com/CDucloux) \n
-            💻 [**Aybuké BICAT**](https://github.com/aybuke-b)
-            """
+            f"""
+            {github_icon} [**Corentin DUCLOUX**](https://github.com/CDucloux) \n
+            {github_icon} [**Aybuké BICAT**](https://github.com/aybuke-b)
+            """,
+            unsafe_allow_html=True,
         )
     if st.button("🏠 **Retourner à l'accueil**"):
         st.switch_page("Accueil.py")
@@ -62,91 +88,17 @@ with st.expander("✨ **Insight 1) Prix moyen par marque**"):
 
 with st.expander("✨ **Insight 2) Nombre de modèles vendus par marque**"):
     df_brands = load_brands_df(df)
-    st.dataframe(
-        df_brands,
-        hide_index=True,
-        column_order=["brand", "brand_image", "count", "percent_count", "hist_col"],
-        column_config={
-            "brand": "🏷️ Marque",
-            "brand_image": st.column_config.ImageColumn("Logo ™", width="medium"),
-            "count": st.column_config.NumberColumn(
-                "🛒 Nombre total",
-                help="Le nombre de téléphones actuellement commercialisés par la marque",
-                format="%.0f 📱",
-            ),
-            "percent_count": st.column_config.NumberColumn(
-                "➗ Pourcentage du total",
-                help="La **part de marché** de la marque sur la plateforme",
-                format="%.2f %%",
-            ),
-            "hist_col": st.column_config.BarChartColumn(
-                "📊 Diagramme en barres des prix"
-            ),
-        },
-    )
+    brand_table(df_brands=df_brands)
 
-df_ram = df.sort(pl.col("ram")).with_columns(
-    pl.format("{} Go", pl.col("ram").cast(pl.Int64)).alias("ram_fmt")
-)
 
 with st.expander("✨ **Insight 3) Prix en fonction de la RAM**"):
-    fig_ram = px.box(df_ram, x="ram_fmt", y="price", points="all")
-    fig_ram.update_traces(
-        boxpoints="all",
-        hovertemplate="<b>Prix :</b> %{y}<br>" "<b>RAM :</b> %{x}<br>",
-    )
-    fig_ram.update_layout(
-        height=300,
-        margin=dict(t=1, b=1, l=1, r=1),
-        yaxis=dict(title="", ticksuffix=" €"),
-        xaxis=dict(title=""),
-    )
-    fig_ram.add_layout_image(
-        dict(
-            source=logo,
-            xref="paper",
-            yref="paper",
-            x=0.9,  # Position horizontale de l'image (0 à gauche, 1 à droite)
-            y=0,  # Position verticale de l'image (0 en bas, 1 en haut)
-            sizex=0.25,  # Largeur de l'image
-            sizey=0.25,  # Hauteur de l'image
-            xanchor="center",  # Point d'ancrage horizontal (centre)
-            yanchor="bottom",  # Point d'ancrage vertical (en bas)
-        )
-    )
-    st.plotly_chart(fig_ram, use_container_width=True, config=config)
+    df_ram = load_ram_df(df)
+    boxplot_ram(df_ram=df_ram, logo=logo, config=config)
 
-
-df_stockage = df.sort(pl.col("storage")).with_columns(
-    pl.format("{} Go", pl.col("storage").cast(pl.Int64)).alias("stockage_fmt")
-)
 
 with st.expander("✨ **Insight 4) Prix en fonction du stockage**"):
-    fig_stockage = px.box(df_stockage, x="stockage_fmt", y="price", points="all")
-    fig_stockage.update_traces(
-        boxpoints="all",
-        hovertemplate="<b>Prix :</b> %{y}<br>" "<b>Stockage :</b> %{x}<br>",
-    )
-    fig_stockage.update_layout(
-        height=300,
-        margin=dict(t=1, b=1, l=1, r=1),
-        yaxis=dict(title="", ticksuffix=" €"),
-        xaxis=dict(title=""),
-    )
-    fig_stockage.add_layout_image(
-        dict(
-            source=logo,
-            xref="paper",
-            yref="paper",
-            x=0.9,  # Position horizontale de l'image (0 à gauche, 1 à droite)
-            y=0,  # Position verticale de l'image (0 en bas, 1 en haut)
-            sizex=0.25,  # Largeur de l'image
-            sizey=0.25,  # Hauteur de l'image
-            xanchor="center",  # Point d'ancrage horizontal (centre)
-            yanchor="bottom",  # Point d'ancrage vertical (en bas)
-        )
-    )
-    st.plotly_chart(fig_stockage, use_container_width=True, config=config)
+    df_storage = load_storage_df(df)
+    boxplot_storage(df_storage=df_storage, logo=logo, config=config)
 
 with st.expander("✨ **Insight 5) Distribution des prix**"):
     st.subheader("⚙️ *Réglages*")
@@ -174,45 +126,14 @@ with st.expander("✨ **Insight 5) Distribution des prix**"):
     if not marginal and not brand_color:
         color_config, marginal_config = None, None
 
-    fig_hist = px.histogram(
-        df,
-        x="price",
-        hover_data="model",
-        color=color_config,
-        marginal=marginal_config,
-        opacity=0.85,
+    hist_price(
+        df=df,
+        color_config=color_config,
+        marginal_config=marginal_config,
+        logo=logo,
+        config=config,
     )
-    fig_hist.update_layout(
-        height=300,
-        margin=dict(t=1, b=1, l=1, r=1),
-        yaxis=dict(title=""),
-        xaxis=dict(title="", ticksuffix=" €"),
-        legend=dict(title="🏷️ Marque"),
-    )
-    fig_hist.add_layout_image(
-        dict(
-            source=logo,
-            xref="paper",
-            yref="paper",
-            x=0.9,  # Position horizontale de l'image (0 à gauche, 1 à droite)
-            y=0.55,  # Position verticale de l'image (0 en bas, 1 en haut)
-            sizex=0.25,  # Largeur de l'image
-            sizey=0.25,  # Hauteur de l'image
-            xanchor="center",  # Point d'ancrage horizontal (centre)
-            yanchor="bottom",  # Point d'ancrage vertical (en bas)
-        )
-    )
-    fig_hist.update_traces(
-        hovertemplate="<b>Nombre :</b> %{y} téléphones<br>"
-        "<b>Intervalle de prix :</b> %{x}<br>",
-        selector="histogram",  # on update les traces uniquement de l'histogramme
-    )
-    fig_hist.update_traces(
-        hovertemplate="<b>Prix :</b> %{x} €<br> "
-        "<b>Modèle :</b> <i>%{customdata}</i><br>",
-        selector="box",  # on update les traces uniquement du "rug"
-    )
-    st.plotly_chart(fig_hist, use_container_width=True, config=config)
+
     st.warning(
         """
         ⚠️ **Remarque** : On distingue deux *pics* dans la distribution des prix,
@@ -229,14 +150,25 @@ with st.expander("✨ **Insight 5) Distribution des prix**"):
         """
     )
 
-with st.expander("✨ **Insight 6) Corrélations**"):
-    st.markdown(
-        "**COMING SOON -- voir si il faut pas les bouger ailleurs dans d'autres graphs plus haut**"
-    )
-    df.select(pl.corr("ram", "storage"))
-
 with st.expander("✨ **Insight 6) Variance, std ?**"):
     st.markdown("**A explorer**")
+    st.dataframe(
+        df.select(
+            pl.col(
+                "price",
+                "ram",
+                "storage",
+                "screen_size",
+                "das_head",
+                "das_limbs",
+                "das_chest",
+                "ppi",
+                "battery",
+                "repairability_index",
+            )
+        ).describe(),
+        hide_index=True,
+    )
 
 
 st.write(

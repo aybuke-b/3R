@@ -1,10 +1,20 @@
 import streamlit as st
 import time
-from modules_app.st_config import *
-from modules_app.data_import import *
+from modules_app.st_config import (
+    page_config,
+    remove_white_space,
+    fontawesome_import,
+    font_import,
+    font_apply,
+    icon,
+    last_update,
+    underline_decoration,
+)
+from modules_app.data_import import load_df
 
 page_config()
 remove_white_space()
+underline_decoration()
 version = fontawesome_import(major=6, minor=5, patch=1)
 font_import(font="Audiowide")
 font_apply(font="Audiowide", tag="h1")
@@ -20,6 +30,7 @@ cc_by_nc_icon = icon(type="brands", icon_name="creative-commons-nc-eu", color="#
 external_link_icon = icon(
     type="solid", icon_name="arrow-up-right-from-square", color="#0068c9", size="2xs"
 )
+github_icon = icon(type="brands", icon_name="github", size="lg")
 
 
 df = load_df()
@@ -38,10 +49,11 @@ with st.sidebar:
     st.caption("Crée par :")
     with st.container(border=True):
         st.markdown(
-            """
-            💻 [**Corentin DUCLOUX**](https://github.com/CDucloux) \n
-            💻 [**Aybuké BICAT**](https://github.com/aybuke-b)
-            """
+            f"""
+            {github_icon} [**Corentin DUCLOUX**](https://github.com/CDucloux) \n
+            {github_icon} [**Aybuké BICAT**](https://github.com/aybuke-b)
+            """,
+            unsafe_allow_html=True,
         )
 
 catchphrase = """
@@ -103,4 +115,3 @@ st.write(
     """,
     unsafe_allow_html=True,
 )
-

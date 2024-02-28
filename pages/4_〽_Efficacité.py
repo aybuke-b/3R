@@ -16,24 +16,15 @@ version = fontawesome_import(major=6, minor=5, patch=1)
 
 st.title("📱 Smart Specs")
 
-logo = open_logo()  
+logo = open_logo()
 config = modebar_config()
 
 df = load_df()
 
-
-@st.cache_data
-def load_efficiency_df(_df: pl.DataFrame, selected_brands, price_max) -> pl.DataFrame:
-    mutable_df = _df.filter(pl.col("brand").is_in(selected_brands)).filter(
-        pl.col("price") < price_max
-    )
-    return mutable_df
-
-
 with st.sidebar:
     selected_brands = st.multiselect(
         "Choisir une ou plusieurs marques :",
-        sorted(brand_list(df)),
+        ordered_brand_list(df),
         default=["APPLE", "SAMSUNG"],
         placeholder="Choisir la marque",
     )
@@ -58,7 +49,7 @@ with st.sidebar:
             value=0.8,
             placeholder="Entrer entre un nombre décimal entre 0 et 1",
         )
-    
+
     if st.button("🏠 **Retourner à l'accueil**"):
         st.switch_page("Accueil.py")
 

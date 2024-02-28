@@ -1,4 +1,16 @@
+"""
+# `st_config`
+
+Le module de configuration de l'app avec : 
+
+- Configuration du Favicon
+- Imports de fonts
+- Import de FontAwesome
+- CSS personnalisé
+"""
+
 import streamlit as st
+import polars as pl
 from streamlit.delta_generator import DeltaGenerator
 
 
@@ -22,7 +34,7 @@ def remove_white_space() -> DeltaGenerator:
 
     `Example(s)`
     ---------
-    >>> remove_white_space(df)
+    >>> remove_white_space()
     ... DeltaGenerator()"""
     return st.markdown(
         """
@@ -38,6 +50,30 @@ def remove_white_space() -> DeltaGenerator:
                     padding-right: 1rem;
                     padding-bottom: 1rem;
                     padding-left: 1rem;
+                }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def underline_decoration() -> DeltaGenerator:
+    """`underline_decoration`: Utilise du CSS pour retirer la barre de soulignement d'un lien `<a href ="">`
+
+    `Returns`
+    --------- ::
+
+        DeltaGenerator
+
+    `Example(s)`
+    ---------
+    >>> remove_white_space()
+    ... DeltaGenerator()"""
+    return st.markdown(
+        """
+        <style>
+                a {
+                    text-decoration: none;
                 }
         </style>
         """,
@@ -150,3 +186,31 @@ def icon(
     else:
         icon = f'<i class="fa-{type} fa-{icon_name} fa-{size}" style="color: {color};"></i>'
     return icon
+
+
+def last_update(df: pl.DataFrame) -> str:
+    """`last_update`: Permet de récupérer la dernière date de scraping.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): # Le DataFrame statique
+
+    `Returns`
+    --------- ::
+
+        str
+
+    `Example(s)`
+    ---------
+
+    >>> last_update()
+    ... #_test_return_"""
+    last_updated = df.select(pl.col("scraping_time")).item(1, 0)
+    day, month, year = last_updated.day, last_updated.month, last_updated.year
+    if last_updated.day < 10:
+        day = f"0{last_updated.day}"
+    if last_updated.month < 10:
+        month = f"0{last_updated.month}"
+    return f"`{day}/{month}/{year}`"
