@@ -1,0 +1,96 @@
+---
+title: "Application des modèles SFA à l'étude des prix"
+subtitle: "<script>const currentDT = new Date().toLocaleDateString();document.write(currentDT);</script>"
+author: "`Aybuké BICAT` & `Corentin DUCLOUX`"
+institute: <img src = https://corentinducloux.fr/Reveal.js/univ-tours.png width="70%">
+title-slide-attributes:
+    data-notes: "Bonjour à tous, on va vous présenter la deuxième partie de notre projet 3R portant sur l'application des modèles SFA à l'étude des prix. Avant de rappeler les fondements théoriques des modèles SFA ainsi que les résultats de l'estimation, on va revenir sur notre problématique appliquée."
+format: 
+  revealjs:
+    slide-number: true
+    mermaid-format: svg
+    chalkboard: true
+    transition: slide
+    background-transition: fade
+    theme: blood
+    incremental: true   
+    footer: "--- Recherche, Réalisation, Restitution ---"
+    logo: https://corentinducloux.fr/dossier_img/mecen_transparent.png
+    controls : true
+    preview-links: auto
+    view-distance: 20
+    reference-location: document
+    bibliography: references.bib
+    include-in-header:
+        - text: |
+            <style>
+            #title-slide .title {
+            font-size: 1.75em;
+            }
+            </style>
+jupyter: python3
+---
+
+## Problématique {background-color="black" background-image="https://vivreaulycee.fr/wp-content/uploads/2018/12/question-mark-2492009_1280-1200x480.jpg" background-size="cover" background-opacity="0.75"}
+
+`Combinaison d'un modèle SFA et d'une régression hédonique pour évaluer la discordance entre les prix de smartphones et leur valeur intrinsèque.`
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
+::: {.notes}
+*Aybuké*
+
+Notre problématique était la suivante : *Voir slide*
+
+En se basant sur cette problématique, nous voulions, en plus d'une estimation économétrique qui présente son lot de complexité (nous le verrons par la suite), créer une application, et plus précisément un comparateur d'efficacité.
+
+En premier lieu, il convient de se poser une question qui semble évidente à première vue, mais qui, quand on s'y penche de plus près, est assez sophistiquée. 
+
+- Cette question c'est "Qu'est ce qu'un comparateur exactement ?"
+:::
+
+## Comparateur {.smaller}
+
+> *Un comparateur en ligne, qu'est ce que c'est ?*
+
+Un comparateur est un site web qui permet de comparer différents produits ou services.
+
+Principalement axé sur les prix, il peut également prendre en compte les aspects techniques et la qualité des produits.
+
+- <https://www.idealo.fr>
+- <https://www.ledenicheur.fr>
+- <https://www.kimovil.com/fr/>
+
+:::{.notes}
+
+Les exemples sont multiples : Comparateur de vols, d'assurances, de voitures, de banques...
+
+En bref il existe une variété de cas d'usage et un nombre croissant d'utilisateurs faisant appel à ces comparateurs avant d'acheter un bien ou un service.
+
+On a aussi mis à disposition des exemples de comparateurs sur nos slides. 
+
+Les deux premiers sont des références dans le domaine des comparateurs de prix généralistes.
+
+Le troisième, `kimovil` est spécialisé dans l'analyse des smartphones et est assez analogue à ce que nous allons proposer puisqu'il n'est pas uniquement un comparateur de prix mais qu'il inclut une dimension de modélisation, plus précisément un score qui est déterminé grâce à du **Machine Learning**.
+
+Cela étant, la description du score est assez sommaire, il est simplement précisé que plus de 200 variables sont utilisées... 
+
+$\Rightarrow$ Finalement ce score est plutôt opaque.
+
+Questions juridiques / économiques / statistiques / algorithmiques.
+
+:::
+
+## Obligations d'information sur les comparateurs
+
+Les comparateurs en ligne sont soumis à des obligations de loyauté et de transparence en ce qui concerne l'information du consommateur. Ils doivent à ce titre :
+
+    avoir une page dédiée vous informant de son fonctionnement. Cette page doit être facilement accessible depuis toutes les autres pages du comparateur,
+    faire figurer, sur chaque page de résultats, les informations concernant les critères de classement,
+    indiquer via la mention explicite « annonce » les résultats liés à des partenariats rémunérés,
+    faire apparaître toutes les caractéristiques de chaque offre présentée,
+    présenter les offres avec un tarif incluant tous les frais.
+
+
