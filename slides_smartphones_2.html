@@ -682,29 +682,42 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 + \beta_{10} network_i + \beta_{11} ppi_i + \epsilon_i
 \end{split}
 \]</span></p>
+<aside class="notes">
+<p>Ici on retrouve le modèle en niveau dont les variables n’ont pas été choisies au hasard mais qui ont fait l’objet d’une sélection de variables grâce à un algorithme génétique, on l’avait expliqué mais on ne va pas re-rentrer dans les détails. L’intérêt de ce modèle en niveau c’est de pouvoir directement interpréter les coefficients comme des prix (effets marginaux).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="ols-level-level-ii" class="slide level2 smaller">
 <h2>OLS LEVEL-LEVEL (II)</h2>
 <div class="cell" data-fig.showtext="true">
 <div class="cell-output-display">
 
-<div id="qkwztufogc" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#qkwztufogc table {
+<div id="hhxetsljvm" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hhxetsljvm table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#qkwztufogc thead, #qkwztufogc tbody, #qkwztufogc tfoot, #qkwztufogc tr, #qkwztufogc td, #qkwztufogc th {
+#hhxetsljvm thead, #hhxetsljvm tbody, #hhxetsljvm tfoot, #hhxetsljvm tr, #hhxetsljvm td, #hhxetsljvm th {
   border-style: none;
 }
 
-#qkwztufogc p {
+#hhxetsljvm p {
   margin: 0;
   padding: 0;
 }
 
-#qkwztufogc .gt_table {
+#hhxetsljvm .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -730,12 +743,12 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-left-color: #D3D3D3;
 }
 
-#qkwztufogc .gt_caption {
+#hhxetsljvm .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#qkwztufogc .gt_title {
+#hhxetsljvm .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -747,7 +760,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-width: 0;
 }
 
-#qkwztufogc .gt_subtitle {
+#hhxetsljvm .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -759,7 +772,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-top-width: 0;
 }
 
-#qkwztufogc .gt_heading {
+#hhxetsljvm .gt_heading {
   background-color: #222222;
   text-align: center;
   border-bottom-color: #222222;
@@ -771,13 +784,13 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#qkwztufogc .gt_bottom_border {
+#hhxetsljvm .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qkwztufogc .gt_col_headings {
+#hhxetsljvm .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -792,7 +805,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#qkwztufogc .gt_col_heading {
+#hhxetsljvm .gt_col_heading {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -812,7 +825,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   overflow-x: hidden;
 }
 
-#qkwztufogc .gt_column_spanner_outer {
+#hhxetsljvm .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -824,15 +837,15 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 4px;
 }
 
-#qkwztufogc .gt_column_spanner_outer:first-child {
+#hhxetsljvm .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qkwztufogc .gt_column_spanner_outer:last-child {
+#hhxetsljvm .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qkwztufogc .gt_column_spanner {
+#hhxetsljvm .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -844,11 +857,11 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   width: 100%;
 }
 
-#qkwztufogc .gt_spanner_row {
+#hhxetsljvm .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#qkwztufogc .gt_group_heading {
+#hhxetsljvm .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -874,7 +887,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   text-align: left;
 }
 
-#qkwztufogc .gt_empty_group_heading {
+#hhxetsljvm .gt_empty_group_heading {
   padding: 0.5px;
   color: #FFFFFF;
   background-color: #222222;
@@ -889,15 +902,15 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   vertical-align: middle;
 }
 
-#qkwztufogc .gt_from_md > :first-child {
+#hhxetsljvm .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qkwztufogc .gt_from_md > :last-child {
+#hhxetsljvm .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qkwztufogc .gt_row {
+#hhxetsljvm .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -916,7 +929,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   overflow-x: hidden;
 }
 
-#qkwztufogc .gt_stub {
+#hhxetsljvm .gt_stub {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -929,7 +942,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#qkwztufogc .gt_stub_row_group {
+#hhxetsljvm .gt_stub_row_group {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -943,15 +956,15 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   vertical-align: top;
 }
 
-#qkwztufogc .gt_row_group_first td {
+#hhxetsljvm .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#qkwztufogc .gt_row_group_first th {
+#hhxetsljvm .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#qkwztufogc .gt_summary_row {
+#hhxetsljvm .gt_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -961,16 +974,16 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#qkwztufogc .gt_first_summary_row {
+#hhxetsljvm .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#qkwztufogc .gt_first_summary_row.thick {
+#hhxetsljvm .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#qkwztufogc .gt_last_summary_row {
+#hhxetsljvm .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -980,7 +993,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-color: #D3D3D3;
 }
 
-#qkwztufogc .gt_grand_summary_row {
+#hhxetsljvm .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -990,7 +1003,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#qkwztufogc .gt_first_grand_summary_row {
+#hhxetsljvm .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1000,7 +1013,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-top-color: #D3D3D3;
 }
 
-#qkwztufogc .gt_last_grand_summary_row_top {
+#hhxetsljvm .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1010,11 +1023,11 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-color: #D3D3D3;
 }
 
-#qkwztufogc .gt_striped {
+#hhxetsljvm .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qkwztufogc .gt_table_body {
+#hhxetsljvm .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1023,7 +1036,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-color: #D3D3D3;
 }
 
-#qkwztufogc .gt_footnotes {
+#hhxetsljvm .gt_footnotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1037,7 +1050,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#qkwztufogc .gt_footnote {
+#hhxetsljvm .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1046,7 +1059,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#qkwztufogc .gt_sourcenotes {
+#hhxetsljvm .gt_sourcenotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1060,7 +1073,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#qkwztufogc .gt_sourcenote {
+#hhxetsljvm .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1068,63 +1081,63 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#qkwztufogc .gt_left {
+#hhxetsljvm .gt_left {
   text-align: left;
 }
 
-#qkwztufogc .gt_center {
+#hhxetsljvm .gt_center {
   text-align: center;
 }
 
-#qkwztufogc .gt_right {
+#hhxetsljvm .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qkwztufogc .gt_font_normal {
+#hhxetsljvm .gt_font_normal {
   font-weight: normal;
 }
 
-#qkwztufogc .gt_font_bold {
+#hhxetsljvm .gt_font_bold {
   font-weight: bold;
 }
 
-#qkwztufogc .gt_font_italic {
+#hhxetsljvm .gt_font_italic {
   font-style: italic;
 }
 
-#qkwztufogc .gt_super {
+#hhxetsljvm .gt_super {
   font-size: 65%;
 }
 
-#qkwztufogc .gt_footnote_marks {
+#hhxetsljvm .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#qkwztufogc .gt_asterisk {
+#hhxetsljvm .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#qkwztufogc .gt_indent_1 {
+#hhxetsljvm .gt_indent_1 {
   text-indent: 5px;
 }
 
-#qkwztufogc .gt_indent_2 {
+#hhxetsljvm .gt_indent_2 {
   text-indent: 10px;
 }
 
-#qkwztufogc .gt_indent_3 {
+#hhxetsljvm .gt_indent_3 {
   text-indent: 15px;
 }
 
-#qkwztufogc .gt_indent_4 {
+#hhxetsljvm .gt_indent_4 {
   text-indent: 20px;
 }
 
-#qkwztufogc .gt_indent_5 {
+#hhxetsljvm .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1132,7 +1145,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <div class="gt_heading gt_title gt_font_normal" style="text-size:bigger;">Résultats de l’estimation pour le modèle  de pricing <strong>Hédonique</strong></div>
 <div class="gt_heading gt_subtitle "><em>Variable dépendante</em> : <code>price</code></div>
 </div>
-<div id="qkwztufogc" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<div id="hhxetsljvm" class="reactable html-widget" style="width:auto;height:auto;"></div>
 <div style="font-family:system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;border-top-style:solid;border-top-width:2px;border-top-color:#D3D3D3;border-bottom-style:solid;border-bottom-width:2px;border-bottom-color:#D3D3D3;padding-top:6px;padding-bottom:6px;padding-left:10px;padding-right:10px;">
 <div></div>
 <div>
@@ -1146,12 +1159,18 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 
 </div>
 </div>
-<script type="application/json" data-for="qkwztufogc">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"variables":["*(Intercept)*","*storage*","*brand* `(GOOGLE)`","*brand* `(HONOR)`","*brand* `(MOTOROLA)`","*brand* `(OPPO)`","*brand* `(SAMSUNG)`","*brand* `(SONY)`","*brand* `(XIAOMI)`","*ram*","*induction* `(True)`","*screen_size*","*screen_type* `(Bords Incurvés)`","*screen_type* `(Plat)`","*screen_type* `(Pliable)`","*made_in* `(Japon)`","*made_in* `(Thaïlande)`","*made_in* `(Viêt Nam)`","*upgrade_storage* `(True)`","*das_limbs*","*network* `(5G)`","*ppi*"],"estimate":[-432.629310706038,0.911938019614417,-373.332943578839,-535.021113258081,-531.751875413823,-511.686818315361,-326.92478337034,-313.588310589586,-588.806995691088,27.5821440664845,172.139367798966,178.446514444361,-228.439021380192,-89.7752792356728,172.602398974605,247.839679809324,518.313875738799,31.9802015749811,-119.996575004462,-78.1869838235664,-26.8113826599002,0.314132931135011],"std_error":[217.513310212798,0.0636226998016176,70.6162694923457,73.1638070656524,51.9139488353078,84.5275986326481,66.3463599066743,105.750588595144,49.9689850678062,5.72980335111145,34.0495735694733,32.0223696344999,85.9096441615344,35.4154640705762,58.2957811284157,207.845398174011,119.898780743101,56.0017160499154,36.7468869472548,24.4343484710508,30.8027082267403,0.206432945158615],"signif":["_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","","_***_","","_***_","_***_","",""]},"columns":[{"id":"variables","name":"<strong>Variables<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#FF5000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF5F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF2C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF2E00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3600' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF6A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#89E688' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#64BC60' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF7F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF9A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#53AA4D' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#88E587' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF9400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["<div data-qmd=\"*(Intercept)*\"><div class='gt_from_md'><p><em>(Intercept)<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*storage*\"><div class='gt_from_md'><p><em>storage<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(GOOGLE)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(GOOGLE)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(HONOR)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(HONOR)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(MOTOROLA)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(MOTOROLA)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(OPPO)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(OPPO)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(SAMSUNG)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(SAMSUNG)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(SONY)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(SONY)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(XIAOMI)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(XIAOMI)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*ram*\"><div class='gt_from_md'><p><em>ram<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*induction* `(True)`\"><div class='gt_from_md'><p><em>induction<\/em> <code>(True)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_size*\"><div class='gt_from_md'><p><em>screen_size<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Bords Incurvés)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Bords Incurvés)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Plat)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Plat)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Pliable)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Pliable)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Japon)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Japon)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Thaïlande)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Thaïlande)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Viêt Nam)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Viêt Nam)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*upgrade_storage* `(True)`\"><div class='gt_from_md'><p><em>upgrade_storage<\/em> <code>(True)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*das_limbs*\"><div class='gt_from_md'><p><em>das_limbs<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*network* `(5G)`\"><div class='gt_from_md'><p><em>network<\/em> <code>(5G)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*ppi*\"><div class='gt_from_md'><p><em>ppi<\/em><\/p>\n<\/div><\/div>"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}},{"id":"estimate","name":"<strong>Coefficients<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#FF5000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF5F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF2C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF2E00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3600' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF6A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#89E688' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#64BC60' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF7F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF9A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#53AA4D' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#88E587' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF9400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["−432.63 &#128;","0.91 &#128;","−373.33 &#128;","−535.02 &#128;","−531.75 &#128;","−511.69 &#128;","−326.92 &#128;","−313.59 &#128;","−588.81 &#128;","27.58 &#128;","172.14 &#128;","178.45 &#128;","−228.44 &#128;","−89.78 &#128;","172.60 &#128;","247.84 &#128;","518.31 &#128;","31.98 &#128;","−120.00 &#128;","−78.19 &#128;","−26.81 &#128;","0.31 &#128;"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"std_error","name":"<strong>Ecart Type<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#FF5000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF5F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF2C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF2E00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3600' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF6A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#89E688' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#64BC60' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF7F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF9A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#53AA4D' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#88E587' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF9400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["217.51","0.06","70.62","73.16","51.91","84.53","66.35","105.75","49.97","5.73","34.05","32.02","85.91","35.42","58.3","207.85","119.9","56","36.75","24.43","30.8","0.21"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"signif","name":"<strong>Significativité<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#FF5000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF5F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF2C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF2E00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3600' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF6A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#89E688' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#64BC60' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF7F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF9A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#53AA4D' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#88E587' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF9400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}}],"defaultPageSize":5,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"highlight":true,"showSortable":true,"height":"auto","theme":{"color":"white","backgroundColor":"#222222","stripedColor":"rgba(128,128,128,0.05)","style":{"fontFamily":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"},"headerStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"}},"elementId":"qkwztufogc","dataKey":"cd415aa78ac55fcf461d2a79e08c5b42"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style"],"jsHooks":[]}</script>
+<script type="application/json" data-for="hhxetsljvm">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"variables":["*(Intercept)*","*storage*","*brand* `(GOOGLE)`","*brand* `(HONOR)`","*brand* `(MOTOROLA)`","*brand* `(OPPO)`","*brand* `(SAMSUNG)`","*brand* `(SONY)`","*brand* `(XIAOMI)`","*ram*","*induction* `(True)`","*screen_size*","*screen_type* `(Bords Incurvés)`","*screen_type* `(Plat)`","*screen_type* `(Pliable)`","*made_in* `(Japon)`","*made_in* `(Thaïlande)`","*made_in* `(Viêt Nam)`","*upgrade_storage* `(True)`","*das_limbs*","*network* `(5G)`","*ppi*"],"estimate":[-432.629310706038,0.911938019614417,-373.332943578839,-535.021113258081,-531.751875413823,-511.686818315361,-326.92478337034,-313.588310589586,-588.806995691088,27.5821440664845,172.139367798966,178.446514444361,-228.439021380192,-89.7752792356728,172.602398974605,247.839679809324,518.313875738799,31.9802015749811,-119.996575004462,-78.1869838235664,-26.8113826599002,0.314132931135011],"std_error":[217.513310212798,0.0636226998016176,70.6162694923457,73.1638070656524,51.9139488353078,84.5275986326481,66.3463599066743,105.750588595144,49.9689850678062,5.72980335111145,34.0495735694733,32.0223696344999,85.9096441615344,35.4154640705762,58.2957811284157,207.845398174011,119.898780743101,56.0017160499154,36.7468869472548,24.4343484710508,30.8027082267403,0.206432945158615],"signif":["_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","","_***_","","_***_","_***_","",""]},"columns":[{"id":"variables","name":"<strong>Variables<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#FF5000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF5F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF2C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF2E00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3600' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF6A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#89E688' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#64BC60' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF7F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF9A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#53AA4D' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#88E587' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF9400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["<div data-qmd=\"*(Intercept)*\"><div class='gt_from_md'><p><em>(Intercept)<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*storage*\"><div class='gt_from_md'><p><em>storage<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(GOOGLE)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(GOOGLE)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(HONOR)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(HONOR)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(MOTOROLA)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(MOTOROLA)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(OPPO)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(OPPO)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(SAMSUNG)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(SAMSUNG)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(SONY)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(SONY)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(XIAOMI)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(XIAOMI)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*ram*\"><div class='gt_from_md'><p><em>ram<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*induction* `(True)`\"><div class='gt_from_md'><p><em>induction<\/em> <code>(True)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_size*\"><div class='gt_from_md'><p><em>screen_size<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Bords Incurvés)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Bords Incurvés)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Plat)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Plat)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Pliable)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Pliable)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Japon)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Japon)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Thaïlande)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Thaïlande)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Viêt Nam)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Viêt Nam)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*upgrade_storage* `(True)`\"><div class='gt_from_md'><p><em>upgrade_storage<\/em> <code>(True)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*das_limbs*\"><div class='gt_from_md'><p><em>das_limbs<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*network* `(5G)`\"><div class='gt_from_md'><p><em>network<\/em> <code>(5G)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*ppi*\"><div class='gt_from_md'><p><em>ppi<\/em><\/p>\n<\/div><\/div>"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}},{"id":"estimate","name":"<strong>Coefficients<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#FF5000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF5F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF2C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF2E00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3600' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF6A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#89E688' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#64BC60' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF7F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF9A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#53AA4D' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#88E587' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF9400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["−432.63 &#128;","0.91 &#128;","−373.33 &#128;","−535.02 &#128;","−531.75 &#128;","−511.69 &#128;","−326.92 &#128;","−313.59 &#128;","−588.81 &#128;","27.58 &#128;","172.14 &#128;","178.45 &#128;","−228.44 &#128;","−89.78 &#128;","172.60 &#128;","247.84 &#128;","518.31 &#128;","31.98 &#128;","−120.00 &#128;","−78.19 &#128;","−26.81 &#128;","0.31 &#128;"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"std_error","name":"<strong>Ecart Type<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#FF5000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF5F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF2C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF2E00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3600' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF6A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#89E688' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#64BC60' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF7F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF9A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#53AA4D' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#88E587' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF9400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["217.51","0.06","70.62","73.16","51.91","84.53","66.35","105.75","49.97","5.73","34.05","32.02","85.91","35.42","58.3","207.85","119.9","56","36.75","24.43","30.8","0.21"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"signif","name":"<strong>Significativité<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#FF5000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF5F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF2C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF2E00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3600' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF6A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#89E688' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#64BC60' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF7F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF9A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#65BE61' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#53AA4D' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#88E587' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF9400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}}],"defaultPageSize":5,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"highlight":true,"showSortable":true,"height":"auto","theme":{"color":"white","backgroundColor":"#222222","stripedColor":"rgba(128,128,128,0.05)","style":{"fontFamily":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"},"headerStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"}},"elementId":"hhxetsljvm","dataKey":"cd415aa78ac55fcf461d2a79e08c5b42"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
 <aside class="notes">
-<p>le coefficient β1 s’interprète comme l’effet marginal d’une année supplémentaire d’études Educi sur le salaire Sali . Elle correspond à la variation de β1 unités du salaire de l’individu induite par la variation d’une unité du niveau d’études toutes choses égales par ailleurs</p>
+<p>Ici le coefficient <span class="math inline">\(\beta_1\)</span> s’interprète comme l’effet marginal d’1 Go supplémentaire de capacité de stockage sur le prix, c’est à dire que si la capacité de stockage augmente de 1 Go, alors, le prix augmente de 91 centimes, cet.par.</p>
+<p>• En ayant comme catégorie de référence Apple pour la variable marque (brand), on peut voir que toutes les marques ont un impact négatif sur le prix, cet. par. – La marque la plus valorisée derrière Apple est <strong>SONY</strong> avec 313.59 € de différence par rapport à <strong>APPLE</strong>. – La marque la moins valorisée est <strong>XIAOMI</strong> avec 588.81 € de différence par rapport à <strong>APPLE</strong>.</p>
+<ul>
+<li>Une augmentation d’1 Go de ram augmente le prix de 27.58 €, cet. par. (Faire lien avec graph insight)</li>
+</ul>
+<p>Pour le type d’écran (screen_type), la catégorie de référence est borderless (un écran sans bordure).</p>
+<p>– Disposer d’un écran à bord incurvé diminue le prix de 228.44 € par rapport à la catégorie de référence, cet. par. – Pour l’écran plat, le prix diminue de 89.78 € par rapport à la catégorie de réfé- rence, cet. par. – Avoir un écran pliable fait augmenter le prix de 172.6 € par rapport à la catégorie de référence, cet. par.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1167,29 +1186,56 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <section id="ols-level-level-iii" class="slide level2">
 <h2>OLS LEVEL-LEVEL (III)</h2>
 
-<img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
+<img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"><aside class="notes">
+<p>Aussi, une étape visuelle qu’on peut mettre en place est de vérifier l’ajustement du modèle. La vérification prédictive a posteriori permet de simuler des données répliquées avec le modèle ajusté puis les comparer aux données observées.</p>
+<p><span class="math inline">\(\Rightarrow\)</span> L’objectif est de détecter si le modèle est inadéquat pour décrire les données.</p>
+<p>Note : Pour cela, on utilise d’abord les données observées et les prédicteurs pour mettre à jour notre compréhension des paramètres inconnus du modèle. Ensuite, à partir de cette mise à jour, on génère plusieurs ensembles de résultats possibles en faisant varier ces paramètres, c’est du bootstrap. Ces simulations aident ensuite à évaluer la perf du modèle.</p>
+<p>Ici on retrouve bien en vert la distribution bimodale des prix qu’on avait vu dans notre application, mais par contre le modèle a du mal à la représenter, surtout pour les téléphones entre 200 et 500 €.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="ols-log-level-i" class="slide level2 smaller">
 <h2>OLS LOG-LEVEL (I)</h2>
+<p><span class="math display">\[
+\begin{split}
+\ln(price_i) = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
++ \beta_4 induction_i + \beta_5 screen\_size_i + \beta_6 screen\_type_i\\
++ \beta_7 made\_in_i + \beta_8 upgrade\_storage_i + \beta_{9} das\_limbs_i \\
++ \beta_{10} network_i + \beta_{11} ppi_i + \epsilon_i
+\end{split}
+\]</span></p>
+</section>
+<section id="ols-log-level-ii" class="slide level2 smaller">
+<h2>OLS LOG-LEVEL (II)</h2>
 <div class="cell" data-fig.showtext="true">
 <div class="cell-output-display">
 
-<div id="frpucaguoj" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#frpucaguoj table {
+<div id="nfqjztmwhk" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nfqjztmwhk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#frpucaguoj thead, #frpucaguoj tbody, #frpucaguoj tfoot, #frpucaguoj tr, #frpucaguoj td, #frpucaguoj th {
+#nfqjztmwhk thead, #nfqjztmwhk tbody, #nfqjztmwhk tfoot, #nfqjztmwhk tr, #nfqjztmwhk td, #nfqjztmwhk th {
   border-style: none;
 }
 
-#frpucaguoj p {
+#nfqjztmwhk p {
   margin: 0;
   padding: 0;
 }
 
-#frpucaguoj .gt_table {
+#nfqjztmwhk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1215,12 +1261,12 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-left-color: #D3D3D3;
 }
 
-#frpucaguoj .gt_caption {
+#nfqjztmwhk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#frpucaguoj .gt_title {
+#nfqjztmwhk .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -1232,7 +1278,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-width: 0;
 }
 
-#frpucaguoj .gt_subtitle {
+#nfqjztmwhk .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -1244,7 +1290,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-top-width: 0;
 }
 
-#frpucaguoj .gt_heading {
+#nfqjztmwhk .gt_heading {
   background-color: #222222;
   text-align: center;
   border-bottom-color: #222222;
@@ -1256,13 +1302,13 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#frpucaguoj .gt_bottom_border {
+#nfqjztmwhk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#frpucaguoj .gt_col_headings {
+#nfqjztmwhk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1277,7 +1323,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#frpucaguoj .gt_col_heading {
+#nfqjztmwhk .gt_col_heading {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1297,7 +1343,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   overflow-x: hidden;
 }
 
-#frpucaguoj .gt_column_spanner_outer {
+#nfqjztmwhk .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1309,15 +1355,15 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 4px;
 }
 
-#frpucaguoj .gt_column_spanner_outer:first-child {
+#nfqjztmwhk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#frpucaguoj .gt_column_spanner_outer:last-child {
+#nfqjztmwhk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#frpucaguoj .gt_column_spanner {
+#nfqjztmwhk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1329,11 +1375,11 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   width: 100%;
 }
 
-#frpucaguoj .gt_spanner_row {
+#nfqjztmwhk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#frpucaguoj .gt_group_heading {
+#nfqjztmwhk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1359,7 +1405,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   text-align: left;
 }
 
-#frpucaguoj .gt_empty_group_heading {
+#nfqjztmwhk .gt_empty_group_heading {
   padding: 0.5px;
   color: #FFFFFF;
   background-color: #222222;
@@ -1374,15 +1420,15 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   vertical-align: middle;
 }
 
-#frpucaguoj .gt_from_md > :first-child {
+#nfqjztmwhk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#frpucaguoj .gt_from_md > :last-child {
+#nfqjztmwhk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#frpucaguoj .gt_row {
+#nfqjztmwhk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1401,7 +1447,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   overflow-x: hidden;
 }
 
-#frpucaguoj .gt_stub {
+#nfqjztmwhk .gt_stub {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1414,7 +1460,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#frpucaguoj .gt_stub_row_group {
+#nfqjztmwhk .gt_stub_row_group {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1428,15 +1474,15 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   vertical-align: top;
 }
 
-#frpucaguoj .gt_row_group_first td {
+#nfqjztmwhk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#frpucaguoj .gt_row_group_first th {
+#nfqjztmwhk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#frpucaguoj .gt_summary_row {
+#nfqjztmwhk .gt_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -1446,16 +1492,16 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#frpucaguoj .gt_first_summary_row {
+#nfqjztmwhk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#frpucaguoj .gt_first_summary_row.thick {
+#nfqjztmwhk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#frpucaguoj .gt_last_summary_row {
+#nfqjztmwhk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1465,7 +1511,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-color: #D3D3D3;
 }
 
-#frpucaguoj .gt_grand_summary_row {
+#nfqjztmwhk .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -1475,7 +1521,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#frpucaguoj .gt_first_grand_summary_row {
+#nfqjztmwhk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1485,7 +1531,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-top-color: #D3D3D3;
 }
 
-#frpucaguoj .gt_last_grand_summary_row_top {
+#nfqjztmwhk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1495,11 +1541,11 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-color: #D3D3D3;
 }
 
-#frpucaguoj .gt_striped {
+#nfqjztmwhk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#frpucaguoj .gt_table_body {
+#nfqjztmwhk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1508,7 +1554,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-color: #D3D3D3;
 }
 
-#frpucaguoj .gt_footnotes {
+#nfqjztmwhk .gt_footnotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1522,7 +1568,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#frpucaguoj .gt_footnote {
+#nfqjztmwhk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1531,7 +1577,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#frpucaguoj .gt_sourcenotes {
+#nfqjztmwhk .gt_sourcenotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1545,7 +1591,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#frpucaguoj .gt_sourcenote {
+#nfqjztmwhk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1553,63 +1599,63 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#frpucaguoj .gt_left {
+#nfqjztmwhk .gt_left {
   text-align: left;
 }
 
-#frpucaguoj .gt_center {
+#nfqjztmwhk .gt_center {
   text-align: center;
 }
 
-#frpucaguoj .gt_right {
+#nfqjztmwhk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#frpucaguoj .gt_font_normal {
+#nfqjztmwhk .gt_font_normal {
   font-weight: normal;
 }
 
-#frpucaguoj .gt_font_bold {
+#nfqjztmwhk .gt_font_bold {
   font-weight: bold;
 }
 
-#frpucaguoj .gt_font_italic {
+#nfqjztmwhk .gt_font_italic {
   font-style: italic;
 }
 
-#frpucaguoj .gt_super {
+#nfqjztmwhk .gt_super {
   font-size: 65%;
 }
 
-#frpucaguoj .gt_footnote_marks {
+#nfqjztmwhk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#frpucaguoj .gt_asterisk {
+#nfqjztmwhk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#frpucaguoj .gt_indent_1 {
+#nfqjztmwhk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#frpucaguoj .gt_indent_2 {
+#nfqjztmwhk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#frpucaguoj .gt_indent_3 {
+#nfqjztmwhk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#frpucaguoj .gt_indent_4 {
+#nfqjztmwhk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#frpucaguoj .gt_indent_5 {
+#nfqjztmwhk .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1617,7 +1663,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <div class="gt_heading gt_title gt_font_normal" style="text-size:bigger;">Résultats de l’estimation pour le modèle  de pricing <strong>Hédonique</strong></div>
 <div class="gt_heading gt_subtitle "><em>Variable dépendante</em> : <code>log(price)</code></div>
 </div>
-<div id="frpucaguoj" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<div id="nfqjztmwhk" class="reactable html-widget" style="width:auto;height:auto;"></div>
 <div style="font-family:system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;border-top-style:solid;border-top-width:2px;border-top-color:#D3D3D3;border-bottom-style:solid;border-bottom-width:2px;border-bottom-color:#D3D3D3;padding-top:6px;padding-bottom:6px;padding-left:10px;padding-right:10px;">
 <div></div>
 <div>
@@ -1631,19 +1677,48 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 
 </div>
 </div>
-<script type="application/json" data-for="frpucaguoj">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"variables":["*(Intercept)*","*storage*","*brand* `(GOOGLE)`","*brand* `(HONOR)`","*brand* `(MOTOROLA)`","*brand* `(OPPO)`","*brand* `(SAMSUNG)`","*brand* `(SONY)`","*brand* `(XIAOMI)`","*ram*","*induction* `(True)`","*screen_size*","*screen_type* `(Bords Incurvés)`","*screen_type* `(Plat)`","*screen_type* `(Pliable)`","*made_in* `(Japon)`","*made_in* `(Thaïlande)`","*made_in* `(Viêt Nam)`","*upgrade_storage* `(True)`","*das_limbs*","*network* `(5G)`","*ppi*"],"estimate":[4.81231842092272,0.000605336800908365,-0.514623523253183,-0.957714018346406,-0.952077818218634,-0.875266041970559,-0.39532901324898,-0.630747483045868,-1.01061618099662,0.0780346799197583,0.212519593801355,0.139299530549877,-0.099685667117375,-0.0279982999091366,0.391297446355201,0.217764338536065,0.69201326525532,-0.116941698036609,-0.274598117148518,-0.09681213251879,0.200089201631526,0.00115693324954169],"std_error":[0.281242164748319,8.22634063259572e-05,0.0913060100967994,0.094599946367612,0.0671241283431876,0.109293195883809,0.0857850669693238,0.13673427355232,0.0646093129519179,0.0074085686824049,0.044025700174703,0.0414045492092727,0.11108016457986,0.0457917806088776,0.0753757628175031,0.268741667616789,0.155027720436437,0.0724095635163213,0.0475132948080141,0.0315933266405174,0.0398275412816075,0.000266915382396512],"signif":["_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","","","_***_","","_***_","","_***_","_***_","_***_","_***_"]},"columns":[{"id":"variables","name":"<strong>Variables<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF2A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF0800' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF0900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF1200' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF2F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF2400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#8EEC8E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#8AE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#8CEA8C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF3D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#86E284' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#8AE78A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#7DD97C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF3400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF3B00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#8BE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["<div data-qmd=\"*(Intercept)*\"><div class='gt_from_md'><p><em>(Intercept)<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*storage*\"><div class='gt_from_md'><p><em>storage<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(GOOGLE)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(GOOGLE)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(HONOR)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(HONOR)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(MOTOROLA)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(MOTOROLA)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(OPPO)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(OPPO)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(SAMSUNG)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(SAMSUNG)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(SONY)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(SONY)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(XIAOMI)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(XIAOMI)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*ram*\"><div class='gt_from_md'><p><em>ram<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*induction* `(True)`\"><div class='gt_from_md'><p><em>induction<\/em> <code>(True)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_size*\"><div class='gt_from_md'><p><em>screen_size<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Bords Incurvés)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Bords Incurvés)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Plat)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Plat)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Pliable)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Pliable)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Japon)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Japon)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Thaïlande)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Thaïlande)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Viêt Nam)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Viêt Nam)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*upgrade_storage* `(True)`\"><div class='gt_from_md'><p><em>upgrade_storage<\/em> <code>(True)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*das_limbs*\"><div class='gt_from_md'><p><em>das_limbs<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*network* `(5G)`\"><div class='gt_from_md'><p><em>network<\/em> <code>(5G)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*ppi*\"><div class='gt_from_md'><p><em>ppi<\/em><\/p>\n<\/div><\/div>"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}},{"id":"estimate","name":"<strong>Coefficients<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF2A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF0800' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF0900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF1200' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF2F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF2400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#8EEC8E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#8AE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#8CEA8C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF3D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#86E284' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#8AE78A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#7DD97C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF3400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF3B00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#8BE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["4.81","+0.06%","−51.46%","−95.77%","−95.21%","−87.53%","−39.53%","−63.07%","−101.06%","+7.80%","+21.25%","+13.93%","−9.97%","−2.80%","+39.13%","+21.78%","+69.20%","−11.69%","−27.46%","−9.68%","+20.01%","+0.12%"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"std_error","name":"<strong>Ecart Type<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF2A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF0800' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF0900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF1200' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF2F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF2400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#8EEC8E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#8AE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#8CEA8C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF3D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#86E284' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#8AE78A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#7DD97C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF3400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF3B00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#8BE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["0.28","0","0.09","0.09","0.07","0.11","0.09","0.14","0.06","0.01","0.04","0.04","0.11","0.05","0.08","0.27","0.16","0.07","0.05","0.03","0.04","0"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"signif","name":"<strong>Significativité<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF2A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF0800' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF0900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF1200' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF2F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF2400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#8EEC8E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#8AE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#8CEA8C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF3D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#86E284' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#8AE78A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#7DD97C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF3400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF3B00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#8BE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}}],"defaultPageSize":5,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"highlight":true,"showSortable":true,"height":"auto","theme":{"color":"white","backgroundColor":"#222222","stripedColor":"rgba(128,128,128,0.05)","style":{"fontFamily":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"},"headerStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"}},"elementId":"frpucaguoj","dataKey":"720917092fe48be31a362d3c4e48e17f"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style"],"jsHooks":[]}</script>
+<script type="application/json" data-for="nfqjztmwhk">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"variables":["*(Intercept)*","*storage*","*brand* `(GOOGLE)`","*brand* `(HONOR)`","*brand* `(MOTOROLA)`","*brand* `(OPPO)`","*brand* `(SAMSUNG)`","*brand* `(SONY)`","*brand* `(XIAOMI)`","*ram*","*induction* `(True)`","*screen_size*","*screen_type* `(Bords Incurvés)`","*screen_type* `(Plat)`","*screen_type* `(Pliable)`","*made_in* `(Japon)`","*made_in* `(Thaïlande)`","*made_in* `(Viêt Nam)`","*upgrade_storage* `(True)`","*das_limbs*","*network* `(5G)`","*ppi*"],"estimate":[4.81231842092272,0.000605336800908365,-0.514623523253183,-0.957714018346406,-0.952077818218634,-0.875266041970559,-0.39532901324898,-0.630747483045868,-1.01061618099662,0.0780346799197583,0.212519593801355,0.139299530549877,-0.099685667117375,-0.0279982999091366,0.391297446355201,0.217764338536065,0.69201326525532,-0.116941698036609,-0.274598117148518,-0.09681213251879,0.200089201631526,0.00115693324954169],"std_error":[0.281242164748319,8.22634063259572e-05,0.0913060100967994,0.094599946367612,0.0671241283431876,0.109293195883809,0.0857850669693238,0.13673427355232,0.0646093129519179,0.0074085686824049,0.044025700174703,0.0414045492092727,0.11108016457986,0.0457917806088776,0.0753757628175031,0.268741667616789,0.155027720436437,0.0724095635163213,0.0475132948080141,0.0315933266405174,0.0398275412816075,0.000266915382396512],"signif":["_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","","","_***_","","_***_","","_***_","_***_","_***_","_***_"]},"columns":[{"id":"variables","name":"<strong>Variables<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF2A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF0800' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF0900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF1200' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF2F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF2400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#8EEC8E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#8AE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#8CEA8C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF3D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#86E284' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#8AE78A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#7DD97C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF3400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF3B00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#8BE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["<div data-qmd=\"*(Intercept)*\"><div class='gt_from_md'><p><em>(Intercept)<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*storage*\"><div class='gt_from_md'><p><em>storage<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(GOOGLE)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(GOOGLE)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(HONOR)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(HONOR)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(MOTOROLA)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(MOTOROLA)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(OPPO)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(OPPO)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(SAMSUNG)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(SAMSUNG)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(SONY)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(SONY)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(XIAOMI)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(XIAOMI)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*ram*\"><div class='gt_from_md'><p><em>ram<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*induction* `(True)`\"><div class='gt_from_md'><p><em>induction<\/em> <code>(True)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_size*\"><div class='gt_from_md'><p><em>screen_size<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Bords Incurvés)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Bords Incurvés)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Plat)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Plat)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Pliable)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Pliable)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Japon)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Japon)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Thaïlande)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Thaïlande)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Viêt Nam)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Viêt Nam)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*upgrade_storage* `(True)`\"><div class='gt_from_md'><p><em>upgrade_storage<\/em> <code>(True)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*das_limbs*\"><div class='gt_from_md'><p><em>das_limbs<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*network* `(5G)`\"><div class='gt_from_md'><p><em>network<\/em> <code>(5G)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*ppi*\"><div class='gt_from_md'><p><em>ppi<\/em><\/p>\n<\/div><\/div>"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}},{"id":"estimate","name":"<strong>Coefficients<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF2A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF0800' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF0900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF1200' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF2F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF2400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#8EEC8E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#8AE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#8CEA8C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF3D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#86E284' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#8AE78A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#7DD97C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF3400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF3B00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#8BE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["4.81","+0.06%","−51.46%","−95.77%","−95.21%","−87.53%","−39.53%","−63.07%","−101.06%","+7.80%","+21.25%","+13.93%","−9.97%","−2.80%","+39.13%","+21.78%","+69.20%","−11.69%","−27.46%","−9.68%","+20.01%","+0.12%"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"std_error","name":"<strong>Ecart Type<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF2A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF0800' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF0900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF1200' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF2F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF2400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#8EEC8E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#8AE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#8CEA8C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF3D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#86E284' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#8AE78A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#7DD97C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF3400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF3B00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#8BE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["0.28","0","0.09","0.09","0.07","0.11","0.09","0.14","0.06","0.01","0.04","0.04","0.11","0.05","0.08","0.27","0.16","0.07","0.05","0.03","0.04","0"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"signif","name":"<strong>Significativité<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 1) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF2A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF0800' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF0900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF1200' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF2F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF2400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#8EEC8E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#8AE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#8CEA8C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FF3D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#86E284' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#8AE78A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#7DD97C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FF3A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF3400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF3B00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#8BE88A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}}],"defaultPageSize":5,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"highlight":true,"showSortable":true,"height":"auto","theme":{"color":"white","backgroundColor":"#222222","stripedColor":"rgba(128,128,128,0.05)","style":{"fontFamily":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"},"headerStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"}},"elementId":"nfqjztmwhk","dataKey":"720917092fe48be31a362d3c4e48e17f"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
+<aside class="notes">
+<p>Ici le coefficient <span class="math inline">\(\beta_1\)</span> s’interprète comme le changement en pourcentage du prix lorsque la capacité de stockage augmente d’1 Go, c’est à dire que si la capacité de stockage augmente de 1 Go, alors, le prix augmente de 0.06%, cet.par.</p>
+<ul>
+<li>En ayant comme catégorie de référence Apple pour la variable marque (brand), on peut voir que toutes les marques ont un impact négatif sur le prix, cet. par.</li>
+</ul>
+<p>– La marque la plus valorisée derrière Apple est SAMSUNG avec une différence de prix de 39.53%. – La marque la moins valorisée est XIAOMI avec une différence de prix de 101.06% par rapport à Apple.</p>
+<ul>
+<li>Si la ram augmente de 1 Go, alors le prix augmente de 7.8%, cet. par</li>
+</ul>
+<p>– Disposer d’un écran à bord incurvé diminue le prix de 9.97% par rapport à la catégorie de référence, cet. par. – Pour l’écran plat, le prix diminue de 2.8% par rapport à la catégorie de réfé- rence, cet. par. – Avoir un écran pliable fait augmenter le prix de 39.13% par rapport à la catégorie de référence, cet. par.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="ols-log-level-ii" class="slide level2">
-<h2>OLS LOG-LEVEL (II)</h2>
+<section id="ols-log-level-iii" class="slide level2">
+<h2>OLS LOG-LEVEL (III)</h2>
 
-<img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"><div class="cell" data-fig.showtext="true">
-<div class="cell-output cell-output-stdout">
-<pre><code>'log Lik.' 25.92516 (df=23)</code></pre>
-</div>
-</div>
+<img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"><aside class="notes">
+<p>Ici on voit que même si le modèle a du mal à prédire une certaine portion de la distribution, il s’en sort très bien sur les extrémités et globalement l’adéquation du modèle semble meilleure.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="sfa-rappels-i" class="slide level2 smaller">
 <h2>SFA ~ RAPPELS (I)</h2>
@@ -1664,9 +1739,9 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </div>
 <aside class="notes">
 <p><em>Aybuké</em></p>
-<p>Avant les travaux de <code>Aigner</code>, les économètres utilisaient uniquement des fonctions de production moyennes, autrement dit la formulation théorique était différente de la mise en pratique.</p>
+<p>On vous a présenté deux modèles qui appliquent le concept du pricing hédonique mais qui finalement restent des régressions linéaires classiques. Avant de vous présenter les résultats de l’estimation du modèle SFA, on va vous ré-éxpliquer rapidement le fct théorique.</p>
 <ul>
-<li><p>On repart de la fonction de production présentée à la slide précédente, mais on lui ajoute un terme multiplicatif <span class="math inline">\(TE_i\)</span>.</p></li>
+<li><p>On repart d’une fonction de production classique, mais on lui ajoute un terme multiplicatif <span class="math inline">\(TE_i\)</span>.</p></li>
 <li><p>Si <span class="math inline">\(TE_i = 1\)</span> alors la firme <span class="math inline">\(i\)</span> produit l’output maximum réalisable, alors que si <span class="math inline">\(TE_i &lt; 1\)</span>, il existe un écart entre l’output maximum et l’output effectivement observé.</p></li>
 </ul>
 <style type="text/css">
@@ -1700,28 +1775,6 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <div class="footer">
 <p>— <code>Recherche</code>, Réalisation, Restitution —</p>
 </div>
-<aside class="notes">
-<p><em>Corentin</em></p>
-<p>Différence entre les méthodes paramétriques et non-paramétriques :</p>
-<ul>
-<li>Il faut donc choisir la distribution que vont suivre les termes d’erreurs <span class="math inline">\(u_i\)</span>
-<ul>
-<li>Distribution <strong>semi-normale</strong></li>
-<li>Distribution <strong>normale tronquée</strong></li>
-</ul></li>
-<li>Dans les méthodes non paramétriques comme la <code>DEA</code>, la structure du modèle n’est pas spécifiée à priori mais est déterminée à partir des données.</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="sfa-rappels-iii" class="slide level2 smaller">
 <h2>SFA ~ RAPPELS (III)</h2>
@@ -1765,8 +1818,8 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
           display:block!important;
       }</style></aside>
 </section>
-<section id="sfa-call" class="slide level2 smaller">
-<h2>SFA Call</h2>
+<section id="sfa-cost-frontier-i" class="slide level2 smaller">
+<h2>SFA Cost Frontier (I)</h2>
 <p><span class="math display">\[
 \begin{split}
 \ln(price_i) = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
@@ -1776,28 +1829,29 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 \end{split}
 \]</span></p>
 </section>
-<section id="sfa-résultats" class="slide level2 smaller">
-<h2>SFA résultats</h2>
+<section id="sfa-cost-frontier-ii" class="slide level2 smaller">
+<h2>SFA Cost Frontier (II)</h2>
+<p>mettre efficacité moyenne dans le tableau</p>
 <div class="cell" data-fig.showtext="true">
 <div class="cell-output-display">
 
-<div id="gqjmmcckcr" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#gqjmmcckcr table {
+<div id="vfytfezedg" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vfytfezedg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#gqjmmcckcr thead, #gqjmmcckcr tbody, #gqjmmcckcr tfoot, #gqjmmcckcr tr, #gqjmmcckcr td, #gqjmmcckcr th {
+#vfytfezedg thead, #vfytfezedg tbody, #vfytfezedg tfoot, #vfytfezedg tr, #vfytfezedg td, #vfytfezedg th {
   border-style: none;
 }
 
-#gqjmmcckcr p {
+#vfytfezedg p {
   margin: 0;
   padding: 0;
 }
 
-#gqjmmcckcr .gt_table {
+#vfytfezedg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1823,12 +1877,12 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-left-color: #D3D3D3;
 }
 
-#gqjmmcckcr .gt_caption {
+#vfytfezedg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#gqjmmcckcr .gt_title {
+#vfytfezedg .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -1840,7 +1894,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-width: 0;
 }
 
-#gqjmmcckcr .gt_subtitle {
+#vfytfezedg .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -1852,7 +1906,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-top-width: 0;
 }
 
-#gqjmmcckcr .gt_heading {
+#vfytfezedg .gt_heading {
   background-color: #222222;
   text-align: center;
   border-bottom-color: #222222;
@@ -1864,13 +1918,13 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#gqjmmcckcr .gt_bottom_border {
+#vfytfezedg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gqjmmcckcr .gt_col_headings {
+#vfytfezedg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1885,7 +1939,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#gqjmmcckcr .gt_col_heading {
+#vfytfezedg .gt_col_heading {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1905,7 +1959,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   overflow-x: hidden;
 }
 
-#gqjmmcckcr .gt_column_spanner_outer {
+#vfytfezedg .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1917,15 +1971,15 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 4px;
 }
 
-#gqjmmcckcr .gt_column_spanner_outer:first-child {
+#vfytfezedg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gqjmmcckcr .gt_column_spanner_outer:last-child {
+#vfytfezedg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gqjmmcckcr .gt_column_spanner {
+#vfytfezedg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1937,11 +1991,11 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   width: 100%;
 }
 
-#gqjmmcckcr .gt_spanner_row {
+#vfytfezedg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#gqjmmcckcr .gt_group_heading {
+#vfytfezedg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1967,7 +2021,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   text-align: left;
 }
 
-#gqjmmcckcr .gt_empty_group_heading {
+#vfytfezedg .gt_empty_group_heading {
   padding: 0.5px;
   color: #FFFFFF;
   background-color: #222222;
@@ -1982,15 +2036,15 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   vertical-align: middle;
 }
 
-#gqjmmcckcr .gt_from_md > :first-child {
+#vfytfezedg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gqjmmcckcr .gt_from_md > :last-child {
+#vfytfezedg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gqjmmcckcr .gt_row {
+#vfytfezedg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2009,7 +2063,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   overflow-x: hidden;
 }
 
-#gqjmmcckcr .gt_stub {
+#vfytfezedg .gt_stub {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2022,7 +2076,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#gqjmmcckcr .gt_stub_row_group {
+#vfytfezedg .gt_stub_row_group {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2036,15 +2090,15 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   vertical-align: top;
 }
 
-#gqjmmcckcr .gt_row_group_first td {
+#vfytfezedg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gqjmmcckcr .gt_row_group_first th {
+#vfytfezedg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#gqjmmcckcr .gt_summary_row {
+#vfytfezedg .gt_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -2054,16 +2108,16 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#gqjmmcckcr .gt_first_summary_row {
+#vfytfezedg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gqjmmcckcr .gt_first_summary_row.thick {
+#vfytfezedg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gqjmmcckcr .gt_last_summary_row {
+#vfytfezedg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2073,7 +2127,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-color: #D3D3D3;
 }
 
-#gqjmmcckcr .gt_grand_summary_row {
+#vfytfezedg .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -2083,7 +2137,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#gqjmmcckcr .gt_first_grand_summary_row {
+#vfytfezedg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2093,7 +2147,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-top-color: #D3D3D3;
 }
 
-#gqjmmcckcr .gt_last_grand_summary_row_top {
+#vfytfezedg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2103,11 +2157,11 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-color: #D3D3D3;
 }
 
-#gqjmmcckcr .gt_striped {
+#vfytfezedg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gqjmmcckcr .gt_table_body {
+#vfytfezedg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2116,7 +2170,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-color: #D3D3D3;
 }
 
-#gqjmmcckcr .gt_footnotes {
+#vfytfezedg .gt_footnotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -2130,7 +2184,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#gqjmmcckcr .gt_footnote {
+#vfytfezedg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2139,7 +2193,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#gqjmmcckcr .gt_sourcenotes {
+#vfytfezedg .gt_sourcenotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -2153,7 +2207,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#gqjmmcckcr .gt_sourcenote {
+#vfytfezedg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2161,63 +2215,63 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#gqjmmcckcr .gt_left {
+#vfytfezedg .gt_left {
   text-align: left;
 }
 
-#gqjmmcckcr .gt_center {
+#vfytfezedg .gt_center {
   text-align: center;
 }
 
-#gqjmmcckcr .gt_right {
+#vfytfezedg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gqjmmcckcr .gt_font_normal {
+#vfytfezedg .gt_font_normal {
   font-weight: normal;
 }
 
-#gqjmmcckcr .gt_font_bold {
+#vfytfezedg .gt_font_bold {
   font-weight: bold;
 }
 
-#gqjmmcckcr .gt_font_italic {
+#vfytfezedg .gt_font_italic {
   font-style: italic;
 }
 
-#gqjmmcckcr .gt_super {
+#vfytfezedg .gt_super {
   font-size: 65%;
 }
 
-#gqjmmcckcr .gt_footnote_marks {
+#vfytfezedg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#gqjmmcckcr .gt_asterisk {
+#vfytfezedg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gqjmmcckcr .gt_indent_1 {
+#vfytfezedg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gqjmmcckcr .gt_indent_2 {
+#vfytfezedg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gqjmmcckcr .gt_indent_3 {
+#vfytfezedg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gqjmmcckcr .gt_indent_4 {
+#vfytfezedg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gqjmmcckcr .gt_indent_5 {
+#vfytfezedg .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2225,11 +2279,15 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <div class="gt_heading gt_title gt_font_normal" style="text-size:bigger;">Résultats de l’estimation pour le modèle <strong>SFA</strong></div>
 <div class="gt_heading gt_subtitle "><em>Variable dépendante</em> : <code>log(price)</code></div>
 </div>
-<div id="gqjmmcckcr" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="gqjmmcckcr">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"variables":["(Intercept)","storage","brandGOOGLE","brandHONOR","brandMOTOROLA","brandOPPO","brandSAMSUNG","brandSONY","brandXIAOMI","ram","inductionTRUE","screen_size","screen_typeBords incurvés","screen_typePlat","screen_typePliable","made_inJapon","made_inThaïlande","made_inViêt Nam","upgrade_storageTRUE","das_limbs","network5G","ppi","sigmaSq","gamma"],"estimate":[4.70418847687768,0.000632628533687575,-0.570973582366651,-0.99624826153807,-0.989212292883098,-0.926849531430481,-0.471011879187917,-0.640836413045425,-1.03633535093017,0.0773610563791524,0.217607193035217,0.138297436778413,-0.0871960635438657,-0.0230866289521158,0.389396167575667,0.202478436972087,0.693163343528232,-0.0661364347306585,-0.257885065480546,-0.117314486881989,0.203971351832585,0.00114664335598641,0.0834700753657293,0.593924329444331],"std_error":[0.272774744710962,8.01108032778146e-05,0.0917283989530414,0.0960346030198676,0.0678997114955362,0.107330026116185,0.0920914435629201,0.131619682768645,0.0644695458006848,0.00710350320948704,0.0435121176794256,0.0399814186391909,0.108297473392196,0.0432214217809158,0.0721964658677148,0.255393020025834,0.147620017818018,0.0727324707398507,0.045999667290755,0.0314909936999723,0.0383685735645759,0.000258078723580736,0.0134636565156494,0.131664781835414],"signif":["_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","","","_***_","","_***_","","_***_","_***_","_***_","_***_","_***_","_***_"]},"columns":[{"id":"variables","name":"<strong>Variables<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","cell":["(Intercept)","storage","brandGOOGLE","brandHONOR","brandMOTOROLA","brandOPPO","brandSAMSUNG","brandSONY","brandXIAOMI","ram","inductionTRUE","screen_size","screen_typeBords incurvés","screen_typePlat","screen_typePliable","made_inJapon","made_inThaïlande","made_inViêt Nam","upgrade_storageTRUE","das_limbs","network5G","ppi","sigmaSq","gamma"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}},{"id":"estimate","name":"<strong>Coefficients<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","cell":["4.704","0.001","−0.571","−0.996","−0.989","−0.927","−0.471","−0.641","−1.036","0.077","0.218","0.138","−0.087","−0.023","0.389","0.202","0.693","−0.066","−0.258","−0.117","0.204","0.001","0.083","0.594"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"std_error","name":"<strong>Ecart Type<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","cell":["0.273","0","0.092","0.096","0.068","0.107","0.092","0.132","0.064","0.007","0.044","0.04","0.108","0.043","0.072","0.255","0.148","0.073","0.046","0.031","0.038","0","0.013","0.132"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"signif","name":"<strong>Significativité<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","cell":["<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}}],"defaultPageSize":5,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"highlight":true,"showSortable":true,"height":"auto","theme":{"color":"white","backgroundColor":"#222222","stripedColor":"rgba(128,128,128,0.05)","style":{"fontFamily":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"},"headerStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"}},"elementId":"gqjmmcckcr","dataKey":"6309d4cb8585f062a8bd8a8547485fa3"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style"],"jsHooks":[]}</script>
+<div id="vfytfezedg" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="vfytfezedg">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"variables":["*(Intercept)*","*storage*","*brand* `(GOOGLE)`","*brand* `(HONOR)`","*brand* `(MOTOROLA)`","*brand* `(OPPO)`","*brand* `(SAMSUNG)`","*brand* `(SONY)`","*brand* `(XIAOMI)`","*ram*","*induction* `(True)`","*screen_size*","*screen_type* `(Bords Incurvés)`","*screen_type* `(Plat)`","*screen_type* `(Pliable)`","*made_in* `(Japon)`","*made_in* `(Thaïlande)`","*made_in* `(Viêt Nam)`","*upgrade_storage* `(True)`","*das_limbs*","*network* `(5G)`","*ppi*","*sigmaSq*","*gamma*"],"estimate":[4.70418847687768,0.000632628533687575,-0.570973582366651,-0.99624826153807,-0.989212292883098,-0.926849531430481,-0.471011879187917,-0.640836413045425,-1.03633535093017,0.0773610563791524,0.217607193035217,0.138297436778413,-0.0871960635438657,-0.0230866289521158,0.389396167575667,0.202478436972087,0.693163343528232,-0.0661364347306585,-0.257885065480546,-0.117314486881989,0.203971351832585,0.00114664335598641,0.0834700753657293,0.593924329444331],"std_error":[0.272774744710962,8.01108032778146e-05,0.0917283989530414,0.0960346030198676,0.0678997114955362,0.107330026116185,0.0920914435629201,0.131619682768645,0.0644695458006848,0.00710350320948704,0.0435121176794256,0.0399814186391909,0.108297473392196,0.0432214217809158,0.0721964658677148,0.255393020025834,0.147620017818018,0.0727324707398507,0.045999667290755,0.0314909936999723,0.0383685735645759,0.000258078723580736,0.0134636565156494,0.131664781835414],"signif":["_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","","","_***_","","_***_","","_***_","_***_","_***_","_***_","_***_","_***_"]},"columns":[{"id":"variables","name":"<strong>Variables<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF6900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF1A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF1D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF7500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#82DE80' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#68C164' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#76D174' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF9F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#489E42' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#6BC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FFA100' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF8D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#6AC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["*(Intercept)*","*storage*","*brand* `(GOOGLE)`","*brand* `(HONOR)`","*brand* `(MOTOROLA)`","*brand* `(OPPO)`","*brand* `(SAMSUNG)`","*brand* `(SONY)`","*brand* `(XIAOMI)`","*ram*","*induction* `(True)`","*screen_size*","*screen_type* `(Bords Incurvés)`","*screen_type* `(Plat)`","*screen_type* `(Pliable)`","*made_in* `(Japon)`","*made_in* `(Thaïlande)`","*made_in* `(Viêt Nam)`","*upgrade_storage* `(True)`","*das_limbs*","*network* `(5G)`","*ppi*","*sigmaSq*","*gamma*"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}},{"id":"estimate","name":"<strong>Coefficients<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF6900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF1A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF1D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF7500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#82DE80' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#68C164' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#76D174' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF9F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#489E42' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#6BC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FFA100' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF8D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#6AC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["4.704","+0.06%","−57.10%","−99.62%","−98.92%","−92.68%","−47.10%","−64.08%","−103.63%","+7.74%","+21.76%","+13.83%","−8.72%","−2.31%","+38.94%","+20.25%","+69.32%","−6.61%","−25.79%","−11.73%","+20.40%","+0.11%","0.083","0.594"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"std_error","name":"<strong>Ecart Type<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF6900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF1A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF1D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF7500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#82DE80' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#68C164' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#76D174' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF9F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#489E42' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#6BC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FFA100' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF8D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#6AC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["0.273","0","0.092","0.096","0.068","0.107","0.092","0.132","0.064","0.007","0.044","0.04","0.108","0.043","0.072","0.255","0.148","0.073","0.046","0.031","0.038","0","0.013","0.132"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"signif","name":"<strong>Significativité<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF6900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF1A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF1D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF7500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#82DE80' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#68C164' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#76D174' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF9F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#489E42' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#6BC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FFA100' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF8D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#6AC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}}],"defaultPageSize":5,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"highlight":true,"showSortable":true,"height":"auto","theme":{"color":"white","backgroundColor":"#222222","stripedColor":"rgba(128,128,128,0.05)","style":{"fontFamily":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"},"headerStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"}},"elementId":"vfytfezedg","dataKey":"7c29d9a2368ce4cc7d70858914b346b1"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
+</section>
+<section id="sfa-cost-frontier-iii" class="slide level2">
+<h2>SFA Cost Frontier (III)</h2>
+<p>comparaison AIC</p>
 <div class="cell" data-fig.showtext="true">
 <div class="cell-output cell-output-stdout">
 <pre><code>'log Lik.' 25.92516 (df=23)</code></pre>

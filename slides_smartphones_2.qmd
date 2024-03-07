@@ -59,6 +59,8 @@ makestars <- function(pvalues) {
         )
     )
 }
+
+`%nin%` <- negate(`%in%`)
 ```
 
 ## Problématique {background-color="black" background-image="https://vivreaulycee.fr/wp-content/uploads/2018/12/question-mark-2492009_1280-1200x480.jpg" background-size="cover" background-opacity="0.75"}
@@ -285,7 +287,6 @@ et leur prix, appelée fonction de prix hédonique $p(z)$.
 ***
 
 Il n'en reste pas moins qu'il subsiste un problème indéniable : Ce qu'on aimerait réellement mesurer c'est le **service rendu par un produit** et non pas les caractéristiques de ce produit, et ça c'est complètement inobservable. Donc en bref il va falloir faire attention pour interpréter correctement les résultats des régressions.
-
 :::
 
 ## OLS LEVEL-LEVEL (I) {.smaller}
@@ -298,6 +299,12 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 + \beta_{10} network_i + \beta_{11} ppi_i + \epsilon_i
 \end{split}
 $$
+
+:::{.notes}
+
+Ici on retrouve le modèle en niveau dont les variables n'ont pas été choisies au hasard mais qui ont fait l'objet d'une sélection de variables grâce à un algorithme génétique, on l'avait expliqué mais on ne va pas re-rentrer dans les détails. L'intérêt de ce modèle en niveau c'est de pouvoir directement interpréter les coefficients comme des prix (effets marginaux). 
+
+:::
 
 ## OLS LEVEL-LEVEL (II) {.smaller}
 
@@ -377,7 +384,7 @@ summary(levelhedonic)$coefficients |>
         placement = "right",
         incl_space = TRUE
     ) |>
-    fmt_markdown(c(variables,signif)) |>
+    fmt_markdown(c(variables, signif)) |>
     tab_footnote(
         md(glue::glue("$R^2=$ {r_squared_level}"))
     ) |>
@@ -394,11 +401,27 @@ summary(levelhedonic)$coefficients |>
 
 :::{.notes}
 
+Ici le coefficient $\beta_1$ s’interprète comme l’effet marginal d’1 Go supplémentaire
+de capacité de stockage sur le prix, c'est à dire que si la capacité de stockage augmente de 1 Go, alors, le prix augmente de 91 centimes, cet.par.
 
-le coefficient β1 s’interprète comme l’effet marginal d’une année supplémentaire
-d’études Educi sur le salaire Sali
-. Elle correspond à la variation de β1 unités du salaire de l’individu
-induite par la variation d’une unité du niveau d’études toutes choses égales par ailleurs
+• En ayant comme catégorie de référence Apple pour la variable marque (brand), on peut
+voir que toutes les marques ont un impact négatif sur le prix, cet. par.
+– La marque la plus valorisée derrière Apple est **SONY** avec 313.59 € de différence
+par rapport à **APPLE**.
+– La marque la moins valorisée est **XIAOMI** avec 588.81 € de différence par rapport
+à **APPLE**.
+
+- Une augmentation d’1 Go de ram augmente le prix de 27.58 €, cet. par. (Faire lien avec graph insight)
+
+Pour le type d’écran (screen_type), la catégorie de référence est borderless (un écran sans
+bordure).
+
+– Disposer d’un écran à bord incurvé diminue le prix de 228.44 € par rapport à la
+catégorie de référence, cet. par.
+– Pour l’écran plat, le prix diminue de 89.78 € par rapport à la catégorie de réfé-
+rence, cet. par.
+– Avoir un écran pliable fait augmenter le prix de 172.6 € par rapport à la catégorie
+de référence, cet. par.
 :::
 
 ## OLS LEVEL-LEVEL (III)
@@ -407,7 +430,30 @@ induite par la variation d’une unité du niveau d’études toutes choses éga
 performance::check_posterior_predictions(levelhedonic)
 ```
 
+:::{.notes}
+Aussi, une étape visuelle qu'on peut mettre en place est de vérifier l’ajustement du
+modèle. La vérification prédictive a posteriori permet de simuler des données répliquées
+avec le modèle ajusté puis les comparer aux données observées.
+
+$\Rightarrow$ L’objectif est de détecter si le modèle est inadéquat pour décrire les données.
+
+Note : Pour cela, on utilise d'abord les données observées et les prédicteurs pour mettre à jour notre compréhension des paramètres inconnus du modèle. Ensuite, à partir de cette mise à jour, on génère plusieurs ensembles de résultats possibles en faisant varier ces paramètres, c'est du bootstrap. Ces simulations aident ensuite à évaluer la perf du modèle.
+
+Ici on retrouve bien en vert la distribution bimodale des prix qu'on avait vu dans notre application, mais par contre le modèle a du mal à la représenter, surtout pour les téléphones entre 200 et 500 €.
+:::
+
 ## OLS LOG-LEVEL (I) {.smaller}
+
+$$
+\begin{split}
+\ln(price_i) = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
++ \beta_4 induction_i + \beta_5 screen\_size_i + \beta_6 screen\_type_i\\
++ \beta_7 made\_in_i + \beta_8 upgrade\_storage_i + \beta_{9} das\_limbs_i \\
++ \beta_{10} network_i + \beta_{11} ppi_i + \epsilon_i
+\end{split}
+$$
+
+## OLS LOG-LEVEL (II) {.smaller}
 
 ```{r}
 loghedonic <- lm(
@@ -500,15 +546,38 @@ summary(loghedonic)$coefficients |>
     opt_interactive(page_size_default = 5, use_highlight = TRUE)
 ```
 
-## OLS LOG-LEVEL (II)
+:::{.notes}
+
+Ici le coefficient $\beta_1$ s’interprète comme le changement en pourcentage du prix lorsque
+la capacité de stockage augmente d’1 Go, c'est à dire que si la capacité de stockage augmente de 1 Go, alors, le prix augmente de 0.06%, cet.par.
+
+- En ayant comme catégorie de référence Apple pour la variable marque (brand), on peut
+voir que toutes les marques ont un impact négatif sur le prix, cet. par.
+
+– La marque la plus valorisée derrière Apple est SAMSUNG avec une différence de prix
+de 39.53%.
+– La marque la moins valorisée est XIAOMI avec une différence de prix de 101.06% par
+rapport à Apple.
+
+- Si la ram augmente de 1 Go, alors le prix augmente de 7.8%, cet. par
+
+– Disposer d’un écran à bord incurvé diminue le prix de 9.97% par rapport à la
+catégorie de référence, cet. par.
+– Pour l’écran plat, le prix diminue de 2.8% par rapport à la catégorie de réfé-
+rence, cet. par.
+– Avoir un écran pliable fait augmenter le prix de 39.13% par rapport à la catégorie
+de référence, cet. par.
+:::
+
+## OLS LOG-LEVEL (III)
 
 ```{r}
 performance::check_posterior_predictions(loghedonic)
 ```
 
-```{r}
-logLik(loghedonic)
-```
+:::{.notes}
+Ici on voit que même si le modèle a du mal à prédire une certaine portion de la distribution, il s'en sort très bien sur les extrémités et globalement l'adéquation du modèle semble meilleure.
+:::
 
 ## SFA ~ RAPPELS (I) {.smaller}
 
@@ -526,6 +595,7 @@ $${\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}}$$
 
 :::{.fragment .fade-in}
 $$\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i}}\right\}}}$$
+
 :::
 
 ::: {.footer}
@@ -535,9 +605,9 @@ $$\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i
 :::{.notes}
 *Aybuké*
 
-Avant les travaux de `Aigner`, les économètres utilisaient uniquement des fonctions de production moyennes, autrement dit la formulation théorique était différente de la mise en pratique.
+On vous a présenté deux modèles qui appliquent le concept du pricing hédonique mais qui finalement restent des régressions linéaires classiques. Avant de vous présenter les résultats de l'estimation du modèle SFA, on va vous ré-éxpliquer rapidement le fct théorique.
 
-- On repart de la fonction de production présentée à la slide précédente, mais on lui ajoute un terme multiplicatif $TE_i$.
+- On repart d'une fonction de production classique, mais on lui ajoute un terme multiplicatif $TE_i$.
 
 - Si $TE_i = 1$ alors la firme $i$ produit l'output maximum réalisable, alors que si $TE_i < 1$, il existe un écart entre l'output maximum et l'output effectivement observé.
 :::
@@ -547,6 +617,7 @@ Avant les travaux de `Aigner`, les économètres utilisaient uniquement des fonc
 On peut ré-écrire $TE_i$ sous la forme ${\displaystyle TE_{i}=\exp \left\{{-u_{i}}\right\}}$. Dès lors, nous obtenons l'équation suivante :
 
 :::{.fragment .fade-in}
+
 $${\displaystyle y_{i}=f(x_{i};\beta )\cdot \exp \left\{{-u_{i}}\right\}\cdot \exp \left\{{v_{i}}\right\}}$$ 
 :::
 
@@ -562,20 +633,6 @@ La SFA (`Stochastic Frontier Analysis`) est une méthode paramétrique : elle re
 ::: {.footer}
 --- `Recherche`, Réalisation, Restitution ---
 :::
-
-:::{.notes}
-*Corentin*
-
-Différence entre les méthodes paramétriques et non-paramétriques :
-
-- Il faut donc choisir la distribution que vont suivre les termes d'erreurs $u_i$
-    - Distribution **semi-normale**
-    - Distribution **normale tronquée**
-
-- Dans les méthodes non paramétriques comme la `DEA`, la structure du modèle n'est pas spécifiée à priori mais est déterminée à partir des données.
-
-:::
-
 
 ## SFA ~ RAPPELS (III) {.smaller}
 
@@ -618,7 +675,7 @@ L'objectif de cette slide est d'expliquer graphiquement la SFA.
 - On inclue aussi une transformation logarithmique permettant de manipuler plus facilement le terme d'erreur.
 :::
 
-## SFA Call {.smaller}
+## SFA Cost Frontier (I) {.smaller}
 
 $$
 \begin{split}
@@ -630,9 +687,12 @@ $$
 $$
 
 
-## SFA résultats {.smaller}
+## SFA Cost Frontier (II) {.smaller}
+
+mettre efficacité moyenne dans le tableau
 
 ```{r}
+
 scf <- sfa(
     log(price) ~ storage + brand + ram + induction + screen_size + screen_type + made_in + upgrade_storage + das_limbs + network + ppi,
     data = df_phones,
@@ -644,6 +704,27 @@ summary(scf)$mleParam |>
     data.frame() |>
     rownames_to_column(var = "Variables") |>
     janitor::clean_names() |>
+    mutate(
+        variables = case_when(
+            variables == "brandGOOGLE" ~ "*brand* `(GOOGLE)`",
+            variables == "brandHONOR" ~ "*brand* `(HONOR)`",
+            variables == "brandMOTOROLA" ~ "*brand* `(MOTOROLA)`",
+            variables == "brandOPPO" ~ "*brand* `(OPPO)`",
+            variables == "brandSAMSUNG" ~ "*brand* `(SAMSUNG)`",
+            variables == "brandSONY" ~ "*brand* `(SONY)`",
+            variables == "brandXIAOMI" ~ "*brand* `(XIAOMI)`",
+            variables == "inductionTRUE" ~ "*induction* `(True)`",
+            variables == "screen_typeBords incurvés" ~ "*screen_type* `(Bords Incurvés)`",
+            variables == "screen_typePlat" ~ "*screen_type* `(Plat)`",
+            variables == "screen_typePliable" ~ "*screen_type* `(Pliable)`",
+            variables == "made_inJapon" ~ "*made_in* `(Japon)`",
+            variables == "made_inThaïlande" ~ "*made_in* `(Thaïlande)`",
+            variables == "made_inViêt Nam" ~ "*made_in* `(Viêt Nam)`",
+            variables == "upgrade_storageTRUE" ~ "*upgrade_storage* `(True)`",
+            variables == "network5G" ~ "*network* `(5G)`",
+            .default = as.character(glue::glue("*{variables}*"))
+        )
+    ) |>
     mutate(signif = makestars(pr_z)) |>
     gt() |>
     cols_hide(c(z_value, pr_z)) |>
@@ -662,7 +743,30 @@ summary(scf)$mleParam |>
         decimals = 3,
         drop_trailing_zeros = TRUE
     ) |>
-    fmt_markdown(signif) |>
+    fmt_percent(
+        columns = estimate,
+        rows = variables %nin% c("*(Intercept)*","*sigmaSq*", "*gamma*"),
+        pattern = "+{x}"
+    ) |>
+    fmt_percent(
+        columns = estimate,
+        rows = estimate < 0,
+    ) |>
+    data_color(
+        columns = estimate,
+        rows = estimate < 0,
+        method = "numeric",
+        palette = c("red", "orange"),
+        apply_to = "text"
+    ) |>
+    data_color(
+        columns = estimate,
+        rows = estimate > 0 & variables %nin% c("*(Intercept)*","*sigmaSq*", "*gamma*"),
+        method = "numeric",
+        palette = c("lightgreen", "darkgreen"),
+        apply_to = "text"
+    ) |>
+    fmt_markdown(c(variables,signif)) |>
     tab_options(
         table.background.color = "#222222",
         table.font.color = "white",
@@ -670,6 +774,10 @@ summary(scf)$mleParam |>
     ) |>
     opt_interactive(page_size_default = 5, use_highlight = TRUE)
 ```
+
+## SFA Cost Frontier (III) 
+
+comparaison AIC
 
 ```{r}
 logLik(loghedonic)
