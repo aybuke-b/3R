@@ -2,6 +2,7 @@ import streamlit as st
 import time
 from modules_app.st_config import (
     page_config,
+    background_style,
     remove_white_space,
     fontawesome_import,
     font_import,
@@ -13,6 +14,7 @@ from modules_app.st_config import (
 from modules_app.data_import import load_df
 
 page_config()
+background_style()
 remove_white_space()
 underline_decoration()
 version = fontawesome_import(major=6, minor=5, patch=1)

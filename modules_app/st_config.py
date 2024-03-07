@@ -24,6 +24,27 @@ def page_config() -> None:
     return st.set_page_config(page_title="Smart Specs", page_icon="📱")
 
 
+def background_style() -> DeltaGenerator:
+    return st.markdown(
+        """
+        <style>
+                .stApp > header {
+                    background-color: transparent;
+                }
+                .stApp {
+                    margin: auto;
+                    overflow: auto;
+                    background: linear-gradient(315deg, white 3%, white 38%, white 68%, #00d5c6 90%);
+                    animation: gradient 15s ease infinite;
+                    background-size: 400% 400%;
+                    background-attachment: fixed;
+                }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def remove_white_space() -> DeltaGenerator:
     """`remove_white_space`: Utilise du CSS pour retirer de l'espace non-utilisé.
 

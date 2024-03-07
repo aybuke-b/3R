@@ -28,8 +28,38 @@ format:
             font-size: 1.75em;
             }
             </style>
-jupyter: python3
+link-external-icon: true
+engine: knitr
 ---
+
+```{r}
+#| label: lib_imports
+library(gt)
+library(arrow)
+library(tidyverse)
+library(frontier)
+```
+
+```{r}
+#| label: theming
+#| echo: false
+theme_set(theme_minimal())
+thematic::thematic_on(bg = "#222222", fg = "white", accent = "purple", font = "PT Sans")
+```
+
+```{r}
+#| label: custom_funcs
+makestars <- function(pvalues) {
+    return(
+        dplyr::case_when(
+            pvalues < 0.001 ~ "_***_",
+            pvalues < 0.05 ~ "_***_",
+            pvalues < 0.1 ~ "_***_",
+            .default = ""
+        )
+    )
+}
+```
 
 ## Problématique {background-color="black" background-image="https://vivreaulycee.fr/wp-content/uploads/2018/12/question-mark-2492009_1280-1200x480.jpg" background-size="cover" background-opacity="0.75"}
 
@@ -55,6 +85,11 @@ En premier lieu, il convient de se poser une question qui semble évidente à pr
 
 > *Un comparateur en ligne, qu'est ce que c'est ?*
 
+
+::: {.callout-tip}
+
+## Définition
+
 Un comparateur est un site web qui permet de comparer différents produits ou services.
 
 Principalement axé sur les prix, il peut également prendre en compte les aspects techniques et la qualité des produits.
@@ -62,6 +97,8 @@ Principalement axé sur les prix, il peut également prendre en compte les aspec
 - <https://www.idealo.fr>
 - <https://www.ledenicheur.fr>
 - <https://www.kimovil.com/fr/>
+
+:::
 
 :::{.notes}
 
@@ -83,14 +120,560 @@ Questions juridiques / économiques / statistiques / algorithmiques.
 
 :::
 
-## Obligations d'information sur les comparateurs
+## Obligations d'information sur les comparateurs {.smaller}
 
-Les comparateurs en ligne sont soumis à des obligations de loyauté et de transparence en ce qui concerne l'information du consommateur. Ils doivent à ce titre :
+Les opérateurs de plateforme en ligne doivent délivrer au consommateur une information **loyale**, **claire** et **transparente**, selon l’article [L. 111-7 du code de la consommation](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033219601).
 
-    avoir une page dédiée vous informant de son fonctionnement. Cette page doit être facilement accessible depuis toutes les autres pages du comparateur,
-    faire figurer, sur chaque page de résultats, les informations concernant les critères de classement,
-    indiquer via la mention explicite « annonce » les résultats liés à des partenariats rémunérés,
-    faire apparaître toutes les caractéristiques de chaque offre présentée,
-    présenter les offres avec un tarif incluant tous les frais.
+Les comparateurs en ligne sont donc eux aussi soumis à ces obligations de loyauté et de transparence.
+
+- Page dédiée accessible depuis toutes les autres pages du comparateur informant le fonctionnement de celui-ci.
+
+- Faire figurer sur chaque page de résultats  les informations concernant les critères de classement.
+
+- Indiquer via la mention explicite **« annonce »** les résultats liés à des partenariats rémunérés.
+
+:::{.notes}
+
+Il va sans dire que très peu de comparateurs respectent le premier point, souvent pour une raison simple : ce sont juste des listings de prix de téléphones du moins cher au plus cher, il n'y a pas vraiment de fonctionnement à proprement parler.
+
+De même, concernant les critères de classement.
+
+En revanche le troisième point est presque toujours indiqué quelque part avec la mention *publicité* ou *annonce* quand il y a un partenariat rémunéré, et c'est normal car une grande partie des revenus de ces comparateurs provient de ces partenariats donc il font assez attention à ce point.
+
+***
+
+L'avantage de notre comparateur c'est qu'il respecte les deux premiers points, sans se soucier du troisième puisqu'on a pas de partenariats rémunérés. Tout ça permet d'offrir une grande transparence pour le consommateur.
+
+:::
+
+## `SMART'SPECS` Démonstration
+
+**🚀 Lancement de l'application**
+
+::: {.callout-note}
+
+## Depuis le terminal
+
+*Lancement du shell poetry* :
+
+```powershell
+py -m poetry shell
+```
+
+*Lancement de l'application* :
+
+```powershell
+python -m streamlit run Accueil.py
+```
+
+$\Rightarrow$ *Simple* : seulement 2 commandes pour accéder à l'application !
+
+:::
+
+<img src = imgs/logo.png width="10%">
 
 
+
+:::{.notes}
+
+1. **Page d'accueil**
+
+Quand on lance l'application, on arrive donc sur une page d'accueil soignée pour expliquer l'utilité de notre comparateur Smart Specs, permettant de vous assister dans la quête de votre smartphone idéal. 
+
+Il est précisé pour l'utilisateur qu'un modèle SFA est utilisé en arrière-plan mais on vous rappelera plus en détail le fonctionnement du modèle SFA quand on arrivera à la partie des résultats.
+
+On peut aussi voir la dernière d'actualisation du scraping. Par rapport à la première présentation, ce sont donc des données plus récentes, issues de février.
+
+On peut ensuite s'intéresser à plusieurs autres pages.
+
+2. **Insights**
+
+Les insights sont simplement des statistiques descriptives qui nous permettent de mettre en avant des résultats pas forcément observables dans l'achat d'un téléphone.
+
+On peut par exemple s'intéresser au prix moyen par marque. On retrouve, sans surprise, comme dans la première présentation, que XIAOMI propose les téléphones les moins chers en moyenne tandis qu'APPLE propose les téléphones les plus chers en moyenne.
+
+Pour le nombre de modèles vendus par marque, on retrouve XIAOMI, SAMSUNG & APPLE sur le podium et qui possèdent à eux trois plus de 300 téléphones commercialisés soit 80% du total sur Boulanger.
+
+Pour ce qui est du prix en fonction de la RAM, on peut voir que le prix médian augmente avec la RAM, ce qui est plutôt logique. On voit aussi grâce au jitterplot à côté du boxplot que la dispersion augmente à mesure que la RAM augmente.
+
+On peut faire les mêmes interprétations pour le boxplot du prix en fonction du stockage mais on remarque qu'il y a un peu moins de dispersion.
+
+Enfin, il y a aussi la distribution des prix, qu'on vous avait exposé dans la première présentation et qui, on le rappelle, possédait une distribution asymétrique. C'est toujours le cas, et on remarque de manière plus importante encore deux pics dans la distribution des prix, qui nous permettent de distinguer des téléphones **bas de gamme** et **haut de gamme**.
+
+L'option distribution marginale permet de visualiser la distribution des téléphones sans aggrégation par intervalle de prix, c'est à dire qu'on est en mesure de voir pour chaque modèle le prix exact.
+
+Enfin, l'option la plus intéressante selon nous est la distribution par marque, qui permet de subdiviser la distribution générale par marque.
+
+Ce qui pourrait être intéressant serait de sélectionner les marques qui nous intéressent : par exemple XIAOMI et APPLE, et on remarque que XIAOMI est sur une gamme de prix bas tandis que pour APPLE la gamme de prix est plus étalée. On voit globalement que ces deux marques ne sont pas sur le même marché.
+
+3. **Efficacité**
+
+Après avoir pris connaissance de ces insights, l'utilisateur peut naviguer sur la page d'analyse de l'efficacité calculée par le modèle SFA, qui est le point central de notre application.
+
+Initialement, pour une question de lisibilité les deux seules marques sélectionnées sont APPLE & SAMSUNG, mais on peut choisir plus de marques si on le souhaite. De même, le prix maximal d'un smartphone est fixé à 500 €, que l'utilisateur pourra ensuite modifier à sa guise.
+
+On voit ensuite deux indicateurs : le nombre de téléphones efficaces et inefficaces. Ces indicateurs proviennent du nuage de points des efficacités en fonction du prix qu'on peut voir ici. Tous les téléphones compris dans la zone rouge sont considérés comme *inefficaces*, c'est à dire que ce sont de mauvais rapports qualité-prix alors que ceux qui sont au-dessus sont de bons rapport qualité-prix. A noter que ce seuil peut être aussi modifié par l'utilisateur si il veut plus de contrôle.
+
+En plus de tout ça, l'utilisateur dispose aussi d'un diagramme en barres dynamique de l'efficacité moyenne par marque.
+
+4. **Comparateur**
+
+L'idée est ensuite de s'appuyer sur la page d'analyse de l'efficacité pour comparer deux téléphones à prix similaires mais à efficacité différente. La page Comparateur permet précisément de faire ça.
+
+Ce comparateur est plus complet que ceux actuellement existants parce qu'il inclue évidemment l'efficacité mais aussi un système permettant de comparer les caractéristiques comme la RAM, le stockage, etc.
+
+$\Rightarrow$ On peut par exemple choisir l'**iPhone 14 plus** (256 Go) et le **Google Pixel 8 Pro** (128 Go) qui ont des prix similaires mais des efficacités légèrement différentes.
+
+5. **Détails**
+
+Cet onglet permet de visualiser tous les modèles disponibles et leurs caractéristiques, ou alors de filtrer l'ensemble des téléphones disponibles selon la marque, la capacité de stockage et la RAM. Dans le tableau on peut filtrer selon chaque variable disponible.
+
+:::
+
+## Hedonic Pricing : aspect théorique (I)
+
+Cadre apporté par @rosen1974. On étudie un bien différencié $z$ décrit par le vecteur de ses $n$ caractéristiques mesurables tel que : 
+
+:::{.fragment .fade-in}
+$$z = (z_1, z_2, \dots, z_n)$$ 
+:::
+
+:::{.fragment .fade-in}
+> *La différenciation horizontale et verticale des produits implique qu'une vaste gamme de paniers est disponible.*
+:::
+
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
+::: {.notes}
+
+Avant de rentrer dans la partie des estimations économétriques, on va vous faire quelques rapides rappels de notre partie de recherche pour vous rafraîchir la mémoire.
+
+Contrairement à Lancaster que nous n'avons pas rementionné qui étudie uniquement le côté consommateur, Rosen s'intéresse à
+**l’équilibre de marché de biens différenciés** : 
+
+- avec un continuum de biens du côté de l’offre
+- et un continuum de consommateurs hétérogènes du côté de la demande
+
+**Différenciation Horizontale** $\Rightarrow$ A prix donné, il n'y a pas unanimité dans le choix des consommateurs entre 2 biens (jaune et rouge) : ce sont des différences de goûts.
+
+**Différenciation Verticale** $\Rightarrow$ A prix donné, il y a unanimité dans le choix des consommateurs entre 2 voitures biens : l'un est meilleur que l'autre.
+:::
+
+## Hedonic Pricing : aspect théorique (III)
+
+- Le consommateur n'achète qu'**une seule** unité de bien qui est une combinaison d'attributs $z_1, z_2, \dots, z_n$.
+- Un prix est donc défini en chaque point du plan et guide les choix de localisation des consommateurs et des producteurs concernant les ensembles de caractéristiques achetés et vendus.
+
+:::{.fragment .fade-in}
+$$\boxed{p(z) = p(z_1, z_2, \dots, z_n)}$$
+:::
+
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
+:::{.notes}
+*Corentin*
+
+Achat d'une seule unité de bien car historiquement, Rosen s'intéresse principalement aux biens durables (Machine à laver, logements, voitures, smartphones...). Pourquoi ? C'est parce que c'est beaucoup plus simple d'obtenir des caractéristiques observables sur ces biens durables que sur des biens consommables.
+
+On aboutit à une relation fonctionnelle entre les caractéristiques des biens
+et leur prix, appelée fonction de prix hédonique $p(z)$.
+
+***
+
+Il n'en reste pas moins qu'il subsiste un problème indéniable : Ce qu'on aimerait réellement mesurer c'est le **service rendu par un produit** et non pas les caractéristiques de ce produit, et ça c'est complètement inobservable. Donc en bref il va falloir faire attention pour interpréter correctement les résultats des régressions.
+
+:::
+
+## OLS LEVEL-LEVEL (I) {.smaller}
+
+$$
+\begin{split}
+price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
++ \beta_4 induction_i + \beta_5 screen\_size_i + \beta_6 screen\_type_i\\
++ \beta_7 made\_in_i + \beta_8 upgrade\_storage_i + \beta_{9} das\_limbs_i \\
++ \beta_{10} network_i + \beta_{11} ppi_i + \epsilon_i
+\end{split}
+$$
+
+## OLS LEVEL-LEVEL (II) {.smaller}
+
+```{r}
+df_phones <- read_delim("Web_Scraping/data/df_clean_2.csv", delim = ";")
+
+levelhedonic <- lm(
+    price ~ storage + brand + ram + induction + screen_size + screen_type + made_in + upgrade_storage + das_limbs + network + ppi,
+    data = df_phones
+)
+
+r_squared_level <- round(summary(levelhedonic)$r.squared, 3)
+
+r_adj_squared_level <- round(summary(levelhedonic)$adj.r.squared, 3)
+
+summary(levelhedonic)$coefficients |>
+    as.data.frame() |>
+    rownames_to_column(var = "Variables") |>
+    as_tibble() |>
+    janitor::clean_names() |>
+    mutate(
+        variables = case_when(
+            variables == "brandGOOGLE" ~ "*brand* `(GOOGLE)`",
+            variables == "brandHONOR" ~ "*brand* `(HONOR)`",
+            variables == "brandMOTOROLA" ~ "*brand* `(MOTOROLA)`",
+            variables == "brandOPPO" ~ "*brand* `(OPPO)`",
+            variables == "brandSAMSUNG" ~ "*brand* `(SAMSUNG)`",
+            variables == "brandSONY" ~ "*brand* `(SONY)`",
+            variables == "brandXIAOMI" ~ "*brand* `(XIAOMI)`",
+            variables == "inductionTRUE" ~ "*induction* `(True)`",
+            variables == "screen_typeBords incurvés" ~ "*screen_type* `(Bords Incurvés)`",
+            variables == "screen_typePlat" ~ "*screen_type* `(Plat)`",
+            variables == "screen_typePliable" ~ "*screen_type* `(Pliable)`",
+            variables == "made_inJapon" ~ "*made_in* `(Japon)`",
+            variables == "made_inThaïlande" ~ "*made_in* `(Thaïlande)`",
+            variables == "made_inViêt Nam" ~ "*made_in* `(Viêt Nam)`",
+            variables == "upgrade_storageTRUE" ~ "*upgrade_storage* `(True)`",
+            variables == "network5G" ~ "*network* `(5G)`",
+            .default = as.character(glue::glue("*{variables}*"))
+        )
+    ) |>
+    mutate(signif = makestars(pr_t)) |>
+    gt() |>
+    cols_hide(c(t_value, pr_t)) |>
+    cols_label(
+        variables = gt::md("**Variables**"),
+        estimate = gt::md("**Coefficients**"),
+        std_error = gt::md("**Ecart Type**"),
+        signif = gt::md("**Significativité**")
+    ) |>
+    tab_header(
+        title = md("Résultats de l'estimation pour le modèle  de pricing **Hédonique**"),
+        subtitle = md("*Variable dépendante* : `price`")
+    ) |>
+    fmt_number(
+        columns = c(std_error, pr_t),
+        decimals = 2,
+        drop_trailing_zeros = TRUE
+    ) |>
+    data_color(
+        columns = estimate,
+        rows = estimate < 0,
+        method = "numeric",
+        palette = c("red", "orange"),
+        apply_to = "text"
+    ) |>
+    data_color(
+        columns = estimate,
+        rows = estimate > 0,
+        method = "numeric",
+        palette = c("lightgreen", "darkgreen"),
+        apply_to = "text"
+    ) |>
+    fmt_currency(
+        columns = c(estimate),
+        currency = "euro",
+        placement = "right",
+        incl_space = TRUE
+    ) |>
+    fmt_markdown(c(variables,signif)) |>
+    tab_footnote(
+        md(glue::glue("$R^2=$ {r_squared_level}"))
+    ) |>
+    tab_footnote(
+        md(glue::glue("| $R^2_{{adj}}=$ {r_adj_squared_level}"))
+    ) |>
+    tab_options(
+        table.background.color = "#222222",
+        table.font.color = "white",
+        table.font.size = 8,
+    ) |>
+    opt_interactive(page_size_default = 5, use_highlight = TRUE)
+```
+
+:::{.notes}
+
+
+le coefficient β1 s’interprète comme l’effet marginal d’une année supplémentaire
+d’études Educi sur le salaire Sali
+. Elle correspond à la variation de β1 unités du salaire de l’individu
+induite par la variation d’une unité du niveau d’études toutes choses égales par ailleurs
+:::
+
+## OLS LEVEL-LEVEL (III)
+
+```{r}
+performance::check_posterior_predictions(levelhedonic)
+```
+
+## OLS LOG-LEVEL (I) {.smaller}
+
+```{r}
+loghedonic <- lm(
+    logprice ~ storage + brand + ram + induction + screen_size + screen_type + made_in + upgrade_storage + das_limbs + network + ppi,
+    data = df_phones
+)
+
+r_squared_log <- round(summary(loghedonic)$r.squared, 3)
+
+r_adj_squared_log <- round(summary(loghedonic)$adj.r.squared, 3)
+
+summary(loghedonic)$coefficients |>
+    as.data.frame() |>
+    rownames_to_column(var = "Variables") |>
+    as_tibble() |>
+    janitor::clean_names() |>
+    mutate(
+        variables = case_when(
+            variables == "brandGOOGLE" ~ "*brand* `(GOOGLE)`",
+            variables == "brandHONOR" ~ "*brand* `(HONOR)`",
+            variables == "brandMOTOROLA" ~ "*brand* `(MOTOROLA)`",
+            variables == "brandOPPO" ~ "*brand* `(OPPO)`",
+            variables == "brandSAMSUNG" ~ "*brand* `(SAMSUNG)`",
+            variables == "brandSONY" ~ "*brand* `(SONY)`",
+            variables == "brandXIAOMI" ~ "*brand* `(XIAOMI)`",
+            variables == "inductionTRUE" ~ "*induction* `(True)`",
+            variables == "screen_typeBords incurvés" ~ "*screen_type* `(Bords Incurvés)`",
+            variables == "screen_typePlat" ~ "*screen_type* `(Plat)`",
+            variables == "screen_typePliable" ~ "*screen_type* `(Pliable)`",
+            variables == "made_inJapon" ~ "*made_in* `(Japon)`",
+            variables == "made_inThaïlande" ~ "*made_in* `(Thaïlande)`",
+            variables == "made_inViêt Nam" ~ "*made_in* `(Viêt Nam)`",
+            variables == "upgrade_storageTRUE" ~ "*upgrade_storage* `(True)`",
+            variables == "network5G" ~ "*network* `(5G)`",
+            .default = as.character(glue::glue("*{variables}*"))
+        )
+    ) |>
+    mutate(signif = makestars(pr_t)) |>
+    gt() |>
+    cols_hide(c(t_value, pr_t)) |>
+    cols_label(
+        variables = gt::md("**Variables**"),
+        estimate = gt::md("**Coefficients**"),
+        std_error = gt::md("**Ecart Type**"),
+        signif = gt::md("**Significativité**")
+    ) |>
+    tab_header(
+        title = md("Résultats de l'estimation pour le modèle  de pricing **Hédonique**"),
+        subtitle = md("*Variable dépendante* : `log(price)`")
+    ) |>
+    fmt_number(
+        columns = c(estimate, std_error, pr_t),
+        decimals = 2,
+        drop_trailing_zeros = TRUE,
+    ) |>
+    fmt_percent(
+        columns = estimate,
+        rows = between(estimate, 0, 4),
+        pattern = "+{x}"
+    ) |>
+    fmt_percent(
+        columns = estimate,
+        rows = estimate < 0,
+    ) |>
+    data_color(
+        columns = estimate,
+        rows = variables != "(Intercept)",
+        method = "numeric",
+        palette = c("red", "orange"),
+        apply_to = "text"
+    ) |>
+    data_color(
+        columns = estimate,
+        rows = estimate > 0,
+        method = "numeric",
+        palette = c("lightgreen", "darkgreen"),
+        apply_to = "text"
+    ) |>
+    fmt_markdown(c(signif, variables)) |>
+    tab_footnote(
+        md(glue::glue("$R^2=$ {r_squared_log}"))
+    ) |>
+    tab_footnote(
+        md(glue::glue("| $R^2_{{adj}}=$ {r_adj_squared_log}"))
+    ) |>
+    tab_options(
+        table.background.color = "#222222",
+        table.font.color = "white"
+    ) |>
+    opt_interactive(page_size_default = 5, use_highlight = TRUE)
+```
+
+## OLS LOG-LEVEL (II)
+
+```{r}
+performance::check_posterior_predictions(loghedonic)
+```
+
+```{r}
+logLik(loghedonic)
+```
+
+## SFA ~ RAPPELS (I) {.smaller}
+
+@aigner1977 :
+
+**Objectif** : Formulation et estimation de fonctions de frontière de production stochastique.
+
+:::{.fragment .fade-in}
+$${\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}}$$
+:::
+
+- $TE_i$ représente l'efficacité technique, définie comme le ratio d'output observé sur l'output maximum réalisable, c'est à dire : $TE_i = \dfrac{y_i}{y_i^*}$.
+
+- Ajout d'un composant **stochastique** ${\exp \left\{{v_{i}}\right\}}$ qui représente les chocs aléatoires affectant la production. La fonction de production devient alors :
+
+:::{.fragment .fade-in}
+$$\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i}}\right\}}}$$
+:::
+
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
+:::{.notes}
+*Aybuké*
+
+Avant les travaux de `Aigner`, les économètres utilisaient uniquement des fonctions de production moyennes, autrement dit la formulation théorique était différente de la mise en pratique.
+
+- On repart de la fonction de production présentée à la slide précédente, mais on lui ajoute un terme multiplicatif $TE_i$.
+
+- Si $TE_i = 1$ alors la firme $i$ produit l'output maximum réalisable, alors que si $TE_i < 1$, il existe un écart entre l'output maximum et l'output effectivement observé.
+:::
+
+## SFA ~ RAPPELS (II) {.smaller}
+
+On peut ré-écrire $TE_i$ sous la forme ${\displaystyle TE_{i}=\exp \left\{{-u_{i}}\right\}}$. Dès lors, nous obtenons l'équation suivante :
+
+:::{.fragment .fade-in}
+$${\displaystyle y_{i}=f(x_{i};\beta )\cdot \exp \left\{{-u_{i}}\right\}\cdot \exp \left\{{v_{i}}\right\}}$$ 
+:::
+
+La SFA (`Stochastic Frontier Analysis`) est une méthode paramétrique : elle requiert une forme fonctionnelle précise et les termes d'erreur $\epsilon_i$ ont une distribution particulière (composée) :
+
+- $v_i$ est une erreur aléatoire $\Rightarrow$ variation inexpliquée par les variables indépendantes du modèle, avec $v_i \sim \mathcal{N}(0, \sigma^2_v)$.
+- $u_i$ est un composant unilatéral qui peut être choisi parmi plusieurs distributions et $u_i \geq 0$, puisqu'il est nécessaire d'avoir $TE_i ≤ 1$.
+
+:::{.fragment .fade-in}
+> *La spécification de cette méthode permet d’estimer les scores de l’efficience technique de chaque firme (historiquement), ou produit, dans notre cas.*
+:::
+
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
+:::{.notes}
+*Corentin*
+
+Différence entre les méthodes paramétriques et non-paramétriques :
+
+- Il faut donc choisir la distribution que vont suivre les termes d'erreurs $u_i$
+    - Distribution **semi-normale**
+    - Distribution **normale tronquée**
+
+- Dans les méthodes non paramétriques comme la `DEA`, la structure du modèle n'est pas spécifiée à priori mais est déterminée à partir des données.
+
+:::
+
+
+## SFA ~ RAPPELS (III) {.smaller}
+
+:::: {.columns}
+
+::: {.column width="60%"}
+*<u>$^*$Exemple</u>* : 
+
+![](imgs/stochastic_image.jpeg){width=95%}
+
+$*$ Droits d'auteur : [Lutz Bornmann](https://www.researchgate.net/profile/Lutz-Bornmann)
+:::
+
+::: {.column width="40%"}
+A partir de cette représentation on peut clairement distinguer les effets de $v_i$ (`noise`) et ceux de $u_i$ (`inefficiency`).
+
+***
+
+- $y_i^*=$ output maximum
+- $\Leftrightarrow \ln y_i^* = \ln\left[f(x_i;\beta)\right] + v_i$
+- $y_i =$ output observé
+- $\Leftrightarrow \ln y_i = \ln y_i^* -u_i$
+- $\Leftrightarrow \ln y_i = \ln\left[f(x_i;\beta)\right] + v_i -u_i$
+
+:::{.fragment} 
+$$\boxed{\ln y_i = \ln\left[f(x_i;\beta)\right] + \epsilon_i}$$
+:::
+
+:::
+
+::::
+
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
+:::{.notes}
+L'objectif de cette slide est d'expliquer graphiquement la SFA.
+
+- On inclue aussi une transformation logarithmique permettant de manipuler plus facilement le terme d'erreur.
+:::
+
+## SFA Call {.smaller}
+
+$$
+\begin{split}
+\ln(price_i) = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
++ \beta_4 induction_i + \beta_5 screen\_size_i + \beta_6 screen\_type_i\\
++ \beta_7 made\_in_i + \beta_8 upgrade\_storage_i + \beta_{9} das\_limbs_i \\
++ \beta_{10} network_i + \beta_{11} ppi_i + v_i + u_i
+\end{split}
+$$
+
+
+## SFA résultats {.smaller}
+
+```{r}
+scf <- sfa(
+    log(price) ~ storage + brand + ram + induction + screen_size + screen_type + made_in + upgrade_storage + das_limbs + network + ppi,
+    data = df_phones,
+    truncNorm = FALSE,
+    ineffDecrease = FALSE
+)
+
+summary(scf)$mleParam |>
+    data.frame() |>
+    rownames_to_column(var = "Variables") |>
+    janitor::clean_names() |>
+    mutate(signif = makestars(pr_z)) |>
+    gt() |>
+    cols_hide(c(z_value, pr_z)) |>
+    cols_label(
+        variables = gt::md("**Variables**"),
+        estimate = gt::md("**Coefficients**"),
+        std_error = gt::md("**Ecart Type**"),
+        signif = gt::md("**Significativité**")
+    ) |>
+    tab_header(
+        title = md("Résultats de l'estimation pour le modèle **SFA**"),
+        subtitle = md("*Variable dépendante* : `log(price)`")
+    ) |>
+    fmt_number(
+        columns = c(estimate, std_error, pr_z),
+        decimals = 3,
+        drop_trailing_zeros = TRUE
+    ) |>
+    fmt_markdown(signif) |>
+    tab_options(
+        table.background.color = "#222222",
+        table.font.color = "white",
+        table.font.size = 8,
+    ) |>
+    opt_interactive(page_size_default = 5, use_highlight = TRUE)
+```
+
+```{r}
+logLik(loghedonic)
+logLik(scf)
+```
+
+## Références
