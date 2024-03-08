@@ -34,8 +34,7 @@ def background_style() -> DeltaGenerator:
                 .stApp {
                     margin: auto;
                     overflow: auto;
-                    background: linear-gradient(315deg, white 3%, white 38%, white 68%, #00d5c6 90%);
-                    animation: gradient 15s ease infinite;
+                    background: linear-gradient(45deg, rgba(235,235,235,0.7) 30%, rgba(132,175,244,1) 80%, rgba(0,98,255,1) 100%);
                     background-size: 400% 400%;
                     background-attachment: fixed;
                 }

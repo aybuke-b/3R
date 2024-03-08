@@ -74,8 +74,6 @@ def main_details_table(mutable_df: pl.DataFrame) -> DeltaGenerator:
             "brand",
             "price",
             "efficiency",
-            "prediction_sfa",
-            "prediction_loghedonic",
             "ram",
             "storage",
             "induction",
@@ -106,14 +104,6 @@ def main_details_table(mutable_df: pl.DataFrame) -> DeltaGenerator:
             ),
             "efficiency": st.column_config.ProgressColumn(
                 "🥇 Efficacité du prix", min_value=0, max_value=1, format="%.2f"
-            ),
-            "prediction_sfa": st.column_config.NumberColumn(
-                "💰 Prix prédit (SFA)",
-                format="%.2f €",
-            ),
-            "prediction_loghedonic": st.column_config.NumberColumn(
-                "💰 Prix prédit (OLS)",
-                format="%.2f €",
             ),
             "ram": st.column_config.NumberColumn(
                 "RAM",

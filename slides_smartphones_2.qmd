@@ -38,6 +38,9 @@ library(gt)
 library(arrow)
 library(tidyverse)
 library(frontier)
+library(moments)
+library(patchwork)
+library(ggtext)
 ```
 
 ```{r}
@@ -102,6 +105,10 @@ Principalement axé sur les prix, il peut également prendre en compte les aspec
 
 :::
 
+::: {.footer}
+--- Recherche, Réalisation, `Restitution` ---
+:::
+
 :::{.notes}
 
 Les exemples sont multiples : Comparateur de vols, d'assurances, de voitures, de banques...
@@ -133,6 +140,10 @@ Les comparateurs en ligne sont donc eux aussi soumis à ces obligations de loyau
 - Faire figurer sur chaque page de résultats  les informations concernant les critères de classement.
 
 - Indiquer via la mention explicite **« annonce »** les résultats liés à des partenariats rémunérés.
+
+::: {.footer}
+--- Recherche, Réalisation, `Restitution` ---
+:::
 
 :::{.notes}
 
@@ -174,7 +185,9 @@ $\Rightarrow$ *Simple* : seulement 2 commandes pour accéder à l'application !
 
 <img src = imgs/logo.png width="10%">
 
-
+::: {.footer}
+--- Recherche, Réalisation, `Restitution` ---
+:::
 
 :::{.notes}
 
@@ -232,7 +245,7 @@ Cet onglet permet de visualiser tous les modèles disponibles et leurs caractér
 
 :::
 
-## Hedonic Pricing : aspect théorique (I)
+## Hedonic Pricing ~ Rappel théorique (I)
 
 Cadre apporté par @rosen1974. On étudie un bien différencié $z$ décrit par le vecteur de ses $n$ caractéristiques mesurables tel que : 
 
@@ -263,7 +276,46 @@ Contrairement à Lancaster que nous n'avons pas rementionné qui étudie uniquem
 **Différenciation Verticale** $\Rightarrow$ A prix donné, il y a unanimité dans le choix des consommateurs entre 2 voitures biens : l'un est meilleur que l'autre.
 :::
 
-## Hedonic Pricing : aspect théorique (III)
+## Hedonic Pricing ~ Rappel théorique (II)
+
+```{r}
+set.seed(43)
+num_points <- 6
+data <- data.frame(
+    x = sample(0:10, num_points, replace = TRUE),
+    y = sample(0:10, num_points, replace = TRUE),
+    products = paste("Bien", 1:num_points)
+)
+
+
+ggplot(data, aes(x = x, y = y, color = products)) +
+    geom_point(size = 5) +
+    labs(
+        title = "Plan de différents biens avec 2 caractéristiques.",
+        x = expression(z[1]),
+        y = expression(z[2])
+    ) +
+    theme(
+        plot.title = element_text(size = 20),
+        axis.title = element_text(size = 16),
+        axis.text = element_text(size = 14),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 14),
+        text = element_text(color = "white")
+    )
+```
+
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
+::: {.notes}
+
+On est habitué à représenter les préférences des consommateurs en termes de quantités de biens $x_1$, $x_2$. Ici, changement de paradigme : on va en fait représenter les préférences des consommateurs en termes de caractéristiques de biens.
+
+:::
+
+## Hedonic Pricing ~ Rappel théorique (III)
 
 - Le consommateur n'achète qu'**une seule** unité de bien qui est une combinaison d'attributs $z_1, z_2, \dots, z_n$.
 - Un prix est donc défini en chaque point du plan et guide les choix de localisation des consommateurs et des producteurs concernant les ensembles de caractéristiques achetés et vendus.
@@ -300,7 +352,11 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 \end{split}
 $$
 
+<hr>
+
 :::{.notes}
+
+On en arrive à la partie d'application du pricing hédonique $\Rightarrow$ On va décomposer le prix d'un bien, en l'occurence un smartphone, en 11 caractéristiques : le stockage, la marque, la ram, la taille et le type d'écran, etc.
 
 Ici on retrouve le modèle en niveau dont les variables n'ont pas été choisies au hasard mais qui ont fait l'objet d'une sélection de variables grâce à un algorithme génétique, on l'avait expliqué mais on ne va pas re-rentrer dans les détails. L'intérêt de ce modèle en niveau c'est de pouvoir directement interpréter les coefficients comme des prix (effets marginaux). 
 
@@ -399,16 +455,23 @@ summary(levelhedonic)$coefficients |>
     opt_interactive(page_size_default = 5, use_highlight = TRUE)
 ```
 
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
+
 :::{.notes}
 
 Ici le coefficient $\beta_1$ s’interprète comme l’effet marginal d’1 Go supplémentaire
 de capacité de stockage sur le prix, c'est à dire que si la capacité de stockage augmente de 1 Go, alors, le prix augmente de 91 centimes, cet.par.
 
-• En ayant comme catégorie de référence Apple pour la variable marque (brand), on peut
+- En ayant comme catégorie de référence Apple pour la variable marque (brand), on peut
 voir que toutes les marques ont un impact négatif sur le prix, cet. par.
-– La marque la plus valorisée derrière Apple est **SONY** avec 313.59 € de différence
+
+- La marque la plus valorisée derrière Apple est **SONY** avec 313.59 € de différence
 par rapport à **APPLE**.
-– La marque la moins valorisée est **XIAOMI** avec 588.81 € de différence par rapport
+
+- La marque la moins valorisée est **XIAOMI** avec 588.81 € de différence par rapport
 à **APPLE**.
 
 - Une augmentation d’1 Go de ram augmente le prix de 27.58 €, cet. par. (Faire lien avec graph insight)
@@ -416,11 +479,13 @@ par rapport à **APPLE**.
 Pour le type d’écran (screen_type), la catégorie de référence est borderless (un écran sans
 bordure).
 
-– Disposer d’un écran à bord incurvé diminue le prix de 228.44 € par rapport à la
-catégorie de référence, cet. par.
-– Pour l’écran plat, le prix diminue de 89.78 € par rapport à la catégorie de réfé-
+- Disposer d’un écran à bord incurvé diminue le prix de 228.44 € par rapport à la
+catégorie de référence borderless, cet. par.
+
+- Pour l’écran plat, le prix diminue de 89.78 € par rapport à la catégorie de réfé-
 rence, cet. par.
-– Avoir un écran pliable fait augmenter le prix de 172.6 € par rapport à la catégorie
+
+- Avoir un écran pliable fait augmenter le prix de 172.6 € par rapport à la catégorie
 de référence, cet. par.
 :::
 
@@ -429,6 +494,10 @@ de référence, cet. par.
 ```{r}
 performance::check_posterior_predictions(levelhedonic)
 ```
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
 
 :::{.notes}
 Aussi, une étape visuelle qu'on peut mettre en place est de vérifier l’ajustement du
@@ -442,6 +511,66 @@ Note : Pour cela, on utilise d'abord les données observées et les prédicteurs
 Ici on retrouve bien en vert la distribution bimodale des prix qu'on avait vu dans notre application, mais par contre le modèle a du mal à la représenter, surtout pour les téléphones entre 200 et 500 €.
 :::
 
+## OLS LEVEL-LEVEL (IV) {.smaller}
+
+```{r}
+ggplot(levelhedonic, aes(x = .fitted, y = .resid)) +
+    geom_point() +
+    geom_hline(yintercept = 0, color = "darkgreen") +
+    labs(x = expression(hat(y[i])), y = expression(e[i])) +
+    ggtitle("Valeurs prédites et résidus")
+```
+
+```{r}
+heterosced_levelhedonic <- performance::check_heteroscedasticity(levelhedonic)
+```
+
+::: {.fragment .fade-in}
+::: {.fragment .highlight-red}
+
+**Présence d'hétéroscédasticité** (Variance des erreurs $\epsilon_i$ non constantes) ~ $p-value < 0.05$.
+
+:::
+:::
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
+:::{.notes}
+
+Vous vous en doutez, mais vu le graphique précédent, il y a une hypothèse importante qui est violée dans ce modèle, et évidemment on voit bien que les résidus ne sont pas homoscédastiques, et le test de *Breusch-Pagan* nous le confirme.
+:::
+
+## OLS LEVEL-LEVEL (V) {.smaller}
+
+```{r}
+mean_resid <- mean(levelhedonic$resid)
+sd_resid <- sd(levelhedonic$resid)
+
+ggplot(levelhedonic, aes(x = .resid)) +
+    geom_histogram(aes(y = after_stat(density)), bins = 40, fill = "white", alpha = 0.7) +
+    stat_function(fun = dnorm, args = list(mean = mean_resid, sd = sd_resid), color = "darkgreen", size = 1) +
+    labs(x = "Résidus", y = "Densité") +
+    ggtitle("Histogramme des résidus avec loi normale superposée")
+
+skewness_levelhedonic <- skewness(levelhedonic$residuals)
+```
+
+- Valeur du coefficient d'asymétrie : **`r round(skewness_levelhedonic,2)`**
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
+::: {.notes}
+
+On peut aussi s'intéresser à la normalité des résidus en regardant le coefficient d'asymétrie
+
+On voit que le coefficient est positif. Cette asymétrie positive indique une concentration de valeurs sur le côté gauche de la distribution, on peut d'ailleurs le voir sur l'histogramme.
+:::
+
+
 ## OLS LOG-LEVEL (I) {.smaller}
 
 $$
@@ -452,6 +581,19 @@ $$
 + \beta_{10} network_i + \beta_{11} ppi_i + \epsilon_i
 \end{split}
 $$
+<hr>
+
+$\Rightarrow$ Prendre le logarithme de la variable dépendante *(price)* peut aider à stabiliser la variance et réduire l'hétéroscédasticité.
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
+::: {.notes}
+
+On aurait aussi pu utiliser la méthode des moindres carrés pondérés pour essayer d'éliminer l'hétéroscédasticité, mais en fait la spécification log-linéaire est requise pour l'estimation d'un modèle SFA ce qui lui confère un avantage supplémentaire.
+
+:::
 
 ## OLS LOG-LEVEL (II) {.smaller}
 
@@ -546,6 +688,10 @@ summary(loghedonic)$coefficients |>
     opt_interactive(page_size_default = 5, use_highlight = TRUE)
 ```
 
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
 :::{.notes}
 
 Ici le coefficient $\beta_1$ s’interprète comme le changement en pourcentage du prix lorsque
@@ -575,8 +721,89 @@ de référence, cet. par.
 performance::check_posterior_predictions(loghedonic)
 ```
 
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
 :::{.notes}
 Ici on voit que même si le modèle a du mal à prédire une certaine portion de la distribution, il s'en sort très bien sur les extrémités et globalement l'adéquation du modèle semble meilleure.
+:::
+
+## OLS LOG-LEVEL (IV) {.smaller}
+
+```{r}
+ggplot(loghedonic, aes(x = .fitted, y = .resid)) +
+    geom_point() +
+    geom_hline(yintercept = 0, color = "darkgreen") +
+    labs(x = expression(hat(y[i])), y = expression(e[i])) +
+    ggtitle("Valeurs prédites et résidus")
+```
+
+```{r}
+heterosced_loghedonic <- performance::check_heteroscedasticity(loghedonic)
+```
+
+::: {.fragment .fade-in}
+::: {.fragment .highlight-green}
+
+**Pas de présence d'hétéroscédasticité** (Variance des erreurs $\epsilon_i$ constantes) ~ $p-value = 0.354$.
+
+:::
+:::
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
+:::{.notes}
+
+On le voit bien graphiquement et c'est confirmé par le test de *Breusch-Pagan* qu'il n'y a plus de problème d'hétéroscédasticité dans ce modèle.
+:::
+
+## OLS LOG-LEVEL (V) {.smaller}
+
+```{r}
+mean_resid <- mean(loghedonic$resid)
+sd_resid <- sd(loghedonic$resid)
+
+ggplot(loghedonic, aes(x = .resid)) +
+    geom_histogram(
+        aes(y = after_stat(density)), 
+        bins = 40,
+        fill = "white",
+        alpha = 0.7
+    ) +
+    stat_function(
+        fun = dnorm, 
+        args = list(mean = mean_resid, sd = sd_resid),
+        color = "darkgreen",
+        size = 1
+    ) +
+    labs(x = "Résidus", y = "Densité") +
+    ggtitle("Histogramme des résidus avec loi normale superposée")
+
+skewness_loghedonic <- skewness(loghedonic$residuals)
+```
+
+- Valeur du coefficient d'asymétrie : **`r round(skewness_loghedonic,2)`**
+
+::: {.fragment}
+
+@kumbhakar2015 mentionnent l'utilisation du coefficient d'asymétrie comme *"test"* préalable à la spécification d'une **SFA**.
+
+:::
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
+::: {.notes}
+
+Ici on remarque que les résidus semblent suivre une loi normale, mais on a quand même encore un coefficient d'asymétrie positif.
+
+L'idée derrière le test est la suivante : Pour une spécification SFA frontière de coût avec erreur composée, la distribution des résidus de l'estimation par MCO
+doit avoir une asymétrie positive. Si cette asymétrie est positive, alors elle permet de confirmer l'existence d'une erreur unilatérale et donc la forme fonctionnelle SFA sera appropriée. On va justement revenir en détail sur tout ça dans la partie suivante.
+
 :::
 
 ## SFA ~ RAPPELS (I) {.smaller}
@@ -598,6 +825,8 @@ $$\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i
 
 :::
 
+
+
 ::: {.footer}
 --- `Recherche`, Réalisation, Restitution ---
 :::
@@ -605,7 +834,7 @@ $$\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i
 :::{.notes}
 *Aybuké*
 
-On vous a présenté deux modèles qui appliquent le concept du pricing hédonique mais qui finalement restent des régressions linéaires classiques. Avant de vous présenter les résultats de l'estimation du modèle SFA, on va vous ré-éxpliquer rapidement le fct théorique.
+On vous a présenté deux modèles qui appliquent le concept du pricing hédonique mais qui finalement restent des régressions linéaires classiques. 
 
 - On repart d'une fonction de production classique, mais on lui ajoute un terme multiplicatif $TE_i$.
 
@@ -619,6 +848,7 @@ On peut ré-écrire $TE_i$ sous la forme ${\displaystyle TE_{i}=\exp \left\{{-u_
 :::{.fragment .fade-in}
 
 $${\displaystyle y_{i}=f(x_{i};\beta )\cdot \exp \left\{{-u_{i}}\right\}\cdot \exp \left\{{v_{i}}\right\}}$$ 
+
 :::
 
 La SFA (`Stochastic Frontier Analysis`) est une méthode paramétrique : elle requiert une forme fonctionnelle précise et les termes d'erreur $\epsilon_i$ ont une distribution particulière (composée) :
@@ -634,6 +864,33 @@ La SFA (`Stochastic Frontier Analysis`) est une méthode paramétrique : elle re
 --- `Recherche`, Réalisation, Restitution ---
 :::
 
+## Choix de distributions
+
+```{r}
+halfnorm_density <- function(x, mu, sigma) {
+  ifelse(x >= mu, (2 / (sqrt(2 * pi) * sigma)) * exp(-(x - mu)^2 / (2 * sigma^2)), 0)
+}
+
+# Paramètres de la distribution half normal
+mu_halfnorm <- 0  # Moyenne de la distribution half normal
+sigma_halfnorm <- 1  # Écart-type de la distribution half normal
+
+ggplot(data.frame(x = c(0, 5)), aes(x = x)) +
+  stat_function(fun = halfnorm_density, args = list(mu = mu_halfnorm, sigma = sigma_halfnorm), color = "darkgreen", linewidth = 1) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color = "orange", linetype = "dashed", linewidth = 1) +
+  theme(plot.title = element_markdown(face = "bold", size = 15)) +
+  labs(
+       title = "Distributions <span style='color:orange'>normale</span> et <span style='color:darkgreen'>semi-normale</span>",
+       x = "",
+       y = "Densité de probabilité") +
+  scale_x_continuous(limits = c(-0, 5))
+```
+
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
+
 ## SFA ~ RAPPELS (III) {.smaller}
 
 :::: {.columns}
@@ -646,7 +903,8 @@ La SFA (`Stochastic Frontier Analysis`) est une méthode paramétrique : elle re
 $*$ Droits d'auteur : [Lutz Bornmann](https://www.researchgate.net/profile/Lutz-Bornmann)
 :::
 
-::: {.column width="40%"}
+:::{.column width="40%"}
+
 A partir de cette représentation on peut clairement distinguer les effets de $v_i$ (`noise`) et ceux de $u_i$ (`inefficiency`).
 
 ***
@@ -657,7 +915,9 @@ A partir de cette représentation on peut clairement distinguer les effets de $v
 - $\Leftrightarrow \ln y_i = \ln y_i^* -u_i$
 - $\Leftrightarrow \ln y_i = \ln\left[f(x_i;\beta)\right] + v_i -u_i$
 
+
 :::{.fragment} 
+
 $$\boxed{\ln y_i = \ln\left[f(x_i;\beta)\right] + \epsilon_i}$$
 :::
 
@@ -677,6 +937,7 @@ L'objectif de cette slide est d'expliquer graphiquement la SFA.
 
 ## SFA Cost Frontier (I) {.smaller}
 
+
 $$
 \begin{split}
 \ln(price_i) = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
@@ -686,20 +947,32 @@ $$
 \end{split}
 $$
 
+<hr>
+
+- Distribution choisie pour les $u_i \Rightarrow$ *semi-normale*.
+
+- Distribution choisie *(par défaut)* pour les $v_i \Rightarrow$ *normale*.
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
 
 ## SFA Cost Frontier (II) {.smaller}
 
-mettre efficacité moyenne dans le tableau
-
 ```{r}
-
 scf <- sfa(
-    log(price) ~ storage + brand + ram + induction + screen_size + screen_type + made_in + upgrade_storage + das_limbs + network + ppi,
+    log(price) ~ storage + brand + ram + induction + screen_size + screen_type 
+    + made_in + upgrade_storage + das_limbs + network + ppi,
     data = df_phones,
     truncNorm = FALSE,
     ineffDecrease = FALSE
 )
 
+mean_eff <- efficiencies(scf) |> as_tibble() |> summarise(mean_eff = efficiency |> mean() |> round(3))
+```
+
+
+```{r}
 summary(scf)$mleParam |>
     data.frame() |>
     rownames_to_column(var = "Variables") |>
@@ -767,6 +1040,12 @@ summary(scf)$mleParam |>
         apply_to = "text"
     ) |>
     fmt_markdown(c(variables,signif)) |>
+    tab_footnote(
+        md(glue::glue("**Efficacité moyenne** : {mean_eff}"))
+    ) |>
+   tab_footnote(
+        md(glue::glue("**Efficacité moyenne** : {mean_eff}"))
+    ) |>
     tab_options(
         table.background.color = "#222222",
         table.font.color = "white",
@@ -775,13 +1054,113 @@ summary(scf)$mleParam |>
     opt_interactive(page_size_default = 5, use_highlight = TRUE)
 ```
 
-## SFA Cost Frontier (III) 
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
 
-comparaison AIC
+## SFA Cost Frontier (III) {.smaller}
+
+**Efficacité moyenne par marque**
+
+En utilisant l’espérance conditionnelle $E(\exp(-u_i)|\epsilon_i$, on peut estimer le score d’efficacité pour chaque observation. 
+
+- Commande `efficiencies()` du package `{frontier}`.
 
 ```{r}
-logLik(loghedonic)
-logLik(scf)
+eff_df <- efficiencies(scf) |> as_tibble()
+
+bind_cols(df_phones, eff_df) |> 
+    group_by(brand) |>
+    summarise(
+        min = min(efficiency),
+        median = median(efficiency),
+        mean = mean(efficiency),
+        max = max(efficiency)
+    ) |>
+    mutate(brand = glue::glue("`{brand}`")) |> 
+    gt() |> 
+    fmt_number() |>
+    fmt_markdown(brand) |> 
+    cols_label(
+        brand = md("**Marque**"),
+        min = md("**Min**"),
+        median = md("**Médiane**"),
+        mean = md("**Moyenne**"),
+        max = md("**Max**")
+    ) |> 
+    tab_options(
+        table.background.color = "#222222",
+        table.font.color = "white",
+        table.font.size = 17,
+    )
 ```
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
+::: {.notes}
+
+Grâce au calcul de l'espérance conditionnelle, on peut donc déterminer quels téléphones sont les plus/moins efficaces de notre sélection. On peut donc aussi faire des regroupements par marque, ce qu'on a décidé de vous montrer sur ce tableau.
+
+A noter que même si le package le fait pour nous en une commande c'est un calcul qui est complexe et qui fait plusieurs pages de formules qu'on a inclut dans le rapport mais qu'on ne va pas préciser ici.
+
+:::
+
+## SFA Cost Frontier (IV) {.smaller}
+
+> Quel modèle choisir ?
+
+```{r}
+loglik_loghedonic <- logLik(loghedonic)[1]
+loglik_sfa <- logLik(scf)[1]
+```
+
+- Log-Vraisemblance pour `OLS log-level` : ${\displaystyle {\ln\mathcal {L}}(\theta ;y, X)}=$ **`r round(loglik_loghedonic,2)`**
+
+- Log-Vraisemblance pour `SFA Cost Frontier` : ${\displaystyle {\ln\mathcal {L}}(\theta ;y, X)}=$ **`r round(loglik_sfa,2)`**
+
+:::{.fragment}
+Avec $y$ le vecteur de $\ln(price)$ et $X$ la matrice de variables indépendantes.
+:::
+
+:::{.fragment}
+
+**Test de rapport de vraisemblance**
+
+$$
+\begin{cases}
+H_0: OLS \text{ log-level}\\
+H_1: SFA \text{ cost frontier}
+\end{cases}
+$$
+:::
+
+```{r}
+lrtest <- lrtest(scf)
+pvalue_lrtest <- round(lrtest$`Pr(>Chisq)`[2],2)
+
+#AIC(scf) < AIC(loghedonic)
+```
+
+$\Rightarrow$ On rejette l'hypothèse nulle $H_0$ car la $p-value$ issue du test $=$ **`r pvalue_lrtest`** $< 0.05$.
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
+::: {.notes}
+
+On peut maintenant chercher à savoir si il vaut mieux utiliser le modèle SFA Cost Frontier ou alors le modèle log-hedonic MCO.
+
+:::
+
+## Conclusion
+
+Axe d'amélioration => diviser la distribution en 2 catégories et faire 2 modèles
+
+::: {.footer}
+--- Recherche, Réalisation, `Restitution` ---
+:::
 
 ## Références
