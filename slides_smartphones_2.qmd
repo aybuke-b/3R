@@ -343,6 +343,8 @@ Il n'en reste pas moins qu'il subsiste un problème indéniable : Ce qu'on aimer
 
 ## OLS LEVEL-LEVEL (I) {.smaller}
 
+**Forme fonctionnelle :**
+
 $$
 \begin{split}
 price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
@@ -353,6 +355,30 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 $$
 
 <hr>
+
+:::: {.columns}
+::: {.column width="50%"}
+- *storage* : Capacité de stockage
+- *brand* : Marque 
+- *ram* : RAM du téléphone
+- *induction* : Charge à induction 
+- *screen_size* : Taille de l'écran
+- *screen_type* : Type d'écran
+:::
+
+::: {.column width="50%"}
+- *made_in* : Lieu de fabrication
+- *upgrade_storage* : Carte SD
+- *das_limbs* : DAS membres
+- *network* : Réseau
+- *ppi* : Pixels par Pouce
+:::
+::::
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
 
 :::{.notes}
 
@@ -573,6 +599,8 @@ On voit que le coefficient est positif. Cette asymétrie positive indique une co
 
 ## OLS LOG-LEVEL (I) {.smaller}
 
+**Forme fonctionnelle :**
+
 $$
 \begin{split}
 \ln(price_i) = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
@@ -581,18 +609,22 @@ $$
 + \beta_{10} network_i + \beta_{11} ppi_i + \epsilon_i
 \end{split}
 $$
+
 <hr>
 
-$\Rightarrow$ Prendre le logarithme de la variable dépendante *(price)* peut aider à stabiliser la variance et réduire l'hétéroscédasticité.
+::: {.callout-note}
+
+Prendre le logarithme de la variable dépendante *(price)* peut aider à stabiliser la variance et réduire l'hétéroscédasticité.
+
+:::
 
 ::: {.footer}
 --- Recherche, `Réalisation`, Restitution ---
-:::
+::: 
 
 ::: {.notes}
 
 On aurait aussi pu utiliser la méthode des moindres carrés pondérés pour essayer d'éliminer l'hétéroscédasticité, mais en fait la spécification log-linéaire est requise pour l'estimation d'un modèle SFA ce qui lui confère un avantage supplémentaire.
-
 :::
 
 ## OLS LOG-LEVEL (II) {.smaller}
@@ -687,6 +719,8 @@ summary(loghedonic)$coefficients |>
     ) |>
     opt_interactive(page_size_default = 5, use_highlight = TRUE)
 ```
+
+
 
 ::: {.footer}
 --- Recherche, `Réalisation`, Restitution ---
@@ -826,7 +860,6 @@ $$\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i
 :::
 
 
-
 ::: {.footer}
 --- `Recherche`, Réalisation, Restitution ---
 :::
@@ -872,18 +905,30 @@ halfnorm_density <- function(x, mu, sigma) {
 }
 
 # Paramètres de la distribution half normal
-mu_halfnorm <- 0  # Moyenne de la distribution half normal
-sigma_halfnorm <- 1  # Écart-type de la distribution half normal
+mu_halfnorm <- 0
+sigma_halfnorm <- 1 
 
-ggplot(data.frame(x = c(0, 5)), aes(x = x)) +
-  stat_function(fun = halfnorm_density, args = list(mu = mu_halfnorm, sigma = sigma_halfnorm), color = "darkgreen", linewidth = 1) +
-  stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color = "orange", linetype = "dashed", linewidth = 1) +
-  theme(plot.title = element_markdown(face = "bold", size = 15)) +
-  labs(
-       title = "Distributions <span style='color:orange'>normale</span> et <span style='color:darkgreen'>semi-normale</span>",
-       x = "",
-       y = "Densité de probabilité") +
-  scale_x_continuous(limits = c(-0, 5))
+ggplot(
+    data.frame(x = c(0, 5)), aes(x = x)) +
+    stat_function(
+        fun = halfnorm_density,
+        args = list(mu = mu_halfnorm, sigma = sigma_halfnorm),
+        color = "darkgreen",
+        linewidth = 1
+    ) +
+    stat_function(
+        fun = dnorm,
+        args = list(mean = 0, sd = 1),
+        color = "orange",
+        linetype = "dashed",
+        linewidth = 1
+    ) +
+    theme(plot.title = element_markdown(face = "bold", size = 15)) +
+    labs(
+        title = "Distributions <span style='color:orange'>normale</span> et <span style='color:darkgreen'>semi-normale</span>",
+        x = "",
+        y = "Densité de probabilité") +
+    scale_x_continuous(limits = c(-0, 5))
 ```
 
 ::: {.footer}
@@ -937,6 +982,7 @@ L'objectif de cette slide est d'expliquer graphiquement la SFA.
 
 ## SFA Cost Frontier (I) {.smaller}
 
+**Forme fonctionnelle :**
 
 $$
 \begin{split}
@@ -1043,7 +1089,7 @@ summary(scf)$mleParam |>
     tab_footnote(
         md(glue::glue("**Efficacité moyenne** : {mean_eff}"))
     ) |>
-   tab_footnote(
+    tab_footnote(
         md(glue::glue("**Efficacité moyenne** : {mean_eff}"))
     ) |>
     tab_options(
@@ -1062,7 +1108,7 @@ summary(scf)$mleParam |>
 
 **Efficacité moyenne par marque**
 
-En utilisant l’espérance conditionnelle $E(\exp(-u_i)|\epsilon_i$, on peut estimer le score d’efficacité pour chaque observation. 
+En utilisant l’espérance conditionnelle $E(\exp(-u_i)|\epsilon_i)$, on peut estimer le score d’efficacité pour chaque observation. 
 
 - Commande `efficiencies()` du package `{frontier}`.
 
@@ -1116,9 +1162,9 @@ loglik_loghedonic <- logLik(loghedonic)[1]
 loglik_sfa <- logLik(scf)[1]
 ```
 
-- Log-Vraisemblance pour `OLS log-level` : ${\displaystyle {\ln\mathcal {L}}(\theta ;y, X)}=$ **`r round(loglik_loghedonic,2)`**
+- Log-Vraisemblance pour `OLS log-level` : ${\displaystyle {\ln\mathcal {L_1}}(\theta ;y, X)}=$ **`r round(loglik_loghedonic,2)`**
 
-- Log-Vraisemblance pour `SFA Cost Frontier` : ${\displaystyle {\ln\mathcal {L}}(\theta ;y, X)}=$ **`r round(loglik_sfa,2)`**
+- Log-Vraisemblance pour `SFA Cost Frontier` : ${\displaystyle {\ln\mathcal {L_2}}(\theta ;y, X)}=$ **`r round(loglik_sfa,2)`**
 
 :::{.fragment}
 Avec $y$ le vecteur de $\ln(price)$ et $X$ la matrice de variables indépendantes.
@@ -1136,6 +1182,8 @@ H_1: SFA \text{ cost frontier}
 $$
 :::
 
+- Statistique de test $\lambda_{RV} = 2 \cdot \left(\ln \mathcal{L_1}- \ln \mathcal{L_2}\right)$
+
 ```{r}
 lrtest <- lrtest(scf)
 pvalue_lrtest <- round(lrtest$`Pr(>Chisq)`[2],2)
@@ -1143,7 +1191,9 @@ pvalue_lrtest <- round(lrtest$`Pr(>Chisq)`[2],2)
 #AIC(scf) < AIC(loghedonic)
 ```
 
+:::{.fragment}
 $\Rightarrow$ On rejette l'hypothèse nulle $H_0$ car la $p-value$ issue du test $=$ **`r pvalue_lrtest`** $< 0.05$.
+:::
 
 ::: {.footer}
 --- Recherche, `Réalisation`, Restitution ---

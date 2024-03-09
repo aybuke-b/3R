@@ -703,6 +703,7 @@
 </section>
 <section id="ols-level-level-i" class="slide level2 smaller">
 <h2>OLS LEVEL-LEVEL (I)</h2>
+<p><strong>Forme fonctionnelle :</strong></p>
 <p><span class="math display">\[
 \begin{split}
 price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
@@ -712,6 +713,29 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 \end{split}
 \]</span></p>
 <hr>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li class="fragment"><em>storage</em> : Capacité de stockage</li>
+<li class="fragment"><em>brand</em> : Marque</li>
+<li class="fragment"><em>ram</em> : RAM du téléphone</li>
+<li class="fragment"><em>induction</em> : Charge à induction</li>
+<li class="fragment"><em>screen_size</em> : Taille de l’écran</li>
+<li class="fragment"><em>screen_type</em> : Type d’écran</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li class="fragment"><em>made_in</em> : Lieu de fabrication</li>
+<li class="fragment"><em>upgrade_storage</em> : Carte SD</li>
+<li class="fragment"><em>das_limbs</em> : DAS membres</li>
+<li class="fragment"><em>network</em> : Réseau</li>
+<li class="fragment"><em>ppi</em> : Pixels par Pouce</li>
+</ul>
+</div>
+</div>
+<div class="footer">
+<p>— Recherche, <code>Réalisation</code>, Restitution —</p>
+</div>
 <aside class="notes">
 <p>On en arrive à la partie d’application du pricing hédonique <span class="math inline">\(\Rightarrow\)</span> On va décomposer le prix d’un bien, en l’occurence un smartphone, en 11 caractéristiques : le stockage, la marque, la ram, la taille et le type d’écran, etc.</p>
 <p>Ici on retrouve le modèle en niveau dont les variables n’ont pas été choisies au hasard mais qui ont fait l’objet d’une sélection de variables grâce à un algorithme génétique, on l’avait expliqué mais on ne va pas re-rentrer dans les détails. L’intérêt de ce modèle en niveau c’est de pouvoir directement interpréter les coefficients comme des prix (effets marginaux).</p>
@@ -1297,16 +1321,29 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-log-level-i" class="slide level2 smaller">
 <h2>OLS LOG-LEVEL (I)</h2>
-<span class="math display">\[
+<p><strong>Forme fonctionnelle :</strong></p>
+<p><span class="math display">\[
 \begin{split}
 \ln(price_i) = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 + \beta_4 induction_i + \beta_5 screen\_size_i + \beta_6 screen\_type_i\\
 + \beta_7 made\_in_i + \beta_8 upgrade\_storage_i + \beta_{9} das\_limbs_i \\
 + \beta_{10} network_i + \beta_{11} ppi_i + \epsilon_i
 \end{split}
-\]</span>
+\]</span></p>
 <hr>
-<p><span class="math inline">\(\Rightarrow\)</span> Prendre le logarithme de la variable dépendante <em>(price)</em> peut aider à stabiliser la variance et réduire l’hétéroscédasticité.</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Prendre le logarithme de la variable dépendante <em>(price)</em> peut aider à stabiliser la variance et réduire l’hétéroscédasticité.</p>
+</div>
+</div>
+</div>
 <div class="footer">
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
@@ -1995,6 +2032,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="sfa-cost-frontier-i" class="slide level2 smaller">
 <h2>SFA Cost Frontier (I)</h2>
+<p><strong>Forme fonctionnelle :</strong></p>
 <p><span class="math display">\[
 \begin{split}
 \ln(price_i) = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
@@ -2483,7 +2521,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <section id="sfa-cost-frontier-iii" class="slide level2 smaller">
 <h2>SFA Cost Frontier (III)</h2>
 <p><strong>Efficacité moyenne par marque</strong></p>
-<p>En utilisant l’espérance conditionnelle <span class="math inline">\(E(\exp(-u_i)|\epsilon_i\)</span>, on peut estimer le score d’efficacité pour chaque observation.</p>
+<p>En utilisant l’espérance conditionnelle <span class="math inline">\(E(\exp(-u_i)|\epsilon_i)\)</span>, on peut estimer le score d’efficacité pour chaque observation.</p>
 <ul>
 <li class="fragment">Commande <code>efficiencies()</code> du package <code>{frontier}</code>.</li>
 </ul>
@@ -3021,8 +3059,8 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <p>Quel modèle choisir ?</p>
 </blockquote>
 <ul>
-<li class="fragment"><p>Log-Vraisemblance pour <code>OLS log-level</code> : <span class="math inline">\({\displaystyle {\ln\mathcal {L}}(\theta ;y, X)}=\)</span> <strong>25.93</strong></p></li>
-<li class="fragment"><p>Log-Vraisemblance pour <code>SFA Cost Frontier</code> : <span class="math inline">\({\displaystyle {\ln\mathcal {L}}(\theta ;y, X)}=\)</span> <strong>27.74</strong></p></li>
+<li class="fragment"><p>Log-Vraisemblance pour <code>OLS log-level</code> : <span class="math inline">\({\displaystyle {\ln\mathcal {L_1}}(\theta ;y, X)}=\)</span> <strong>25.93</strong></p></li>
+<li class="fragment"><p>Log-Vraisemblance pour <code>SFA Cost Frontier</code> : <span class="math inline">\({\displaystyle {\ln\mathcal {L_2}}(\theta ;y, X)}=\)</span> <strong>27.74</strong></p></li>
 </ul>
 <div class="fragment">
 <p>Avec <span class="math inline">\(y\)</span> le vecteur de <span class="math inline">\(\ln(price)\)</span> et <span class="math inline">\(X\)</span> la matrice de variables indépendantes.</p>
@@ -3036,7 +3074,12 @@ H_1: SFA \text{ cost frontier}
 \end{cases}
 \]</span></p>
 </div>
+<ul>
+<li class="fragment">Statistique de test <span class="math inline">\(\lambda_{RV} = 2 \cdot \left(\ln \mathcal{L_1}- \ln \mathcal{L_2}\right)\)</span></li>
+</ul>
+<div class="fragment">
 <p><span class="math inline">\(\Rightarrow\)</span> On rejette l’hypothèse nulle <span class="math inline">\(H_0\)</span> car la <span class="math inline">\(p-value\)</span> issue du test <span class="math inline">\(=\)</span> <strong>0.03</strong> <span class="math inline">\(&lt; 0.05\)</span>.</p>
+</div>
 <div class="footer">
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
