@@ -75,7 +75,8 @@ makestars <- function(pvalues) {
 :::
 
 ::: {.notes}
-*Aybuké*
+*Corentin*
+
 
 Notre problématique était la suivante : *Voir slide*
 
@@ -110,6 +111,12 @@ Principalement axé sur les prix, il peut également prendre en compte les aspec
 :::
 
 :::{.notes}
+*Buk*
+
+
+Un comparateur est un site web qui permet de comparer différents produits ou services.
+
+Principalement axé sur les prix, il peut également prendre en compte les aspects techniques et la qualité des produits.
 
 Les exemples sont multiples : Comparateur de vols, d'assurances, de voitures, de banques...
 
@@ -146,7 +153,7 @@ Les comparateurs en ligne sont donc eux aussi soumis à ces obligations de loyau
 :::
 
 :::{.notes}
-
+*Corentin*
 Il va sans dire que très peu de comparateurs respectent le premier point, souvent pour une raison simple : ce sont juste des listings de prix de téléphones du moins cher au plus cher, il n'y a pas vraiment de fonctionnement à proprement parler.
 
 De même, concernant les critères de classement.
@@ -193,6 +200,9 @@ $\Rightarrow$ *Simple* : seulement 2 commandes pour accéder à l'application !
 
 1. **Page d'accueil**
 
+*Buk*
+
+
 Quand on lance l'application, on arrive donc sur une page d'accueil soignée pour expliquer l'utilité de notre comparateur Smart Specs, permettant de vous assister dans la quête de votre smartphone idéal. 
 
 Il est précisé pour l'utilisateur qu'un modèle SFA est utilisé en arrière-plan mais on vous rappelera plus en détail le fonctionnement du modèle SFA quand on arrivera à la partie des résultats.
@@ -203,16 +213,24 @@ On peut ensuite s'intéresser à plusieurs autres pages.
 
 2. **Insights**
 
+*Corentin*
+
+
 Les insights sont simplement des statistiques descriptives qui nous permettent de mettre en avant des résultats pas forcément observables dans l'achat d'un téléphone.
 
 On peut par exemple s'intéresser au prix moyen par marque. On retrouve, sans surprise, comme dans la première présentation, que XIAOMI propose les téléphones les moins chers en moyenne tandis qu'APPLE propose les téléphones les plus chers en moyenne.
 
 Pour le nombre de modèles vendus par marque, on retrouve XIAOMI, SAMSUNG & APPLE sur le podium et qui possèdent à eux trois plus de 300 téléphones commercialisés soit 80% du total sur Boulanger.
 
+
+*Buk*
 Pour ce qui est du prix en fonction de la RAM, on peut voir que le prix médian augmente avec la RAM, ce qui est plutôt logique. On voit aussi grâce au jitterplot à côté du boxplot que la dispersion augmente à mesure que la RAM augmente.
 
 On peut faire les mêmes interprétations pour le boxplot du prix en fonction du stockage mais on remarque qu'il y a un peu moins de dispersion.
 
+
+
+*Corentin*
 Enfin, il y a aussi la distribution des prix, qu'on vous avait exposé dans la première présentation et qui, on le rappelle, possédait une distribution asymétrique. C'est toujours le cas, et on remarque de manière plus importante encore deux pics dans la distribution des prix, qui nous permettent de distinguer des téléphones **bas de gamme** et **haut de gamme**.
 
 L'option distribution marginale permet de visualiser la distribution des téléphones sans aggrégation par intervalle de prix, c'est à dire qu'on est en mesure de voir pour chaque modèle le prix exact.
@@ -222,6 +240,8 @@ Enfin, l'option la plus intéressante selon nous est la distribution par marque,
 Ce qui pourrait être intéressant serait de sélectionner les marques qui nous intéressent : par exemple XIAOMI et APPLE, et on remarque que XIAOMI est sur une gamme de prix bas tandis que pour APPLE la gamme de prix est plus étalée. On voit globalement que ces deux marques ne sont pas sur le même marché.
 
 3. **Efficacité**
+
+*Buk*
 
 Après avoir pris connaissance de ces insights, l'utilisateur peut naviguer sur la page d'analyse de l'efficacité calculée par le modèle SFA, qui est le point central de notre application.
 
@@ -233,6 +253,9 @@ En plus de tout ça, l'utilisateur dispose aussi d'un diagramme en barres dynami
 
 4. **Comparateur**
 
+*Corentin*
+
+
 L'idée est ensuite de s'appuyer sur la page d'analyse de l'efficacité pour comparer deux téléphones à prix similaires mais à efficacité différente. La page Comparateur permet précisément de faire ça.
 
 Ce comparateur est plus complet que ceux actuellement existants parce qu'il inclue évidemment l'efficacité mais aussi un système permettant de comparer les caractéristiques comme la RAM, le stockage, etc.
@@ -240,6 +263,9 @@ Ce comparateur est plus complet que ceux actuellement existants parce qu'il incl
 $\Rightarrow$ On peut par exemple choisir l'**iPhone 14 plus** (256 Go) et le **Google Pixel 8 Pro** (128 Go) qui ont des prix similaires mais des efficacités légèrement différentes.
 
 5. **Détails**
+
+*Buk*
+
 
 Cet onglet permet de visualiser tous les modèles disponibles et leurs caractéristiques, ou alors de filtrer l'ensemble des téléphones disponibles selon la marque, la capacité de stockage et la RAM. Dans le tableau on peut filtrer selon chaque variable disponible.
 
@@ -262,18 +288,26 @@ $$z = (z_1, z_2, \dots, z_n)$$
 :::
 
 ::: {.notes}
+*Buk*
+
+
 
 Avant de rentrer dans la partie des estimations économétriques, on va vous faire quelques rapides rappels de notre partie de recherche pour vous rafraîchir la mémoire.
 
-Contrairement à Lancaster que nous n'avons pas rementionné qui étudie uniquement le côté consommateur, Rosen s'intéresse à
-**l’équilibre de marché de biens différenciés** : 
+Dans le cadre apporté par Rosen, on étudie un bien différencié z décrit par le vecteur de ses n caractéristiques mesurables.
+Vecteur
 
-- avec un continuum de biens du côté de l’offre
-- et un continuum de consommateurs hétérogènes du côté de la demande
+
+Il peut y avoir plusieurs combinaisons z1,zn différentes ce qui fait que le bien est différencié.
+
+
+On peut alors parler de :
 
 **Différenciation Horizontale** $\Rightarrow$ A prix donné, il n'y a pas unanimité dans le choix des consommateurs entre 2 biens (jaune et rouge) : ce sont des différences de goûts.
 
 **Différenciation Verticale** $\Rightarrow$ A prix donné, il y a unanimité dans le choix des consommateurs entre 2 voitures biens : l'un est meilleur que l'autre.
+
+$\rightarrow$ Ces différenciations vont faire qu'une vaste gamme de paniers sera dispo sur le marché.
 :::
 
 ## Hedonic Pricing ~ Rappel théorique (II)
@@ -310,6 +344,8 @@ ggplot(data, aes(x = x, y = y, color = products)) +
 :::
 
 ::: {.notes}
+*Buk*
+
 
 On est habitué à représenter les préférences des consommateurs en termes de quantités de biens $x_1$, $x_2$. Ici, changement de paradigme : on va en fait représenter les préférences des consommateurs en termes de caractéristiques de biens.
 
@@ -330,6 +366,7 @@ $$\boxed{p(z) = p(z_1, z_2, \dots, z_n)}$$
 
 :::{.notes}
 *Corentin*
+
 
 Achat d'une seule unité de bien car historiquement, Rosen s'intéresse principalement aux biens durables (Machine à laver, logements, voitures, smartphones...). Pourquoi ? C'est parce que c'est beaucoup plus simple d'obtenir des caractéristiques observables sur ces biens durables que sur des biens consommables.
 
@@ -381,6 +418,8 @@ $$
 
 
 :::{.notes}
+*Buk*
+
 
 On en arrive à la partie d'application du pricing hédonique $\Rightarrow$ On va décomposer le prix d'un bien, en l'occurence un smartphone, en 11 caractéristiques : le stockage, la marque, la ram, la taille et le type d'écran, etc.
 
@@ -487,6 +526,8 @@ summary(levelhedonic)$coefficients |>
 
 
 :::{.notes}
+*Buk*
+
 
 Ici le coefficient $\beta_1$ s’interprète comme l’effet marginal d’1 Go supplémentaire
 de capacité de stockage sur le prix, c'est à dire que si la capacité de stockage augmente de 1 Go, alors, le prix augmente de 91 centimes, cet.par.
@@ -526,6 +567,9 @@ performance::check_posterior_predictions(levelhedonic)
 :::
 
 :::{.notes}
+*Corentin*
+
+
 Aussi, une étape visuelle qu'on peut mettre en place est de vérifier l’ajustement du
 modèle. La vérification prédictive a posteriori permet de simuler des données répliquées
 avec le modèle ajusté puis les comparer aux données observées.
@@ -564,6 +608,8 @@ heterosced_levelhedonic <- performance::check_heteroscedasticity(levelhedonic)
 :::
 
 :::{.notes}
+*Corentin*
+
 
 Vous vous en doutez, mais vu le graphique précédent, il y a une hypothèse importante qui est violée dans ce modèle, et évidemment on voit bien que les résidus ne sont pas homoscédastiques, et le test de *Breusch-Pagan* nous le confirme.
 :::
@@ -590,6 +636,8 @@ skewness_levelhedonic <- skewness(levelhedonic$residuals)
 :::
 
 ::: {.notes}
+*Corentin*
+
 
 On peut aussi s'intéresser à la normalité des résidus en regardant le coefficient d'asymétrie
 
@@ -623,6 +671,11 @@ Prendre le logarithme de la variable dépendante *(price)* peut aider à stabili
 ::: 
 
 ::: {.notes}
+*Buk*
+
+
+Prendre le logarithme de la variable dépendante *(price)* peut aider à stabiliser la variance et réduire l'hétéroscédasticité.
+
 
 On aurait aussi pu utiliser la méthode des moindres carrés pondérés pour essayer d'éliminer l'hétéroscédasticité, mais en fait la spécification log-linéaire est requise pour l'estimation d'un modèle SFA ce qui lui confère un avantage supplémentaire.
 :::
@@ -727,6 +780,8 @@ summary(loghedonic)$coefficients |>
 :::
 
 :::{.notes}
+*Buk*
+
 
 Ici le coefficient $\beta_1$ s’interprète comme le changement en pourcentage du prix lorsque
 la capacité de stockage augmente d’1 Go, c'est à dire que si la capacité de stockage augmente de 1 Go, alors, le prix augmente de 0.06%, cet.par.
@@ -760,6 +815,9 @@ performance::check_posterior_predictions(loghedonic)
 :::
 
 :::{.notes}
+*Corentin*
+
+
 Ici on voit que même si le modèle a du mal à prédire une certaine portion de la distribution, il s'en sort très bien sur les extrémités et globalement l'adéquation du modèle semble meilleure.
 :::
 
@@ -790,6 +848,8 @@ heterosced_loghedonic <- performance::check_heteroscedasticity(loghedonic)
 :::
 
 :::{.notes}
+*Corentin*
+
 
 On le voit bien graphiquement et c'est confirmé par le test de *Breusch-Pagan* qu'il n'y a plus de problème d'hétéroscédasticité dans ce modèle.
 :::
@@ -832,6 +892,8 @@ skewness_loghedonic <- skewness(loghedonic$residuals)
 :::
 
 ::: {.notes}
+*Corentin*
+
 
 Ici on remarque que les résidus semblent suivre une loi normale, mais on a quand même encore un coefficient d'asymétrie positif.
 
@@ -867,6 +929,7 @@ $$\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i
 :::{.notes}
 *Aybuké*
 
+
 On vous a présenté deux modèles qui appliquent le concept du pricing hédonique mais qui finalement restent des régressions linéaires classiques. 
 
 - On repart d'une fonction de production classique, mais on lui ajoute un terme multiplicatif $TE_i$.
@@ -896,6 +959,13 @@ La SFA (`Stochastic Frontier Analysis`) est une méthode paramétrique : elle re
 ::: {.footer}
 --- `Recherche`, Réalisation, Restitution ---
 :::
+
+
+
+:::{.notes}
+*Corentin*
+:::
+
 
 ## Choix de distributions
 
@@ -936,6 +1006,10 @@ ggplot(
 :::
 
 
+:::{.notes}
+*Corentin*
+:::
+
 ## SFA ~ RAPPELS (III) {.smaller}
 
 :::: {.columns}
@@ -975,9 +1049,24 @@ $$\boxed{\ln y_i = \ln\left[f(x_i;\beta)\right] + \epsilon_i}$$
 :::
 
 :::{.notes}
+*Buk*
+
+
 L'objectif de cette slide est d'expliquer graphiquement la SFA.
 
+A partir de ce graph, on peut distinguer les termes d'erreur donc les effets de vu qui est le bruit, et ceux de ui qui est l'inefficacité.
+
+- y1 = f(x) + v donne l'output max
+- y2 = f(x) + v - u donne le niveau de production réelle
+
+On peut donc voir que ui tire la production vers le bas alors que vi peut fixer le niiveau max possible de la production en dessous ou au-dessus de la frontière.
+
+
 - On inclue aussi une transformation logarithmique permettant de manipuler plus facilement le terme d'erreur.
+
+Une fois qu'on prend l'output max et qu'on enlève l'inefficacité, on obtient ln de yi qui est le niveau de production réelle.
+
+On a aussi $\epsilon_i$ qui représente le terme d'erreur composé $v_i - u_i$.
 :::
 
 ## SFA Cost Frontier (I) {.smaller}
@@ -1001,6 +1090,10 @@ $$
 
 ::: {.footer}
 --- Recherche, `Réalisation`, Restitution ---
+:::
+
+:::{.notes}
+*Corentin*
 :::
 
 ## SFA Cost Frontier (II) {.smaller}
@@ -1104,6 +1197,30 @@ summary(scf)$mleParam |>
 --- Recherche, `Réalisation`, Restitution ---
 :::
 
+:::{.notes}
+*Corentin*
+
+
+Si la capacité de stockage (storage) augmente de 1 Go, alors le prix augmente de 0.001%, cet. par.
+
+- En ayant comme catégorie de référence Apple pour la variable marque (brand), on peut
+voir que toutes les marques ont un impact négatif sur le prix, cet. par.
+  - La marque la plus valorisée derrière Apple est Samsung avec une différence de prix
+de 47.1%
+  - La marque la moins valorisée est XIAOMI avec une différence de prix de 103.6% par
+rapport à Apple.
+
+- Si la ram augmente de 1 Go, alors le prix augmente de 7.7%, cet. par
+
+Pour le type d’écran (screen_type), la catégorie de référence est borderless (un écran sans
+bordure).
+
+-  Disposer d’un écran à bord incurvé diminue le prix de 8.7 % par rapport à la catégorie de référence, cet. par.
+-  Pour l’écran plat, le prix diminue de 2.3 %  par rapport à la catégorie de référence, cet. par.
+-  Avoir un écran pliable fait augmenter le prix de 38.9 % par rapport à la catégorie de référence, cet. par
+
+:::
+
 ## SFA Cost Frontier (III) {.smaller}
 
 **Efficacité moyenne par marque**
@@ -1146,6 +1263,8 @@ bind_cols(df_phones, eff_df) |>
 :::
 
 ::: {.notes}
+*Buk*
+
 
 Grâce au calcul de l'espérance conditionnelle, on peut donc déterminer quels téléphones sont les plus/moins efficaces de notre sélection. On peut donc aussi faire des regroupements par marque, ce qu'on a décidé de vous montrer sur ce tableau.
 
@@ -1200,6 +1319,8 @@ $\Rightarrow$ On rejette l'hypothèse nulle $H_0$ car la $p-value$ issue du test
 :::
 
 ::: {.notes}
+*Corentin*
+
 
 On peut maintenant chercher à savoir si il vaut mieux utiliser le modèle SFA Cost Frontier ou alors le modèle log-hedonic MCO.
 

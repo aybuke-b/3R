@@ -8,7 +8,7 @@
 <link href="slides_smartphones_2_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="slides_smartphones_2_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="slides_smartphones_2_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.450">
+  <meta name="generator" content="quarto-1.4.549">
 
   <meta name="author" content="Aybuké BICAT &amp; Corentin DUCLOUX">
   <title>Application des modèles SFA à l’étude des prix</title>
@@ -31,7 +31,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -98,6 +98,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -242,7 +243,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -405,7 +407,6 @@
       margin-right: 0; 
     }
   </style>
-  
   <script src="slides_smartphones_2_files/libs/core-js-2.5.3/shim.min.js"></script>
   <script src="slides_smartphones_2_files/libs/react-18.2.0/react.min.js"></script>
   <script src="slides_smartphones_2_files/libs/react-18.2.0/react-dom.min.js"></script>
@@ -446,7 +447,7 @@
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
-<p><em>Aybuké</em></p>
+<p><em>Corentin</em></p>
 <p>Notre problématique était la suivante : <em>Voir slide</em></p>
 <p>En se basant sur cette problématique, nous voulions, en plus d’une estimation économétrique qui présente son lot de complexité (nous le verrons par la suite), créer une application, et plus précisément un comparateur d’efficacité.</p>
 <p>En premier lieu, il convient de se poser une question qui semble évidente à première vue, mais qui, quand on s’y penche de plus près, est assez sophistiquée.</p>
@@ -493,6 +494,9 @@
 <p>— Recherche, Réalisation, <code>Restitution</code> —</p>
 </div>
 <aside class="notes">
+<p><em>Buk</em></p>
+<p>Un comparateur est un site web qui permet de comparer différents produits ou services.</p>
+<p>Principalement axé sur les prix, il peut également prendre en compte les aspects techniques et la qualité des produits.</p>
 <p>Les exemples sont multiples : Comparateur de vols, d’assurances, de voitures, de banques…</p>
 <p>En bref il existe une variété de cas d’usage et un nombre croissant d’utilisateurs faisant appel à ces comparateurs avant d’acheter un bien ou un service.</p>
 <p>On a aussi mis à disposition des exemples de comparateurs sur nos slides.</p>
@@ -526,7 +530,7 @@
 <p>— Recherche, Réalisation, <code>Restitution</code> —</p>
 </div>
 <aside class="notes">
-<p>Il va sans dire que très peu de comparateurs respectent le premier point, souvent pour une raison simple : ce sont juste des listings de prix de téléphones du moins cher au plus cher, il n’y a pas vraiment de fonctionnement à proprement parler.</p>
+<p><em>Corentin</em> Il va sans dire que très peu de comparateurs respectent le premier point, souvent pour une raison simple : ce sont juste des listings de prix de téléphones du moins cher au plus cher, il n’y a pas vraiment de fonctionnement à proprement parler.</p>
 <p>De même, concernant les critères de classement.</p>
 <p>En revanche le troisième point est presque toujours indiqué quelque part avec la mention <em>publicité</em> ou <em>annonce</em> quand il y a un partenariat rémunéré, et c’est normal car une grande partie des revenus de ces comparateurs provient de ces partenariats donc il font assez attention à ce point.</p>
 <hr>
@@ -556,9 +560,9 @@
 </div>
 <div class="callout-content">
 <p><em>Lancement du shell poetry</em> :</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1"></a>py <span class="op">-</span>m poetry shell</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb1-1"><a href=""></a>py <span class="op">-</span>m poetry shell</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><em>Lancement de l’application</em> :</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1"></a>python <span class="op">-</span>m streamlit run Accueil<span class="op">.</span><span class="fu">py</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href=""></a>python <span class="op">-</span>m streamlit run Accueil<span class="op">.</span><span class="fu">py</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><span class="math inline">\(\Rightarrow\)</span> <em>Simple</em> : seulement 2 commandes pour accéder à l’application !</p>
 </div>
 </div>
@@ -571,6 +575,7 @@
 <ol type="1">
 <li><strong>Page d’accueil</strong></li>
 </ol>
+<p><em>Buk</em></p>
 <p>Quand on lance l’application, on arrive donc sur une page d’accueil soignée pour expliquer l’utilité de notre comparateur Smart Specs, permettant de vous assister dans la quête de votre smartphone idéal.</p>
 <p>Il est précisé pour l’utilisateur qu’un modèle SFA est utilisé en arrière-plan mais on vous rappelera plus en détail le fonctionnement du modèle SFA quand on arrivera à la partie des résultats.</p>
 <p>On peut aussi voir la dernière d’actualisation du scraping. Par rapport à la première présentation, ce sont donc des données plus récentes, issues de février.</p>
@@ -578,18 +583,20 @@
 <ol start="2" type="1">
 <li><strong>Insights</strong></li>
 </ol>
+<p><em>Corentin</em></p>
 <p>Les insights sont simplement des statistiques descriptives qui nous permettent de mettre en avant des résultats pas forcément observables dans l’achat d’un téléphone.</p>
 <p>On peut par exemple s’intéresser au prix moyen par marque. On retrouve, sans surprise, comme dans la première présentation, que XIAOMI propose les téléphones les moins chers en moyenne tandis qu’APPLE propose les téléphones les plus chers en moyenne.</p>
 <p>Pour le nombre de modèles vendus par marque, on retrouve XIAOMI, SAMSUNG &amp; APPLE sur le podium et qui possèdent à eux trois plus de 300 téléphones commercialisés soit 80% du total sur Boulanger.</p>
-<p>Pour ce qui est du prix en fonction de la RAM, on peut voir que le prix médian augmente avec la RAM, ce qui est plutôt logique. On voit aussi grâce au jitterplot à côté du boxplot que la dispersion augmente à mesure que la RAM augmente.</p>
+<p><em>Buk</em> Pour ce qui est du prix en fonction de la RAM, on peut voir que le prix médian augmente avec la RAM, ce qui est plutôt logique. On voit aussi grâce au jitterplot à côté du boxplot que la dispersion augmente à mesure que la RAM augmente.</p>
 <p>On peut faire les mêmes interprétations pour le boxplot du prix en fonction du stockage mais on remarque qu’il y a un peu moins de dispersion.</p>
-<p>Enfin, il y a aussi la distribution des prix, qu’on vous avait exposé dans la première présentation et qui, on le rappelle, possédait une distribution asymétrique. C’est toujours le cas, et on remarque de manière plus importante encore deux pics dans la distribution des prix, qui nous permettent de distinguer des téléphones <strong>bas de gamme</strong> et <strong>haut de gamme</strong>.</p>
+<p><em>Corentin</em> Enfin, il y a aussi la distribution des prix, qu’on vous avait exposé dans la première présentation et qui, on le rappelle, possédait une distribution asymétrique. C’est toujours le cas, et on remarque de manière plus importante encore deux pics dans la distribution des prix, qui nous permettent de distinguer des téléphones <strong>bas de gamme</strong> et <strong>haut de gamme</strong>.</p>
 <p>L’option distribution marginale permet de visualiser la distribution des téléphones sans aggrégation par intervalle de prix, c’est à dire qu’on est en mesure de voir pour chaque modèle le prix exact.</p>
 <p>Enfin, l’option la plus intéressante selon nous est la distribution par marque, qui permet de subdiviser la distribution générale par marque.</p>
 <p>Ce qui pourrait être intéressant serait de sélectionner les marques qui nous intéressent : par exemple XIAOMI et APPLE, et on remarque que XIAOMI est sur une gamme de prix bas tandis que pour APPLE la gamme de prix est plus étalée. On voit globalement que ces deux marques ne sont pas sur le même marché.</p>
 <ol start="3" type="1">
 <li><strong>Efficacité</strong></li>
 </ol>
+<p><em>Buk</em></p>
 <p>Après avoir pris connaissance de ces insights, l’utilisateur peut naviguer sur la page d’analyse de l’efficacité calculée par le modèle SFA, qui est le point central de notre application.</p>
 <p>Initialement, pour une question de lisibilité les deux seules marques sélectionnées sont APPLE &amp; SAMSUNG, mais on peut choisir plus de marques si on le souhaite. De même, le prix maximal d’un smartphone est fixé à 500 €, que l’utilisateur pourra ensuite modifier à sa guise.</p>
 <p>On voit ensuite deux indicateurs : le nombre de téléphones efficaces et inefficaces. Ces indicateurs proviennent du nuage de points des efficacités en fonction du prix qu’on peut voir ici. Tous les téléphones compris dans la zone rouge sont considérés comme <em>inefficaces</em>, c’est à dire que ce sont de mauvais rapports qualité-prix alors que ceux qui sont au-dessus sont de bons rapport qualité-prix. A noter que ce seuil peut être aussi modifié par l’utilisateur si il veut plus de contrôle.</p>
@@ -597,12 +604,14 @@
 <ol start="4" type="1">
 <li><strong>Comparateur</strong></li>
 </ol>
+<p><em>Corentin</em></p>
 <p>L’idée est ensuite de s’appuyer sur la page d’analyse de l’efficacité pour comparer deux téléphones à prix similaires mais à efficacité différente. La page Comparateur permet précisément de faire ça.</p>
 <p>Ce comparateur est plus complet que ceux actuellement existants parce qu’il inclue évidemment l’efficacité mais aussi un système permettant de comparer les caractéristiques comme la RAM, le stockage, etc.</p>
 <p><span class="math inline">\(\Rightarrow\)</span> On peut par exemple choisir l’<strong>iPhone 14 plus</strong> (256 Go) et le <strong>Google Pixel 8 Pro</strong> (128 Go) qui ont des prix similaires mais des efficacités légèrement différentes.</p>
 <ol start="5" type="1">
 <li><strong>Détails</strong></li>
 </ol>
+<p><em>Buk</em></p>
 <p>Cet onglet permet de visualiser tous les modèles disponibles et leurs caractéristiques, ou alors de filtrer l’ensemble des téléphones disponibles selon la marque, la capacité de stockage et la RAM. Dans le tableau on peut filtrer selon chaque variable disponible.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -631,14 +640,14 @@
 <p>— <code>Recherche</code>, Réalisation, Restitution —</p>
 </div>
 <aside class="notes">
+<p><em>Buk</em></p>
 <p>Avant de rentrer dans la partie des estimations économétriques, on va vous faire quelques rapides rappels de notre partie de recherche pour vous rafraîchir la mémoire.</p>
-<p>Contrairement à Lancaster que nous n’avons pas rementionné qui étudie uniquement le côté consommateur, Rosen s’intéresse à <strong>l’équilibre de marché de biens différenciés</strong> :</p>
-<ul>
-<li>avec un continuum de biens du côté de l’offre</li>
-<li>et un continuum de consommateurs hétérogènes du côté de la demande</li>
-</ul>
+<p>Dans le cadre apporté par Rosen, on étudie un bien différencié z décrit par le vecteur de ses n caractéristiques mesurables. Vecteur</p>
+<p>Il peut y avoir plusieurs combinaisons z1,zn différentes ce qui fait que le bien est différencié.</p>
+<p>On peut alors parler de :</p>
 <p><strong>Différenciation Horizontale</strong> <span class="math inline">\(\Rightarrow\)</span> A prix donné, il n’y a pas unanimité dans le choix des consommateurs entre 2 biens (jaune et rouge) : ce sont des différences de goûts.</p>
 <p><strong>Différenciation Verticale</strong> <span class="math inline">\(\Rightarrow\)</span> A prix donné, il y a unanimité dans le choix des consommateurs entre 2 voitures biens : l’un est meilleur que l’autre.</p>
+<p><span class="math inline">\(\rightarrow\)</span> Ces différenciations vont faire qu’une vaste gamme de paniers sera dispo sur le marché.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -653,11 +662,17 @@
 </section>
 <section id="hedonic-pricing-rappel-théorique-ii" class="slide level2">
 <h2>Hedonic Pricing ~ Rappel théorique (II)</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
+</div>
 
+</div>
 <img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"><div class="footer">
 <p>— <code>Recherche</code>, Réalisation, Restitution —</p>
 </div>
 <aside class="notes">
+<p><em>Buk</em></p>
 <p>On est habitué à représenter les préférences des consommateurs en termes de quantités de biens <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>. Ici, changement de paradigme : on va en fait représenter les préférences des consommateurs en termes de caractéristiques de biens.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -737,6 +752,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
+<p><em>Buk</em></p>
 <p>On en arrive à la partie d’application du pricing hédonique <span class="math inline">\(\Rightarrow\)</span> On va décomposer le prix d’un bien, en l’occurence un smartphone, en 11 caractéristiques : le stockage, la marque, la ram, la taille et le type d’écran, etc.</p>
 <p>Ici on retrouve le modèle en niveau dont les variables n’ont pas été choisies au hasard mais qui ont fait l’objet d’une sélection de variables grâce à un algorithme génétique, on l’avait expliqué mais on ne va pas re-rentrer dans les détails. L’intérêt de ce modèle en niveau c’est de pouvoir directement interpréter les coefficients comme des prix (effets marginaux).</p>
 <style type="text/css">
@@ -753,9 +769,8 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-level-level-ii" class="slide level2 smaller">
 <h2>OLS LEVEL-LEVEL (II)</h2>
-<div class="cell" data-fig.showtext="true">
+<div class="cell">
 <div class="cell-output-display">
-
 <div id="gniwatsmvh" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#gniwatsmvh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1222,6 +1237,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
+<p><em>Buk</em></p>
 <p>Ici le coefficient <span class="math inline">\(\beta_1\)</span> s’interprète comme l’effet marginal d’1 Go supplémentaire de capacité de stockage sur le prix, c’est à dire que si la capacité de stockage augmente de 1 Go, alors, le prix augmente de 91 centimes, cet.par.</p>
 <ul>
 <li><p>En ayant comme catégorie de référence Apple pour la variable marque (brand), on peut voir que toutes les marques ont un impact négatif sur le prix, cet. par.</p></li>
@@ -1249,11 +1265,17 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-level-level-iii" class="slide level2">
 <h2>OLS LEVEL-LEVEL (III)</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
+</div>
 
+</div>
 <img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"><div class="footer">
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
+<p><em>Corentin</em></p>
 <p>Aussi, une étape visuelle qu’on peut mettre en place est de vérifier l’ajustement du modèle. La vérification prédictive a posteriori permet de simuler des données répliquées avec le modèle ajusté puis les comparer aux données observées.</p>
 <p><span class="math inline">\(\Rightarrow\)</span> L’objectif est de détecter si le modèle est inadéquat pour décrire les données.</p>
 <p>Note : Pour cela, on utilise d’abord les données observées et les prédicteurs pour mettre à jour notre compréhension des paramètres inconnus du modèle. Ensuite, à partir de cette mise à jour, on génère plusieurs ensembles de résultats possibles en faisant varier ces paramètres, c’est du bootstrap. Ces simulations aident ensuite à évaluer la perf du modèle.</p>
@@ -1272,7 +1294,12 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-level-level-iv" class="slide level2 smaller">
 <h2>OLS LEVEL-LEVEL (IV)</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
+</div>
 
+</div>
 <img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"><div class="fragment fade-in">
 <div class="fragment highlight-red">
 <p><strong>Présence d’hétéroscédasticité</strong> (Variance des erreurs <span class="math inline">\(\epsilon_i\)</span> non constantes) ~ <span class="math inline">\(p-value &lt; 0.05\)</span>.</p>
@@ -1282,6 +1309,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
+<p><em>Corentin</em></p>
 <p>Vous vous en doutez, mais vu le graphique précédent, il y a une hypothèse importante qui est violée dans ce modèle, et évidemment on voit bien que les résidus ne sont pas homoscédastiques, et le test de <em>Breusch-Pagan</em> nous le confirme.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1297,7 +1325,12 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-level-level-v" class="slide level2 smaller">
 <h2>OLS LEVEL-LEVEL (V)</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
+</div>
 
+</div>
 <img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"><ul>
 <li class="fragment">Valeur du coefficient d’asymétrie : <strong>0.55</strong></li>
 </ul>
@@ -1305,6 +1338,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
+<p><em>Corentin</em></p>
 <p>On peut aussi s’intéresser à la normalité des résidus en regardant le coefficient d’asymétrie</p>
 <p>On voit que le coefficient est positif. Cette asymétrie positive indique une concentration de valeurs sur le côté gauche de la distribution, on peut d’ailleurs le voir sur l’histogramme.</p>
 <style type="text/css">
@@ -1348,6 +1382,8 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
+<p><em>Buk</em></p>
+<p>Prendre le logarithme de la variable dépendante <em>(price)</em> peut aider à stabiliser la variance et réduire l’hétéroscédasticité.</p>
 <p>On aurait aussi pu utiliser la méthode des moindres carrés pondérés pour essayer d’éliminer l’hétéroscédasticité, mais en fait la spécification log-linéaire est requise pour l’estimation d’un modèle SFA ce qui lui confère un avantage supplémentaire.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1363,9 +1399,8 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-log-level-ii" class="slide level2 smaller">
 <h2>OLS LOG-LEVEL (II)</h2>
-<div class="cell" data-fig.showtext="true">
+<div class="cell">
 <div class="cell-output-display">
-
 <div id="xgmmtfvarj" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#xgmmtfvarj table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1832,6 +1867,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
+<p><em>Buk</em></p>
 <p>Ici le coefficient <span class="math inline">\(\beta_1\)</span> s’interprète comme le changement en pourcentage du prix lorsque la capacité de stockage augmente d’1 Go, c’est à dire que si la capacité de stockage augmente de 1 Go, alors, le prix augmente de 0.06%, cet.par.</p>
 <ul>
 <li>En ayant comme catégorie de référence Apple pour la variable marque (brand), on peut voir que toutes les marques ont un impact négatif sur le prix, cet. par.</li>
@@ -1855,11 +1891,17 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-log-level-iii" class="slide level2">
 <h2>OLS LOG-LEVEL (III)</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
+</div>
 
+</div>
 <img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"><div class="footer">
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
+<p><em>Corentin</em></p>
 <p>Ici on voit que même si le modèle a du mal à prédire une certaine portion de la distribution, il s’en sort très bien sur les extrémités et globalement l’adéquation du modèle semble meilleure.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1875,7 +1917,12 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-log-level-iv" class="slide level2 smaller">
 <h2>OLS LOG-LEVEL (IV)</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
+</div>
 
+</div>
 <img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"><div class="fragment fade-in">
 <div class="fragment highlight-green">
 <p><strong>Pas de présence d’hétéroscédasticité</strong> (Variance des erreurs <span class="math inline">\(\epsilon_i\)</span> constantes) ~ <span class="math inline">\(p-value = 0.354\)</span>.</p>
@@ -1885,6 +1932,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
+<p><em>Corentin</em></p>
 <p>On le voit bien graphiquement et c’est confirmé par le test de <em>Breusch-Pagan</em> qu’il n’y a plus de problème d’hétéroscédasticité dans ce modèle.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1900,7 +1948,12 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-log-level-v" class="slide level2 smaller">
 <h2>OLS LOG-LEVEL (V)</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
+</div>
 
+</div>
 <img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"><ul>
 <li class="fragment">Valeur du coefficient d’asymétrie : <strong>0.17</strong></li>
 </ul>
@@ -1911,6 +1964,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
+<p><em>Corentin</em></p>
 <p>Ici on remarque que les résidus semblent suivre une loi normale, mais on a quand même encore un coefficient d’asymétrie positif.</p>
 <p>L’idée derrière le test est la suivante : Pour une spécification SFA frontière de coût avec erreur composée, la distribution des résidus de l’estimation par MCO doit avoir une asymétrie positive. Si cette asymétrie est positive, alors elle permet de confirmer l’existence d’une erreur unilatérale et donc la forme fonctionnelle SFA sera appropriée. On va justement revenir en détail sur tout ça dans la partie suivante.</p>
 <style type="text/css">
@@ -1980,13 +2034,44 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <div class="footer">
 <p>— <code>Recherche</code>, Réalisation, Restitution —</p>
 </div>
+<aside class="notes">
+<p><em>Corentin</em></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="choix-de-distributions" class="slide level2">
 <h2>Choix de distributions</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
+</div>
 
+</div>
 <img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"><div class="footer">
 <p>— <code>Recherche</code>, Réalisation, Restitution —</p>
 </div>
+<aside class="notes">
+<p><em>Corentin</em></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="sfa-rappels-iii" class="slide level2 smaller">
 <h2>SFA ~ RAPPELS (III)</h2>
@@ -2014,10 +2099,19 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <p>— <code>Recherche</code>, Réalisation, Restitution —</p>
 </div>
 <aside class="notes">
+<p><em>Buk</em></p>
 <p>L’objectif de cette slide est d’expliquer graphiquement la SFA.</p>
+<p>A partir de ce graph, on peut distinguer les termes d’erreur donc les effets de vu qui est le bruit, et ceux de ui qui est l’inefficacité.</p>
+<ul>
+<li>y1 = f(x) + v donne l’output max</li>
+<li>y2 = f(x) + v - u donne le niveau de production réelle</li>
+</ul>
+<p>On peut donc voir que ui tire la production vers le bas alors que vi peut fixer le niiveau max possible de la production en dessous ou au-dessus de la frontière.</p>
 <ul>
 <li>On inclue aussi une transformation logarithmique permettant de manipuler plus facilement le terme d’erreur.</li>
 </ul>
+<p>Une fois qu’on prend l’output max et qu’on enlève l’inefficacité, on obtient ln de yi qui est le niveau de production réelle.</p>
+<p>On a aussi <span class="math inline">\(\epsilon_i\)</span> qui représente le terme d’erreur composé <span class="math inline">\(v_i - u_i\)</span>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -2049,12 +2143,24 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <div class="footer">
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
+<aside class="notes">
+<p><em>Corentin</em></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="sfa-cost-frontier-ii" class="slide level2 smaller">
 <h2>SFA Cost Frontier (II)</h2>
-<div class="cell" data-fig.showtext="true">
+<div class="cell">
 <div class="cell-output-display">
-
 <div id="fwteytmltd" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#fwteytmltd table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -2517,6 +2623,34 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <div class="footer">
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
+<aside class="notes">
+<p><em>Corentin</em></p>
+<p>Si la capacité de stockage (storage) augmente de 1 Go, alors le prix augmente de 0.001%, cet. par.</p>
+<ul>
+<li>En ayant comme catégorie de référence Apple pour la variable marque (brand), on peut voir que toutes les marques ont un impact négatif sur le prix, cet. par.
+<ul>
+<li>La marque la plus valorisée derrière Apple est Samsung avec une différence de prix de 47.1%</li>
+<li>La marque la moins valorisée est XIAOMI avec une différence de prix de 103.6% par rapport à Apple.</li>
+</ul></li>
+<li>Si la ram augmente de 1 Go, alors le prix augmente de 7.7%, cet. par</li>
+</ul>
+<p>Pour le type d’écran (screen_type), la catégorie de référence est borderless (un écran sans bordure).</p>
+<ul>
+<li>Disposer d’un écran à bord incurvé diminue le prix de 8.7 % par rapport à la catégorie de référence, cet. par.</li>
+<li>Pour l’écran plat, le prix diminue de 2.3 % par rapport à la catégorie de référence, cet. par.</li>
+<li>Avoir un écran pliable fait augmenter le prix de 38.9 % par rapport à la catégorie de référence, cet. par</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="sfa-cost-frontier-iii" class="slide level2 smaller">
 <h2>SFA Cost Frontier (III)</h2>
@@ -2525,9 +2659,8 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <ul>
 <li class="fragment">Commande <code>efficiencies()</code> du package <code>{frontier}</code>.</li>
 </ul>
-<div class="cell" data-fig.showtext="true">
+<div class="cell">
 <div class="cell-output-display">
-
 <div id="ymlcnfsbuj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ymlcnfsbuj table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -2968,70 +3101,84 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="<strong>Marque</strong>"><strong>Marque</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="<strong>Min</strong>"><strong>Min</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="<strong>Médiane</strong>"><strong>Médiane</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="<strong>Moyenne</strong>"><strong>Moyenne</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="<strong>Max</strong>"><strong>Max</strong></th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`APPLE`"><div class="gt_from_md"><p><code>APPLE</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.77</td>
-<td headers="median" class="gt_row gt_right">0.85</td>
-<td headers="mean" class="gt_row gt_right">0.85</td>
-<td headers="max" class="gt_row gt_right">0.95</td></tr>
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`GOOGLE`"><div class="gt_from_md"><p><code>GOOGLE</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.76</td>
-<td headers="median" class="gt_row gt_right">0.84</td>
-<td headers="mean" class="gt_row gt_right">0.85</td>
-<td headers="max" class="gt_row gt_right">0.94</td></tr>
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`HONOR`"><div class="gt_from_md"><p><code>HONOR</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.58</td>
-<td headers="median" class="gt_row gt_right">0.87</td>
-<td headers="mean" class="gt_row gt_right">0.83</td>
-<td headers="max" class="gt_row gt_right">0.92</td></tr>
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`MOTOROLA`"><div class="gt_from_md"><p><code>MOTOROLA</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.57</td>
-<td headers="median" class="gt_row gt_right">0.87</td>
-<td headers="mean" class="gt_row gt_right">0.83</td>
-<td headers="max" class="gt_row gt_right">0.93</td></tr>
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`OPPO`"><div class="gt_from_md"><p><code>OPPO</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.60</td>
-<td headers="median" class="gt_row gt_right">0.87</td>
-<td headers="mean" class="gt_row gt_right">0.82</td>
-<td headers="max" class="gt_row gt_right">0.93</td></tr>
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`SAMSUNG`"><div class="gt_from_md"><p><code>SAMSUNG</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.51</td>
-<td headers="median" class="gt_row gt_right">0.86</td>
-<td headers="mean" class="gt_row gt_right">0.84</td>
-<td headers="max" class="gt_row gt_right">0.94</td></tr>
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`SONY`"><div class="gt_from_md"><p><code>SONY</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.82</td>
-<td headers="median" class="gt_row gt_right">0.86</td>
-<td headers="mean" class="gt_row gt_right">0.86</td>
-<td headers="max" class="gt_row gt_right">0.89</td></tr>
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`XIAOMI`"><div class="gt_from_md"><p><code>XIAOMI</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.59</td>
-<td headers="median" class="gt_row gt_right">0.86</td>
-<td headers="mean" class="gt_row gt_right">0.85</td>
-<td headers="max" class="gt_row gt_right">0.94</td></tr>
-  </tbody>
-  
-  
+
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header gt_col_headings">
+<th id="<strong>Marque</strong>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Marque</strong></th>
+<th id="<strong>Min</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><strong>Min</strong></th>
+<th id="<strong>Médiane</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><strong>Médiane</strong></th>
+<th id="<strong>Moyenne</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><strong>Moyenne</strong></th>
+<th id="<strong>Max</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><strong>Max</strong></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="brand"><p><code>APPLE</code></p></td>
+<td class="gt_row gt_right" headers="min">0.77</td>
+<td class="gt_row gt_right" headers="median">0.85</td>
+<td class="gt_row gt_right" headers="mean">0.85</td>
+<td class="gt_row gt_right" headers="max">0.95</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="brand"><p><code>GOOGLE</code></p></td>
+<td class="gt_row gt_right" headers="min">0.76</td>
+<td class="gt_row gt_right" headers="median">0.84</td>
+<td class="gt_row gt_right" headers="mean">0.85</td>
+<td class="gt_row gt_right" headers="max">0.94</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="brand"><p><code>HONOR</code></p></td>
+<td class="gt_row gt_right" headers="min">0.58</td>
+<td class="gt_row gt_right" headers="median">0.87</td>
+<td class="gt_row gt_right" headers="mean">0.83</td>
+<td class="gt_row gt_right" headers="max">0.92</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="brand"><p><code>MOTOROLA</code></p></td>
+<td class="gt_row gt_right" headers="min">0.57</td>
+<td class="gt_row gt_right" headers="median">0.87</td>
+<td class="gt_row gt_right" headers="mean">0.83</td>
+<td class="gt_row gt_right" headers="max">0.93</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="brand"><p><code>OPPO</code></p></td>
+<td class="gt_row gt_right" headers="min">0.60</td>
+<td class="gt_row gt_right" headers="median">0.87</td>
+<td class="gt_row gt_right" headers="mean">0.82</td>
+<td class="gt_row gt_right" headers="max">0.93</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="brand"><p><code>SAMSUNG</code></p></td>
+<td class="gt_row gt_right" headers="min">0.51</td>
+<td class="gt_row gt_right" headers="median">0.86</td>
+<td class="gt_row gt_right" headers="mean">0.84</td>
+<td class="gt_row gt_right" headers="max">0.94</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="brand"><p><code>SONY</code></p></td>
+<td class="gt_row gt_right" headers="min">0.82</td>
+<td class="gt_row gt_right" headers="median">0.86</td>
+<td class="gt_row gt_right" headers="mean">0.86</td>
+<td class="gt_row gt_right" headers="max">0.89</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="brand"><p><code>XIAOMI</code></p></td>
+<td class="gt_row gt_right" headers="min">0.59</td>
+<td class="gt_row gt_right" headers="median">0.86</td>
+<td class="gt_row gt_right" headers="mean">0.85</td>
+<td class="gt_row gt_right" headers="max">0.94</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
@@ -3039,6 +3186,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
+<p><em>Buk</em></p>
 <p>Grâce au calcul de l’espérance conditionnelle, on peut donc déterminer quels téléphones sont les plus/moins efficaces de notre sélection. On peut donc aussi faire des regroupements par marque, ce qu’on a décidé de vous montrer sur ce tableau.</p>
 <p>A noter que même si le package le fait pour nous en une commande c’est un calcul qui est complexe et qui fait plusieurs pages de formules qu’on a inclut dans le rapport mais qu’on ne va pas préciser ici.</p>
 <style type="text/css">
@@ -3084,6 +3232,7 @@ H_1: SFA \text{ cost frontier}
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
+<p><em>Corentin</em></p>
 <p>On peut maintenant chercher à savoir si il vaut mieux utiliser le modèle SFA Cost Frontier ou alors le modèle log-hedonic MCO.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -3106,11 +3255,13 @@ H_1: SFA \text{ cost frontier}
 </section>
 <section id="références" class="slide level2 smaller scrollable">
 <h2>Références</h2>
-
-<img src="https://corentinducloux.fr/dossier_img/mecen_transparent.png" class="slide-logo r-stretch"><div class="footer footer-default">
+<div class="quarto-auto-generated-content">
+<p><img src="https://corentinducloux.fr/dossier_img/mecen_transparent.png" class="slide-logo"></p>
+<div class="footer footer-default">
 <p>— Recherche, Réalisation, Restitution —</p>
 </div>
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-aigner1977" class="csl-entry" role="listitem">
 Aigner, Dennis, C. A.Knox Lovell, and Peter Schmidt. 1977. <span>“Formulation and Estimation of Stochastic Frontier Production Function Models.”</span> <em>Journal of Econometrics</em> 6 (1): 21–37. <a href="https://doi.org/10.1016/0304-4076(77)90052-5">https://doi.org/10.1016/0304-4076(77)90052-5</a>.
 </div>
@@ -3149,7 +3300,6 @@ Rosen, Sherwin. 1974. <span>“Hedonic Prices and Implicit Markets: Product Diff
       Reveal.initialize({
 'controlsAuto': false,
 'previewLinksAuto': true,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -3449,10 +3599,24 @@ Rosen, Sherwin. 1974. <span>“Hedonic Prices and Implicit Markets: Product Diff
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn) {
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+              // default icon
+              link.classList.add("external");
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -3462,8 +3626,17 @@ Rosen, Sherwin. 1974. <span>“Hedonic Prices and Implicit Markets: Product Diff
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -3517,20 +3690,6 @@ Rosen, Sherwin. 1974. <span>“Hedonic Prices and Implicit Markets: Product Diff
           });
         }
       }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href);
-        }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-              // default icon
-              link.classList.add("external");
-          }
-        }
     });
     </script>
     
