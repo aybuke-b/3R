@@ -84,6 +84,7 @@ def drop_and_filter(df: pl.DataFrame) -> pl.DataFrame:
     # note : on dégage la garantie car c'est tout le temps 2 ans, et 2 cartes sim tt le temps
     df = df.filter((pl.col("ram").is_not_null()) & (pl.col("ram") != "Non communiqué"))
     df = df.filter(pl.col("screen_resolution") != "Non communiqué")
+    df = df.filter(pl.col("das_head").is_not_null())
     return df
 
 
@@ -131,11 +132,13 @@ def get_upgrade_storage(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def valid_battery(df: pl.DataFrame) -> pl.DataFrame:
+def get_valid_battery(df: pl.DataFrame) -> pl.DataFrame:
     """battery will be an int but measured as milli-amper/hour"""
     df = df.with_columns(
         pl.when(pl.col("battery") == "Li-ion 5100 mAh")
         .then(pl.lit("5100 mAh"))
+        .when(pl.col("battery") == "Li-Po 4600 mAh")
+        .then(pl.lit("4600 mAh"))
         .otherwise(pl.col("battery"))
         .str.replace(" mAh", "")
         .cast(pl.Int64)
@@ -156,7 +159,7 @@ def get_screen_type(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def logprice(df: pl.DataFrame) -> pl.DataFrame:
+def get_logprice(df: pl.DataFrame) -> pl.DataFrame:
     df = df.with_columns(pl.col("price").log().alias("logprice"))
     return df
 
@@ -166,7 +169,7 @@ def network_cleaner(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def valid_das_chest(df: pl.DataFrame) -> pl.DataFrame:
+def get_das_chest(df: pl.DataFrame) -> pl.DataFrame:
     df = df.with_columns(
         pl.col("das_chest")
         .str.replace(" W/kg", "")
@@ -176,7 +179,7 @@ def valid_das_chest(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def valid_das_head(df: pl.DataFrame) -> pl.DataFrame:
+def get_das_head(df: pl.DataFrame) -> pl.DataFrame:
     df = df.with_columns(
         pl.col("das_head")
         .str.replace(" W/kg", "")
@@ -186,7 +189,7 @@ def valid_das_head(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def valid_das_limbs(df: pl.DataFrame) -> pl.DataFrame:
+def get_das_limbs(df: pl.DataFrame) -> pl.DataFrame:
     df = df.with_columns(
         pl.col("das_limbs")
         .str.replace(" W/kg", "")
@@ -228,7 +231,7 @@ def format_colors(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def valid_fast_charging(df: pl.DataFrame) -> pl.DataFrame:
+def get_fast_charging(df: pl.DataFrame) -> pl.DataFrame:
     df = df.with_columns(
         pl.when(pl.col("fast_charging") == "Oui")
         .then(pl.lit(True))
@@ -432,7 +435,7 @@ def get_valid_weight(df: pl.DataFrame) -> pl.DataFrame:
     return df
 
 
-def mpx_cams(df: pl.DataFrame) -> pl.DataFrame:
+def get_mpx_cams(df: pl.DataFrame) -> pl.DataFrame:
     df = (
         df.with_columns(
             pl.col("sensor_resolution")
@@ -450,6 +453,51 @@ def mpx_cams(df: pl.DataFrame) -> pl.DataFrame:
             .add(pl.col("cam_2").add(pl.col("cam_3")))
             .alias("mpx_backward_cam")
         )
+    )
+    return df
+
+
+def get_scraping_date(df: pl.DataFrame) -> pl.DataFrame:
+    df = df.with_columns(pl.col("scraping_time").str.to_datetime().cast(pl.Datetime))
+    return df
+
+
+def get_flag(df: pl.DataFrame) -> pl.DataFrame:
+    """`get_flag`: _summary_
+
+    - Allows to map a flag to a country name.
+
+    ---------
+    `Parameters`
+    --------- ::
+
+        df (pl.DataFrame): #_description_
+
+    `Returns`
+    --------- ::
+
+        pl.DataFrame
+
+    `Example(s)`
+    ---------
+
+    >>> get_flag()
+    ... #_test_return_"""
+    df = df.with_columns(
+        pl.when(pl.col("made_in") == "Chine")
+        .then(pl.lit("🇨🇳"))
+        .when(pl.col("made_in") == "Japon")
+        .then(pl.lit("🇯🇵"))
+        .when(pl.col("made_in") == "Viêt Nam")
+        .then(pl.lit("🇻🇳"))
+        .when(pl.col("made_in") == "Inde")
+        .then(pl.lit("🇮🇳"))
+        .when(pl.col("made_in") == "Taïwan")
+        .then(pl.lit("🇹🇼"))
+        .when(pl.col("made_in") == "Thaïlande")
+        .then(pl.lit("🇹🇭"))
+        .otherwise(pl.lit(""))
+        .alias("flag")
     )
     return df
 
@@ -483,13 +531,15 @@ def random_feature(df: pl.DataFrame) -> pl.DataFrame:
 
 
 def drop_col_nulls(df: pl.DataFrame) -> pl.DataFrame:
-    df = df.drop_nulls(subset=cs.contains({"made_in", "width"}))
+    df = df.drop_nulls(subset=cs.contains({"made_in"}))
     return df
 
 
 def get_resolution(df: pl.DataFrame) -> pl.DataFrame:
     df = df.with_columns(
-        pl.concat_str([df["resolution_1"], pl.lit(" x "), df["resolution_2"]]).alias("resolution")
+        pl.concat_str([df["resolution_1"], pl.lit(" x "), df["resolution_2"]]).alias(
+            "resolution"
+        )
     )
     return df
 
@@ -504,10 +554,9 @@ def NordStream(df: pl.DataFrame) -> pl.DataFrame:
         .pipe(get_valid_reviews)
         .pipe(get_stars)
         .pipe(get_upgrade_storage)
-        .pipe(valid_battery)
+        .pipe(get_valid_battery)
         .pipe(get_screen_type)
-        .pipe(format_colors)
-        .pipe(valid_fast_charging)
+        .pipe(get_fast_charging)
         .pipe(get_diagonal_pixels)
         .pipe(get_valid_screen_size)
         .pipe(get_valid_storage)
@@ -517,16 +566,19 @@ def NordStream(df: pl.DataFrame) -> pl.DataFrame:
         .pipe(get_valid_height)
         .pipe(get_valid_width)
         .pipe(get_valid_thickness)
-        .pipe(logprice)
+        .pipe(get_logprice)
         .pipe(network_cleaner)
-        .pipe(valid_das_chest)
-        .pipe(valid_das_head)
-        .pipe(valid_das_limbs)
+        .pipe(get_das_chest)
+        .pipe(get_das_head)
+        .pipe(get_das_limbs)
         .pipe(get_valid_induction)
         .pipe(get_ppi)
-        .pipe(mpx_cams)
+        .pipe(get_scraping_date)
+        .pipe(get_flag)
+        .pipe(get_resolution)
+        .pipe(get_mpx_cams)
+        .pipe(format_colors)
         .pipe(random_feature)
         .pipe(drop_col_nulls)
-        .pipe(get_resolution)
     )
     return df

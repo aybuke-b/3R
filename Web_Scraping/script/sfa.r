@@ -2,11 +2,11 @@
 
 library(dplyr)
 library(frontier)
-library(leaps)
 library(tidyverse)
+library(janitor)
 library(glmulti)
 
-df_init <- read_delim("Web_Scraping/data/df_clean.csv", delim = ";")
+df_init <- read_delim("Web_Scraping/data/df_clean_2.csv", delim = ";")
 
 df_init |>
     print()
@@ -16,54 +16,29 @@ df_phones <- df_init |>
 
 print(df_phones)
 
-loghedonic <- lm(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + das_chest + fast_charging + network + ppi,
+loghedonic <- lm(
+    log(price) ~ storage + brand + ram + induction + screen_size + screen_type + made_in + upgrade_storage + das_limbs + network + ppi,
     data = df_phones
 )
 
-scf <- sfa(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + fast_charging + das_chest + network + ppi,
+scf <- sfa(
+    log(price) ~ storage + brand + ram + induction + screen_size + screen_type + made_in + upgrade_storage + das_limbs + network + ppi,
     data = df_phones,
     truncNorm = FALSE,
     ineffDecrease = FALSE
 )
 
-# ATTENTION, inclure "screen_type" dans la Stochastic Cost Frontier la fait planter...
+sfa_res <- summary(scf)$mleParam |>
+    data.frame() |>
+    rownames_to_column(var = "Variables") |>
+    clean_names()
 
-mu <- predict(loghedonic)
-se <- predict(loghedonic, se.fit = TRUE)$se.fit
-
-part_1 <- exp(mu + (se^2)/2) |> as_tibble()
-part_2 <- exp(mu)
-
-bind_cols(part_1, part_2) |> print(n=Inf)
-
-loghedonic_df <- predict(loghedonic) |>
-    as_tibble() |>
-    exp() |>
-    rename(prediction_loghedonic = value)
-
-sfa_df <- fitted(scf) |>
-    as_tibble() |>
-    exp() |>
-    rename(prediction_sfa = V1)
-
-mu_sfa <- fitted(scf)
-se_sfa <- predict(scf, se.fit = TRUE)
-
-exp(residuals(scf))
-
+# logLik(scf)
+# logLik(loghedonic)
 
 eff_df <- as_tibble(efficiencies(scf))
 
+new_df <- bind_cols(df_init, eff_df)
 
-new_df <- bind_cols(df_init, eff_df, sfa_df, loghedonic_df)
-
-new_df
-
-brand_groups <- new_df |>
-    select(brand, efficiency) |>
-    group_by(brand)
-
-print(brand_groups |> summarise(mean_eff = mean(efficiency), n_count = n()) |> arrange(mean_eff))
-print(new_df |> select(model, efficiency, price) |> arrange(efficiency), n = 487)
-
-write.csv(new_df, file = "Web_Scraping/data/sfa_results.csv")
+arrow::write_parquet(sfa_res, "Web_Scraping/data/sfa_coefs.parquet")
+arrow::write_parquet(new_df, "Web_Scraping/data/sfa_results_app.parquet")
