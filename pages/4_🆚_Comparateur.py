@@ -128,20 +128,21 @@ def check_symbol(value1, value2, show_symbols):
     if not show_symbols:
         return ""
     if value1 == value2:
-        return "🟰"  
+        return "🟰"
     elif value1 > value2:
-        return "✅"  
+        return "✅"
     elif value2 > value1:
         return "❌"
+
 
 def check_symbol_2(value1, value2, show_symbols):
     ### less is better
     if not show_symbols:
         return ""
     if value1 == value2:
-        return "🟰"  
+        return "🟰"
     elif value1 < value2:
-        return "✅"  
+        return "✅"
     elif value2 < value1:
         return "❌"
 
@@ -150,11 +151,11 @@ def check_symbol_binaire(value1, value2, show_symbols):
     if not show_symbols:
         return ""
     if value1 == value2:
-        return "🟰"  
+        return "🟰"
     elif value1 == "Oui" and value2 == "Non":
-        return "✅"  
-    elif value2 == "Oui" and value1 == "Non" :
-        return "❌"   
+        return "✅"
+    elif value2 == "Oui" and value1 == "Non":
+        return "❌"
 
 
 ctx = create_context()
@@ -309,7 +310,7 @@ with col1:
                 "Prix", value=f"{price_model_1} €", delta=round(efficiency_model_1, 2)
             )
         with col4:
-            st.metric("Position", value="🥇")
+            st.write("")
 
         st.image(link_model_1, caption=model_model_1, width=200)
         st.markdown(
@@ -387,7 +388,7 @@ with col2:
                 "Prix", value=f"{price_model_2} €", delta=round(efficiency_model_2, 2)
             )
         with col4:
-            st.metric("Position", value="🥇")
+            st.write("")
 
         st.image(link_model_2, caption=model_model_2, width=200)
 

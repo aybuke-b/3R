@@ -14,6 +14,32 @@ import polars as pl
 from streamlit.delta_generator import DeltaGenerator
 
 
+def about_page() -> str:
+    about_text = """
+Le modèle utilisé dans notre application est une **SFA** frontière de coût.
+
+Les variables utilisées sont :
+
+| **Variable**      | **Description**                                               | **Type**  |
+|-------------------|---------------------------------------------------------------|-----------|
+| *storage*         | Capacité de stockage                                          | `int`     |
+| *brand*           | Marque du téléphone                                           | `str`     |
+| *ram*             | RAM du téléphone                                              | `int`     |
+| *induction*       | Dispose de la charge à induction                              | `boolean` |
+| *screen_size*     | Taille de l'écran, en pouces                                  | `float`   |
+| *screen_type*     | Type d'écran                                                  | `str`     |
+| *made_in*         | Lieu de fabrication (Pays)                                    | `str`     |
+| *upgrade_storage* | Dispose d'une carte SD pour améliorer la capacité de stockage | `boolean` |
+| *das_limbs*       | DAS (Débit d'Absorption Spécifique) - membres                 | `float`   |
+| *network*         | Réseau                                                        | `boolean` |
+| *ppi*             | Pixels par pouce                                              | `str`     |
+
+***
+
+    """
+    return about_text
+
+
 def page_config() -> None:
     """`page_config`: Configure le titre et le favicon de l'application.
 
@@ -21,7 +47,9 @@ def page_config() -> None:
     ---------
     >>> page_config()
     ... None"""
-    return st.set_page_config(page_title="Smart Specs", page_icon="📱")
+    return st.set_page_config(
+        page_title="Smart Specs", page_icon="📱", menu_items={"About": about_page()}
+    )
 
 
 def background_style() -> DeltaGenerator:
