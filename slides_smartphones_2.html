@@ -8,7 +8,7 @@
 <link href="slides_smartphones_2_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="slides_smartphones_2_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="slides_smartphones_2_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.549">
+  <meta name="generator" content="quarto-1.3.450">
 
   <meta name="author" content="Aybuké BICAT &amp; Corentin DUCLOUX">
   <title>Application des modèles SFA à l’étude des prix</title>
@@ -31,7 +31,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -98,7 +98,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -243,8 +242,7 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    padding-bottom: 0.5rem;
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -407,6 +405,7 @@
       margin-right: 0; 
     }
   </style>
+  
   <script src="slides_smartphones_2_files/libs/core-js-2.5.3/shim.min.js"></script>
   <script src="slides_smartphones_2_files/libs/react-18.2.0/react.min.js"></script>
   <script src="slides_smartphones_2_files/libs/react-18.2.0/react-dom.min.js"></script>
@@ -442,7 +441,7 @@
 </section>
 <section id="problématique" class="slide level2" data-background-color="black" data-background-image="https://vivreaulycee.fr/wp-content/uploads/2018/12/question-mark-2492009_1280-1200x480.jpg" data-background-size="cover" data-background-opacity="0.75">
 <h2>Problématique</h2>
-<p><code>Combinaison d'un modèle SFA et d'une régression hédonique pour évaluer la discordance entre les prix de smartphones et leur valeur intrinsèque.</code></p>
+<p><code>Combinaison d'un modèle SFA et d'une régression hédonique pour évaluer la discordance entre les prix de smartphones et leur valeur.</code></p>
 <div class="footer">
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
@@ -547,6 +546,40 @@
           display:block!important;
       }</style></aside>
 </section>
+<section id="explication-smartspecs" class="slide level2">
+<h2>Explication <code>SMART'SPECS</code></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="imgs/mermaid_graph.png" style="width:95.0%"></p>
+</div><div class="column" style="width:50%;">
+<p><u><strong>Fonctionnalités</strong></u> :</p>
+<ul>
+<li class="fragment">Statistiques élémentaires</li>
+<li class="fragment">Restitution d’informations</li>
+<li class="fragment">Effort visuel et nombreuses fonctionnalités</li>
+<li class="fragment">Moteur basé sur un modèle <strong>SFA</strong></li>
+</ul>
+</div>
+</div>
+<div class="footer">
+<p>— Recherche, <code>Réalisation</code>, Restitution —</p>
+</div>
+<aside class="notes">
+<p>On a intégré les résultats par ce qu’on appelle le seuil d’efficacité qui correspond en fait à un score.</p>
+<p>Concernant les données, on s’est basé sur des données scrapées en février sur le site du revendeur <strong>Boulanger</strong>.</p>
+<p>Les modèles qu’on a construit que vous voyez dans le bloc en bleu définissent le score (l’efficacité) en terme de prix.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="smartspecs-démonstration" class="slide level2">
 <h2><code>SMART'SPECS</code> Démonstration</h2>
 <p><strong>🚀 Lancement de l’application</strong></p>
@@ -560,9 +593,9 @@
 </div>
 <div class="callout-content">
 <p><em>Lancement du shell poetry</em> :</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb1-1"><a href=""></a>py <span class="op">-</span>m poetry shell</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1"></a>py <span class="op">-</span>m poetry shell</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><em>Lancement de l’application</em> :</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href=""></a>python <span class="op">-</span>m streamlit run Accueil<span class="op">.</span><span class="fu">py</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1"></a>python <span class="op">-</span>m streamlit run Accueil<span class="op">.</span><span class="fu">py</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><span class="math inline">\(\Rightarrow\)</span> <em>Simple</em> : seulement 2 commandes pour accéder à l’application !</p>
 </div>
 </div>
@@ -625,6 +658,52 @@
           display:block!important;
       }</style></aside>
 </section>
+<section id="présentation-des-modèles" class="slide level2">
+<h2>Présentation des modèles</h2>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Modèle</strong></th>
+<th><strong>Variables</strong></th>
+<th><strong>Estimateur</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>Régression linéaire (hédonique)</em></td>
+<td>niveau-niveau</td>
+<td><code>MCO</code></td>
+</tr>
+<tr class="even">
+<td><em>Régression linéaire (hédonique)</em></td>
+<td>log-niveau</td>
+<td><code>MCO</code></td>
+</tr>
+<tr class="odd">
+<td><em>SFA (frontière de coût)</em></td>
+<td>log-niveau</td>
+<td><code>MV</code></td>
+</tr>
+</tbody>
+</table>
+<div class="footer">
+<p>— Recherche, <code>Réalisation</code>, Restitution —</p>
+</div>
+<aside class="notes">
+<p>Avant de rentrer dans la partie des estimations économétriques, on va vous faire quelques rapides rappels de notre partie de recherche pour vous rafraîchir la mémoire.</p>
+<p>Et ensuite on vous présentera les résultats de 3 modèles différents que vous voyez à l’écran.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="hedonic-pricing-rappel-théorique-i" class="slide level2">
 <h2>Hedonic Pricing ~ Rappel théorique (I)</h2>
 <p>Cadre apporté par <span class="citation" data-cites="rosen1974">Rosen (<a href="#/références" role="doc-biblioref" onclick="">1974</a>)</span>. On étudie un bien différencié <span class="math inline">\(z\)</span> décrit par le vecteur de ses <span class="math inline">\(n\)</span> caractéristiques mesurables tel que :</p>
@@ -641,7 +720,6 @@
 </div>
 <aside class="notes">
 <p><em>Buk</em></p>
-<p>Avant de rentrer dans la partie des estimations économétriques, on va vous faire quelques rapides rappels de notre partie de recherche pour vous rafraîchir la mémoire.</p>
 <p>Dans le cadre apporté par Rosen, on étudie un bien différencié z décrit par le vecteur de ses n caractéristiques mesurables. Vecteur</p>
 <p>Il peut y avoir plusieurs combinaisons z1,zn différentes ce qui fait que le bien est différencié.</p>
 <p>On peut alors parler de :</p>
@@ -662,12 +740,7 @@
 </section>
 <section id="hedonic-pricing-rappel-théorique-ii" class="slide level2">
 <h2>Hedonic Pricing ~ Rappel théorique (II)</h2>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
-</div>
 
-</div>
 <img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"><div class="footer">
 <p>— <code>Recherche</code>, Réalisation, Restitution —</p>
 </div>
@@ -701,6 +774,8 @@
 <aside class="notes">
 <p><em>Corentin</em></p>
 <p>Achat d’une seule unité de bien car historiquement, Rosen s’intéresse principalement aux biens durables (Machine à laver, logements, voitures, smartphones…). Pourquoi ? C’est parce que c’est beaucoup plus simple d’obtenir des caractéristiques observables sur ces biens durables que sur des biens consommables.</p>
+<p>En fait, on recherche le lien qu’il y a entre le prix et les caractéristiques d’un produit et ce qu’on mesure résulte potentiellement d’effets de préférence des consommateurs ou de coûts des producteurs.</p>
+<p>Tout ça pour dire que l’augmentation du prix peut donc être lié à un effet coût ou un effet demande, et la difficulté c’est que ces effets sont difficilement dissociables.</p>
 <p>On aboutit à une relation fonctionnelle entre les caractéristiques des biens et leur prix, appelée fonction de prix hédonique <span class="math inline">\(p(z)\)</span>.</p>
 <hr>
 <p>Il n’en reste pas moins qu’il subsiste un problème indéniable : Ce qu’on aimerait réellement mesurer c’est le <strong>service rendu par un produit</strong> et non pas les caractéristiques de ce produit, et ça c’est complètement inobservable. Donc en bref il va falloir faire attention pour interpréter correctement les résultats des régressions.</p>
@@ -769,8 +844,9 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-level-level-ii" class="slide level2 smaller">
 <h2>OLS LEVEL-LEVEL (II)</h2>
-<div class="cell">
+<div class="cell" data-fig.showtext="true">
 <div class="cell-output-display">
+
 <div id="gniwatsmvh" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#gniwatsmvh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1238,6 +1314,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </div>
 <aside class="notes">
 <p><em>Buk</em></p>
+<p>On a un <span class="math inline">\(R^2\)</span> qui est très bon : 86,7 % de la variance du prix est expliquée par nos variables. En fait, ça nous confirme que ça a du sens d’étudier les prix des téléphones en fonction des caractéristiques.</p>
 <p>Ici le coefficient <span class="math inline">\(\beta_1\)</span> s’interprète comme l’effet marginal d’1 Go supplémentaire de capacité de stockage sur le prix, c’est à dire que si la capacité de stockage augmente de 1 Go, alors, le prix augmente de 91 centimes, cet.par.</p>
 <ul>
 <li><p>En ayant comme catégorie de référence Apple pour la variable marque (brand), on peut voir que toutes les marques ont un impact négatif sur le prix, cet. par.</p></li>
@@ -1265,20 +1342,14 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-level-level-iii" class="slide level2">
 <h2>OLS LEVEL-LEVEL (III)</h2>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
-</div>
 
-</div>
 <img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"><div class="footer">
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
 <p><em>Corentin</em></p>
-<p>Aussi, une étape visuelle qu’on peut mettre en place est de vérifier l’ajustement du modèle. La vérification prédictive a posteriori permet de simuler des données répliquées avec le modèle ajusté puis les comparer aux données observées.</p>
-<p><span class="math inline">\(\Rightarrow\)</span> L’objectif est de détecter si le modèle est inadéquat pour décrire les données.</p>
-<p>Note : Pour cela, on utilise d’abord les données observées et les prédicteurs pour mettre à jour notre compréhension des paramètres inconnus du modèle. Ensuite, à partir de cette mise à jour, on génère plusieurs ensembles de résultats possibles en faisant varier ces paramètres, c’est du bootstrap. Ces simulations aident ensuite à évaluer la perf du modèle.</p>
+<p>Aussi, une étape visuelle qu’on peut mettre en place est de vérifier l’ajustement du modèle. La vérification prédictive a posteriori permet de simuler des données répliquées avec le modèle ajusté puis les comparer aux données observées (en coulisses il y a du bootstrap derrière).</p>
+<p><span class="math inline">\(\Rightarrow\)</span> L’objectif est de détecter si le modèle est inadéquat pour décrire les données. Les simulations vont nous aider à évaluer la perf du modèle.</p>
 <p>Ici on retrouve bien en vert la distribution bimodale des prix qu’on avait vu dans notre application, mais par contre le modèle a du mal à la représenter, surtout pour les téléphones entre 200 et 500 €.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1294,12 +1365,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-level-level-iv" class="slide level2 smaller">
 <h2>OLS LEVEL-LEVEL (IV)</h2>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
-</div>
 
-</div>
 <img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"><div class="fragment fade-in">
 <div class="fragment highlight-red">
 <p><strong>Présence d’hétéroscédasticité</strong> (Variance des erreurs <span class="math inline">\(\epsilon_i\)</span> non constantes) ~ <span class="math inline">\(p-value &lt; 0.05\)</span>.</p>
@@ -1325,12 +1391,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-level-level-v" class="slide level2 smaller">
 <h2>OLS LEVEL-LEVEL (V)</h2>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
-</div>
 
-</div>
 <img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"><ul>
 <li class="fragment">Valeur du coefficient d’asymétrie : <strong>0.55</strong></li>
 </ul>
@@ -1339,7 +1400,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </div>
 <aside class="notes">
 <p><em>Corentin</em></p>
-<p>On peut aussi s’intéresser à la normalité des résidus en regardant le coefficient d’asymétrie</p>
+<p>Enfin, on peut aussi s’intéresser à la normalité des résidus en regardant le coefficient d’asymétrie</p>
 <p>On voit que le coefficient est positif. Cette asymétrie positive indique une concentration de valeurs sur le côté gauche de la distribution, on peut d’ailleurs le voir sur l’histogramme.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1399,8 +1460,9 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-log-level-ii" class="slide level2 smaller">
 <h2>OLS LOG-LEVEL (II)</h2>
-<div class="cell">
+<div class="cell" data-fig.showtext="true">
 <div class="cell-output-display">
+
 <div id="xgmmtfvarj" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#xgmmtfvarj table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1868,6 +1930,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </div>
 <aside class="notes">
 <p><em>Buk</em></p>
+<p><span class="math inline">\(R^2\)</span> meilleur que dans la régression précédente mais on ne peut pas les comparer directement car on n’a pas la même variable explicative à cause du log.</p>
 <p>Ici le coefficient <span class="math inline">\(\beta_1\)</span> s’interprète comme le changement en pourcentage du prix lorsque la capacité de stockage augmente d’1 Go, c’est à dire que si la capacité de stockage augmente de 1 Go, alors, le prix augmente de 0.06%, cet.par.</p>
 <ul>
 <li>En ayant comme catégorie de référence Apple pour la variable marque (brand), on peut voir que toutes les marques ont un impact négatif sur le prix, cet. par.</li>
@@ -1891,18 +1954,14 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-log-level-iii" class="slide level2">
 <h2>OLS LOG-LEVEL (III)</h2>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
-</div>
 
-</div>
 <img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"><div class="footer">
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
 <p><em>Corentin</em></p>
 <p>Ici on voit que même si le modèle a du mal à prédire une certaine portion de la distribution, il s’en sort très bien sur les extrémités et globalement l’adéquation du modèle semble meilleure.</p>
+<p><span class="math inline">\(\Rightarrow\)</span> La distribution n’est pas la même car on est passé au log.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1917,12 +1976,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-log-level-iv" class="slide level2 smaller">
 <h2>OLS LOG-LEVEL (IV)</h2>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
-</div>
 
-</div>
 <img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"><div class="fragment fade-in">
 <div class="fragment highlight-green">
 <p><strong>Pas de présence d’hétéroscédasticité</strong> (Variance des erreurs <span class="math inline">\(\epsilon_i\)</span> constantes) ~ <span class="math inline">\(p-value = 0.354\)</span>.</p>
@@ -1948,12 +2002,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-log-level-v" class="slide level2 smaller">
 <h2>OLS LOG-LEVEL (V)</h2>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
-</div>
 
-</div>
 <img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"><ul>
 <li class="fragment">Valeur du coefficient d’asymétrie : <strong>0.17</strong></li>
 </ul>
@@ -2000,7 +2049,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <p><em>Aybuké</em></p>
 <p>On vous a présenté deux modèles qui appliquent le concept du pricing hédonique mais qui finalement restent des régressions linéaires classiques.</p>
 <ul>
-<li><p>On repart d’une fonction de production classique, mais on lui ajoute un terme multiplicatif <span class="math inline">\(TE_i\)</span>.</p></li>
+<li><p>On repart d’une fonction de production, mais on lui ajoute un terme multiplicatif <span class="math inline">\(TE_i\)</span>.</p></li>
 <li><p>Si <span class="math inline">\(TE_i = 1\)</span> alors la firme <span class="math inline">\(i\)</span> produit l’output maximum réalisable, alors que si <span class="math inline">\(TE_i &lt; 1\)</span>, il existe un écart entre l’output maximum et l’output effectivement observé.</p></li>
 </ul>
 <style type="text/css">
@@ -2024,7 +2073,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <p>La SFA (<code>Stochastic Frontier Analysis</code>) est une méthode paramétrique : elle requiert une forme fonctionnelle précise et les termes d’erreur <span class="math inline">\(\epsilon_i\)</span> ont une distribution particulière (composée) :</p>
 <ul>
 <li class="fragment"><span class="math inline">\(v_i\)</span> est une erreur aléatoire <span class="math inline">\(\Rightarrow\)</span> variation inexpliquée par les variables indépendantes du modèle, avec <span class="math inline">\(v_i \sim \mathcal{N}(0, \sigma^2_v)\)</span>.</li>
-<li class="fragment"><span class="math inline">\(u_i\)</span> est un composant unilatéral qui peut être choisi parmi plusieurs distributions et <span class="math inline">\(u_i \geq 0\)</span>, puisqu’il est nécessaire d’avoir <span class="math inline">\(TE_i ≤ 1\)</span>.</li>
+<li class="fragment"><span class="math inline">\(u_i\)</span> est un composant unilatéral qui peut être choisi parmi plusieurs distributions et <span class="math inline">\(u_i \geq 0\)</span>.</li>
 </ul>
 <div class="fragment fade-in">
 <blockquote>
@@ -2032,31 +2081,6 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </blockquote>
 </div>
 <div class="footer">
-<p>— <code>Recherche</code>, Réalisation, Restitution —</p>
-</div>
-<aside class="notes">
-<p><em>Corentin</em></p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="choix-de-distributions" class="slide level2">
-<h2>Choix de distributions</h2>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Error : The fig.showtext code chunk option must be TRUE</code></pre>
-</div>
-
-</div>
-<img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"><div class="footer">
 <p>— <code>Recherche</code>, Réalisation, Restitution —</p>
 </div>
 <aside class="notes">
@@ -2124,6 +2148,27 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
           display:block!important;
       }</style></aside>
 </section>
+<section id="choix-de-distributions" class="slide level2">
+<h2>Choix de distributions</h2>
+
+<img data-src="slides_smartphones_2_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"><div class="footer">
+<p>— <code>Recherche</code>, Réalisation, Restitution —</p>
+</div>
+<aside class="notes">
+<p><em>Corentin</em></p>
+<p>Je vais très rapidement vous expliquer aussi pourquoi on est obligé de passer à l’estimateur du Maximum de Vraisemblance et que les techniques des MCO ne fonctionnent plus ici : c’est tout simplement parce qu’on va combiner une disribution symétrique (en orange), celle de la loi normale avec une distribution qui ne l’est pas : celle de la semi-normale.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="sfa-cost-frontier-i" class="slide level2 smaller">
 <h2>SFA Cost Frontier (I)</h2>
 <p><strong>Forme fonctionnelle :</strong></p>
@@ -2145,6 +2190,8 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </div>
 <aside class="notes">
 <p><em>Corentin</em></p>
+<p>Dans ce modèle, on prend le point de vue du consommateur et dans l’ensemble des téléphones qui lui sont proposés qui disposent de plein de caractéristiques, on cherche à lui indiquer le prix minimum dans l’espace des caractéristiques.</p>
+<p>Par rapport à la régression log-hédonique en fait on voit qu’il n’y a pas de grande différence à part l’erreur composée.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -2159,8 +2206,9 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="sfa-cost-frontier-ii" class="slide level2 smaller">
 <h2>SFA Cost Frontier (II)</h2>
-<div class="cell">
+<div class="cell" data-fig.showtext="true">
 <div class="cell-output-display">
+
 <div id="fwteytmltd" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#fwteytmltd table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -2616,7 +2664,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 
 </div>
 </div>
-<script type="application/json" data-for="fwteytmltd">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"variables":["*(Intercept)*","*storage*","*brand* `(GOOGLE)`","*brand* `(HONOR)`","*brand* `(MOTOROLA)`","*brand* `(OPPO)`","*brand* `(SAMSUNG)`","*brand* `(SONY)`","*brand* `(XIAOMI)`","*ram*","*induction* `(True)`","*screen_size*","*screen_type* `(Bords Incurvés)`","*screen_type* `(Plat)`","*screen_type* `(Pliable)`","*made_in* `(Japon)`","*made_in* `(Thaïlande)`","*made_in* `(Viêt Nam)`","*upgrade_storage* `(True)`","*das_limbs*","*network* `(5G)`","*ppi*","*sigmaSq*","*gamma*"],"estimate":[4.70418847687768,0.000632628533687575,-0.570973582366651,-0.99624826153807,-0.989212292883098,-0.926849531430481,-0.471011879187917,-0.640836413045425,-1.03633535093017,0.0773610563791524,0.217607193035217,0.138297436778413,-0.0871960635438657,-0.0230866289521158,0.389396167575667,0.202478436972087,0.693163343528232,-0.0661364347306585,-0.257885065480546,-0.117314486881989,0.203971351832585,0.00114664335598641,0.0834700753657293,0.593924329444331],"std_error":[0.272774744710962,8.01108032778146e-05,0.0917283989530414,0.0960346030198676,0.0678997114955362,0.107330026116185,0.0920914435629201,0.131619682768645,0.0644695458006848,0.00710350320948704,0.0435121176794256,0.0399814186391909,0.108297473392196,0.0432214217809158,0.0721964658677148,0.255393020025834,0.147620017818018,0.0727324707398507,0.045999667290755,0.0314909936999723,0.0383685735645759,0.000258078723580736,0.0134636565156494,0.131664781835414],"signif":["_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","","","_***_","","_***_","","_***_","_***_","_***_","_***_","_***_","_***_"]},"columns":[{"id":"variables","name":"<strong>Variables<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF6900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF1A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF1D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF7500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#82DE80' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#68C164' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#76D174' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF9F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#489E42' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#6BC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FFA100' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF8D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#6AC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["<div data-qmd=\"*(Intercept)*\"><div class='gt_from_md'><p><em>(Intercept)<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*storage*\"><div class='gt_from_md'><p><em>storage<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(GOOGLE)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(GOOGLE)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(HONOR)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(HONOR)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(MOTOROLA)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(MOTOROLA)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(OPPO)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(OPPO)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(SAMSUNG)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(SAMSUNG)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(SONY)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(SONY)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(XIAOMI)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(XIAOMI)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*ram*\"><div class='gt_from_md'><p><em>ram<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*induction* `(True)`\"><div class='gt_from_md'><p><em>induction<\/em> <code>(True)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_size*\"><div class='gt_from_md'><p><em>screen_size<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Bords Incurvés)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Bords Incurvés)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Plat)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Plat)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Pliable)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Pliable)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Japon)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Japon)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Thaïlande)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Thaïlande)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Viêt Nam)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Viêt Nam)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*upgrade_storage* `(True)`\"><div class='gt_from_md'><p><em>upgrade_storage<\/em> <code>(True)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*das_limbs*\"><div class='gt_from_md'><p><em>das_limbs<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*network* `(5G)`\"><div class='gt_from_md'><p><em>network<\/em> <code>(5G)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*ppi*\"><div class='gt_from_md'><p><em>ppi<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*sigmaSq*\"><div class='gt_from_md'><p><em>sigmaSq<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*gamma*\"><div class='gt_from_md'><p><em>gamma<\/em><\/p>\n<\/div><\/div>"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}},{"id":"estimate","name":"<strong>Coefficients<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF6900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF1A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF1D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF7500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#82DE80' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#68C164' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#76D174' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF9F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#489E42' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#6BC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FFA100' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF8D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#6AC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["4.704","+0.06%","−57.10%","−99.62%","−98.92%","−92.68%","−47.10%","−64.08%","−103.63%","+7.74%","+21.76%","+13.83%","−8.72%","−2.31%","+38.94%","+20.25%","+69.32%","−6.61%","−25.79%","−11.73%","+20.40%","+0.11%","0.083","0.594"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"std_error","name":"<strong>Ecart Type<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF6900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF1A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF1D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF7500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#82DE80' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#68C164' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#76D174' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF9F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#489E42' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#6BC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FFA100' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF8D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#6AC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["0.273","0","0.092","0.096","0.068","0.107","0.092","0.132","0.064","0.007","0.044","0.04","0.108","0.043","0.072","0.255","0.148","0.073","0.046","0.031","0.038","0","0.013","0.132"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"signif","name":"<strong>Significativité<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF6900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF1A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF1D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF7500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#82DE80' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#68C164' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#76D174' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF9F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#489E42' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#6BC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FFA100' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF8D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#6AC467' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\n}","cell":["<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}}],"defaultPageSize":5,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"highlight":true,"showSortable":true,"height":"auto","theme":{"color":"white","backgroundColor":"#222222","stripedColor":"rgba(128,128,128,0.05)","style":{"fontFamily":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"},"headerStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"}},"elementId":"fwteytmltd","dataKey":"3ea493ada511620d9674f6c7ad4c27bb"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style"],"jsHooks":[]}</script>
+<script type="application/json" data-for="fwteytmltd">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"variables":["*(Intercept)*","*storage*","*brand* `(GOOGLE)`","*brand* `(HONOR)`","*brand* `(MOTOROLA)`","*brand* `(OPPO)`","*brand* `(SAMSUNG)`","*brand* `(SONY)`","*brand* `(XIAOMI)`","*ram*","*induction* `(True)`","*screen_size*","*screen_type* `(Bords Incurvés)`","*screen_type* `(Plat)`","*screen_type* `(Pliable)`","*made_in* `(Japon)`","*made_in* `(Thaïlande)`","*made_in* `(Viêt Nam)`","*upgrade_storage* `(True)`","*das_limbs*","*network* `(5G)`","*ppi*","*sigmaSq*","*gamma*","*sigmaSqU*","*sigmaSqV*","*sigma*","*sigmaU*","*sigmaV*","*lambdaSq*","*lambda*","*varU*","*sdU*","*gammaVar*"],"estimate":[4.70418847687768,0.000632628533687575,-0.570973582366651,-0.99624826153807,-0.989212292883098,-0.926849531430481,-0.471011879187917,-0.640836413045425,-1.03633535093017,0.0773610563791524,0.217607193035217,0.138297436778413,-0.0871960635438657,-0.0230866289521158,0.389396167575667,0.202478436972087,0.693163343528232,-0.0661364347306585,-0.257885065480546,-0.117314486881989,0.203971351832585,0.00114664335598641,0.0834700753657293,0.593924329444331,0.0495749085402586,0.0338951668254708,0.288911881662436,0.222654235397081,0.184106400826997,1.46259520702536,1.20937802486458,0.0180145415502155,0.134218260867199,0.34703607694805],"std_error":[0.272774744710962,8.01108032778146e-05,0.0917283989530414,0.0960346030198676,0.0678997114955362,0.107330026116185,0.0920914435629201,0.131619682768645,0.0644695458006848,0.00710350320948704,0.0435121176794256,0.0399814186391909,0.108297473392196,0.0432214217809158,0.0721964658677148,0.255393020025834,0.147620017818018,0.0727324707398507,0.045999667290755,0.0314909936999723,0.0383685735645759,0.000258078723580736,0.0134636565156494,0.131664781835414,0.0185395766487524,0.00647821002564217,0.0233006279253345,0.0416331102251187,0.0175936577884918,0.798464631575313,0.33011375068797,"NA","NA","NA"],"signif":["_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","","","_***_","","_***_","","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","_***_","","",""]},"columns":[{"id":"variables","name":"<strong>Variables<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF6900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF1A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF1D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF7500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#89E688' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#7DD87B' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#84E083' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF9F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#6EC76A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#7EDA7C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#53AA4E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FFA100' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF8D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#7EDA7C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 25) {\n  return { color: '#8CE98B' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 26) {\n  return { color: '#8DEB8D' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 27) {\n  return { color: '#77D174' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 28) {\n  return { color: '#7CD87A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 29) {\n  return { color: '#80DC7E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 30) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 31) {\n  return { color: '#247A1E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 32) {\n  return { color: '#8EEC8E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 33) {\n  return { color: '#84E183' }\n}\n\n}","cell":["<div data-qmd=\"*(Intercept)*\"><div class='gt_from_md'><p><em>(Intercept)<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*storage*\"><div class='gt_from_md'><p><em>storage<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(GOOGLE)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(GOOGLE)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(HONOR)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(HONOR)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(MOTOROLA)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(MOTOROLA)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(OPPO)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(OPPO)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(SAMSUNG)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(SAMSUNG)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(SONY)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(SONY)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*brand* `(XIAOMI)`\"><div class='gt_from_md'><p><em>brand<\/em> <code>(XIAOMI)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*ram*\"><div class='gt_from_md'><p><em>ram<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*induction* `(True)`\"><div class='gt_from_md'><p><em>induction<\/em> <code>(True)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_size*\"><div class='gt_from_md'><p><em>screen_size<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Bords Incurvés)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Bords Incurvés)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Plat)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Plat)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*screen_type* `(Pliable)`\"><div class='gt_from_md'><p><em>screen_type<\/em> <code>(Pliable)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Japon)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Japon)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Thaïlande)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Thaïlande)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*made_in* `(Viêt Nam)`\"><div class='gt_from_md'><p><em>made_in<\/em> <code>(Viêt Nam)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*upgrade_storage* `(True)`\"><div class='gt_from_md'><p><em>upgrade_storage<\/em> <code>(True)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*das_limbs*\"><div class='gt_from_md'><p><em>das_limbs<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*network* `(5G)`\"><div class='gt_from_md'><p><em>network<\/em> <code>(5G)<\/code><\/p>\n<\/div><\/div>","<div data-qmd=\"*ppi*\"><div class='gt_from_md'><p><em>ppi<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*sigmaSq*\"><div class='gt_from_md'><p><em>sigmaSq<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*gamma*\"><div class='gt_from_md'><p><em>gamma<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*sigmaSqU*\"><div class='gt_from_md'><p><em>sigmaSqU<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*sigmaSqV*\"><div class='gt_from_md'><p><em>sigmaSqV<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*sigma*\"><div class='gt_from_md'><p><em>sigma<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*sigmaU*\"><div class='gt_from_md'><p><em>sigmaU<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*sigmaV*\"><div class='gt_from_md'><p><em>sigmaV<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*lambdaSq*\"><div class='gt_from_md'><p><em>lambdaSq<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*lambda*\"><div class='gt_from_md'><p><em>lambda<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*varU*\"><div class='gt_from_md'><p><em>varU<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*sdU*\"><div class='gt_from_md'><p><em>sdU<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"*gammaVar*\"><div class='gt_from_md'><p><em>gammaVar<\/em><\/p>\n<\/div><\/div>"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}},{"id":"estimate","name":"<strong>Coefficients<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF6900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF1A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF1D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF7500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#89E688' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#7DD87B' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#84E083' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF9F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#6EC76A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#7EDA7C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#53AA4E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FFA100' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF8D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#7EDA7C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 25) {\n  return { color: '#8CE98B' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 26) {\n  return { color: '#8DEB8D' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 27) {\n  return { color: '#77D174' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 28) {\n  return { color: '#7CD87A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 29) {\n  return { color: '#80DC7E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 30) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 31) {\n  return { color: '#247A1E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 32) {\n  return { color: '#8EEC8E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 33) {\n  return { color: '#84E183' }\n}\n\n}","cell":["4.704","+0.06%","−57.10%","−99.62%","−98.92%","−92.68%","−47.10%","−64.08%","−103.63%","+7.74%","+21.76%","+13.83%","−8.72%","−2.31%","+38.94%","+20.25%","+69.32%","−6.61%","−25.79%","−11.73%","+20.40%","+0.11%","0.083","0.594","+4.96%","+3.39%","+28.89%","+22.27%","+18.41%","+146.26%","+120.94%","+1.80%","+13.42%","0.347"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"std_error","name":"<strong>Ecart Type<\/strong>","type":"numeric","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF6900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF1A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF1D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF7500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#89E688' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#7DD87B' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#84E083' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF9F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#6EC76A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#7EDA7C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#53AA4E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FFA100' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF8D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#7EDA7C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 25) {\n  return { color: '#8CE98B' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 26) {\n  return { color: '#8DEB8D' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 27) {\n  return { color: '#77D174' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 28) {\n  return { color: '#7CD87A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 29) {\n  return { color: '#80DC7E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 30) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 31) {\n  return { color: '#247A1E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 32) {\n  return { color: '#8EEC8E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 33) {\n  return { color: '#84E183' }\n}\n\n}","cell":["0.273","0","0.092","0.096","0.068","0.107","0.092","0.132","0.064","0.007","0.044","0.04","0.108","0.043","0.072","0.255","0.148","0.073","0.046","0.031","0.038","0","0.013","0.132","0.019","0.006","0.023","0.042","0.018","0.798","0.33","NA","NA","NA"],"html":true,"align":"right","headerStyle":{"font-weight":"normal"}},{"id":"signif","name":"<strong>Significativité<\/strong>","type":"character","style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'estimate' & rowIndex === 2) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 3) {\n  return { color: '#FF6900' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 4) {\n  return { color: '#FF1A00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 5) {\n  return { color: '#FF1D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 6) {\n  return { color: '#FF3000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 7) {\n  return { color: '#FF7500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 8) {\n  return { color: '#FF6000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 9) {\n  return { color: '#FF0000' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 10) {\n  return { color: '#89E688' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 11) {\n  return { color: '#7DD87B' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 12) {\n  return { color: '#84E083' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 13) {\n  return { color: '#FF9F00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 14) {\n  return { color: '#FFA500' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 15) {\n  return { color: '#6EC76A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 16) {\n  return { color: '#7EDA7C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 17) {\n  return { color: '#53AA4E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 18) {\n  return { color: '#FFA100' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 19) {\n  return { color: '#FF8D00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 20) {\n  return { color: '#FF9C00' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 21) {\n  return { color: '#7EDA7C' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 22) {\n  return { color: '#90EE90' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 25) {\n  return { color: '#8CE98B' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 26) {\n  return { color: '#8DEB8D' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 27) {\n  return { color: '#77D174' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 28) {\n  return { color: '#7CD87A' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 29) {\n  return { color: '#80DC7E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 30) {\n  return { color: '#006400' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 31) {\n  return { color: '#247A1E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 32) {\n  return { color: '#8EEC8E' }\n}\n\nif (colInfo.id === 'estimate' & rowIndex === 33) {\n  return { color: '#84E183' }\n}\n\n}","cell":["<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"_***_\"><div class='gt_from_md'><p><em>***<\/em><\/p>\n<\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>","<div data-qmd=\"\"><div class='gt_from_md'><\/div><\/div>"],"html":true,"align":"left","headerStyle":{"font-weight":"normal"}}],"defaultPageSize":5,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"highlight":true,"showSortable":true,"height":"auto","theme":{"color":"white","backgroundColor":"#222222","stripedColor":"rgba(128,128,128,0.05)","style":{"fontFamily":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"},"headerStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"}},"elementId":"fwteytmltd","dataKey":"e10feda71d8da5196baff846f4041102"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -2625,21 +2673,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </div>
 <aside class="notes">
 <p><em>Corentin</em></p>
-<p>Si la capacité de stockage (storage) augmente de 1 Go, alors le prix augmente de 0.001%, cet. par.</p>
-<ul>
-<li>En ayant comme catégorie de référence Apple pour la variable marque (brand), on peut voir que toutes les marques ont un impact négatif sur le prix, cet. par.
-<ul>
-<li>La marque la plus valorisée derrière Apple est Samsung avec une différence de prix de 47.1%</li>
-<li>La marque la moins valorisée est XIAOMI avec une différence de prix de 103.6% par rapport à Apple.</li>
-</ul></li>
-<li>Si la ram augmente de 1 Go, alors le prix augmente de 7.7%, cet. par</li>
-</ul>
-<p>Pour le type d’écran (screen_type), la catégorie de référence est borderless (un écran sans bordure).</p>
-<ul>
-<li>Disposer d’un écran à bord incurvé diminue le prix de 8.7 % par rapport à la catégorie de référence, cet. par.</li>
-<li>Pour l’écran plat, le prix diminue de 2.3 % par rapport à la catégorie de référence, cet. par.</li>
-<li>Avoir un écran pliable fait augmenter le prix de 38.9 % par rapport à la catégorie de référence, cet. par</li>
-</ul>
+<p>On a les mêmes niveaux de significativité, les signes des coefficients sont les mêmes et les valeurs restent à peu près les mêmes avec un effet encore plus important des marques.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -2659,25 +2693,26 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <ul>
 <li class="fragment">Commande <code>efficiencies()</code> du package <code>{frontier}</code>.</li>
 </ul>
-<div class="cell">
+<div class="cell" data-fig.showtext="true">
 <div class="cell-output-display">
-<div id="ymlcnfsbuj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ymlcnfsbuj table {
+
+<div id="zqadcfnbgr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zqadcfnbgr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ymlcnfsbuj thead, #ymlcnfsbuj tbody, #ymlcnfsbuj tfoot, #ymlcnfsbuj tr, #ymlcnfsbuj td, #ymlcnfsbuj th {
+#zqadcfnbgr thead, #zqadcfnbgr tbody, #zqadcfnbgr tfoot, #zqadcfnbgr tr, #zqadcfnbgr td, #zqadcfnbgr th {
   border-style: none;
 }
 
-#ymlcnfsbuj p {
+#zqadcfnbgr p {
   margin: 0;
   padding: 0;
 }
 
-#ymlcnfsbuj .gt_table {
+#zqadcfnbgr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2703,12 +2738,12 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-left-color: #D3D3D3;
 }
 
-#ymlcnfsbuj .gt_caption {
+#zqadcfnbgr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ymlcnfsbuj .gt_title {
+#zqadcfnbgr .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -2720,7 +2755,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-width: 0;
 }
 
-#ymlcnfsbuj .gt_subtitle {
+#zqadcfnbgr .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -2732,7 +2767,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-top-width: 0;
 }
 
-#ymlcnfsbuj .gt_heading {
+#zqadcfnbgr .gt_heading {
   background-color: #222222;
   text-align: center;
   border-bottom-color: #222222;
@@ -2744,13 +2779,13 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#ymlcnfsbuj .gt_bottom_border {
+#zqadcfnbgr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ymlcnfsbuj .gt_col_headings {
+#zqadcfnbgr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2765,7 +2800,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#ymlcnfsbuj .gt_col_heading {
+#zqadcfnbgr .gt_col_heading {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2785,7 +2820,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   overflow-x: hidden;
 }
 
-#ymlcnfsbuj .gt_column_spanner_outer {
+#zqadcfnbgr .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2797,15 +2832,15 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 4px;
 }
 
-#ymlcnfsbuj .gt_column_spanner_outer:first-child {
+#zqadcfnbgr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ymlcnfsbuj .gt_column_spanner_outer:last-child {
+#zqadcfnbgr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ymlcnfsbuj .gt_column_spanner {
+#zqadcfnbgr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2817,11 +2852,11 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   width: 100%;
 }
 
-#ymlcnfsbuj .gt_spanner_row {
+#zqadcfnbgr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ymlcnfsbuj .gt_group_heading {
+#zqadcfnbgr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2847,7 +2882,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   text-align: left;
 }
 
-#ymlcnfsbuj .gt_empty_group_heading {
+#zqadcfnbgr .gt_empty_group_heading {
   padding: 0.5px;
   color: #FFFFFF;
   background-color: #222222;
@@ -2862,15 +2897,15 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   vertical-align: middle;
 }
 
-#ymlcnfsbuj .gt_from_md > :first-child {
+#zqadcfnbgr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ymlcnfsbuj .gt_from_md > :last-child {
+#zqadcfnbgr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ymlcnfsbuj .gt_row {
+#zqadcfnbgr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2889,7 +2924,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   overflow-x: hidden;
 }
 
-#ymlcnfsbuj .gt_stub {
+#zqadcfnbgr .gt_stub {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2902,7 +2937,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#ymlcnfsbuj .gt_stub_row_group {
+#zqadcfnbgr .gt_stub_row_group {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2916,15 +2951,15 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   vertical-align: top;
 }
 
-#ymlcnfsbuj .gt_row_group_first td {
+#zqadcfnbgr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ymlcnfsbuj .gt_row_group_first th {
+#zqadcfnbgr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ymlcnfsbuj .gt_summary_row {
+#zqadcfnbgr .gt_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -2934,16 +2969,16 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#ymlcnfsbuj .gt_first_summary_row {
+#zqadcfnbgr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ymlcnfsbuj .gt_first_summary_row.thick {
+#zqadcfnbgr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ymlcnfsbuj .gt_last_summary_row {
+#zqadcfnbgr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2953,7 +2988,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-color: #D3D3D3;
 }
 
-#ymlcnfsbuj .gt_grand_summary_row {
+#zqadcfnbgr .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -2963,7 +2998,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#ymlcnfsbuj .gt_first_grand_summary_row {
+#zqadcfnbgr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2973,7 +3008,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-top-color: #D3D3D3;
 }
 
-#ymlcnfsbuj .gt_last_grand_summary_row_top {
+#zqadcfnbgr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2983,11 +3018,11 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-color: #D3D3D3;
 }
 
-#ymlcnfsbuj .gt_striped {
+#zqadcfnbgr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ymlcnfsbuj .gt_table_body {
+#zqadcfnbgr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2996,7 +3031,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-bottom-color: #D3D3D3;
 }
 
-#ymlcnfsbuj .gt_footnotes {
+#zqadcfnbgr .gt_footnotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -3010,7 +3045,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#ymlcnfsbuj .gt_footnote {
+#zqadcfnbgr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3019,7 +3054,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#ymlcnfsbuj .gt_sourcenotes {
+#zqadcfnbgr .gt_sourcenotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -3033,7 +3068,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   border-right-color: #D3D3D3;
 }
 
-#ymlcnfsbuj .gt_sourcenote {
+#zqadcfnbgr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3041,144 +3076,130 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   padding-right: 5px;
 }
 
-#ymlcnfsbuj .gt_left {
+#zqadcfnbgr .gt_left {
   text-align: left;
 }
 
-#ymlcnfsbuj .gt_center {
+#zqadcfnbgr .gt_center {
   text-align: center;
 }
 
-#ymlcnfsbuj .gt_right {
+#zqadcfnbgr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ymlcnfsbuj .gt_font_normal {
+#zqadcfnbgr .gt_font_normal {
   font-weight: normal;
 }
 
-#ymlcnfsbuj .gt_font_bold {
+#zqadcfnbgr .gt_font_bold {
   font-weight: bold;
 }
 
-#ymlcnfsbuj .gt_font_italic {
+#zqadcfnbgr .gt_font_italic {
   font-style: italic;
 }
 
-#ymlcnfsbuj .gt_super {
+#zqadcfnbgr .gt_super {
   font-size: 65%;
 }
 
-#ymlcnfsbuj .gt_footnote_marks {
+#zqadcfnbgr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ymlcnfsbuj .gt_asterisk {
+#zqadcfnbgr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ymlcnfsbuj .gt_indent_1 {
+#zqadcfnbgr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ymlcnfsbuj .gt_indent_2 {
+#zqadcfnbgr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ymlcnfsbuj .gt_indent_3 {
+#zqadcfnbgr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ymlcnfsbuj .gt_indent_4 {
+#zqadcfnbgr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ymlcnfsbuj .gt_indent_5 {
+#zqadcfnbgr .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-
-<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="header gt_col_headings">
-<th id="<strong>Marque</strong>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Marque</strong></th>
-<th id="<strong>Min</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><strong>Min</strong></th>
-<th id="<strong>Médiane</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><strong>Médiane</strong></th>
-<th id="<strong>Moyenne</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><strong>Moyenne</strong></th>
-<th id="<strong>Max</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><strong>Max</strong></th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="odd">
-<td class="gt_row gt_center" headers="brand"><p><code>APPLE</code></p></td>
-<td class="gt_row gt_right" headers="min">0.77</td>
-<td class="gt_row gt_right" headers="median">0.85</td>
-<td class="gt_row gt_right" headers="mean">0.85</td>
-<td class="gt_row gt_right" headers="max">0.95</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="brand"><p><code>GOOGLE</code></p></td>
-<td class="gt_row gt_right" headers="min">0.76</td>
-<td class="gt_row gt_right" headers="median">0.84</td>
-<td class="gt_row gt_right" headers="mean">0.85</td>
-<td class="gt_row gt_right" headers="max">0.94</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="brand"><p><code>HONOR</code></p></td>
-<td class="gt_row gt_right" headers="min">0.58</td>
-<td class="gt_row gt_right" headers="median">0.87</td>
-<td class="gt_row gt_right" headers="mean">0.83</td>
-<td class="gt_row gt_right" headers="max">0.92</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="brand"><p><code>MOTOROLA</code></p></td>
-<td class="gt_row gt_right" headers="min">0.57</td>
-<td class="gt_row gt_right" headers="median">0.87</td>
-<td class="gt_row gt_right" headers="mean">0.83</td>
-<td class="gt_row gt_right" headers="max">0.93</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="brand"><p><code>OPPO</code></p></td>
-<td class="gt_row gt_right" headers="min">0.60</td>
-<td class="gt_row gt_right" headers="median">0.87</td>
-<td class="gt_row gt_right" headers="mean">0.82</td>
-<td class="gt_row gt_right" headers="max">0.93</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="brand"><p><code>SAMSUNG</code></p></td>
-<td class="gt_row gt_right" headers="min">0.51</td>
-<td class="gt_row gt_right" headers="median">0.86</td>
-<td class="gt_row gt_right" headers="mean">0.84</td>
-<td class="gt_row gt_right" headers="max">0.94</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="brand"><p><code>SONY</code></p></td>
-<td class="gt_row gt_right" headers="min">0.82</td>
-<td class="gt_row gt_right" headers="median">0.86</td>
-<td class="gt_row gt_right" headers="mean">0.86</td>
-<td class="gt_row gt_right" headers="max">0.89</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="brand"><p><code>XIAOMI</code></p></td>
-<td class="gt_row gt_right" headers="min">0.59</td>
-<td class="gt_row gt_right" headers="median">0.86</td>
-<td class="gt_row gt_right" headers="mean">0.85</td>
-<td class="gt_row gt_right" headers="max">0.94</td>
-</tr>
-</tbody>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="<strong>Marque</strong>"><strong>Marque</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="<strong>Min</strong>"><strong>Min</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="<strong>Médiane</strong>"><strong>Médiane</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="<strong>Moyenne</strong>"><strong>Moyenne</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="<strong>Max</strong>"><strong>Max</strong></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`APPLE`"><div class="gt_from_md"><p><code>APPLE</code></p>
+</div></div></td>
+<td headers="min" class="gt_row gt_right">0.77</td>
+<td headers="median" class="gt_row gt_right">0.85</td>
+<td headers="mean" class="gt_row gt_right">0.85</td>
+<td headers="max" class="gt_row gt_right">0.95</td></tr>
+    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`GOOGLE`"><div class="gt_from_md"><p><code>GOOGLE</code></p>
+</div></div></td>
+<td headers="min" class="gt_row gt_right">0.76</td>
+<td headers="median" class="gt_row gt_right">0.84</td>
+<td headers="mean" class="gt_row gt_right">0.85</td>
+<td headers="max" class="gt_row gt_right">0.94</td></tr>
+    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`HONOR`"><div class="gt_from_md"><p><code>HONOR</code></p>
+</div></div></td>
+<td headers="min" class="gt_row gt_right">0.58</td>
+<td headers="median" class="gt_row gt_right">0.87</td>
+<td headers="mean" class="gt_row gt_right">0.83</td>
+<td headers="max" class="gt_row gt_right">0.92</td></tr>
+    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`MOTOROLA`"><div class="gt_from_md"><p><code>MOTOROLA</code></p>
+</div></div></td>
+<td headers="min" class="gt_row gt_right">0.57</td>
+<td headers="median" class="gt_row gt_right">0.87</td>
+<td headers="mean" class="gt_row gt_right">0.83</td>
+<td headers="max" class="gt_row gt_right">0.93</td></tr>
+    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`OPPO`"><div class="gt_from_md"><p><code>OPPO</code></p>
+</div></div></td>
+<td headers="min" class="gt_row gt_right">0.60</td>
+<td headers="median" class="gt_row gt_right">0.87</td>
+<td headers="mean" class="gt_row gt_right">0.82</td>
+<td headers="max" class="gt_row gt_right">0.93</td></tr>
+    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`SAMSUNG`"><div class="gt_from_md"><p><code>SAMSUNG</code></p>
+</div></div></td>
+<td headers="min" class="gt_row gt_right">0.51</td>
+<td headers="median" class="gt_row gt_right">0.86</td>
+<td headers="mean" class="gt_row gt_right">0.84</td>
+<td headers="max" class="gt_row gt_right">0.94</td></tr>
+    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`SONY`"><div class="gt_from_md"><p><code>SONY</code></p>
+</div></div></td>
+<td headers="min" class="gt_row gt_right">0.82</td>
+<td headers="median" class="gt_row gt_right">0.86</td>
+<td headers="mean" class="gt_row gt_right">0.86</td>
+<td headers="max" class="gt_row gt_right">0.89</td></tr>
+    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`XIAOMI`"><div class="gt_from_md"><p><code>XIAOMI</code></p>
+</div></div></td>
+<td headers="min" class="gt_row gt_right">0.59</td>
+<td headers="median" class="gt_row gt_right">0.86</td>
+<td headers="mean" class="gt_row gt_right">0.85</td>
+<td headers="max" class="gt_row gt_right">0.94</td></tr>
+  </tbody>
+  
+  
 </table>
-
 </div>
 </div>
 </div>
@@ -3234,6 +3255,7 @@ H_1: SFA \text{ cost frontier}
 <aside class="notes">
 <p><em>Corentin</em></p>
 <p>On peut maintenant chercher à savoir si il vaut mieux utiliser le modèle SFA Cost Frontier ou alors le modèle log-hedonic MCO.</p>
+<p>En fait ça n’est pas très étonnant, ça rappelle le fait qu’on a trouvé des coefficients significatifs au niveau des paramètres permettant d’estimer l’inefficacité dans les résultats de l’estimation SFA Cost Frontier.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -3248,20 +3270,50 @@ H_1: SFA \text{ cost frontier}
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
-<p>Axe d’amélioration =&gt; diviser la distribution en 2 catégories et faire 2 modèles</p>
+<p>Axe d’amélioration <span class="math inline">\(\Rightarrow\)</span> diviser la distribution en 2 catégories et faire 2 modèles.</p>
+<blockquote>
+<p>Atouts du projet</p>
+</blockquote>
+<ul>
+<li class="fragment"><p>Englobe une grande partie des matières étudiées en master</p></li>
+<li class="fragment"><p>Axe de recherche</p></li>
+<li class="fragment"><p>Axe appliqué avec la création d’une application fonctionnelle</p></li>
+</ul>
+<aside class="notes">
+<p><em>Corentin</em></p>
+<p>En effet, on a utilisé les cours suivants :</p>
+<ul>
+<li>Analyse de données</li>
+<li>Ingénierie logicielle et scraping avec Python</li>
+<li>Econométrie avec R</li>
+<li>Cours d’économie avec pricing, microéconomie et analyse de la concurrence</li>
+</ul>
+<p><em>Aybuké</em></p>
+<p>D’un autre côté, en s’appuyant sur ce qui avait déjà été fait dans la littérature, on a pu appliquer ces connaissances dans un domaine assez peu exploré jusqu’à maintenant.</p>
+<p>Enfin, évidemment, l’atout principal de ce projet c’est la création et le déploiement de notre application, qui, on l’espère, vous aidera dans le choix de votre futur téléphone !</p>
+<p>FIN</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <div class="footer">
 <p>— Recherche, Réalisation, <code>Restitution</code> —</p>
 </div>
 </section>
 <section id="références" class="slide level2 smaller scrollable">
 <h2>Références</h2>
-<div class="quarto-auto-generated-content">
-<p><img src="https://corentinducloux.fr/dossier_img/mecen_transparent.png" class="slide-logo"></p>
-<div class="footer footer-default">
+
+<img src="https://corentinducloux.fr/dossier_img/mecen_transparent.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p>— Recherche, Réalisation, Restitution —</p>
 </div>
-</div>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-aigner1977" class="csl-entry" role="listitem">
 Aigner, Dennis, C. A.Knox Lovell, and Peter Schmidt. 1977. <span>“Formulation and Estimation of Stochastic Frontier Production Function Models.”</span> <em>Journal of Econometrics</em> 6 (1): 21–37. <a href="https://doi.org/10.1016/0304-4076(77)90052-5">https://doi.org/10.1016/0304-4076(77)90052-5</a>.
 </div>
@@ -3300,6 +3352,7 @@ Rosen, Sherwin. 1974. <span>“Hedonic Prices and Implicit Markets: Product Diff
       Reveal.initialize({
 'controlsAuto': false,
 'previewLinksAuto': true,
+'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -3599,24 +3652,10 @@ Rosen, Sherwin. 1974. <span>“Hedonic Prices and Implicit Markets: Product Diff
         // clear code selection
         e.clearSelection();
       });
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-        }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-              // default icon
-              link.classList.add("external");
-          }
-        }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      function tippyHover(el, contentFn) {
         const config = {
           allowHTML: true,
+          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -3626,17 +3665,8 @@ Rosen, Sherwin. 1974. <span>“Hedonic Prices and Implicit Markets: Product Diff
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start',
+          placement: 'bottom-start'
         };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -3690,6 +3720,20 @@ Rosen, Sherwin. 1974. <span>“Hedonic Prices and Implicit Markets: Product Diff
           });
         }
       }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+              // default icon
+              link.classList.add("external");
+          }
+        }
     });
     </script>
     
