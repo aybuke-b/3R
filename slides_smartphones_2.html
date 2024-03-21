@@ -8,7 +8,7 @@
 <link href="slides_smartphones_2_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="slides_smartphones_2_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="slides_smartphones_2_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.450">
+  <meta name="generator" content="quarto-1.4.551">
 
   <meta name="author" content="Aybuké BICAT &amp; Corentin DUCLOUX">
   <title>Application des modèles SFA à l’étude des prix</title>
@@ -31,7 +31,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -98,6 +98,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -242,7 +243,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -405,14 +407,20 @@
       margin-right: 0; 
     }
   </style>
-  
   <script src="slides_smartphones_2_files/libs/core-js-2.5.3/shim.min.js"></script>
+
   <script src="slides_smartphones_2_files/libs/react-18.2.0/react.min.js"></script>
+
   <script src="slides_smartphones_2_files/libs/react-18.2.0/react-dom.min.js"></script>
+
   <script src="slides_smartphones_2_files/libs/reactwidget-1.0.0/react-tools.js"></script>
+
   <script src="slides_smartphones_2_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
   <link href="slides_smartphones_2_files/libs/reactable-0.4.4/reactable.css" rel="stylesheet">
+
   <script src="slides_smartphones_2_files/libs/reactable-binding-0.4.4/reactable.js"></script>
+
   <style>
   #title-slide .title {
   font-size: 1.75em;
@@ -594,9 +602,9 @@
 </div>
 <div class="callout-content">
 <p><em>Lancement du shell poetry</em> :</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1"></a>py <span class="op">-</span>m poetry shell</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb1-1"><a href=""></a>py <span class="op">-</span>m poetry shell</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><em>Lancement de l’application</em> :</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1"></a>python <span class="op">-</span>m streamlit run Accueil<span class="op">.</span><span class="fu">py</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href=""></a>python <span class="op">-</span>m streamlit run Accueil<span class="op">.</span><span class="fu">py</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><span class="math inline">\(\Rightarrow\)</span> <em>Simple</em> : seulement 2 commandes pour accéder à l’application !</p>
 </div>
 </div>
@@ -843,9 +851,8 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-level-level-ii" class="slide level2 smaller">
 <h2>OLS LEVEL-LEVEL (II)</h2>
-<div class="cell" data-fig.showtext="true">
+<div class="cell">
 <div class="cell-output-display">
-
 <div id="gniwatsmvh" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#gniwatsmvh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1459,9 +1466,8 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="ols-log-level-ii" class="slide level2 smaller">
 <h2>OLS LOG-LEVEL (II)</h2>
-<div class="cell" data-fig.showtext="true">
+<div class="cell">
 <div class="cell-output-display">
-
 <div id="xgmmtfvarj" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#xgmmtfvarj table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -2205,9 +2211,8 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </section>
 <section id="sfa-cost-frontier-ii" class="slide level2 smaller">
 <h2>SFA Cost Frontier (II)</h2>
-<div class="cell" data-fig.showtext="true">
+<div class="cell">
 <div class="cell-output-display">
-
 <div id="fwteytmltd" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#fwteytmltd table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -2692,9 +2697,9 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 <ul>
 <li class="fragment">Commande <code>efficiencies()</code> du package <code>{frontier}</code>.</li>
 </ul>
-<div class="cell" data-fig.showtext="true">
+<div class="cell">
 <div class="cell-output-display">
-
+<div>
 <div id="zqadcfnbgr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#zqadcfnbgr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -3135,70 +3140,85 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="<strong>Marque</strong>"><strong>Marque</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="<strong>Min</strong>"><strong>Min</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="<strong>Médiane</strong>"><strong>Médiane</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="<strong>Moyenne</strong>"><strong>Moyenne</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="<strong>Max</strong>"><strong>Max</strong></th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`APPLE`"><div class="gt_from_md"><p><code>APPLE</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.77</td>
-<td headers="median" class="gt_row gt_right">0.85</td>
-<td headers="mean" class="gt_row gt_right">0.85</td>
-<td headers="max" class="gt_row gt_right">0.95</td></tr>
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`GOOGLE`"><div class="gt_from_md"><p><code>GOOGLE</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.76</td>
-<td headers="median" class="gt_row gt_right">0.84</td>
-<td headers="mean" class="gt_row gt_right">0.85</td>
-<td headers="max" class="gt_row gt_right">0.94</td></tr>
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`HONOR`"><div class="gt_from_md"><p><code>HONOR</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.58</td>
-<td headers="median" class="gt_row gt_right">0.87</td>
-<td headers="mean" class="gt_row gt_right">0.83</td>
-<td headers="max" class="gt_row gt_right">0.92</td></tr>
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`MOTOROLA`"><div class="gt_from_md"><p><code>MOTOROLA</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.57</td>
-<td headers="median" class="gt_row gt_right">0.87</td>
-<td headers="mean" class="gt_row gt_right">0.83</td>
-<td headers="max" class="gt_row gt_right">0.93</td></tr>
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`OPPO`"><div class="gt_from_md"><p><code>OPPO</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.60</td>
-<td headers="median" class="gt_row gt_right">0.87</td>
-<td headers="mean" class="gt_row gt_right">0.82</td>
-<td headers="max" class="gt_row gt_right">0.93</td></tr>
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`SAMSUNG`"><div class="gt_from_md"><p><code>SAMSUNG</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.51</td>
-<td headers="median" class="gt_row gt_right">0.86</td>
-<td headers="mean" class="gt_row gt_right">0.84</td>
-<td headers="max" class="gt_row gt_right">0.94</td></tr>
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`SONY`"><div class="gt_from_md"><p><code>SONY</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.82</td>
-<td headers="median" class="gt_row gt_right">0.86</td>
-<td headers="mean" class="gt_row gt_right">0.86</td>
-<td headers="max" class="gt_row gt_right">0.89</td></tr>
-    <tr><td headers="brand" class="gt_row gt_center"><div data-qmd="`XIAOMI`"><div class="gt_from_md"><p><code>XIAOMI</code></p>
-</div></div></td>
-<td headers="min" class="gt_row gt_right">0.59</td>
-<td headers="median" class="gt_row gt_right">0.86</td>
-<td headers="mean" class="gt_row gt_right">0.85</td>
-<td headers="max" class="gt_row gt_right">0.94</td></tr>
-  </tbody>
-  
-  
+
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header gt_col_headings">
+<th id="<strong>Marque</strong>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Marque</strong></th>
+<th id="<strong>Min</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><strong>Min</strong></th>
+<th id="<strong>Médiane</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><strong>Médiane</strong></th>
+<th id="<strong>Moyenne</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><strong>Moyenne</strong></th>
+<th id="<strong>Max</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><strong>Max</strong></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="brand"><p><code>APPLE</code></p></td>
+<td class="gt_row gt_right" headers="min">0.77</td>
+<td class="gt_row gt_right" headers="median">0.85</td>
+<td class="gt_row gt_right" headers="mean">0.85</td>
+<td class="gt_row gt_right" headers="max">0.95</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="brand"><p><code>GOOGLE</code></p></td>
+<td class="gt_row gt_right" headers="min">0.76</td>
+<td class="gt_row gt_right" headers="median">0.84</td>
+<td class="gt_row gt_right" headers="mean">0.85</td>
+<td class="gt_row gt_right" headers="max">0.94</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="brand"><p><code>HONOR</code></p></td>
+<td class="gt_row gt_right" headers="min">0.58</td>
+<td class="gt_row gt_right" headers="median">0.87</td>
+<td class="gt_row gt_right" headers="mean">0.83</td>
+<td class="gt_row gt_right" headers="max">0.92</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="brand"><p><code>MOTOROLA</code></p></td>
+<td class="gt_row gt_right" headers="min">0.57</td>
+<td class="gt_row gt_right" headers="median">0.87</td>
+<td class="gt_row gt_right" headers="mean">0.83</td>
+<td class="gt_row gt_right" headers="max">0.93</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="brand"><p><code>OPPO</code></p></td>
+<td class="gt_row gt_right" headers="min">0.60</td>
+<td class="gt_row gt_right" headers="median">0.87</td>
+<td class="gt_row gt_right" headers="mean">0.82</td>
+<td class="gt_row gt_right" headers="max">0.93</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="brand"><p><code>SAMSUNG</code></p></td>
+<td class="gt_row gt_right" headers="min">0.51</td>
+<td class="gt_row gt_right" headers="median">0.86</td>
+<td class="gt_row gt_right" headers="mean">0.84</td>
+<td class="gt_row gt_right" headers="max">0.94</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="brand"><p><code>SONY</code></p></td>
+<td class="gt_row gt_right" headers="min">0.82</td>
+<td class="gt_row gt_right" headers="median">0.86</td>
+<td class="gt_row gt_right" headers="mean">0.86</td>
+<td class="gt_row gt_right" headers="max">0.89</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="brand"><p><code>XIAOMI</code></p></td>
+<td class="gt_row gt_right" headers="min">0.59</td>
+<td class="gt_row gt_right" headers="median">0.86</td>
+<td class="gt_row gt_right" headers="mean">0.85</td>
+<td class="gt_row gt_right" headers="max">0.94</td>
+</tr>
+</tbody>
 </table>
+
+</div>
 </div>
 </div>
 </div>
@@ -3270,14 +3290,23 @@ H_1: SFA \text{ cost frontier}
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
 <p>Axe d’amélioration <span class="math inline">\(\Rightarrow\)</span> diviser la distribution en 2 catégories et faire 2 modèles.</p>
-<blockquote>
-<p>Atouts du projet</p>
-</blockquote>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Atouts du projet</strong></p>
+</div>
+<div class="callout-content">
 <ul>
 <li class="fragment"><p>Englobe une grande partie des matières étudiées en master</p></li>
 <li class="fragment"><p>Axe de recherche</p></li>
 <li class="fragment"><p>Axe appliqué avec la création d’une application fonctionnelle</p></li>
 </ul>
+</div>
+</div>
+</div>
 <aside class="notes">
 <p><em>Corentin</em></p>
 <p>En effet, on a utilisé les cours suivants :</p>
@@ -3308,11 +3337,13 @@ H_1: SFA \text{ cost frontier}
 </section>
 <section id="références" class="slide level2 smaller scrollable">
 <h2>Références</h2>
-
-<img src="https://corentinducloux.fr/dossier_img/mecen_transparent.png" class="slide-logo r-stretch"><div class="footer footer-default">
+<div class="quarto-auto-generated-content">
+<p><img src="https://corentinducloux.fr/dossier_img/mecen_transparent.png" class="slide-logo"></p>
+<div class="footer footer-default">
 <p>— Recherche, Réalisation, Restitution —</p>
 </div>
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-aigner1977" class="csl-entry" role="listitem">
 Aigner, Dennis, C. A.Knox Lovell, and Peter Schmidt. 1977. <span>“Formulation and Estimation of Stochastic Frontier Production Function Models.”</span> <em>Journal of Econometrics</em> 6 (1): 21–37. <a href="https://doi.org/10.1016/0304-4076(77)90052-5">https://doi.org/10.1016/0304-4076(77)90052-5</a>.
 </div>
@@ -3351,7 +3382,6 @@ Rosen, Sherwin. 1974. <span>“Hedonic Prices and Implicit Markets: Product Diff
       Reveal.initialize({
 'controlsAuto': false,
 'previewLinksAuto': true,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -3538,42 +3568,80 @@ Rosen, Sherwin. 1974. <span>“Hedonic Prices and Implicit Markets: Product Diff
       });
     </script>
     
+
     <script>
+
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
       // slide changes (different for each slide format).
+
       (function () {
+
         // dispatch for htmlwidgets
+
         function fireSlideEnter() {
+
           const event = window.document.createEvent("Event");
+
           event.initEvent("slideenter", true, true);
+
           window.document.dispatchEvent(event);
+
         }
+
+    
 
         function fireSlideChanged(previousSlide, currentSlide) {
+
           fireSlideEnter();
 
+    
+
           // dispatch for shiny
+
           if (window.jQuery) {
+
             if (previousSlide) {
+
               window.jQuery(previousSlide).trigger("hidden");
+
             }
+
             if (currentSlide) {
+
               window.jQuery(currentSlide).trigger("shown");
+
             }
+
           }
+
         }
+
+    
 
         // hookup for slidy
+
         if (window.w3c_slidy) {
+
           window.w3c_slidy.add_observer(function (slide_num) {
+
             // slide_num starts at position 1
+
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
           });
+
         }
 
+    
+
       })();
+
     </script>
+
+    
 
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -3651,10 +3719,29 @@ Rosen, Sherwin. 1974. <span>“Hedonic Prices and Implicit Markets: Product Diff
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn) {
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+              // default icon
+              link.classList.add("external");
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -3664,8 +3751,17 @@ Rosen, Sherwin. 1974. <span>“Hedonic Prices and Implicit Markets: Product Diff
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -3679,7 +3775,11 @@ Rosen, Sherwin. 1974. <span>“Hedonic Prices and Implicit Markets: Product Diff
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {
@@ -3719,20 +3819,6 @@ Rosen, Sherwin. 1974. <span>“Hedonic Prices and Implicit Markets: Product Diff
           });
         }
       }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href);
-        }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-              // default icon
-              link.classList.add("external");
-          }
-        }
     });
     </script>
     

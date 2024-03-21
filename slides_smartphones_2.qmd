@@ -1371,13 +1371,17 @@ En fait ça n'est pas très étonnant, ça rappelle le fait qu'on a trouvé des 
 
 Axe d'amélioration $\Rightarrow$ diviser la distribution en 2 catégories et faire 2 modèles.
 
-> Atouts du projet
+::: {.callout-tip}
+
+## Atouts du projet
 
 - Englobe une grande partie des matières étudiées en master
 
 - Axe de recherche
 
 - Axe appliqué avec la création d'une application fonctionnelle
+
+:::
 
 ::: {.notes}
 *Corentin*
