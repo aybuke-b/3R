@@ -68,7 +68,7 @@ makestars <- function(pvalues) {
 
 ## Problématique {background-color="black" background-image="https://vivreaulycee.fr/wp-content/uploads/2018/12/question-mark-2492009_1280-1200x480.jpg" background-size="cover" background-opacity="0.75"}
 
-`Combinaison d'un modèle SFA et d'une régression hédonique pour évaluer la discordance entre les prix de smartphones et leur valeur intrinsèque.`
+`Combinaison d'un modèle SFA et d'une régression hédonique pour évaluer la discordance entre les prix de smartphones et leur valeur.`
 
 ::: {.footer}
 --- Recherche, `Réalisation`, Restitution ---
@@ -132,8 +132,6 @@ Cela étant, la description du score est assez sommaire, il est simplement préc
 
 $\Rightarrow$ Finalement ce score est plutôt opaque.
 
-Questions juridiques / économiques / statistiques / algorithmiques.
-
 :::
 
 ## Obligations d'information sur les comparateurs {.smaller}
@@ -154,6 +152,9 @@ Les comparateurs en ligne sont donc eux aussi soumis à ces obligations de loyau
 
 :::{.notes}
 *Corentin*
+
+Aybuké n'en a pas parlé mais il y a des questions juridiques / économiques / statistiques et algorithmiques qui se posent.
+
 Il va sans dire que très peu de comparateurs respectent le premier point, souvent pour une raison simple : ce sont juste des listings de prix de téléphones du moins cher au plus cher, il n'y a pas vraiment de fonctionnement à proprement parler.
 
 De même, concernant les critères de classement.
@@ -163,6 +164,39 @@ En revanche le troisième point est presque toujours indiqué quelque part avec 
 ***
 
 L'avantage de notre comparateur c'est qu'il respecte les deux premiers points, sans se soucier du troisième puisqu'on a pas de partenariats rémunérés. Tout ça permet d'offrir une grande transparence pour le consommateur.
+
+:::
+
+## Explication `SMART'SPECS`
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](imgs/mermaid_graph.png){width=95%}
+:::
+
+::: {.column width="50%"}
+<u>**Fonctionnalités**</u> : 
+
+- Statistiques élémentaires
+- Restitution d'informations
+- Effort visuel et nombreuses fonctionnalités
+- Moteur basé sur un modèle **SFA**
+:::
+
+::::
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
+:::{.notes}
+
+On a intégré les résultats par ce qu'on appelle le seuil d'efficacité qui correspond en fait à un score.
+
+Concernant les données, on s'est basé sur des données scrapées en février sur le site du revendeur **Boulanger**.
+
+Les modèles qu'on a construit que vous voyez dans le bloc en bleu définissent le score (l'efficacité) en terme de prix.
 
 :::
 
@@ -271,6 +305,25 @@ Cet onglet permet de visualiser tous les modèles disponibles et leurs caractér
 
 :::
 
+## Présentation des modèles
+
+| **Modèle**                        | **Variables** | **Estimateur** |
+|-----------------------------------|---------------|----------------|
+| _Régression linéaire (hédonique)_ | niveau-niveau | `MCO`          |
+| _Régression linéaire (hédonique)_ | log-niveau    | `MCO`          |
+| _SFA (frontière de coût)_         | log-niveau    | `MV`           |
+
+::: {.footer}
+--- Recherche, `Réalisation`, Restitution ---
+:::
+
+:::{.notes}
+Avant de rentrer dans la partie des estimations économétriques, on va vous faire quelques rapides rappels de notre partie de recherche pour vous rafraîchir la mémoire.
+
+Et ensuite on vous présentera les résultats de 3 modèles différents que vous voyez à l'écran.
+:::
+
+
 ## Hedonic Pricing ~ Rappel théorique (I)
 
 Cadre apporté par @rosen1974. On étudie un bien différencié $z$ décrit par le vecteur de ses $n$ caractéristiques mesurables tel que : 
@@ -291,8 +344,6 @@ $$z = (z_1, z_2, \dots, z_n)$$
 *Buk*
 
 
-
-Avant de rentrer dans la partie des estimations économétriques, on va vous faire quelques rapides rappels de notre partie de recherche pour vous rafraîchir la mémoire.
 
 Dans le cadre apporté par Rosen, on étudie un bien différencié z décrit par le vecteur de ses n caractéristiques mesurables.
 Vecteur
@@ -373,9 +424,10 @@ Achat d'une seule unité de bien car historiquement, Rosen s'intéresse principa
 On aboutit à une relation fonctionnelle entre les caractéristiques des biens
 et leur prix, appelée fonction de prix hédonique $p(z)$.
 
-***
+En fait, on recherche le lien qu'il y a entre le prix et les caractéristiques d'un produit et ce qu'on mesure résulte potentiellement d'effets de préférence des consommateurs ou de coûts des producteurs.
 
-Il n'en reste pas moins qu'il subsiste un problème indéniable : Ce qu'on aimerait réellement mesurer c'est le **service rendu par un produit** et non pas les caractéristiques de ce produit, et ça c'est complètement inobservable. Donc en bref il va falloir faire attention pour interpréter correctement les résultats des régressions.
+Tout ça pour dire que l'augmentation du prix peut donc être lié à un effet coût ou un effet demande, et la difficulté c'est que ces effets sont difficilement dissociables.
+
 :::
 
 ## OLS LEVEL-LEVEL (I) {.smaller}
@@ -528,6 +580,7 @@ summary(levelhedonic)$coefficients |>
 :::{.notes}
 *Buk*
 
+On a un $R^2$ qui est très bon : 86,7 % de la variance du prix est expliquée par nos variables. En fait, ça nous confirme que ça a du sens d'étudier les prix des téléphones en fonction des caractéristiques.
 
 Ici le coefficient $\beta_1$ s’interprète comme l’effet marginal d’1 Go supplémentaire
 de capacité de stockage sur le prix, c'est à dire que si la capacité de stockage augmente de 1 Go, alors, le prix augmente de 91 centimes, cet.par.
@@ -571,12 +624,9 @@ performance::check_posterior_predictions(levelhedonic)
 
 
 Aussi, une étape visuelle qu'on peut mettre en place est de vérifier l’ajustement du
-modèle. La vérification prédictive a posteriori permet de simuler des données répliquées
-avec le modèle ajusté puis les comparer aux données observées.
+modèle. La vérification prédictive a posteriori permet de simuler des données répliquées avec le modèle ajusté puis les comparer aux données observées (en coulisses il y a du bootstrap derrière).
 
-$\Rightarrow$ L’objectif est de détecter si le modèle est inadéquat pour décrire les données.
-
-Note : Pour cela, on utilise d'abord les données observées et les prédicteurs pour mettre à jour notre compréhension des paramètres inconnus du modèle. Ensuite, à partir de cette mise à jour, on génère plusieurs ensembles de résultats possibles en faisant varier ces paramètres, c'est du bootstrap. Ces simulations aident ensuite à évaluer la perf du modèle.
+$\Rightarrow$ L’objectif est de détecter si le modèle est inadéquat pour décrire les données. Les simulations vont nous aider à évaluer la perf du modèle.
 
 Ici on retrouve bien en vert la distribution bimodale des prix qu'on avait vu dans notre application, mais par contre le modèle a du mal à la représenter, surtout pour les téléphones entre 200 et 500 €.
 :::
@@ -610,7 +660,6 @@ heterosced_levelhedonic <- performance::check_heteroscedasticity(levelhedonic)
 :::{.notes}
 *Corentin*
 
-
 Vous vous en doutez, mais vu le graphique précédent, il y a une hypothèse importante qui est violée dans ce modèle, et évidemment on voit bien que les résidus ne sont pas homoscédastiques, et le test de *Breusch-Pagan* nous le confirme.
 :::
 
@@ -638,8 +687,7 @@ skewness_levelhedonic <- skewness(levelhedonic$residuals)
 ::: {.notes}
 *Corentin*
 
-
-On peut aussi s'intéresser à la normalité des résidus en regardant le coefficient d'asymétrie
+Enfin, on peut aussi s'intéresser à la normalité des résidus en regardant le coefficient d'asymétrie
 
 On voit que le coefficient est positif. Cette asymétrie positive indique une concentration de valeurs sur le côté gauche de la distribution, on peut d'ailleurs le voir sur l'histogramme.
 :::
@@ -783,6 +831,8 @@ summary(loghedonic)$coefficients |>
 *Buk*
 
 
+$R^2$ meilleur que dans la régression précédente mais on ne peut pas les comparer directement car on n'a pas la même variable explicative à cause du log.
+
 Ici le coefficient $\beta_1$ s’interprète comme le changement en pourcentage du prix lorsque
 la capacité de stockage augmente d’1 Go, c'est à dire que si la capacité de stockage augmente de 1 Go, alors, le prix augmente de 0.06%, cet.par.
 
@@ -817,8 +867,9 @@ performance::check_posterior_predictions(loghedonic)
 :::{.notes}
 *Corentin*
 
-
 Ici on voit que même si le modèle a du mal à prédire une certaine portion de la distribution, il s'en sort très bien sur les extrémités et globalement l'adéquation du modèle semble meilleure.
+
+$\Rightarrow$ La distribution n'est pas la même car on est passé au log.
 :::
 
 ## OLS LOG-LEVEL (IV) {.smaller}
@@ -932,7 +983,7 @@ $$\boxed{{\displaystyle y_{i}=f(x_{i};\beta )\cdot TE_{i}\cdot \exp \left\{{v_{i
 
 On vous a présenté deux modèles qui appliquent le concept du pricing hédonique mais qui finalement restent des régressions linéaires classiques. 
 
-- On repart d'une fonction de production classique, mais on lui ajoute un terme multiplicatif $TE_i$.
+- On repart d'une fonction de production, mais on lui ajoute un terme multiplicatif $TE_i$.
 
 - Si $TE_i = 1$ alors la firme $i$ produit l'output maximum réalisable, alors que si $TE_i < 1$, il existe un écart entre l'output maximum et l'output effectivement observé.
 :::
@@ -950,7 +1001,7 @@ $${\displaystyle y_{i}=f(x_{i};\beta )\cdot \exp \left\{{-u_{i}}\right\}\cdot \e
 La SFA (`Stochastic Frontier Analysis`) est une méthode paramétrique : elle requiert une forme fonctionnelle précise et les termes d'erreur $\epsilon_i$ ont une distribution particulière (composée) :
 
 - $v_i$ est une erreur aléatoire $\Rightarrow$ variation inexpliquée par les variables indépendantes du modèle, avec $v_i \sim \mathcal{N}(0, \sigma^2_v)$.
-- $u_i$ est un composant unilatéral qui peut être choisi parmi plusieurs distributions et $u_i \geq 0$, puisqu'il est nécessaire d'avoir $TE_i ≤ 1$.
+- $u_i$ est un composant unilatéral qui peut être choisi parmi plusieurs distributions et $u_i \geq 0$.
 
 :::{.fragment .fade-in}
 > *La spécification de cette méthode permet d’estimer les scores de l’efficience technique de chaque firme (historiquement), ou produit, dans notre cas.*
@@ -960,50 +1011,6 @@ La SFA (`Stochastic Frontier Analysis`) est une méthode paramétrique : elle re
 --- `Recherche`, Réalisation, Restitution ---
 :::
 
-
-
-:::{.notes}
-*Corentin*
-:::
-
-
-## Choix de distributions
-
-```{r}
-halfnorm_density <- function(x, mu, sigma) {
-  ifelse(x >= mu, (2 / (sqrt(2 * pi) * sigma)) * exp(-(x - mu)^2 / (2 * sigma^2)), 0)
-}
-
-# Paramètres de la distribution half normal
-mu_halfnorm <- 0
-sigma_halfnorm <- 1 
-
-ggplot(
-    data.frame(x = c(0, 5)), aes(x = x)) +
-    stat_function(
-        fun = halfnorm_density,
-        args = list(mu = mu_halfnorm, sigma = sigma_halfnorm),
-        color = "darkgreen",
-        linewidth = 1
-    ) +
-    stat_function(
-        fun = dnorm,
-        args = list(mean = 0, sd = 1),
-        color = "orange",
-        linetype = "dashed",
-        linewidth = 1
-    ) +
-    theme(plot.title = element_markdown(face = "bold", size = 15)) +
-    labs(
-        title = "Distributions <span style='color:orange'>normale</span> et <span style='color:darkgreen'>semi-normale</span>",
-        x = "",
-        y = "Densité de probabilité") +
-    scale_x_continuous(limits = c(-0, 5))
-```
-
-::: {.footer}
---- `Recherche`, Réalisation, Restitution ---
-:::
 
 
 :::{.notes}
@@ -1069,6 +1076,51 @@ Une fois qu'on prend l'output max et qu'on enlève l'inefficacité, on obtient l
 On a aussi $\epsilon_i$ qui représente le terme d'erreur composé $v_i - u_i$.
 :::
 
+## Choix de distributions
+
+```{r}
+halfnorm_density <- function(x, mu, sigma) {
+  ifelse(x >= mu, (2 / (sqrt(2 * pi) * sigma)) * exp(-(x - mu)^2 / (2 * sigma^2)), 0)
+}
+
+# Paramètres de la distribution half normal
+mu_halfnorm <- 0
+sigma_halfnorm <- 1 
+
+ggplot(
+    data.frame(x = c(0, 5)), aes(x = x)) +
+    stat_function(
+        fun = halfnorm_density,
+        args = list(mu = mu_halfnorm, sigma = sigma_halfnorm),
+        color = "darkgreen",
+        linewidth = 1
+    ) +
+    stat_function(
+        fun = dnorm,
+        args = list(mean = 0, sd = 1),
+        color = "orange",
+        linetype = "dashed",
+        linewidth = 1
+    ) +
+    theme(plot.title = element_markdown(face = "bold", size = 15)) +
+    labs(
+        title = "Distributions <span style='color:orange'>normale</span> et <span style='color:darkgreen'>semi-normale</span>",
+        x = "",
+        y = "Densité de probabilité") +
+    scale_x_continuous(limits = c(-0, 5))
+```
+
+::: {.footer}
+--- `Recherche`, Réalisation, Restitution ---
+:::
+
+
+:::{.notes}
+*Corentin*
+
+Je vais très rapidement vous expliquer aussi pourquoi on est obligé de passer à l'estimateur du Maximum de Vraisemblance et que les techniques des MCO ne fonctionnent plus ici : c'est tout simplement parce qu'on va combiner une disribution symétrique (en orange), celle de la loi normale avec une distribution qui ne l'est pas : celle de la semi-normale.
+:::
+
 ## SFA Cost Frontier (I) {.smaller}
 
 **Forme fonctionnelle :**
@@ -1094,6 +1146,10 @@ $$
 
 :::{.notes}
 *Corentin*
+
+Dans ce modèle, on prend le point de vue du consommateur et dans l'ensemble des téléphones qui lui sont proposés qui disposent de plein de caractéristiques, on cherche à lui indiquer le prix minimum dans l'espace des caractéristiques.
+
+Par rapport à la régression log-hédonique en fait on voit qu'il n'y a pas de grande différence à part l'erreur composée.
 :::
 
 ## SFA Cost Frontier (II) {.smaller}
@@ -1112,7 +1168,7 @@ mean_eff <- efficiencies(scf) |> as_tibble() |> summarise(mean_eff = efficiency 
 
 
 ```{r}
-summary(scf)$mleParam |>
+summary(scf, extraPar = TRUE)$mleParam |>
     data.frame() |>
     rownames_to_column(var = "Variables") |>
     janitor::clean_names() |>
@@ -1138,6 +1194,7 @@ summary(scf)$mleParam |>
         )
     ) |>
     mutate(signif = makestars(pr_z)) |>
+    filter(variables %nin% c("sigmaSqU","sigmaSqV", "sigma", "sigmaU", "sigmaV", "lambdaSq", "lambda", "varU", "sdU")) |>
     gt() |>
     cols_hide(c(z_value, pr_z)) |>
     cols_label(
@@ -1157,7 +1214,7 @@ summary(scf)$mleParam |>
     ) |>
     fmt_percent(
         columns = estimate,
-        rows = variables %nin% c("*(Intercept)*","*sigmaSq*", "*gamma*"),
+        rows = variables %nin% c("*(Intercept)*","*sigmaSq*", "*gamma*", "*gammaVar*"),
         pattern = "+{x}"
     ) |>
     fmt_percent(
@@ -1173,7 +1230,7 @@ summary(scf)$mleParam |>
     ) |>
     data_color(
         columns = estimate,
-        rows = estimate > 0 & variables %nin% c("*(Intercept)*","*sigmaSq*", "*gamma*"),
+        rows = estimate > 0 & variables %nin% c("*(Intercept)*","*sigmaSq*", "*gamma*", "*gammaVar*"),
         method = "numeric",
         palette = c("lightgreen", "darkgreen"),
         apply_to = "text"
@@ -1200,24 +1257,7 @@ summary(scf)$mleParam |>
 :::{.notes}
 *Corentin*
 
-
-Si la capacité de stockage (storage) augmente de 1 Go, alors le prix augmente de 0.001%, cet. par.
-
-- En ayant comme catégorie de référence Apple pour la variable marque (brand), on peut
-voir que toutes les marques ont un impact négatif sur le prix, cet. par.
-  - La marque la plus valorisée derrière Apple est Samsung avec une différence de prix
-de 47.1%
-  - La marque la moins valorisée est XIAOMI avec une différence de prix de 103.6% par
-rapport à Apple.
-
-- Si la ram augmente de 1 Go, alors le prix augmente de 7.7%, cet. par
-
-Pour le type d’écran (screen_type), la catégorie de référence est borderless (un écran sans
-bordure).
-
--  Disposer d’un écran à bord incurvé diminue le prix de 8.7 % par rapport à la catégorie de référence, cet. par.
--  Pour l’écran plat, le prix diminue de 2.3 %  par rapport à la catégorie de référence, cet. par.
--  Avoir un écran pliable fait augmenter le prix de 38.9 % par rapport à la catégorie de référence, cet. par
+On a les mêmes niveaux de significativité, les signes des coefficients sont les mêmes et les valeurs restent à peu près les mêmes avec un effet encore plus important des marques.
 
 :::
 
@@ -1321,14 +1361,46 @@ $\Rightarrow$ On rejette l'hypothèse nulle $H_0$ car la $p-value$ issue du test
 ::: {.notes}
 *Corentin*
 
-
 On peut maintenant chercher à savoir si il vaut mieux utiliser le modèle SFA Cost Frontier ou alors le modèle log-hedonic MCO.
+
+En fait ça n'est pas très étonnant, ça rappelle le fait qu'on a trouvé des coefficients significatifs au niveau des paramètres permettant d'estimer l'inefficacité dans les résultats de l'estimation SFA Cost Frontier.
 
 :::
 
 ## Conclusion
 
-Axe d'amélioration => diviser la distribution en 2 catégories et faire 2 modèles
+Axe d'amélioration $\Rightarrow$ diviser la distribution en 2 catégories et faire 2 modèles.
+
+::: {.callout-tip}
+
+## Atouts du projet
+
+- Englobe une grande partie des matières étudiées en master
+
+- Axe de recherche
+
+- Axe appliqué avec la création d'une application fonctionnelle
+
+:::
+
+::: {.notes}
+*Corentin*
+
+En effet, on a utilisé les cours suivants :
+
+- Analyse de données
+- Ingénierie logicielle et scraping avec Python
+- Econométrie avec R
+- Cours d'économie avec pricing, microéconomie et analyse de la concurrence
+
+*Aybuké*
+
+D'un autre côté, en s'appuyant sur ce qui avait déjà été fait dans la littérature, on a pu appliquer ces connaissances dans un domaine assez peu exploré jusqu'à maintenant.
+
+Enfin, évidemment, l'atout principal de ce projet c'est la création et le déploiement de notre application, qui, on l'espère, vous aidera dans le choix de votre futur téléphone !
+
+FIN
+:::
 
 ::: {.footer}
 --- Recherche, Réalisation, `Restitution` ---
