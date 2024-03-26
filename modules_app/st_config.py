@@ -16,6 +16,7 @@ from streamlit.delta_generator import DeltaGenerator
 
 def about_page() -> str:
     about_text = """
+
 Le modèle utilisé dans notre application est une **SFA** frontière de coût.
 
 Les variables utilisées sont :
@@ -33,6 +34,18 @@ Les variables utilisées sont :
 | *das_limbs*       | DAS (Débit d'Absorption Spécifique) - membres                 | `float`   |
 | *network*         | Réseau                                                        | `boolean` |
 | *ppi*             | Pixels par pouce                                              | `str`     |
+
+***
+
+
+Les données ont été extraites depuis [**Boulanger**](https://www.boulanger.com/).
+
+Le web scraping est encadré en droit français par l’article **L. 342-3** du Code de la propriété intellectuelle, qui autorise la pratique suivante :
+
+-   L’extraction et la réutilisation d’une partie substantielle, appréciée de façon qualitative ou quantitative, à des fins exclusives d’illustration 
+dans le cadre de l’enseignement et de la recherche et pour un public composé d’élèves, d’étudiants, d’enseignants ou de chercheurs directement concernés.
+Ainsi, **ce cas de figure étant limité à des fins pédagogiques, il est totalement exclu de faire usage des données extraites à titre commercial**.
+
 
 ***
 
