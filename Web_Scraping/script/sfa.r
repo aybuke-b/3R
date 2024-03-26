@@ -8,8 +8,12 @@ library(glmulti)
 
 df_init <- read_delim("Web_Scraping/data/df_clean_2.csv", delim = ";")
 
-df_init |>
-    print()
+# Erreur de boulanger, le stockage est en réalité à 128Go et non à 8
+# De meme, le Z fold 3 est pliable.
+df_init <- df_init |> mutate(
+    storage = case_when(storage == 8 ~ 128, .default = as.double(storage)),
+    screen_type = case_when(model == "Samsung Galaxy Z Fold 3" ~ "Pliable", .default = as.character(screen_type))
+)
 
 df_phones <- df_init |>
     select(c(price, ppi, screen_type, das_limbs, das_head, das_chest, upgrade_storage, screen_size, fast_charging, repairability_index, made_in, ram, storage, brand, induction, network))
@@ -32,9 +36,6 @@ sfa_res <- summary(scf)$mleParam |>
     data.frame() |>
     rownames_to_column(var = "Variables") |>
     clean_names()
-
-# logLik(scf)
-# logLik(loghedonic)
 
 eff_df <- as_tibble(efficiencies(scf))
 

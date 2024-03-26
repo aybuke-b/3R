@@ -41,6 +41,7 @@ library(frontier)
 library(moments)
 library(patchwork)
 library(ggtext)
+library(showtext)
 ```
 
 ```{r}
@@ -191,12 +192,17 @@ L'avantage de notre comparateur c'est qu'il respecte les deux premiers points, s
 :::
 
 :::{.notes}
+*Corentin*
+
+Je vais vous rappeler l'architecture de notre application, avec les blocs **Python** et **R** respectivement en jaune et en bleu.
 
 On a intégré les résultats par ce qu'on appelle le seuil d'efficacité qui correspond en fait à un score.
 
-Concernant les données, on s'est basé sur des données scrapées en février sur le site du revendeur **Boulanger**.
+Concernant les données, on s'est basé sur des données scrapées en février uniquement sur le site du revendeur **Boulanger**.
 
 Les modèles qu'on a construit que vous voyez dans le bloc en bleu définissent le score (l'efficacité) en terme de prix.
+
+Ensuite pour ce qui est des fonctionnalités :
 
 :::
 
@@ -318,6 +324,8 @@ Cet onglet permet de visualiser tous les modèles disponibles et leurs caractér
 :::
 
 :::{.notes}
+*Buk*
+
 Avant de rentrer dans la partie des estimations économétriques, on va vous faire quelques rapides rappels de notre partie de recherche pour vous rafraîchir la mémoire.
 
 Et ensuite on vous présentera les résultats de 3 modèles différents que vous voyez à l'écran.
@@ -484,6 +492,11 @@ Ici on retrouve le modèle en niveau dont les variables n'ont pas été choisies
 ```{r}
 df_phones <- read_delim("Web_Scraping/data/df_clean_2.csv", delim = ";")
 
+df_phones <- df_phones |> mutate(
+    storage = case_when(storage == 8 ~ 128, .default = as.double(storage)),
+    screen_type = case_when(model == "Samsung Galaxy Z Fold 3" ~ "Pliable", .default = as.character(screen_type))
+)
+
 levelhedonic <- lm(
     price ~ storage + brand + ram + induction + screen_size + screen_type + made_in + upgrade_storage + das_limbs + network + ppi,
     data = df_phones
@@ -583,29 +596,29 @@ summary(levelhedonic)$coefficients |>
 On a un $R^2$ qui est très bon : 86,7 % de la variance du prix est expliquée par nos variables. En fait, ça nous confirme que ça a du sens d'étudier les prix des téléphones en fonction des caractéristiques.
 
 Ici le coefficient $\beta_1$ s’interprète comme l’effet marginal d’1 Go supplémentaire
-de capacité de stockage sur le prix, c'est à dire que si la capacité de stockage augmente de 1 Go, alors, le prix augmente de 91 centimes, cet.par.
+de capacité de stockage sur le prix, c'est à dire que si la capacité de stockage augmente de 1 Go, alors, le prix augmente de 92 centimes, cet.par.
 
 - En ayant comme catégorie de référence Apple pour la variable marque (brand), on peut
 voir que toutes les marques ont un impact négatif sur le prix, cet. par.
 
-- La marque la plus valorisée derrière Apple est **SONY** avec 313.59 € de différence
+- La marque la plus valorisée derrière Apple est **SONY** avec 304.56 € de différence
 par rapport à **APPLE**.
 
-- La marque la moins valorisée est **XIAOMI** avec 588.81 € de différence par rapport
+- La marque la moins valorisée est **XIAOMI** avec 585.62 € de différence par rapport
 à **APPLE**.
 
-- Une augmentation d’1 Go de ram augmente le prix de 27.58 €, cet. par. (Faire lien avec graph insight)
+- Une augmentation d’1 Go de ram augmente le prix de 26.97 €, cet. par. (Faire lien avec graph insight)
 
 Pour le type d’écran (screen_type), la catégorie de référence est borderless (un écran sans
 bordure).
 
-- Disposer d’un écran à bord incurvé diminue le prix de 228.44 € par rapport à la
+- Disposer d’un écran à bord incurvé diminue le prix de 240.50 € par rapport à la
 catégorie de référence borderless, cet. par.
 
-- Pour l’écran plat, le prix diminue de 89.78 € par rapport à la catégorie de réfé-
+- Pour l’écran plat, le prix diminue de 100.54 € par rapport à la catégorie de réfé-
 rence, cet. par.
 
-- Avoir un écran pliable fait augmenter le prix de 172.6 € par rapport à la catégorie
+- Avoir un écran pliable fait augmenter le prix de 144.66 € par rapport à la catégorie
 de référence, cet. par.
 :::
 
@@ -1194,7 +1207,7 @@ summary(scf, extraPar = TRUE)$mleParam |>
         )
     ) |>
     mutate(signif = makestars(pr_z)) |>
-    filter(variables %nin% c("sigmaSqU","sigmaSqV", "sigma", "sigmaU", "sigmaV", "lambdaSq", "lambda", "varU", "sdU")) |>
+    filter(variables %nin% c("*sigmaSqU*","*sigmaSqV*", "*sigma*", "*sigmaU*", "*sigmaV*", "*lambdaSq*", "*lambda*", "*varU*", "*sdU*")) |>
     gt() |>
     cols_hide(c(z_value, pr_z)) |>
     cols_label(
@@ -1236,6 +1249,7 @@ summary(scf, extraPar = TRUE)$mleParam |>
         apply_to = "text"
     ) |>
     fmt_markdown(c(variables,signif)) |>
+    sub_missing() |>
     tab_footnote(
         md(glue::glue("**Efficacité moyenne** : {mean_eff}"))
     ) |>
@@ -1258,6 +1272,8 @@ summary(scf, extraPar = TRUE)$mleParam |>
 *Corentin*
 
 On a les mêmes niveaux de significativité, les signes des coefficients sont les mêmes et les valeurs restent à peu près les mêmes avec un effet encore plus important des marques.
+
+A savoir aussi, **gammaVar** ça correspond à la part de variance totale qui est due à l'inefficacité. Donc ici 37,5% de la variance totale est due à l'innefficacité.
 
 :::
 
@@ -1399,7 +1415,29 @@ D'un autre côté, en s'appuyant sur ce qui avait déjà été fait dans la litt
 
 Enfin, évidemment, l'atout principal de ce projet c'est la création et le déploiement de notre application, qui, on l'espère, vous aidera dans le choix de votre futur téléphone !
 
-FIN
+**FIN**
+
+***
+
+@arrondo2018
+
+@lancaster1966
+
+@farrell1957
+
+@arrison1978
+
+@reinhard2000
+
+@rosko2008
+
+@mohamad2008
+
+@bello2010
+
+@ahmad2019
+
+@boistel2008
 :::
 
 ::: {.footer}

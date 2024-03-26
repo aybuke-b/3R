@@ -150,27 +150,6 @@ with st.expander("✨ **Insight 5) Distribution des prix**"):
         """
     )
 
-with st.expander("✨ **Insight 6) Variance, std ?**"):
-    st.markdown("**A explorer**")
-    st.dataframe(
-        df.select(
-            pl.col(
-                "price",
-                "ram",
-                "storage",
-                "screen_size",
-                "das_head",
-                "das_limbs",
-                "das_chest",
-                "ppi",
-                "battery",
-                "repairability_index",
-            )
-        ).describe(),
-        hide_index=True,
-    )
-
-
 st.write(
     f"""
     > *Icônes* : {fontawesome_icon} **FontAwesome** version **{version[0]}**
