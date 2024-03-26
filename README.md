@@ -2,6 +2,7 @@
 
 ![](imgs/smartphones.png)
 
+> [!NOTE]
 > ⚠️ Cliquez [[📂 ici]](report.pdf) pour accéder au `pdf` complet du projet ou bien [[📽 ici]](https://corentinducloux.fr/Reveal.js/slides_smartphones.html)  pour visualiser la présentation interactive !
 
 ## Introduction

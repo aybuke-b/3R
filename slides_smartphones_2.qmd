@@ -1207,7 +1207,7 @@ summary(scf, extraPar = TRUE)$mleParam |>
         )
     ) |>
     mutate(signif = makestars(pr_z)) |>
-    filter(variables %nin% c("sigmaSqU","sigmaSqV", "sigma", "sigmaU", "sigmaV", "lambdaSq", "lambda", "varU", "sdU")) |>
+    filter(variables %nin% c("*sigmaSqU*","*sigmaSqV*", "*sigma*", "*sigmaU*", "*sigmaV*", "*lambdaSq*", "*lambda*", "*varU*", "*sdU*")) |>
     gt() |>
     cols_hide(c(z_value, pr_z)) |>
     cols_label(
@@ -1249,6 +1249,7 @@ summary(scf, extraPar = TRUE)$mleParam |>
         apply_to = "text"
     ) |>
     fmt_markdown(c(variables,signif)) |>
+    sub_missing() |>
     tab_footnote(
         md(glue::glue("**Efficacité moyenne** : {mean_eff}"))
     ) |>
@@ -1271,6 +1272,8 @@ summary(scf, extraPar = TRUE)$mleParam |>
 *Corentin*
 
 On a les mêmes niveaux de significativité, les signes des coefficients sont les mêmes et les valeurs restent à peu près les mêmes avec un effet encore plus important des marques.
+
+A savoir aussi, **gammaVar** ça correspond à la part de variance totale qui est due à l'inefficacité. Donc ici 37,5% de la variance totale est due à l'innefficacité.
 
 :::
 
@@ -1412,7 +1415,29 @@ D'un autre côté, en s'appuyant sur ce qui avait déjà été fait dans la litt
 
 Enfin, évidemment, l'atout principal de ce projet c'est la création et le déploiement de notre application, qui, on l'espère, vous aidera dans le choix de votre futur téléphone !
 
-FIN
+**FIN**
+
+***
+
+@arrondo2018
+
+@lancaster1966
+
+@farrell1957
+
+@arrison1978
+
+@reinhard2000
+
+@rosko2008
+
+@mohamad2008
+
+@bello2010
+
+@ahmad2019
+
+@boistel2008
 :::
 
 ::: {.footer}
