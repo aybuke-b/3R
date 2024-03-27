@@ -12,7 +12,7 @@ format:
     chalkboard: true
     transition: slide
     background-transition: fade
-    theme: blood
+    theme: [blood, custom.scss]
     incremental: true   
     footer: "--- Recherche, Réalisation, Restitution ---"
     logo: https://corentinducloux.fr/dossier_img/mecen_transparent.png
@@ -208,7 +208,10 @@ Ensuite pour ce qui est des fonctionnalités :
 
 ## `SMART'SPECS` Démonstration
 
-**🚀 Lancement de l'application**
+**🚀 Lancement de l'application** <img src="imgs/logo.png" alt="Logo" style="vertical-align: middle; margin-right: 2.5px; width: 60px; height: 60px;">
+
+
+
 
 ::: {.callout-note}
 
@@ -226,11 +229,17 @@ py -m poetry shell
 python -m streamlit run Accueil.py
 ```
 
-$\Rightarrow$ *Simple* : seulement 2 commandes pour accéder à l'application !
 
 :::
 
-<img src = imgs/logo.png width="10%">
+:::{.callout-note}
+
+## Depuis le lien de l'application déployée
+
+- **Lien** : [https://smart-specs.streamlit.app/](https://smart-specs.streamlit.app/)
+
+:::
+
 
 ::: {.footer}
 --- Recherche, Réalisation, `Restitution` ---
@@ -479,7 +488,6 @@ $$
 
 :::{.notes}
 *Buk*
-
 
 On en arrive à la partie d'application du pricing hédonique $\Rightarrow$ On va décomposer le prix d'un bien, en l'occurence un smartphone, en 11 caractéristiques : le stockage, la marque, la ram, la taille et le type d'écran, etc.
 
@@ -1321,8 +1329,9 @@ bind_cols(df_phones, eff_df) |>
 ::: {.notes}
 *Buk*
 
+Une fois qu'on a réalisé l'estimation du modèle SFA, on récupère un résidu. Mais individuellement, on ne sait pas quelle est la part de $u_i$ dans $\epsilon_i$. 
 
-Grâce au calcul de l'espérance conditionnelle, on peut donc déterminer quels téléphones sont les plus/moins efficaces de notre sélection. On peut donc aussi faire des regroupements par marque, ce qu'on a décidé de vous montrer sur ce tableau.
+Grâce au calcul de l'espérance conditionnelle individuelle, on peut donc déterminer quels téléphones sont les plus/moins efficaces de notre sélection. On peut aussi faire des regroupements par marque, ce qu'on a décidé de vous montrer sur ce tableau.
 
 A noter que même si le package le fait pour nous en une commande c'est un calcul qui est complexe et qui fait plusieurs pages de formules qu'on a inclut dans le rapport mais qu'on ne va pas préciser ici.
 
