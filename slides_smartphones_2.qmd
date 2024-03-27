@@ -208,7 +208,10 @@ Ensuite pour ce qui est des fonctionnalités :
 
 ## `SMART'SPECS` Démonstration
 
-**🚀 Lancement de l'application**
+**🚀 Lancement de l'application** <img src="imgs/logo.png" alt="Logo" style="vertical-align: middle; margin-right: 2.5px; width: 60px; height: 60px;">
+
+
+
 
 ::: {.callout-note}
 
@@ -226,11 +229,17 @@ py -m poetry shell
 python -m streamlit run Accueil.py
 ```
 
-$\Rightarrow$ *Simple* : seulement 2 commandes pour accéder à l'application !
 
 :::
 
-<img src = imgs/logo.png width="10%">
+:::{.callout-note}
+
+## Depuis le lien de l'application déployée
+
+- **Lien** : [https://smart-specs.streamlit.app/](https://smart-specs.streamlit.app/)
+
+:::
+
 
 ::: {.footer}
 --- Recherche, Réalisation, `Restitution` ---
