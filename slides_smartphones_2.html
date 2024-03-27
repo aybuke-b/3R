@@ -8,7 +8,7 @@
 <link href="slides_smartphones_2_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="slides_smartphones_2_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="slides_smartphones_2_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.549">
+  <meta name="generator" content="quarto-1.4.551">
 
   <meta name="author" content="Aybuké BICAT &amp; Corentin DUCLOUX">
   <title>Application des modèles SFA à l’étude des prix</title>
@@ -408,12 +408,19 @@
     }
   </style>
   <script src="slides_smartphones_2_files/libs/core-js-2.5.3/shim.min.js"></script>
+
   <script src="slides_smartphones_2_files/libs/react-18.2.0/react.min.js"></script>
+
   <script src="slides_smartphones_2_files/libs/react-18.2.0/react-dom.min.js"></script>
+
   <script src="slides_smartphones_2_files/libs/reactwidget-1.0.0/react-tools.js"></script>
+
   <script src="slides_smartphones_2_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
   <link href="slides_smartphones_2_files/libs/reactable-0.4.4/reactable.css" rel="stylesheet">
+
   <script src="slides_smartphones_2_files/libs/reactable-binding-0.4.4/reactable.js"></script>
+
   <style>
   #title-slide .title {
   font-size: 1.75em;
@@ -2697,6 +2704,7 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </ul>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <div id="mehjdlixnh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#mehjdlixnh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -3218,12 +3226,14 @@ price_i = \beta_0 + \beta_1 storage_i + \beta_2 brand_i + \beta_3 ram_i\\
 </div>
 </div>
 </div>
+</div>
 <div class="footer">
 <p>— Recherche, <code>Réalisation</code>, Restitution —</p>
 </div>
 <aside class="notes">
 <p><em>Buk</em></p>
-<p>Grâce au calcul de l’espérance conditionnelle, on peut donc déterminer quels téléphones sont les plus/moins efficaces de notre sélection. On peut donc aussi faire des regroupements par marque, ce qu’on a décidé de vous montrer sur ce tableau.</p>
+<p>Une fois qu’on a réalisé l’estimation du modèle SFA, on récupère un résidu. Mais individuellement, on ne sait pas quelle est la part de <span class="math inline">\(u_i\)</span> dans <span class="math inline">\(\epsilon_i\)</span>.</p>
+<p>Grâce au calcul de l’espérance conditionnelle individuelle, on peut donc déterminer quels téléphones sont les plus/moins efficaces de notre sélection. On peut aussi faire des regroupements par marque, ce qu’on a décidé de vous montrer sur ce tableau.</p>
 <p>A noter que même si le package le fait pour nous en une commande c’est un calcul qui est complexe et qui fait plusieurs pages de formules qu’on a inclut dans le rapport mais qu’on ne va pas préciser ici.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -3602,42 +3612,80 @@ Rosko, Michael D, and Ryan L Mutter. 2008. <span>“Stochastic Frontier Analysis
       });
     </script>
     
+
     <script>
+
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
       // slide changes (different for each slide format).
+
       (function () {
+
         // dispatch for htmlwidgets
+
         function fireSlideEnter() {
+
           const event = window.document.createEvent("Event");
+
           event.initEvent("slideenter", true, true);
+
           window.document.dispatchEvent(event);
+
         }
+
+    
 
         function fireSlideChanged(previousSlide, currentSlide) {
+
           fireSlideEnter();
 
+    
+
           // dispatch for shiny
+
           if (window.jQuery) {
+
             if (previousSlide) {
+
               window.jQuery(previousSlide).trigger("hidden");
+
             }
+
             if (currentSlide) {
+
               window.jQuery(currentSlide).trigger("shown");
+
             }
+
           }
+
         }
+
+    
 
         // hookup for slidy
+
         if (window.w3c_slidy) {
+
           window.w3c_slidy.add_observer(function (slide_num) {
+
             // slide_num starts at position 1
+
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
           });
+
         }
 
+    
+
       })();
+
     </script>
+
+    
 
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -3726,6 +3774,11 @@ Rosko, Michael D, and Ryan L Mutter. 2008. <span>“Stochastic Frontier Analysis
         for (var i=0; i<links.length; i++) {
           const link = links[i];
           if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
               // default icon
               link.classList.add("external");
           }
@@ -3766,7 +3819,11 @@ Rosko, Michael D, and Ryan L Mutter. 2008. <span>“Stochastic Frontier Analysis
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {
