@@ -1036,6 +1036,8 @@ La SFA (`Stochastic Frontier Analysis`) est une méthode paramétrique : elle re
 
 :::{.notes}
 *Corentin*
+
+En fait ici en utilisant le logarithme on va passer d'une forme multiplicative à une forme additive.
 :::
 
 ## SFA ~ RAPPELS (III) {.smaller}
@@ -1434,7 +1436,7 @@ Enfin, évidemment, l'atout principal de ce projet c'est la création et le dép
 
 @farrell1957
 
-@arrison1978
+@harrison1978
 
 @reinhard2000
 
