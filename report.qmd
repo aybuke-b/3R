@@ -1521,6 +1521,48 @@ loghedonic_scf_results |>
 
 \newpage
 
+
+### Quel modèle choisir ?
+
+La question qui se pose est la suivante : quel modèle choisir entre la régression hédonique et la SFA ?
+
+Pour répondre à cette question, nous pouvons utiliser le test de rapport de vraisemblance :
+
+$$
+\begin{cases}
+H_0: OLS \text{ log-level}\\
+H_1: SFA \text{ cost frontier}
+\end{cases}
+$$
+
+Avec la statistique de test $\lambda_{RV} = 2 \cdot \left(\ln \mathcal{L_1}- \ln \mathcal{L_2}\right)$
+
+On obtient : 
+
+```{r}
+loglik_loghedonic <- logLik(loghedonic)[1]
+loglik_sfa <- logLik(scf)[1]
+```
+
+- Log-Vraisemblance pour `OLS log-level` : ${\displaystyle {\ln\mathcal {L_1}}(\theta ;y, X)}=$ **`r round(loglik_loghedonic,2)`**
+
+- Log-Vraisemblance pour `SFA Cost Frontier` : ${\displaystyle {\ln\mathcal {L_2}}(\theta ;y, X)}=$ **`r round(loglik_sfa,2)`**
+
+Avec $y$ le vecteur de $\ln(price)$ et $X$ la matrice de variables indépendantes.
+
+
+```{r}
+lrtest <- lrtest(scf)
+pvalue_lrtest <- round(lrtest$`Pr(>Chisq)`[2],2)
+
+#AIC(scf) < AIC(loghedonic)
+```
+
+$\Rightarrow$ On rejette l'hypothèse nulle $H_0$ car la $p-value$ issue du test $=$ **`r pvalue_lrtest`** $< 0.05$.
+
+Notre choix se porte donc vers le modèle SFA pour notre analyse puisqu’il offre un meilleur ajustement, suite au rejet de l’hypothèse nulle à l’issue du test de rapport de vraisemblance. En fait, ce n'est pas particulièrement surprenant. Cela souligne simplement le fait que des coefficients significatifs ont été identifiés au niveau des paramètres utilisés pour estimer l'inefficacité dans les résultats de l'analyse de l'estimation SFA Cost Frontier.
+
+
 ### Analyse de l'efficacité
 
 ```{r mean_eff}
@@ -1811,6 +1853,12 @@ circle_dim_34 <- fviz_famd_var(afdm_res, "quanti.var", repel = TRUE, col.var = "
 circle_dim_12
 ```
 
+
+D'après le nuage des variables, on peut voir que les variables qui contribuent à l'axe F1 sont le *logprice*, *ppi*, *storage* ainsi que *ram*. On peut donc supposer que les 3 caractéristiques constituent la majeure partie de la variation observée dans la variable *logprice*.
+
+Pour l’axe F2, ce sont principalement les variables *screen_size* et *efficiency* qui contribuent le plus à cet axe. On peut observer que l'efficacité (*efficiency*) est moins bien représentée que *screen_size*, comme le suggère la différence dans la longueur des flèches associées à ces variables.
+
+
 ```{r}
 #| fig.width: 4.5
 #| fig.height: 4.5
@@ -1820,7 +1868,14 @@ circle_dim_12
 circle_dim_34
 ```
 
-$\Rightarrow$ On voit un cône de variables dans la dimension 1.
+Les variables ne contribuent pas beaucoup aux dimensions 3 et 4.
+Pour l'axe F3, la *ppi* contribuent pas mal suivi de *storage*, *ram*.
+
+Les variables présentent une contribution relativement faible aux dimensions 3 et 4 de l'analyse. 
+En ce qui concerne l'axe F3, on constate que le **ppi** contribue un peu plus que les autres, suivi par *storage* et *ram*.
+
+Pour l'axe F4, c'est la variable *screen_size* qui contribue le plus, suivie par *efficiency*, tandis que *logprice* contribue pratiquement pas. Il est également à noter que toutes ces variables sont positionnées du côté négatif de l'axe.
+
 
 
 # Conclusion
