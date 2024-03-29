@@ -1874,6 +1874,53 @@ Pour l'axe F4, c'est la variable *screen_size* qui contribue le plus, suivie par
 
 
 
+# Comparateur 
+
+En se basant sur notre problématique, nous voulions, en plus d'une estimation économétrique qui présente son lot de complexité, créer une application, et plus précisément un **comparateur d'efficacité**.
+
+En premier lieu, il convient de se poser une question qui semble évidente à première vue, mais qui, quand on s'y penche de plus près, est assez sophistiquée. 
+
+- Cette question c'est : *"Qu'est ce qu'un comparateur exactement ?"*
+
+::: {.callout-tip}
+
+## Définition
+- Un comparateur est un site web qui permet de comparer différents produits ou services.
+
+- Principalement axé sur les prix, il peut également prendre en compte les aspects techniques et la qualité des produits.
+:::
+
+On retrouve l'utilisation des comparateurs dans de nombreux domaines tels que les comparateurs de vols, d'assurances, de voitures, ou encore de banques.
+
+En bref il existe une variété de cas d'usage et un nombre croissant d'utilisateurs faisant appel à ces comparateurs avant d'acheter un bien ou un service.
+
+
+D'autre part, il y a des questions juridiques, économiques, statistiques et algorithmiques qui se posent.
+
+En effet, les opérateurs de plateforme en ligne doivent délivrer au consommateur une information **loyale**, **claire** et **transparente**, selon l’article [L. 111-7 du code de la consommation](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033219601).
+
+**Les comparateurs en ligne sont donc eux aussi soumis à ces obligations de loyauté et de transparence.**
+
+1. Page dédiée accessible depuis toutes les autres pages du comparateur informant le fonctionnement de celui-ci.
+
+2. Faire figurer sur chaque page de résultats  les informations concernant les critères de classement.
+
+3. Indiquer via la mention explicite **« annonce »** les résultats liés à des partenariats rémunérés.
+
+
+Il va sans dire que très peu de comparateurs respectent le premier point, souvent pour une raison simple : ce sont juste des listings de prix de téléphones du moins cher au plus cher, donc il n'y a pas vraiment de fonctionnement à proprement parler. De même, concernant les critères de classement. 
+
+
+En revanche le troisième point est presque toujours indiqué quelque part avec la mention *publicité* ou *annonce* quand il y a un partenariat rémunéré, et c'est normal car une grande partie des revenus de ces comparateurs provient de ces partenariats donc ils font assez attention à ce point.
+
+***L'avantage de notre comparateur c'est qu'il respecte les deux premiers points, sans se soucier du troisième puisque nous n'avons pas de partenariats rémunérés. Tout ça permet d'offrir une grande transparence pour le consommateur.***
+
+
+## Smart Specs
+
+
+
+
 # Conclusion
 
 La réalisation d'une étude utilisant les modèles SFA pour évaluer les prix des smartphones a permis de mieux comprendre les dynamiques complexes de ce marché en constante évolution. En explorant la littérature existante sur la SFA et la régression hédonique des prix, nous avons découvert les fondements théoriques de ces modèles, leurs apports ainsi que leurs limites.
