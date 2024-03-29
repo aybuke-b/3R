@@ -25,8 +25,9 @@ format:
         - "config.tex"
         colorlinks: true
         linkcolor: highlight
+        citecolor: highlight
         urlcolor: highlight
-        keep-tex: false
+        keep-tex: true
         bibliography: references.bib
         reference-location: document
         link-citations: true
@@ -1202,7 +1203,10 @@ Par rapport au modèle en niveau, il n'y a plus les variables *screen_type* et *
 ------------------------------------------------------------------------
 
 ```{r log_hedonic, results="asis"}
-loghedonic <- lm(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + das_chest + fast_charging + network + ppi,
+df_phones <- df_phones |>
+    mutate(logprice = log(price))
+
+loghedonic <- lm(logprice ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + das_chest + fast_charging + network + ppi,
     data = df_phones
 )
 
@@ -1256,15 +1260,14 @@ $R^2_{adj} = 0.929$ donc 92.9% de la variance de la variable expliquée est expl
 
 ### Vérification des hypothèses
 
-Un aspect crucial lors de la construction des modèles de régression linéaire est d’évaluer la qualité de l’ajustement du modèle, mais aussi de vérifier les hypothèses de **Gauss-Markov** :
+Un aspect crucial lors de la construction des modèles de régression linéaire est d’évaluer la qualité de l’ajustement du modèle, mais aussi de vérifier certaines hypothèses comme :
 
-1.  Linéarité dans les paramètres.
-2.  Les résidus sont d'espérance nulle.
-3.  Absence de multicolinéarité.
-4.  Homoscédasticité des résidus.
-5.  Pas d'autocorrélation des résidus.
+1.  La linéarité dans les paramètres.
+2.  Des résidus d'espérance nulle.
+3.  L'absence de multicolinéarité.
+4.  L'homoscédasticité des résidus.
 
-**Sous toutes ces hypothèses sont satisfaites, l'estimateur fourni par les MCO est dit BLUE (Best Linear Unbiased Estimator).** Pour les vérifier, on peut utiliser les packages `{performance}` et `{see}` en conjonction[^9].
+Pour ce faire, on peut utiliser les packages `{performance}` et `{see}` en conjonction[^9].
 
 [^9]: Plus d'infos sur les packages : [`see`](https://easystats.github.io/see/articles/performance.html) et [`performance`](https://easystats.github.io/performance/index.html)
 
@@ -1368,13 +1371,16 @@ plot(outliers, type = "dots")
 
 \newpage
 
-Enfin, la dernière étape visuelle que l'on peut mettre en œuvre est de vérifier l'ajustement du modèle. Une vérification prédictive a posteriori permet de simuler des données répliquées avec le modèle ajusté puis les comparer aux données observées.
+Enfin, on peut aussi mettre en œuvre une vérification visuelle de l'ajustement du modèle, en plus des métriques couramment utilisées. La vérification prédictive a posteriori permet de simuler des données répliquées avec le modèle ajusté puis les comparer aux données observées.
 
 $\Rightarrow$ **L’objectif est de détecter si le modèle est inadéquat pour décrire les données.**
 
 *Note* : Les données utilisées pour la vérification prédictive postérieure sont simulées à partir de la *distribution prédictive postérieure*. Celle-ci est construite après avoir utilisé les données observées $y$ et les prédicteurs $X$ pour mettre à jour les croyances sur les paramètres inconnus $\theta$ dans le modèle. Pour chaque tirage des paramètres $\theta$ à partir de la distribution a posteriori $p(\theta|y,X)$, un vecteur complet de résultats est généré.
 
-```{r posterior, fig.width=8}
+```{r posterior}
+#| fig.width: 8
+#| fig-align: center
+
 check_posterior_predictions(loghedonic)
 ```
 
@@ -1382,16 +1388,14 @@ check_posterior_predictions(loghedonic)
 
 ## Modèle SFA - Frontière de coût
 
-Le modèle reste le même que celui de l'@eq-log-hedonic, mais le terme d'erreur $\epsilon_i$ devient un terme d'erreur composé $u_i + v_i$.
-
-Pour modéliser cette frontière de coût, il suffit d'utiliser l'argument `ineffDecrease = FALSE`, autrement dit l'inefficacité augmente la variable endogène.
+Le modèle reste le même que celui de l'@eq-log-hedonic, mais le terme d'erreur $\epsilon_i$ devient un terme d'erreur composé $u_i + v_i$. Pour modéliser cette frontière de coût, il suffit d'utiliser l'argument `ineffDecrease = FALSE`, autrement dit l'inefficacité augmente la variable endogène.
 
 Il faut maintenant sélectionner la distribution des $u_i$. Deux distributions sont disponibles dans le package `{frontier}`:
 
 -   La distribution normale tronquée : `truncNorm = TRUE`.
 -   La distribution semi-normale : `truncNorm = FALSE`.
 
-Nous avons décidé de choisir la distribution *normale tronquée*.  
+Nous avons décidé de choisir la distribution *semi-normale.  
 $$
 \begin{split}
 \ln(price_i) = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}induction_i \\
@@ -1419,7 +1423,7 @@ stars <- function(pvalue) {
 ```{r stochastic_cost}
 scf <- sfa(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + fast_charging + das_chest + network + ppi,
     data = df_phones,
-    truncNorm = TRUE,
+    truncNorm = FALSE,
     ineffDecrease = FALSE
 )
 
@@ -1871,53 +1875,6 @@ Les variables présentent une contribution relativement faible aux dimensions 3 
 En ce qui concerne l'axe F3, on constate que le **ppi** contribue un peu plus que les autres, suivi par *storage* et *ram*.
 
 Pour l'axe F4, c'est la variable *screen_size* qui contribue le plus, suivie par *efficiency*, tandis que *logprice* contribue pratiquement pas. Il est également à noter que toutes ces variables sont positionnées du côté négatif de l'axe.
-
-
-
-# Comparateur 
-
-En se basant sur notre problématique, nous voulions, en plus d'une estimation économétrique qui présente son lot de complexité, créer une application, et plus précisément un **comparateur d'efficacité**.
-
-En premier lieu, il convient de se poser une question qui semble évidente à première vue, mais qui, quand on s'y penche de plus près, est assez sophistiquée. 
-
-- Cette question c'est : *"Qu'est ce qu'un comparateur exactement ?"*
-
-::: {.callout-tip}
-
-## Définition
-- Un comparateur est un site web qui permet de comparer différents produits ou services.
-
-- Principalement axé sur les prix, il peut également prendre en compte les aspects techniques et la qualité des produits.
-:::
-
-On retrouve l'utilisation des comparateurs dans de nombreux domaines tels que les comparateurs de vols, d'assurances, de voitures, ou encore de banques.
-
-En bref il existe une variété de cas d'usage et un nombre croissant d'utilisateurs faisant appel à ces comparateurs avant d'acheter un bien ou un service.
-
-
-D'autre part, il y a des questions juridiques, économiques, statistiques et algorithmiques qui se posent.
-
-En effet, les opérateurs de plateforme en ligne doivent délivrer au consommateur une information **loyale**, **claire** et **transparente**, selon l’article [L. 111-7 du code de la consommation](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033219601).
-
-**Les comparateurs en ligne sont donc eux aussi soumis à ces obligations de loyauté et de transparence.**
-
-1. Page dédiée accessible depuis toutes les autres pages du comparateur informant le fonctionnement de celui-ci.
-
-2. Faire figurer sur chaque page de résultats  les informations concernant les critères de classement.
-
-3. Indiquer via la mention explicite **« annonce »** les résultats liés à des partenariats rémunérés.
-
-
-Il va sans dire que très peu de comparateurs respectent le premier point, souvent pour une raison simple : ce sont juste des listings de prix de téléphones du moins cher au plus cher, donc il n'y a pas vraiment de fonctionnement à proprement parler. De même, concernant les critères de classement. 
-
-
-En revanche le troisième point est presque toujours indiqué quelque part avec la mention *publicité* ou *annonce* quand il y a un partenariat rémunéré, et c'est normal car une grande partie des revenus de ces comparateurs provient de ces partenariats donc ils font assez attention à ce point.
-
-***L'avantage de notre comparateur c'est qu'il respecte les deux premiers points, sans se soucier du troisième puisque nous n'avons pas de partenariats rémunérés. Tout ça permet d'offrir une grande transparence pour le consommateur.***
-
-
-## Smart Specs
-
 
 
 
