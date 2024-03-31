@@ -696,11 +696,21 @@ Le diagramme fonctionnel permet de comprendre comment interagissent les différe
 
 ```{r data import}
 root <- getwd()
-df_path <- file.path(root, "Web_Scraping", "data", "df_clean.csv")
+df_path <- file.path(root, "Web_Scraping", "data", "df_clean_2.csv")
 df <- read_delim(df_path, delim = ";")
+
+## Correction des erreurs de Boulanger ici.
+
+df <- df |> mutate(
+    storage = case_when(storage == 8 ~ 128, .default = as.double(storage)),
+    screen_type = case_when(
+        model == "Samsung Galaxy Z Fold 3" ~ "Pliable",
+        .default = as.character(screen_type)
+    )
+)
 ```
 
-Il y a `r nrow(df)` smartphones valides disponibles dans nos données scrapées sur Boulanger avec 35 variables.
+Il y a `r nrow(df)` smartphones disponibles dans nos données scrapées sur Boulanger avec 35 variables.
 
 -   Variables liées à l'écran : *screen_type*, *screen_size*, *screen_tech*, *diagonal_pixels*, *ppi*, *resolution_1*, *resolution_2*.
 
@@ -857,7 +867,7 @@ p1 + p2
 
 \newpage
 
-## Etudes des variables catégorielles importantes
+## Etude des variables catégorielles importantes
 
 Nous allons maintenant étudier les proportions des modalités des variables catégorielles.
 
@@ -975,7 +985,7 @@ Une analyse approfondie des corrélations entre l'ensemble des variables numéri
 #| fig-cap: "Matrice des corrélations."
 
 M <- df |>
-    select(where(is.numeric), -c(sensor, random_col, logprice)) |>
+    select(where(is.numeric), -c(sensor, random_col, logprice, thickness, width, net_weight, height, repairability_index)) |>
     cor()
 
 corrplot(M,
@@ -985,10 +995,11 @@ corrplot(M,
 
 cor_ram <- round(cor(df$price, df$ram), 2)
 cor_storage <- round(cor(df$price, df$storage), 2)
-cor_height <- round(cor(df$price, df$height), 3)
+cor_ppi <- round(cor(df$price, df$ppi), 2)
+cor_das_chest <- round(cor(df$price, df$das_chest), 2)
 ```
 
-On s'aperçoit que les corrélations les plus importantes avec **price** sont respectivement la capacité de stockage avec un coefficient de corrélation $r_{price, storage}=$ `r cor_storage` et la RAM avec $r_{price, ram}=$ `r cor_ram`. Inversement, la hauteur du téléphone, par exemple, semble ne pas avoir d'incidence sur le prix avec $r_{price, height}=$ `r cor_height`.
+On s'aperçoit que les corrélations les plus importantes avec **price** sont respectivement la capacité de stockage avec un coefficient de corrélation $r_{price, storage}=$ `r cor_storage`, la ppi avec $r_{price, ppi}=$ `r cor_ppi` et la RAM avec $r_{price, ram}=$ `r cor_ram`. Inversement, le débit d'absoprtion spécifique *(Tronc)* semble ne pas avoir d'incidence sur le prix avec $r_{price, das\_chest}=$ `r cor_das_chest`.
 
 **Compte tenu de la littérature existante et de nos observations, la RAM et la capacité de stockage sont donc des variables incontournables dans la modélisation des prix des smartphones.**
 
@@ -1039,11 +1050,11 @@ Cet algorithme est implémenté dans le package \faIcon{r-project} de `{glmulti}
 
 Pour la facilité des interprétations, dans cette partie, nous commencerons par utiliser un modèle *level* $-$ *level*, donc notre variable à prédire **price** ne sera pas mise sous forme logarithmique. Dans une seconde partie, nous préférerons un modèle *log* $-$ *level*, qui nous permettra de comparer directement les coefficients de la régression hédonique des prix avec les coefficients de la **SFA**.
 
-Nous allons tout d'abord retirer quelques variables qui ne nous seront pas utiles pour l'analyse et qui risquent de complexifier les régressions : *cpu*, *model*, *sensor*, *screen_tech*, *stars*, *reviews*, *color*, *cam_1*, *cam_2*, *cam_3*. Par exemple, il y a presque autant de modèles distincts que de nombre d'observations, et *reviews* et *stars* sont si peu corrélées à la variable à expliquer **price** que les ajouter ne semble pas nécessaire.
+Nous allons tout d'abord retirer quelques variables qui ne nous seront pas utiles pour l'analyse et qui risquent de complexifier les régressions : *cpu*, *model*, *sensor*, *screen_tech*, *stars*, *reviews*, *color*, *cam_1*, *cam_2*, *cam_3* et *image*. Par exemple, il y a presque autant de modèles distincts que de nombre d'observations, et *reviews* et *stars* sont si peu corrélées à la variable à expliquer **price** que les ajouter ne semble pas nécessaire.
 
 ```{r selection, results="hide", include = FALSE}
 df_phones <- df |>
-    select(-c(logprice, cpu, model, sensor, screen_tech, stars, reviews, color, cam_1, cam_2, cam_3, wifi, resolution))
+    select(-c(logprice, cpu, model, sensor, screen_tech, stars, reviews, color, cam_1, cam_2, cam_3, resolution, image, thickness, width, net_weight, height, repairability_index, flag, scraping_time))
 
 full_model <- lm(price ~ ., data = df_phones)
 null_model <- lm(price ~ 1, data = df_phones)
@@ -1204,9 +1215,12 @@ Par rapport au modèle en niveau, il n'y a plus les variables *screen_type* et *
 
 ```{r log_hedonic, results="asis"}
 df_phones <- df_phones |>
-    mutate(logprice = log(price))
+    mutate(
+        logprice = log(price)
+    )
 
-loghedonic <- lm(logprice ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + das_chest + fast_charging + network + ppi,
+loghedonic <- lm(
+    logprice ~ storage + brand + ram + induction + screen_size + screen_type + made_in + upgrade_storage + das_limbs + network + ppi,
     data = df_phones
 )
 
@@ -1395,7 +1409,7 @@ Il faut maintenant sélectionner la distribution des $u_i$. Deux distributions s
 -   La distribution normale tronquée : `truncNorm = TRUE`.
 -   La distribution semi-normale : `truncNorm = FALSE`.
 
-Nous avons décidé de choisir la distribution *semi-normale.  
+Nous avons décidé de choisir la distribution *semi-normale*.  
 $$
 \begin{split}
 \ln(price_i) = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}induction_i \\
@@ -1421,13 +1435,15 @@ stars <- function(pvalue) {
 ```
 
 ```{r stochastic_cost}
-scf <- sfa(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + fast_charging + das_chest + network + ppi,
+scf <- sfa(
+    log(price) ~ storage + brand + ram + induction + screen_size + screen_type
+        + made_in + upgrade_storage + das_limbs + network + ppi,
     data = df_phones,
     truncNorm = FALSE,
     ineffDecrease = FALSE
 )
 
-scf_summary <- summary(scf)
+scf_summary <- summary(scf, extraPar = TRUE)
 ```
 
 \newpage
@@ -1508,7 +1524,7 @@ loghedonic_results <- cbind(
     round(loghedonic_summary$coefficients[, 2], 4)
 )
 
-scf_results_2 <- scf_results[1:30, 1:3]
+scf_results_2 <- scf_results[1:22, 1:3]
 
 loghedonic_scf_results <- cbind(loghedonic_results, scf_results_2)
 
@@ -1553,9 +1569,9 @@ Avec $y$ le vecteur de $\ln(price)$ et $X$ la matrice de variables indépendante
 
 ```{r}
 lrtest <- lrtest(scf)
-pvalue_lrtest <- round(lrtest$`Pr(>Chisq)`[2],2)
+pvalue_lrtest <- round(lrtest$`Pr(>Chisq)`[2], 2)
 
-#AIC(scf) < AIC(loghedonic)
+# AIC(scf) < AIC(loghedonic)
 ```
 
 $\Rightarrow$ On rejette l'hypothèse nulle $H_0$ car la $p-value$ issue du test $=$ **`r pvalue_lrtest`** $< 0.05$.
