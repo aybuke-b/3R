@@ -810,11 +810,11 @@ df |>
     labs(x = "", y = "")
 ```
 
--   *Apple* possède en moyenne les téléphones les plus chers dans l'échantillon (1177.75 €).
+-   *Apple* possède en moyenne les téléphones les plus chers dans l'échantillon (1045 €).
 
--   Le prix moyen des smartphones commercialisés par *Samsung* est de 848.98 €. C'est certes moins qu'*Apple*, mais cela peut s'expliquer car *Samsung* commercialise à la fois des téléphones très haut de gamme et des téléphones bas de gamme aux prix beaucoup plus attractifs.
+-   Le prix moyen des smartphones commercialisés par *Samsung* est de 847 €. C'est certes moins qu'*Apple*, mais cela peut s'expliquer car *Samsung* commercialise à la fois des téléphones très haut de gamme et des téléphones bas de gamme aux prix beaucoup plus attractifs.
 
--   En dernière position, on retrouve *Xiaomi* avec des téléphones à un prix moyen aux alentours de 260 €.
+-   En dernière position, on retrouve *Xiaomi* avec des téléphones à un prix moyen aux alentours de 247 €.
 
 \newpage
 
@@ -838,7 +838,7 @@ df |>
     row_spec(0, bold = T)
 ```
 
--   On peut voir que plus la RAM augmente, plus le prix moyen du téléphone augmente (sauf à partir de 12 Gigaoctets). On a en effet remarqué plus haut que le téléphone le plus cher était le **`r max_model`**, qui possède 12 Go de RAM, et non 16. Ce constat, en plus du nombre très limité de téléphones disposant de 16 Go de RAM (7), peut expliquer pourquoi le prix moyen des téléphones ayant 16 Go de RAM est inférieur au prix moyen des téléphones disposant de 12 Go de RAM.
+-   On peut voir que plus la RAM augmente, plus le prix moyen du téléphone augmente. On a cependant remarqué plus haut que le téléphone le plus cher était le **`r max_model`**, qui possède 12 Go de RAM, et non 16. Ce constat, en plus du nombre très limité de téléphones disposant de 16 Go de RAM (7), peut expliquer pourquoi le prix moyen des téléphones ayant 16 Go de RAM est inférieur au prix moyen des téléphones disposant de 12 Go de RAM.
 
 -   Pour le second tableau, il existe une relation non-linéaire concernant le doublement de la capacité de stockage du téléphone. Par exemple, passer de 64 à 128 Go implique une augmentation du prix moyen de 250% alors que passer de 256 à 512 Go de stockage implique seulement 141% d'augmentation du prix moyen. Il convient aussi de préciser que $\simeq$ 70% des téléphones de notre échantillon possèdent entre 128 et 256 Go de capacité de stockage.
 
@@ -884,7 +884,7 @@ df |>
     labs(x = "", y = "")
 ```
 
--   Samsung, Apple & Xiamoi se partagent 70% des téléphones commercialisés sur Boulanger.
+-   Samsung, Apple & Xiamoi se partagent 80% des téléphones commercialisés sur Boulanger.
 
 -   On retrouve la même tendance au niveau des parts de marché mondial des smartphones par rapport à Q3 2022, c'est-à-dire que Samsung, Apple & Xiaomi se partagent respectivement 22, 18 et 14% de parts de marché.
 
@@ -911,9 +911,9 @@ p8 <- df |>
 p7 + p8
 ```
 
--   On remarque que la majorité des smartphones sont fabriqués en Chine et au Viêt Nam (*97.5*%). Les 12 téléphones restants sont fabriqués en Thaïlande, au Japon, en Inde et à Taïwan.
+-   On remarque que la majorité des smartphones sont fabriqués en Chine et au Viêt Nam (*98.4*%). Les 12 téléphones restants sont fabriqués en Thaïlande, au Japon, en Inde et à Taïwan.
 
--   Concernant les types d'écran, 76.2% des écrans sont *plats*, 14.6% sont *borderless* (bord à bord), il y a 7.4% d'écrans pliables et finalement 1.8% d'écrans à bords incurvés.
+-   Concernant les types d'écran, 80.5% des écrans sont *plats*, 11.6% sont *borderless* (bord à bord), il y a 6.02% d'écrans pliables et finalement 1.8% d'écrans à bords incurvés.
 
 \newpage
 
@@ -967,9 +967,9 @@ p6 <- df |>
 (p3 + p4) / (p5 + p6)
 ```
 
-Si les modalités sont plutôt bien équilibrées pour les variables *induction* et *upgrade_storage*, ce n'est pas le cas pour la variable *usb_type_c* et le déséquilibre est surtout présent pour *fast_charging*. En effet seulement 19 téléphones n'ont pas de charge rapide (ces 19 téléphones sont beaucoup moins chers et sont principalement des téléphones bas de gamme).
+Si les modalités sont plutôt bien équilibrées pour les variables *induction* et *upgrade_storage*, ce n'est pas le cas pour la variable *usb_type_c* et le déséquilibre est surtout présent pour *fast_charging*. En effet seulement 11 téléphones n'ont pas de charge rapide (ces 11 téléphones sont beaucoup moins chers et sont principalement des téléphones bas de gamme).
 
-Pour la variable *usb_type_c*, il y a 120 téléphones sans chargeur USB type C et le fait de ne pas avoir d'USB type C fait augmenter le prix moyen par rapport aux téléphones qui en ont (les téléphones n'ayant pas d'USB type C sont principalement de marque *Apple*, ce qui explique en partie l'effet).
+Pour la variable *usb_type_c*, il y a 162 téléphones sans chargeur USB type C et le fait de ne pas avoir d'USB type C fait augmenter le prix moyen par rapport aux téléphones qui en ont (les téléphones n'ayant pas d'USB type C sont principalement de marque *Apple*, ce qui explique en partie l'effet).
 
 Le même effet d'augmentation du prix moyen s'observe avec la variable *upgrade_storage*, c'est-à-dire que les téléphones ne possédant pas de système leur permettant d'augmenter leur stockage sont en moyenne plus chers que les téléphones offrant la possibilité de le faire. Ce qui peut paraître à première vue contre-intuitif ne l'est peut-être pas : les téléphones offrant la possibilité d'augmenter le stockage sont ceux qui en ont le moins, d'où la nécessité de laisser au consommateur la possibilité de pouvoir le faire. Inversement, les téléphones qui n'ont pas de système d'augmentation de stockage ont déjà un stockage important.
 
@@ -1096,13 +1096,12 @@ Le modèle que nous allons étudier ici sera donc :
 $$
 \begin{split}
 price_i = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}screen\_type_i \\
-+ \beta_{5i}induction_i + \beta_{6i}screen\_size_i + \beta_{7i}repairability\_index_i \\
-+ \beta_{8i}made\_in_i + \beta_{9i}upgrade\_storage_i + \beta_{10i}fast\_charging_i  \\
-+ \beta_{11i}das\_limbs_i + \beta_{12i}das\_chest_i + \epsilon_i
++ \beta_{5i}induction_i + \beta_{6i}made\_in_i + \beta_{7i}upgrade\_storage_i + \\ 
++ \beta_{8i}usb\_type\_c_i  + \beta_{9i}battery_i + \epsilon_i
 \end{split}
 $$ {#eq-level-hedonic}
 
-On voit que dans le modèle de l'@eq-level-hedonic, il n'y a pour l'instant aucun effet d'interaction ou d'effet non-linéaire. Pour autant, les résultats sont déjà **très satisfaisants** avec un $R^2_{adj} > 0.9$
+On voit que dans le modèle de l'@eq-level-hedonic, il n'y a pour l'instant aucun effet d'interaction ou d'effet non-linéaire. Pour autant, les résultats sont déjà **très satisfaisants** avec un $R^2_{adj} > 0.8$
 
 \newpage
 
@@ -1140,39 +1139,45 @@ stargazer(
 
 ### Interpétations Modèle niveau-niveau
 
--   Si la capacité de stockage (*storage*) augmente de 1 Go, alors, le prix augmente de 0.74 €, *cet. par.*
+-   Posséder un dispositif de charge à induction (*induction = `TRUE`*) augmente le prix de 234.76 €, *cet. par.*
+
+-   Si la capacité de stockage (*storage*) augmente de 1 Go, alors, le prix augmente de 0.883 €, *cet. par.*
+
+<!---   Lorsque le *ppi* (*pixels par pouce*) augmente d'une unité, alors le prix diminue de 5.52 €, *cet. par.* -->
 
 -   En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
 
-    -   La marque la plus valorisée derrière *Apple* est *Sony* avec 433.39 € de différence par rapport à *Apple*.
-    -   La marque la moins valorisée est *Nothing* avec 896.87 € de différence par rapport à *Apple*
+    -   La marque la plus valorisée derrière *Apple* est *Samsung* avec 363.62 € de différence par rapport à *Apple*.
+    -   La marque la moins valorisée est *Oppo* avec 610.1 € de différence par rapport à *Apple*
 
--   Une augmentation d'un Go de *ram* augmente le prix de 42.63 €, *cet. par.*
+<!---   Si la taille de l'écran augmente de 1 pouce, alors le prix diminue de 345.2 €, *cet. par.* -->
+
+-   Une augmentation d'un Go de *ram* augmente le prix de 32.32 €, *cet. par.*
 
 -   Pour le type d'écran (*screen_type*), la catégorie de référence est *borderless* (un écran sans bordure).
 
-    -   Disposer d'un écran à bord incurvé diminue le prix de 147.11 € par rapport à la catégorie de référence, *cet. par.*
-    -   Pour l'écran plat, le prix diminue de 100.5 € par rapport à la catégorie de référence, *cet. par.*
-    -   Avoir un écran pliable fait augmenter le prix de 316.85 € par rapport à la catégorie de référence, *cet. par.*
+    -   Disposer d'un écran à bord incurvé diminue le prix de 234.96 € par rapport à la catégorie de référence, *cet. par.*
+    -   Pour l'écran plat, le prix diminue de 68.99 € par rapport à un écran sans bordure, *cet. par.*
+    -   Avoir un écran pliable fait augmenter le prix de 302.71 € par rapport à la catégorie de référence, *cet. par.*
 
--   Posséder un dispositif de charge à induction (*induction = `TRUE`*) augmente le prix de 156.81 €, *cet. par.*
+- Si la batterie (*battery*) augmente d'un mAh (MilliAmpère Heure), alors le prix augmente de 0.133 €, *cet. par.*
 
--   Si la taille de l'écran augmente de 1 pouce, alors le prix augmente de 154.69 €, *cet. par.*
-
--   L'indice de réparabilité (*repairability_index*) est compris entre 1 et 10. Une augmentation de 1 point de cet indice implique une augmentation de 108.97 €, *cet. par.*
+-   Si le téléphone dispose d'une USB type C (*usb_type_c = `TRUE`*), alors le prix augmente de 89.83 €, *cet.par.*
 
 -   Concernant le lieu de fabrication (*made_in*), la catégorie de référence est la *Chine*.
 
-    -   Les coefficients associés aux catégories *Inde* et *Viêt Nam* ne sont pas significatives, c'est-à-dire qu'il n'y a pas de différence significative de prix avec un smartphone produit en *Chine*.
-    -   Comparé à un téléphone fabriqué en Chine, un téléphone produit au *Japon* augmente le prix de 562.52 €, suivi de la *Thaïlande* avec une augmentation de 540.91 € et enfin de *Taïwan* avec une augmentation du prix de 376.4 €, *cet. par.*
+    -   Le coefficient associé à la catégorie *Viêt Nam* n'est pas significatif, c'est-à-dire qu'il n'y a pas de différence significative de prix avec un smartphone produit en *Chine*.
+    -   Comparé à un téléphone fabriqué en Chine, un téléphone produit au *Thaïlande* augmente le prix de 507.6.4 €, suivi du *Japon* avec une augmentation du prix de 399.04 €, *cet. par.*
 
--   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage* = `TRUE`*), alors le prix diminue de 133.05 €,* cet. par.\* Comme nous l'avions remarqué dans la partie de statistiques descriptives.
+-   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage* = `TRUE`), alors le prix diminue de 123.04 €, *cet.par* ; comme nous l'avions remarqué dans la partie de statistiques descriptives.
 
--   Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de 145.99 €, *cet.par.*
+<!--- Pour les variables concernant la résolution de l'écran : 
+    -  Si la résolution de l'écran (*resolution_1*) augmente de 1 pixel dans la première dimension, alors le prix du téléphone augmente de 0.698 €, *cet. par.*
+    - Si la résolution de l'écran (*resolution_2*) augmente de 1 pixel dans la deuxième dimension, alors le prix du téléphone augmente de 0.853 €, *cet. par.*-->
 
--   Pour les variables liées au DAS, l'effet de *das_limbs* est positif sur le prix, tandis que l'effet de *das_head* est quant à lui négatif. L'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de 72.88 € alors que cette même augmentation diminue le prix de 105.16 € pour *das_head*, *cet.par.* Néanmoins, l'effet peut être globalement vu comme négatif étant donné la valeur des coefficients.
 
-$R^2_{adj} = 0.923$ donc 92.3% de la variance de la variable expliquée (price) est expliquée par la variance des variables explicatives du modèle.
+
+$R^2_{adj} = 0.877$ donc 87.7% de la variance de la variable expliquée (price) est expliquée par la variance des variables explicatives du modèle.
 
 \newpage
 
