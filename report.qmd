@@ -1203,9 +1203,8 @@ Après plusieurs essais, le modèle que nous avons choisi d'étudier est :
 $$
 \begin{split}
 \ln(price_i) = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}induction_i \\
-+ \beta_{5i}screen\_size_i + \beta_{6i}made\_in_i + \beta_{7i}upgrade\_storage_i \\
-+ \beta_{8i}das\_head_i + \beta_{9i}das\_limbs_i + \beta_{10i}das\_chest_i  \\
-+ \beta_{11i}fast\_charging_i + \beta_{12i}network_i + \beta_{13i}ppi_i + \epsilon_i
++ \beta_{5i}screen\_size_i + \beta_{6i}made\_in_i + \beta_{7i}upgrade\_storage_i + \beta_{8i}das\_limbs_i  \\
++ \beta_{9i}screen\_type + \beta_{10i}network_i + \beta_{11i}ppi_i + \epsilon_i
 \end{split}
 $$ {#eq-log-hedonic}
 
@@ -1240,35 +1239,38 @@ stargazer(loghedonic,
 
 -   En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
 
-    -   La marque la plus valorisée derrière *Apple* est *Samsung* avec une différence de prix de $15.1\%$.
-    -   La marque la moins valorisée est *Honor* avec une différence de prix de $98.7\%$ par rapport à *Apple*.
+    -   La marque la plus valorisée derrière *Apple* est *Samsung* avec une différence de prix de $41.1\%$.
+    -   La marque la moins valorisée est *Xiaomi* avec une différence de prix de $100.5\%$ par rapport à *Apple*.
 
--   Si la *ram* augmente de 1 Go, alors le prix augmente de $8.2\%$, *cet. par.*
+-   Si la *ram* augmente de 1 Go, alors le prix augmente de $7.7\%$, *cet. par.*
 
--   Si le téléphone dispose d'une charge à induction (*induction = `TRUE`*), alors le prix augmente de $27.2\%$, *cet. par.*
+-   Si le téléphone dispose d'une charge à induction (*induction = `TRUE`*), alors le prix augmente de $21.2\%$, *cet. par.*
 
--   Si la taille de l'écran augmente de 1 pouce (*screen_size*), alors le prix augmente de $24.1\%$, *cet. par.*
+-   Si la taille de l'écran augmente de 1 pouce (*screen_size*), alors le prix augmente de $13.4\%$, *cet. par.*
+
+-   Pour le type d’écran (*screen_type*), la catégorie de référence est *borderless* (un écran sans bordure) :
+    - Les coefficients associés à la catégorie *screen_typeBords incurvés* et *screen_typePlat* ne sont pas significatifs.
+    <!--- Disposer d’un écran à bord incurvé (*screen_typeBords incurvés*) diminue le prix de $10.9\%$ par rapport à la catégorie de référence, *cet. par*.
+    - Pour l’écran plat (*screen_typePlat*), le prix diminue de $3.5\%$ par rapport à un écran sans bordure, *cet. par*.-->
+    - Avoir un écran pliable fait augmenter le prix de $37.3\%$ par rapport à l'écran *borderless*, *cet. par*.
 
 -   Pour le lieu de fabrication (*made_in*), la catégorie de référence est la *Chine*.
 
-    -   Le coefficient associé à la catégorie *Inde* n'est pas significatif.
-    -   Un téléphone qui est fabriqué au *Viêt Nam* est $14.9\%$ moins cher qu'un téléphone fabriqué en *Chine*, *cet. par.*
-    -   Comparé à un téléphone produit en *Chine*, un téléphone produit en *Thaïlande* augmente le prix de $54.3\%$, suivi de *Taïwan* avec une augmentation de $47.5\%$ et enfin du *Japon* avec une augmentation du prix de $41.4\%$, *cet. par.*
+    -   Les coefficients associés à la catégorie *Japon* et *Viêt Nam* ne sont pas significatifs.
+   <!-- -   Un téléphone qui est fabriqué au *Viêt Nam* est $9.3\%$ moins cher qu'un téléphone fabriqué en *Chine*, *cet. par.*-->
+    -   Comparé à un téléphone produit en *Chine*, un téléphone produit en *Thaïlande* augmente le prix de $69.8\%$, *cet. par.*
 
--   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage = `TRUE`*), alors le prix diminue de $36.3\%$, *cet. par*.
+-   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage = `TRUE`*), alors le prix diminue de $28.2\%$, *cet. par*.
 
--   Pour les variables liées au DAS :
+-   Pour la variable liée au DAS :
 
-    -   l'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de $9.2\%$, *cet. par.*
-    -   au contraire, le prix diminue de $20.9\%$ pour le *das_head* et de $29.9\%$ pour le *das_chest* lorsque qu'ils augmentent d'une unité de W/kg, *cet. par.*
+    -   l'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de $9.7\%$, *cet. par.*
 
--   Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de $13.9\%$, *cet.par.*
-
--   Si le téléphone est compatible avec la 5G (*network5G = `TRUE`*), alors le prix augmente de $30.6\%$, *cet. par.*
+-   Si le téléphone est compatible avec la 5G (*network5G = `TRUE`*), alors le prix augmente de $19.7\%$, *cet. par.*
 
 -   Lorsque le *ppi* (*pixels par pouce*) augmente d'une unité, alors le prix augmente de $0.1\%$, *cet. par.*
 
-$R^2_{adj} = 0.929$ donc 92.9% de la variance de la variable expliquée est expliquée par la variance des variables explicatives du modèle.
+$R^2_{adj} = 0.923$ donc 92.3% de la variance de la variable expliquée est expliquée par la variance des variables explicatives du modèle.
 
 \newpage
 
@@ -1333,7 +1335,7 @@ Le Variance Inflation Factor (*VIF*) est une mesure permettant d'analyser l'ampl
 Ce que le VIF apporte en plus d'une simple analyse des corrélations est l'analyse d'un cas où une variable est fortement corrélée à une combinaison linéaire de plusieurs variables.
 :::
 
-Avec un *VIF* estimé de 470.82, il n'est pas surprenant de constater que la marque est extrêmement corrélée à une combinaison linéaire de plusieurs variables. On peut par exemple penser au choix de localisation de la production, le fait de disposer ou non d'un port USB type C, etc. L'hypothèse **(3)** n'est donc pas vérifiée, mais cela est cohérent dans le cadre du modèle.
+Avec un *VIF* estimé de 252.39, il n'est pas surprenant de constater que la marque est extrêmement corrélée à une combinaison linéaire de plusieurs variables. On peut par exemple penser au choix de localisation de la production, le fait de disposer ou non d'un port USB type C, etc. L'hypothèse **(3)** n'est donc pas vérifiée, mais cela est cohérent dans le cadre du modèle.
 
 ------------------------------------------------------------------------
 
@@ -1413,9 +1415,8 @@ Nous avons décidé de choisir la distribution *semi-normale*.
 $$
 \begin{split}
 \ln(price_i) = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}induction_i \\
-+ \beta_{5i}screen\_size_i + \beta_{6i}made\_in_i + \beta_{7i}upgrade\_storage_i \\
-+ \beta_{8i}das\_head_i + \beta_{9i}das\_limbs_i + \beta_{10i}das\_chest_i  \\
-+ \beta_{11i}fast\_charging_i + \beta_{12i}network_i + \beta_{13i}ppi_i + \underbrace{\epsilon_i}_{u_i + v_i}
++ \beta_{5i}screen\_size_i + \beta_{6i}made\_in_i + \beta_{7i}upgrade\_storage_i + \beta_{8i}das\_limbs_i  \\
++ \beta_{9i}screen\_type + \beta_{10i}network_i + \beta_{11i}ppi_i + \underbrace{\epsilon_i}_{u_i + v_i}
 \end{split}
 $$ {#eq-sfa-cost}
 
@@ -1475,36 +1476,42 @@ scf_results |>
 L'estimateur utilisé dans la régression hédonique *log*$-$*level* est l'estimateur MCO. Celui-ci vise à minimiser la somme des carrés des différences entre les valeurs observées ($y_i$) et celles prédites par le modèle ($\hat{y_i}$). Dans le modèle SFA, on utilise plutôt l'approche du MV (Maximum de Vraisemblance) pour estimer les paramètres. Au lieu de se concentrer sur la minimisation des résidus, le MV cherche à maximiser la probabilité d'observer les données réellement observées, c'est-à-dire qu'il cherche à maximiser la fonction de vraisemblance.
 :::
 
-- Si la capacité de stockage (*storage*) augmente de 1 Go, alors le prix augmente de 0.052%, *cet. par.*
+- Si la capacité de stockage (*storage*) augmente de 1 Go, alors le prix augmente de $0.06\%$, *cet. par.*
 
 - En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
 
-    - La marque la plus valorisée derrière *Apple* est *Samsung* avec une différence de prix de $25.7\%$.
-    - La marque la moins valorisée est *Honor* avec une différence de prix de $103.3\%$ par rapport à *Apple*.
+    - La marque la plus valorisée derrière *Apple* est *Samsung* avec une différence de prix de $49.6\%$.
+    - La marque la moins valorisée est *Honor* avec une différence de prix de $103.4\%$ par rapport à *Apple*.
 
-- Si la *ram* augmente de 1 Go, alors le prix augmente de $8.4\%$, *cet. par.*
+- Si la *ram* augmente de 1 Go, alors le prix augmente de $7.63\%$, *cet. par.*
 
-- Si le téléphone dispose d'une charge à induction (*induction = `TRUE`*), alors le prix augmente de $28.9\%$, *cet. par.*
+- Si le téléphone dispose d'une charge à induction (*induction = `TRUE`*), alors le prix augmente de $21.85\%$, *cet. par.*
 
-- Si la taille de l'écran augmente de 1 pouce (*screen_size*), alors le prix augmente de $25\%$, *cet. par.*
+- Si la taille de l'écran augmente de 1 pouce (*screen_size*), alors le prix augmente de $13.26\%$, *cet. par.*
+
+-   Pour le type d’écran (*screen_type*), la catégorie de référence est *borderless* (un écran sans bordure) :
+    - Les coefficients associés à la catégorie *screen_typeBords incurvés* et *screen_typePlat* ne sont pas significatifs.
+    <!--- Disposer d’un écran à bord incurvé (*screen_typeBords incurvés*) diminue le prix de $8.97\%$ par rapport à la catégorie de référence, *cet. par*.
+    - Pour l’écran plat (*screen_typePlat*), le prix diminue de $2.62\%$ par rapport à un écran sans bordure, *cet. par*.-->
+    - Avoir un écran pliable fait augmenter le prix de $37.78\%$ par rapport à l'écran *borderless*, *cet. par*.
+
 
 -   Pour le lieu de fabrication (*made_in*), la catégorie de référence est la *Chine*.
 
-    -   Le coefficient associé à la catégorie *Inde* et *Viêt Nam* n'est pas significatif.
-    -   Comparé à un téléphone produit en *Chine*, un téléphone produit en *Thaïlande* augmente le prix de $56\%$, suivi de *Taïwan* avec une augmentation de $51.6\%$ et enfin du *Japon* avec une augmentation du prix de $42\%$, *cet. par.*
+    -   Le coefficient associé à la catégorie *Japon* et *Viêt Nam* n'est pas significatif.
+    -   Comparé à un téléphone produit en *Chine*, un téléphone produit en *Thaïlande* augmente le prix de $69.92\%$, *cet. par.*
 
--   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage = `TRUE`*), alors le prix diminue de $32.9\%$, *cet. par*.
+-   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage = `TRUE`*), alors le prix diminue de $26.19\%$, *cet. par*.
 
--   Pour les variables liées au DAS :
+-   Pour la variable liée au DAS :
 
-    -   L'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de $7.8\%$, *cet. par.*
-    -   Au contraire, le prix diminue de $19.9\%$ pour le *das_head* et de $25.8\%$ pour le *das_chest* lorsque qu'ils augmentent d'une unité de W/kg, *cet. par.*
+    -   L'augmentation d'une unité de Watts par kilogramme du *das_limbs* diminue le prix de $12.15\%$, *cet. par.*
 
--   Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de $17.1\%$, *cet.par.*
+<!---   Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de $17.1\%$, *cet.par.*-->
 
--   Si le téléphone est compatible avec la 5G (*network5G = `TRUE`*), alors le prix augmente de $30.5\%$, *cet. par.*
+-   Si le téléphone est compatible avec la 5G (*network5G = `TRUE`*), alors le prix augmente de $20.22\%$, *cet. par.*
 
--   Lorsque le *ppi* (*pixels par pouce*) augmente d'une unité, alors le prix augmente de $0.09\%$, *cet. par.*
+-   Lorsque le *ppi* (*pixels par pouce*) augmente d'une unité, alors le prix augmente de $0.12\%$, *cet. par.*
 
 \newpage
 
@@ -1615,9 +1622,9 @@ brand_groups |>
 ```
 
 -   *Oppo* est la marque qui possède la pire relation prix\~attributs de notre sélection.
--   *Nothing* est la marque qui possède la meilleure relation prix\~attributs de notre sélection.
+-   *Sony* est la marque qui possède la meilleure relation prix\~attributs de notre sélection.
 
-*Apple* fait partie du Top 3 des marques les plus efficaces, derrière *Nothing* et *Fairphone* (Il faut néanmoins se souvenir que ces 2 marques ne proposent que très peu de modèles de téléphones, contre 105 pour *Apple*).
+*Apple* fait partie du Top 2 des marques les plus efficaces, derrière *Sony* et suivi de *Xiaomi* (Il faut néanmoins se souvenir que la marque *Sony* ne propose que très peu de modèles de téléphones, contre 105 pour *Apple*).
 
 **Enfin, on peut aussi s'intéresser aux téléphones les plus proches/les plus éloignés de la frontière de coût.**
 
@@ -1634,9 +1641,9 @@ new_df |>
 
 \newpage
 
-- Avec une efficacité de 0.564 et un prix de 1022.14 €, le *OPPO Find X5* est très loin de la frontière de coût : son prix est 43.6% *trop cher*.
+- Avec une efficacité de 0.575 et un prix de 899 €, le *Xiaomi 13* est très loin de la frontière de coût : son prix est 42.5% *trop cher*.
 
-- Le *Samsung XCOVER 5* est un autre cas *polaire* : même un téléphone moyen de gamme d'une marque comme *Samsung* peut être un mauvais rapport qualité-prix.
+- Le *Samsung Galaxy S22 +* est un autre cas *polaire* : même un téléphone haut de gamme d'une marque comme *Samsung* peut être un mauvais rapport qualité-prix.
 
 ```{r best}
 new_df |>
@@ -1649,9 +1656,9 @@ new_df |>
     row_spec(0, bold = T)
 ```
 
--   L'*ASUS ROG Phone 6* possède un très bon score d'efficacité, supérieur à 0.95. Avec un prix de 799 €, ce téléphone est donc un excellent rapport qualité-prix. Cela peut s'expliquer par sa capacité de stockage de 512 Go et son importante RAM de 16 Go.
+-   Le *Samsung Galaxy A04s* possède un très bon score d'efficacité, supérieur à 0.943. Avec un prix de 133.4 €, ce téléphone est donc un excellent rapport qualité-prix. 
 
--   Le *XIAOMI Redmi Note 10* est quant à lui le téléphone le plus efficace de l'ensemble de notre échantillon.
+-   L'*iPhone 12* est quant à lui le téléphone le plus efficace de l'ensemble de notre échantillon.
 
 ```{r kbl_expensive}
 new_df |>
@@ -1668,7 +1675,7 @@ new_df |>
 
 -   Parmi ces téléphones les moins chers, on remarque qu'il y a une prépondérance de modèles issus de marque *Xiaomi*. Cela est cohérent avec nos observations dans la partie de **statistiques descriptives**.
 
--   Par ailleurs, les 5 téléphones les moins chers sont en dessous de la barre symbolique des 100 € et pour autant, leur efficacité est supérieure à $0.9$ pour l'ensemble des modèles. Les téléphones peu chers ne sont donc pas forcément signe d'un mauvais *rapport "qualité-prix"*. 
+-   Par ailleurs, les 4 téléphones les moins chers sont en dessous de la barre symbolique des 100 € et pour autant, leur efficacité est supérieure à $0.89$ pour l'ensemble des modèles. Les téléphones peu chers ne sont donc pas forcément signe d'un mauvais *rapport "qualité-prix"*. 
 
 ```{r kbl_inexpensive}
 new_df |>
@@ -1825,11 +1832,11 @@ dim_4_vars$labels$title <- ""
 (dim_1_vars + dim_2_vars) / (dim_3_vars + dim_4_vars)
 ```
 
-- Les variables contribuant le plus à la dimension 1 sont *logprice*,  *upgrade_storage*, *network*, *brand*, *induction*, *ram* et *storage*.
+- Les variables contribuant le plus à la dimension 1 sont *logprice*,  *upgrade_storage*, *induction*, *ppi*, *network*, et *brand*.
 
 - Dans la dimension 2, les proportions de contribution sont elles partagées entre 3 variables : *brand*, *screen_size* et *ram*
 
-- Pour la dimension 3 et 4, *brand* est une variable qui contribue encore plus à la construction des axes avec plus de 50% de contribution.
+- Pour la dimension 3 et 4, *brand* est une variable qui contribue encore plus à la construction des axes avec environ 50% ou plus de contribution.
 
 ```{r}
 #| fig.width: 6
