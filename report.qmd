@@ -1741,7 +1741,8 @@ new_df |>
     select(model, efficiency, ram, storage, price, logprice, prediction) |>
     arrange(efficiency) |>
     mutate(price = paste(price, "€")) |>
-    slice_tail(n = 5) |>
+    slice_tail(n = 8) |>
+    distinct(model, .keep_all = TRUE) |>
     kbl(booktabs = TRUE, digits = 3, caption = "Les 5 téléphones les plus efficaces.") |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
     row_spec(0, bold = T)
@@ -1757,7 +1758,7 @@ new_df |>
     distinct() |>
     arrange(price) |>
     mutate(price = paste(price, "€")) |>
-    slice_head(n = 6) |>
+    slice_head(n = 9) |>
     distinct(model, .keep_all = TRUE) |>
     kbl(booktabs = TRUE, digits = 3, caption = "Les 5 téléphones les moins chers.") |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
@@ -1766,7 +1767,7 @@ new_df |>
 
 -   Parmi ces téléphones les moins chers, on remarque qu'il y a une prépondérance de modèles issus de marque *Xiaomi*. Cela est cohérent avec nos observations dans la partie de **statistiques descriptives**.
 
--   Par ailleurs, les 4 téléphones les moins chers sont en dessous de la barre symbolique des 100 € et pour autant, leur efficacité est supérieure à $0.89$ pour l'ensemble des modèles. Les téléphones peu chers ne sont donc pas forcément signe d'un mauvais *rapport "qualité-prix"*. 
+-   Par ailleurs, les 5 téléphones les moins chers sont en dessous de la barre symbolique des 100 € et pour autant, leur efficacité est supérieure à $0.89$ pour l'ensemble des modèles. Les téléphones peu chers ne sont donc pas forcément signe d'un mauvais *rapport "qualité-prix"*. 
 
 ```{r kbl_inexpensive}
 new_df |>
