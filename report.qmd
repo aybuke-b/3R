@@ -42,6 +42,7 @@ format:
 #| label: lib_imports
 library(tidyverse)
 library(ggridges)
+library(moments)
 library(corrplot)
 library(glmulti)
 library(performance)
@@ -767,9 +768,9 @@ df |> ggplot(aes(x = price)) +
 
 On peut aussi tester l'asymétrie de la distribution avec le coefficient de *Skewness* de *Pearson* :
 
-$$SK = \dfrac{3(\bar{x} - \tilde{x})}{\sigma} \simeq 0.67$$
+$$SK = \dfrac{3(\bar{x} - \tilde{x})}{\sigma} \simeq 1.02$$
 
-Ce résultat indique que l'asymétrie de la distribution est positive. Il y a beaucoup plus de valeurs concentrées à gauche de la distribution qu'à droite. Si le coefficient était proche de 0, cela signifierait que la distribution est proche d'une loi normale $\mathcal{N}$, ce qui n'est pas le cas.
+Ce résultat indique que l'asymétrie de la distribution est positive. Il y a beaucoup plus de valeurs concentrées à gauche de la distribution qu'à droite. Si le coefficient était proche de 0, cela signifierait que la distribution est proche d'une loi normale $\mathcal{N}$, ce qui n'est pas le cas ici.
 
 ### Mesures de dispersion
 
@@ -838,9 +839,9 @@ df |>
     row_spec(0, bold = T)
 ```
 
--   On peut voir que plus la RAM augmente, plus le prix moyen du téléphone augmente. On a cependant remarqué plus haut que le téléphone le plus cher était le **`r max_model`**, qui possède 12 Go de RAM, et non 16. Ce constat, en plus du nombre très limité de téléphones disposant de 16 Go de RAM (7), peut expliquer pourquoi le prix moyen des téléphones ayant 16 Go de RAM est inférieur au prix moyen des téléphones disposant de 12 Go de RAM.
+-   On peut voir que plus la RAM augmente, plus le prix moyen du téléphone augmente. On a cependant remarqué plus haut que le téléphone le plus cher était le **`r max_model`**, qui possède 12 Go de RAM, et non 16. À noter que très peu de modèles de téléphones possèdent 16 Go de RAM (2). 
 
--   Pour le second tableau, il existe une relation non-linéaire concernant le doublement de la capacité de stockage du téléphone. Par exemple, passer de 64 à 128 Go implique une augmentation du prix moyen de 250% alors que passer de 256 à 512 Go de stockage implique seulement 141% d'augmentation du prix moyen. Il convient aussi de préciser que $\simeq$ 70% des téléphones de notre échantillon possèdent entre 128 et 256 Go de capacité de stockage.
+-   Pour le second tableau, il existe une relation non-linéaire concernant le doublement de la capacité de stockage du téléphone. Par exemple, passer de 64 à 128 Go implique une augmentation du prix moyen de 225% alors que passer de 256 à 512 Go de stockage implique seulement 157% d'augmentation du prix moyen. Il convient aussi de préciser que $\simeq$ 70% des téléphones de notre échantillon possèdent entre 128 et 256 Go de capacité de stockage.
 
 ```{r ggplots, fig.width=8, fig.height=2.5}
 #| fig-align: center
@@ -911,7 +912,7 @@ p8 <- df |>
 p7 + p8
 ```
 
--   On remarque que la majorité des smartphones sont fabriqués en Chine et au Viêt Nam (*98.4*%). Les 12 téléphones restants sont fabriqués en Thaïlande, au Japon, en Inde et à Taïwan.
+-   On remarque que la majorité des smartphones sont fabriqués en Chine et au Viêt Nam (*98.4*%). Les 7 téléphones restants sont fabriqués en Thaïlande et au Japon.
 
 -   Concernant les types d'écran, 80.5% des écrans sont *plats*, 11.6% sont *borderless* (bord à bord), il y a 6.02% d'écrans pliables et finalement 1.8% d'écrans à bords incurvés.
 
@@ -1089,7 +1090,7 @@ $$ BIC = -2\ln(\mathcal{L}) + k \cdot \ln(N) $$
 
 -   Avec $\mathcal{L}$ la vraisemblance du modèle estimée, $N$ le nombre d'observations dans l'échantillon et $k$ le nombre de paramètres libres du modèle.
 
-Comparé à l'$AIC$, il pénalise plus le nombre de variables présentes dans le modèle. On voit d'ailleurs dans ce tableau que l'algorithme génétique possède le $BIC$ le plus bas, tout en ayant un $R^2_{adj}$ très légèrement inférieur aux méthodes *backward* et *forward*. On le verra aussi dans le tableau des résultats de régression, mais la régression trouvée par l'algorithme génétique possède moins de variables (12), et celles-ci sont toutes significatives à un seuil $p<0.01$.
+Comparé à l'$AIC$, il pénalise plus le nombre de variables présentes dans le modèle. On voit d'ailleurs dans ce tableau que l'algorithme génétique possède le $BIC$ le plus bas, tout en ayant un $R^2_{adj}$ très légèrement inférieur aux méthodes *backward* et *forward*. On le verra aussi dans le tableau des résultats de régression, mais la régression trouvée par l'algorithme génétique possède moins de variables (9), et celles-ci sont toutes significatives à un seuil $p<0.01$.
 
 Le modèle que nous allons étudier ici sera donc :
 
@@ -1101,7 +1102,7 @@ price_i = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i +
 \end{split}
 $$ {#eq-level-hedonic}
 
-On voit que dans le modèle de l'@eq-level-hedonic, il n'y a pour l'instant aucun effet d'interaction ou d'effet non-linéaire. Pour autant, les résultats sont déjà **très satisfaisants** avec un $R^2_{adj} > 0.8$
+On voit que dans le modèle de l'@eq-level-hedonic, il n'y a aucun effet d'interaction ou d'effet non-linéaire. Pour autant, les résultats sont déjà **très satisfaisants** avec un $R^2_{adj} > 0.8$.
 
 \newpage
 
@@ -1116,7 +1117,7 @@ par(cex.axis = 0.8)
 
 L'importance d'une variable, dans ce contexte, est égale à la somme des probabilités pour les modèles dans lesquels la variable apparaît. Ainsi, une variable présente dans de nombreux modèles avec des poids importants recevra une valeur d'importance élevée. La ligne rouge verticale est tracée à 0.8, correspondant au seuil différenciant les variables importantes des variables moins importantes, mais ce choix (80%) est arbitraire.
 
-Ainsi, on remarque que 11 variables sont présentes dans l'ensemble des modèles, donc ces variables sont très importantes. Ensuite, une seule variable est au-dessus de la ligne de *cutoff* mais inférieure à 1 : *das_head*. L'ensemble des autres variables sont comprises entre 0 et 0.25. On peut donc considérer que l'importance de ces variables dans notre modèle est négligeable.
+Ainsi, on remarque que 6 variables sont présentes dans l'ensemble des modèles, donc ces variables sont très importantes pour notre modélisation. Ensuite, trois variables sont au-dessus de la ligne de *cutoff* mais inférieure à 1 : *usb_type_c*, *upgrade_storage* et *made_in*. L'ensemble des autres variables sont comprises entre 0 et 0.25. On peut donc considérer que l'importance de ces variables dans notre modèle est négligeable.
 
 ```{r results, results="asis"}
 res_gen <- summary(genetic_alg)
@@ -1181,6 +1182,144 @@ $R^2_{adj} = 0.877$ donc 87.7% de la variance de la variable expliquée (price) 
 
 \newpage
 
+### Vérification des hypothèses
+
+Un aspect crucial lors de la construction des modèles de régression linéaire est d’évaluer la qualité de l’ajustement du modèle, mais aussi de vérifier certaines hypothèses comme l'espérance nulle des résidus, leur homoscédasticité, l'absence de multicolinéarité, etc.
+
+Pour ce faire, on peut utiliser les packages `{performance}` et `{see}` en conjonction[^9].
+
+[^9]: Plus d'infos sur les packages : [`see`](https://easystats.github.io/see/articles/performance.html) et [`performance`](https://easystats.github.io/performance/index.html)
+
+Commençons par nous intéresser à la multicolinéarité dans notre régression.
+
+::: callout-tip
+## Mesure de la multicolinéarité
+
+Le Variance Inflation Factor (*VIF*) est une mesure permettant d'analyser l'ampleur de la multicolinéarité des termes du modèle. Plus précisément :
+
+\vspace{1em}
+
+-   Un *VIF* inférieur à 5 indique une faible corrélation de ce prédicteur avec d'autres prédicteurs.
+-   Une valeur comprise entre 5 et 10 indique une corrélation modérée.
+-   Enfin, des valeurs de *VIF* supérieures à 10 sont le signe d'une corrélation très élevée.
+
+\vspace{1em}
+
+Ce que le VIF apporte en plus d'une simple analyse des corrélations est l'analyse d'un cas où une variable est fortement corrélée à une combinaison linéaire de plusieurs variables.
+:::
+
+```{r collinearity_level, fig.width=6}
+check_collinearity(genreg) |>
+    select("Term", "VIF", "VIF_CI_low", "VIF_CI_high", "Tolerance") |>
+    kbl(
+        booktabs = TRUE, digits = 2,
+        col.names = c("Variable", "VIF", "IC {low}", "IC {high}", "Tolérance"), caption = "Vérification de la multicolinéarité."
+    ) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+```
+
+-   *Note* : La **Tolérance** correspond à $\dfrac{1}{\text{VIF}}$, c'est-à-dire que plus le *VIF* sera élevé, et plus la **Tolérance** sera proche de 0.
+
+\newpage
+
+Avec un *VIF* estimé de 137.76, il n'est pas surprenant de constater que la marque est extrêmement corrélée à une combinaison linéaire de plusieurs variables. On peut par exemple penser au choix de localisation de la production, le fait de disposer ou non d'un port USB type C, etc. On peut faire la même remarque pour le lieu de fabrication. La valeur du *VIF* pour les autres variables est néanmoins tout le temps inférieur à 5.
+
+Ensuite, nous pouvons mettre en œuvre une vérification visuelle de l'ajustement du modèle, en plus des métriques couramment utilisées. La vérification prédictive a posteriori permet de simuler des données répliquées avec le modèle ajusté puis les comparer aux données observées.
+
+$\Rightarrow$ **L’objectif est de détecter si le modèle est inadéquat pour décrire les données.**
+
+*Note* : Les données utilisées pour la vérification prédictive postérieure sont simulées à partir de la *distribution prédictive postérieure*. Celle-ci est construite après avoir utilisé les données observées $y$ et les prédicteurs $X$ pour mettre à jour les croyances sur les paramètres inconnus $\theta$ dans le modèle. Pour chaque tirage des paramètres $\theta$ à partir de la distribution a posteriori $p(\theta|y,X)$, un vecteur complet de résultats est généré.
+
+```{r posterior_level}
+#| fig.width: 8
+#| fig-align: center
+performance::check_posterior_predictions(genreg)
+```
+
+- La distribution des prix est bimodale, mais le modèle a du mal à représenter le second pic de la distribution, notamment pour la plage des téléphones allant de 200 à 500 €.
+
+```{r hyp2_level}
+pvalue_hyp2_level <- t.test(genreg$residuals)$p.value
+```
+
+
+**Testons ensuite une hypothèse essentielle : l'homoscédasticité des résidus.**
+
+L'homoscédasticité pour les modèles de régression linéaire signifie que les résidus du modèle ont une variance constante. Si cette hypothèse n'est pas respectée, alors les *erreurs-types* et les $p-values$ du modèle ne sont plus fiables. On peut par exemple détecter la présence d'hétéroscédasticité graphiquement :
+
+```{r}
+#| label: level_hetero
+#| fig-align: center
+#| fig.width: 6
+#| fig-cap: "Homoscédasticité des résidus."
+ggplot(genreg, aes(x = .fitted, y = .resid)) +
+    geom_point() +
+    geom_hline(yintercept = 0, color = "darkgreen") +
+    labs(x = expression(hat(y[i])), y = expression(e[i]))
+```
+
+Il est clair que notre modèle présente des résidus hétéroscédastiques. On peut aussi le vérifier avec le test de *Breusch-Pagan*. Les hypothèses $H_0$ et $H_1$ sont les suivantes :
+
+$$
+\begin{cases}
+H_0 : V(\epsilon_i) = \sigma^2_i\\
+H_1 : V(\epsilon_i) = \sigma^2
+\end{cases}
+$$
+
+```{r bp_test_level}
+bp_pvalue_level <- round(bptest(genreg)$p.value, 2)
+```
+
+\vspace{1em}
+
+-   La $p-value$ issue du test est égale à `r bp_pvalue_level`, donc l'hypothèse d'homoscédasticité des résidus n'est pas vérifiée.
+
+On peut aussi s'intéresser à l'influence des valeurs extrêmes dans notre régression.
+
+```{r outliers_level, fig.width=6, fig.height=3}
+#| fig-align: center
+#| fig-cap: "Influence des valeurs extrêmes."
+outliers <- check_outliers(genreg)
+plot(outliers, type = "dots")
+```
+
+On s'aperçoit ici que tous les points sont à l'intérieur des *contour lines*, c'est-à-dire qu'il n'y a pas vraiment de valeur extrême.
+
+D'autre part, on peut aussi s'intéresser à la normalité des résidus.
+
+```{r normality_level, fig.width=6, fig.height=3}
+#| fig-align: center
+#| fig-cap: "Histogramme des résidus avec loi normale superposée."
+mean_resid <- mean(genreg$resid)
+sd_resid <- sd(genreg$resid)
+
+ggplot(genreg, aes(x = .resid)) +
+    geom_histogram(aes(y = after_stat(density)), bins = 40, fill = "black", color = "white", alpha = 0.7) +
+    stat_function(fun = dnorm, args = list(mean = mean_resid, sd = sd_resid), color = "darkgreen", size = 1) +
+    labs(x = "Résidus", y = "Densité")
+
+skewness_genreg <- skewness(genreg$residuals)
+```
+
+On voit que le coefficient d'asymétrie est positif **(`r round(skewness_genreg,2)`)**. Cette asymétrie indique une concentration de valeurs sur le côté gauche de la distribution, on peut d'ailleurs l'observer sur l'histogramme.
+
+Enfin, effectuons un test de *Student* pour vérifier si $E(\epsilon_i) = 0$. Les hypothèses $H_0$ et $H_1$ sont les suivantes :
+
+$$
+\begin{cases}
+H_0 : E(\epsilon_i) = 0\\
+H_1 : E(\epsilon_i) \neq 0
+\end{cases}
+$$
+
+\vspace{1em}
+
+-   La $p-value$ issue du test est égale à `r pvalue_hyp2_level`, donc on rejette $H_0$. Les résidus ne sont donc pas ici d'éspérance nulle, ce qu'on avait pu confirmer graphiquement plus haut.
+
+**Prendre le logarithme de la variable dépendante *(price)* peut aider à stabiliser la variance et réduire l'hétéroscédasticité, d'où le second modèle ci-dessous.**
+
 ## Modèle Hédonique log-niveau
 
 Dans cette partie, nous n'effectuerons pas de sélection de variables avec `{glmulti}` car le meilleur modèle de régression hédonique proposé en *log* $-$ *level* aboutit à des difficultés de convergence pour le modèle **SFA**. Or, nous voulons comparer les coefficients de cette régression hédonique avec les modèles SFA que nous mettrons en place dans une troisième phase.
@@ -1188,7 +1327,7 @@ Dans cette partie, nous n'effectuerons pas de sélection de variables avec `{glm
 ::: callout-warning
 ## Difficultés de convergence d'un modèle SFA
 
-Dans une **SFA**, les difficultés de convergence peuvent être dues à de vastes zones très plates de la fonction de vraisemblance, pouvant être causées par une forte multicolinéarité entre l'intercept du modèle de frontière et l'intercept du modèle d'inefficacité. Par conséquent, supprimer l'intercept du modèle d'inefficacité améliore parfois la convergence, mais risque aussi d'introduire un biais de variable omise.
+Dans une **SFA**, les difficultés de convergence peuvent être dues à de vastes zones très plates de la fonction de vraisemblance.
 
 \vspace{1em}
 
@@ -1212,8 +1351,6 @@ $$
 + \beta_{9i}screen\_type + \beta_{10i}network_i + \beta_{11i}ppi_i + \epsilon_i
 \end{split}
 $$ {#eq-log-hedonic}
-
-Par rapport au modèle en niveau, il n'y a plus les variables *screen_type* et *repairability_index*, qui posaient des problèmes de convergence. D'autres variables ont néanmoins été introduites comme *network* ou *ppi*.
 
 ------------------------------------------------------------------------
 
@@ -1281,35 +1418,7 @@ $R^2_{adj} = 0.923$ donc 92.3% de la variance de la variable expliquée est expl
 
 ### Vérification des hypothèses
 
-Un aspect crucial lors de la construction des modèles de régression linéaire est d’évaluer la qualité de l’ajustement du modèle, mais aussi de vérifier certaines hypothèses comme :
-
-1.  La linéarité dans les paramètres.
-2.  Des résidus d'espérance nulle.
-3.  L'absence de multicolinéarité.
-4.  L'homoscédasticité des résidus.
-
-Pour ce faire, on peut utiliser les packages `{performance}` et `{see}` en conjonction[^9].
-
-[^9]: Plus d'infos sur les packages : [`see`](https://easystats.github.io/see/articles/performance.html) et [`performance`](https://easystats.github.io/performance/index.html)
-
-```{r hyp2}
-pvalue_hyp2 <- t.test(loghedonic$residuals)$p.value
-```
-
-L'hypothèse **(1)** est vérifiée par la formulation de notre modèle. Pour l'hypothèse **(2)**, on peut effectuer un test de *Student* pour vérifier si $E(\epsilon_i) = 0$. Les hypothèses $H_0$ et $H_1$ sont les suivantes :
-
-$$
-\begin{cases}
-H_0 : E(\epsilon_i) = 0\\
-H_1 : E(\epsilon_i) \neq 0
-\end{cases}
-$$
-
-\vspace{1em}
-
--   La $p-value$ issue du test est égale à `r pvalue_hyp2`, donc l'hypothèse **(2)** est vérifiée.
-
-```{r collinearity, fig.width=6}
+```{r collinearity_log, fig.width=6}
 check_collinearity(loghedonic) |>
     select("Term", "VIF", "VIF_CI_low", "VIF_CI_high", "Tolerance") |>
     kbl(
@@ -1320,92 +1429,69 @@ check_collinearity(loghedonic) |>
     row_spec(0, bold = T)
 ```
 
--   *Note* : La **Tolérance** correspond à $\dfrac{1}{\text{VIF}}$, c'est-à-dire que plus le *VIF* sera élevé, et plus la **Tolérance** sera proche de 0.
+On remarque un *VIF* plus élevé pour la marque, mais autrement les valeurs de *VIF* restent similaires et inférieures à 5.
 
-\newpage
+Ensuite, passons à la vérification prédictive a posteriori
 
-::: callout-tip
-## Mesure de la multicolinéarité
-
-Le Variance Inflation Factor (*VIF*) est une mesure permettant d'analyser l'ampleur de la multicolinéarité des termes du modèle. Plus précisément :
-
-\vspace{1em}
-
--   Un *VIF* inférieur à 5 indique une faible corrélation de ce prédicteur avec d'autres prédicteurs.
--   Une valeur comprise entre 5 et 10 indique une corrélation modérée.
--   Enfin, des valeurs de *VIF* supérieures à 10 sont le signe d'une corrélation très élevée.
-
-\vspace{1em}
-
-Ce que le VIF apporte en plus d'une simple analyse des corrélations est l'analyse d'un cas où une variable est fortement corrélée à une combinaison linéaire de plusieurs variables.
-:::
-
-Avec un *VIF* estimé de 252.39, il n'est pas surprenant de constater que la marque est extrêmement corrélée à une combinaison linéaire de plusieurs variables. On peut par exemple penser au choix de localisation de la production, le fait de disposer ou non d'un port USB type C, etc. L'hypothèse **(3)** n'est donc pas vérifiée, mais cela est cohérent dans le cadre du modèle.
-
-------------------------------------------------------------------------
-
-Concernant l'hypothèse **(4)** - l'Homoscédasticité pour les modèles de régression linéaire signifie que les résidus du modèle ont une variance constante. Si cette hypothèse n'est pas respectée, alors les *erreurs-types* et les $p-values$ du modèle ne sont plus fiables. On peut par exemple détecter la présente d'hétéroscédasticité graphiquement :
-
-```{r heteroscedasticity, fig.width=6}
+```{r posterior_log}
+#| fig.width: 8
 #| fig-align: center
+performance::check_posterior_predictions(loghedonic)
+```
+
+- La distribution a changé car notre variable à prédire est devenue *logprice*. On voit que même si le modèle a du mal à prédire une certaine portion de la distribution, il s'en sort très bien sur les extrémités et globalement l'adéquation du modèle semble meilleure.
+
+**Testons ensuite l'homoscédasticité des résidus pour ce modèle.**
+
+```{r}
+#| label: log_hetero
+#| fig-align: center
+#| fig.width: 6
 #| fig-cap: "Homoscédasticité des résidus."
-heterosced <- check_heteroscedasticity(loghedonic)
-plot(heterosced)
+ggplot(loghedonic, aes(x = .fitted, y = .resid)) +
+    geom_point() +
+    geom_hline(yintercept = 0, color = "darkgreen") +
+    labs(x = expression(hat(y[i])), y = expression(e[i]))
 ```
 
--   Il est clair que notre modèle présente des résidus hétéroscédastiques. On peut aussi le vérifier avec le test de *Breusch-Pagan*. Les hypothèses $H_0$ et $H_1$ sont les suivantes :
+On discerne graphiquement qu'il n'y a plus de problème d'hétéroscédasticité ici, ce qui nous est confirmé par le test de *Breusch-Pagan*.
 
-$$
-\begin{cases}
-H_0 : V(\epsilon_i) = \sigma^2\\
-H_1 : V(\epsilon_i) = \sigma^2_i
-\end{cases}
-$$
-
-```{r bp_test}
-bp_pvalue <- round(bptest(loghedonic)$p.value, 2)
+```{r bp_test_log}
+bp_pvalue_level <- round(bptest(loghedonic)$p.value, 2)
 ```
 
-\vspace{1em}
+-   En effet, la $p-value$ issue du test est égale à `r bp_pvalue_level`, donc l'hypothèse d'homoscédasticité des résidus est vérifiée.
 
--   La $p-value$ issue du test est égale à `r bp_pvalue`, donc l'hypothèse **(4)** n'est pas vérifiée.
+On peut aussi se pencher sur l'influence des valeurs extrêmes dans notre régression.
 
-**Il existe néanmoins plusieurs façons de corriger le problème d'hétéroscédasticité que nous verrons dans la section suivante.**
-
-En complément, on peut aussi tester la normalité des résidus, et vérifier si certaines observations ont une influence très importante.
-
-```{r normality, fig.width=6, fig.height=3}
-#| fig-align: center
-#| fig-cap: "Normalité des résidus (QQ Plot)."
-norm <- check_normality(loghedonic)
-plot(norm, type = "qq")
-```
-
-```{r outliers, fig.width=6, fig.height=3}
+```{r outliers_log, fig.width=6, fig.height=3}
 #| fig-align: center
 #| fig-cap: "Influence des valeurs extrêmes."
 outliers <- check_outliers(loghedonic)
 plot(outliers, type = "dots")
 ```
 
-- Les résidus ne suivent pas une loi normale et les *outliers* n'influent pas sur les résultats des prédictions.
+Globalement la même interprétation que dans la partie **level-level** peut être faite.
 
-\newpage
+D'autre part, il est possible de s'intéresser également à la normalité des résidus.
 
-Enfin, on peut aussi mettre en œuvre une vérification visuelle de l'ajustement du modèle, en plus des métriques couramment utilisées. La vérification prédictive a posteriori permet de simuler des données répliquées avec le modèle ajusté puis les comparer aux données observées.
-
-$\Rightarrow$ **L’objectif est de détecter si le modèle est inadéquat pour décrire les données.**
-
-*Note* : Les données utilisées pour la vérification prédictive postérieure sont simulées à partir de la *distribution prédictive postérieure*. Celle-ci est construite après avoir utilisé les données observées $y$ et les prédicteurs $X$ pour mettre à jour les croyances sur les paramètres inconnus $\theta$ dans le modèle. Pour chaque tirage des paramètres $\theta$ à partir de la distribution a posteriori $p(\theta|y,X)$, un vecteur complet de résultats est généré.
-
-```{r posterior}
-#| fig.width: 8
+```{r normality_log, fig.width=6, fig.height=3}
 #| fig-align: center
+#| fig-cap: "Histogramme des résidus avec loi normale superposée."
+mean_resid <- mean(loghedonic$resid)
+sd_resid <- sd(loghedonic$resid)
 
-check_posterior_predictions(loghedonic)
+ggplot(loghedonic, aes(x = .resid)) +
+    geom_histogram(aes(y = after_stat(density)), bins = 40, fill = "black", color = "white", alpha = 0.7) +
+    stat_function(fun = dnorm, args = list(mean = mean_resid, sd = sd_resid), color = "darkgreen", size = 1) +
+    labs(x = "Résidus", y = "Densité")
+
+skewness_loghedonic <- skewness(loghedonic$residuals)
 ```
 
-- La distribution des prix est bimodale, mais le modèle a du mal à représenter le second pic de la distribution. Cependant, les prédictions sont assez proches de la réalité.
+On voit que le coefficient d'asymétrie est toujours positif **(`r round(skewness_loghedonic,2)`)**. @kumbhakar2015 mentionnent l'utilisation de ce coefficient d'asymétrie comme *"test"* préalable à la spécification d'une **SFA**.
+
+L'idée derrière le test est la suivante : pour une spécification SFA frontière de coût avec erreur composée, la distribution des résidus de l'estimation par MCO doit avoir une asymétrie positive. Si cette asymétrie est positive, alors elle permet de confirmer l'existence d'une erreur unilatérale et donc la forme fonctionnelle SFA sera appropriée, ce qui semble être le cas ici.
 
 ## Modèle SFA - Frontière de coût
 
@@ -1629,7 +1715,7 @@ brand_groups |>
 -   *Oppo* est la marque qui possède la pire relation prix\~attributs de notre sélection.
 -   *Sony* est la marque qui possède la meilleure relation prix\~attributs de notre sélection.
 
-*Apple* fait partie du Top 2 des marques les plus efficaces, derrière *Sony* et suivi de *Xiaomi* (Il faut néanmoins se souvenir que la marque *Sony* ne propose que très peu de modèles de téléphones, contre 105 pour *Apple*).
+*Apple* fait partie du Top 2 des marques les plus efficaces, derrière *Sony* et suivi de *Xiaomi* (Il faut néanmoins se souvenir que la marque *Sony* ne propose que très peu de modèles de téléphones, 11 contre 105 pour *Apple*).
 
 **Enfin, on peut aussi s'intéresser aux téléphones les plus proches/les plus éloignés de la frontière de coût.**
 
