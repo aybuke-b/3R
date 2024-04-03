@@ -42,6 +42,7 @@ format:
 #| label: lib_imports
 library(tidyverse)
 library(ggridges)
+library(moments)
 library(corrplot)
 library(glmulti)
 library(performance)
@@ -696,11 +697,21 @@ Le diagramme fonctionnel permet de comprendre comment interagissent les différe
 
 ```{r data import}
 root <- getwd()
-df_path <- file.path(root, "Web_Scraping", "data", "df_clean.csv")
+df_path <- file.path(root, "Web_Scraping", "data", "df_clean_2.csv")
 df <- read_delim(df_path, delim = ";")
+
+## Correction des erreurs de Boulanger ici.
+
+df <- df |> mutate(
+    storage = case_when(storage == 8 ~ 128, .default = as.double(storage)),
+    screen_type = case_when(
+        model == "Samsung Galaxy Z Fold 3" ~ "Pliable",
+        .default = as.character(screen_type)
+    )
+)
 ```
 
-Il y a `r nrow(df)` smartphones valides disponibles dans nos données scrapées sur Boulanger avec 35 variables.
+Il y a `r nrow(df)` smartphones disponibles dans nos données scrapées sur Boulanger avec 35 variables.
 
 -   Variables liées à l'écran : *screen_type*, *screen_size*, *screen_tech*, *diagonal_pixels*, *ppi*, *resolution_1*, *resolution_2*.
 
@@ -757,9 +768,9 @@ df |> ggplot(aes(x = price)) +
 
 On peut aussi tester l'asymétrie de la distribution avec le coefficient de *Skewness* de *Pearson* :
 
-$$SK = \dfrac{3(\bar{x} - \tilde{x})}{\sigma} \simeq 0.67$$
+$$SK = \dfrac{3(\bar{x} - \tilde{x})}{\sigma} \simeq 1.02$$
 
-Ce résultat indique que l'asymétrie de la distribution est positive. Il y a beaucoup plus de valeurs concentrées à gauche de la distribution qu'à droite. Si le coefficient était proche de 0, cela signifierait que la distribution est proche d'une loi normale $\mathcal{N}$, ce qui n'est pas le cas.
+Ce résultat indique que l'asymétrie de la distribution est positive. Il y a beaucoup plus de valeurs concentrées à gauche de la distribution qu'à droite. Si le coefficient était proche de 0, cela signifierait que la distribution est proche d'une loi normale $\mathcal{N}$, ce qui n'est pas le cas ici.
 
 ### Mesures de dispersion
 
@@ -800,11 +811,11 @@ df |>
     labs(x = "", y = "")
 ```
 
--   *Apple* possède en moyenne les téléphones les plus chers dans l'échantillon (1177.75 €).
+-   *Apple* possède en moyenne les téléphones les plus chers dans l'échantillon (1045 €).
 
--   Le prix moyen des smartphones commercialisés par *Samsung* est de 848.98 €. C'est certes moins qu'*Apple*, mais cela peut s'expliquer car *Samsung* commercialise à la fois des téléphones très haut de gamme et des téléphones bas de gamme aux prix beaucoup plus attractifs.
+-   Le prix moyen des smartphones commercialisés par *Samsung* est de 847 €. C'est certes moins qu'*Apple*, mais cela peut s'expliquer car *Samsung* commercialise à la fois des téléphones très haut de gamme et des téléphones bas de gamme aux prix beaucoup plus attractifs.
 
--   En dernière position, on retrouve *Xiaomi* avec des téléphones à un prix moyen aux alentours de 260 €.
+-   En dernière position, on retrouve *Xiaomi* avec des téléphones à un prix moyen aux alentours de 247 €.
 
 \newpage
 
@@ -828,9 +839,9 @@ df |>
     row_spec(0, bold = T)
 ```
 
--   On peut voir que plus la RAM augmente, plus le prix moyen du téléphone augmente (sauf à partir de 12 Gigaoctets). On a en effet remarqué plus haut que le téléphone le plus cher était le **`r max_model`**, qui possède 12 Go de RAM, et non 16. Ce constat, en plus du nombre très limité de téléphones disposant de 16 Go de RAM (7), peut expliquer pourquoi le prix moyen des téléphones ayant 16 Go de RAM est inférieur au prix moyen des téléphones disposant de 12 Go de RAM.
+-   On peut voir que plus la RAM augmente, plus le prix moyen du téléphone augmente. On a cependant remarqué plus haut que le téléphone le plus cher était le **`r max_model`**, qui possède 12 Go de RAM, et non 16. À noter que très peu de modèles de téléphones possèdent 16 Go de RAM (2). 
 
--   Pour le second tableau, il existe une relation non-linéaire concernant le doublement de la capacité de stockage du téléphone. Par exemple, passer de 64 à 128 Go implique une augmentation du prix moyen de 250% alors que passer de 256 à 512 Go de stockage implique seulement 141% d'augmentation du prix moyen. Il convient aussi de préciser que $\simeq$ 70% des téléphones de notre échantillon possèdent entre 128 et 256 Go de capacité de stockage.
+-   Pour le second tableau, il existe une relation non-linéaire concernant le doublement de la capacité de stockage du téléphone. Par exemple, passer de 64 à 128 Go implique une augmentation du prix moyen de 225% alors que passer de 256 à 512 Go de stockage implique seulement 157% d'augmentation du prix moyen. Il convient aussi de préciser que $\simeq$ 70% des téléphones de notre échantillon possèdent entre 128 et 256 Go de capacité de stockage.
 
 ```{r ggplots, fig.width=8, fig.height=2.5}
 #| fig-align: center
@@ -857,7 +868,7 @@ p1 + p2
 
 \newpage
 
-## Etudes des variables catégorielles importantes
+## Etude des variables catégorielles importantes
 
 Nous allons maintenant étudier les proportions des modalités des variables catégorielles.
 
@@ -874,7 +885,7 @@ df |>
     labs(x = "", y = "")
 ```
 
--   Samsung, Apple & Xiamoi se partagent 70% des téléphones commercialisés sur Boulanger.
+-   Samsung, Apple & Xiamoi se partagent 80% des téléphones commercialisés sur Boulanger.
 
 -   On retrouve la même tendance au niveau des parts de marché mondial des smartphones par rapport à Q3 2022, c'est-à-dire que Samsung, Apple & Xiaomi se partagent respectivement 22, 18 et 14% de parts de marché.
 
@@ -901,9 +912,9 @@ p8 <- df |>
 p7 + p8
 ```
 
--   On remarque que la majorité des smartphones sont fabriqués en Chine et au Viêt Nam (*97.5*%). Les 12 téléphones restants sont fabriqués en Thaïlande, au Japon, en Inde et à Taïwan.
+-   On remarque que la majorité des smartphones sont fabriqués en Chine et au Viêt Nam (*98.4*%). Les 7 téléphones restants sont fabriqués en Thaïlande et au Japon.
 
--   Concernant les types d'écran, 76.2% des écrans sont *plats*, 14.6% sont *borderless* (bord à bord), il y a 7.4% d'écrans pliables et finalement 1.8% d'écrans à bords incurvés.
+-   Concernant les types d'écran, 80.5% des écrans sont *plats*, 11.6% sont *borderless* (bord à bord), il y a 6.02% d'écrans pliables et finalement 1.8% d'écrans à bords incurvés.
 
 \newpage
 
@@ -957,9 +968,9 @@ p6 <- df |>
 (p3 + p4) / (p5 + p6)
 ```
 
-Si les modalités sont plutôt bien équilibrées pour les variables *induction* et *upgrade_storage*, ce n'est pas le cas pour la variable *usb_type_c* et le déséquilibre est surtout présent pour *fast_charging*. En effet seulement 19 téléphones n'ont pas de charge rapide (ces 19 téléphones sont beaucoup moins chers et sont principalement des téléphones bas de gamme).
+Si les modalités sont plutôt bien équilibrées pour les variables *induction* et *upgrade_storage*, ce n'est pas le cas pour la variable *usb_type_c* et le déséquilibre est surtout présent pour *fast_charging*. En effet seulement 11 téléphones n'ont pas de charge rapide (ces 11 téléphones sont beaucoup moins chers et sont principalement des téléphones bas de gamme).
 
-Pour la variable *usb_type_c*, il y a 120 téléphones sans chargeur USB type C et le fait de ne pas avoir d'USB type C fait augmenter le prix moyen par rapport aux téléphones qui en ont (les téléphones n'ayant pas d'USB type C sont principalement de marque *Apple*, ce qui explique en partie l'effet).
+Pour la variable *usb_type_c*, il y a 162 téléphones sans chargeur USB type C et le fait de ne pas avoir d'USB type C fait augmenter le prix moyen par rapport aux téléphones qui en ont (les téléphones n'ayant pas d'USB type C sont principalement de marque *Apple*, ce qui explique en partie l'effet).
 
 Le même effet d'augmentation du prix moyen s'observe avec la variable *upgrade_storage*, c'est-à-dire que les téléphones ne possédant pas de système leur permettant d'augmenter leur stockage sont en moyenne plus chers que les téléphones offrant la possibilité de le faire. Ce qui peut paraître à première vue contre-intuitif ne l'est peut-être pas : les téléphones offrant la possibilité d'augmenter le stockage sont ceux qui en ont le moins, d'où la nécessité de laisser au consommateur la possibilité de pouvoir le faire. Inversement, les téléphones qui n'ont pas de système d'augmentation de stockage ont déjà un stockage important.
 
@@ -975,7 +986,7 @@ Une analyse approfondie des corrélations entre l'ensemble des variables numéri
 #| fig-cap: "Matrice des corrélations."
 
 M <- df |>
-    select(where(is.numeric), -c(sensor, random_col, logprice)) |>
+    select(where(is.numeric), -c(sensor, random_col, logprice, thickness, width, net_weight, height, repairability_index)) |>
     cor()
 
 corrplot(M,
@@ -985,10 +996,11 @@ corrplot(M,
 
 cor_ram <- round(cor(df$price, df$ram), 2)
 cor_storage <- round(cor(df$price, df$storage), 2)
-cor_height <- round(cor(df$price, df$height), 3)
+cor_ppi <- round(cor(df$price, df$ppi), 2)
+cor_das_chest <- round(cor(df$price, df$das_chest), 2)
 ```
 
-On s'aperçoit que les corrélations les plus importantes avec **price** sont respectivement la capacité de stockage avec un coefficient de corrélation $r_{price, storage}=$ `r cor_storage` et la RAM avec $r_{price, ram}=$ `r cor_ram`. Inversement, la hauteur du téléphone, par exemple, semble ne pas avoir d'incidence sur le prix avec $r_{price, height}=$ `r cor_height`.
+On s'aperçoit que les corrélations les plus importantes avec **price** sont respectivement la capacité de stockage avec un coefficient de corrélation $r_{price, storage}=$ `r cor_storage`, la ppi avec $r_{price, ppi}=$ `r cor_ppi` et la RAM avec $r_{price, ram}=$ `r cor_ram`. Inversement, le débit d'absoprtion spécifique *(Tronc)* semble ne pas avoir d'incidence sur le prix avec $r_{price, das\_chest}=$ `r cor_das_chest`.
 
 **Compte tenu de la littérature existante et de nos observations, la RAM et la capacité de stockage sont donc des variables incontournables dans la modélisation des prix des smartphones.**
 
@@ -1039,11 +1051,11 @@ Cet algorithme est implémenté dans le package \faIcon{r-project} de `{glmulti}
 
 Pour la facilité des interprétations, dans cette partie, nous commencerons par utiliser un modèle *level* $-$ *level*, donc notre variable à prédire **price** ne sera pas mise sous forme logarithmique. Dans une seconde partie, nous préférerons un modèle *log* $-$ *level*, qui nous permettra de comparer directement les coefficients de la régression hédonique des prix avec les coefficients de la **SFA**.
 
-Nous allons tout d'abord retirer quelques variables qui ne nous seront pas utiles pour l'analyse et qui risquent de complexifier les régressions : *cpu*, *model*, *sensor*, *screen_tech*, *stars*, *reviews*, *color*, *cam_1*, *cam_2*, *cam_3*. Par exemple, il y a presque autant de modèles distincts que de nombre d'observations, et *reviews* et *stars* sont si peu corrélées à la variable à expliquer **price** que les ajouter ne semble pas nécessaire.
+Nous allons tout d'abord retirer quelques variables qui ne nous seront pas utiles pour l'analyse et qui risquent de complexifier les régressions : *cpu*, *model*, *sensor*, *screen_tech*, *stars*, *reviews*, *color*, *cam_1*, *cam_2*, *cam_3* et *image*. Par exemple, il y a presque autant de modèles distincts que de nombre d'observations, et *reviews* et *stars* sont si peu corrélées à la variable à expliquer **price** que les ajouter ne semble pas nécessaire.
 
 ```{r selection, results="hide", include = FALSE}
 df_phones <- df |>
-    select(-c(logprice, cpu, model, sensor, screen_tech, stars, reviews, color, cam_1, cam_2, cam_3, wifi, resolution))
+    select(-c(logprice, cpu, model, sensor, screen_tech, stars, reviews, color, cam_1, cam_2, cam_3, resolution, image, thickness, width, net_weight, height, repairability_index, flag, scraping_time))
 
 full_model <- lm(price ~ ., data = df_phones)
 null_model <- lm(price ~ 1, data = df_phones)
@@ -1078,20 +1090,19 @@ $$ BIC = -2\ln(\mathcal{L}) + k \cdot \ln(N) $$
 
 -   Avec $\mathcal{L}$ la vraisemblance du modèle estimée, $N$ le nombre d'observations dans l'échantillon et $k$ le nombre de paramètres libres du modèle.
 
-Comparé à l'$AIC$, il pénalise plus le nombre de variables présentes dans le modèle. On voit d'ailleurs dans ce tableau que l'algorithme génétique possède le $BIC$ le plus bas, tout en ayant un $R^2_{adj}$ très légèrement inférieur aux méthodes *backward* et *forward*. On le verra aussi dans le tableau des résultats de régression, mais la régression trouvée par l'algorithme génétique possède moins de variables (12), et celles-ci sont toutes significatives à un seuil $p<0.01$.
+Comparé à l'$AIC$, il pénalise plus le nombre de variables présentes dans le modèle. On voit d'ailleurs dans ce tableau que l'algorithme génétique possède le $BIC$ le plus bas, tout en ayant un $R^2_{adj}$ très légèrement inférieur aux méthodes *backward* et *forward*. On le verra aussi dans le tableau des résultats de régression, mais la régression trouvée par l'algorithme génétique possède moins de variables (9), et celles-ci sont toutes significatives à un seuil $p<0.01$.
 
 Le modèle que nous allons étudier ici sera donc :
 
 $$
 \begin{split}
 price_i = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}screen\_type_i \\
-+ \beta_{5i}induction_i + \beta_{6i}screen\_size_i + \beta_{7i}repairability\_index_i \\
-+ \beta_{8i}made\_in_i + \beta_{9i}upgrade\_storage_i + \beta_{10i}fast\_charging_i  \\
-+ \beta_{11i}das\_limbs_i + \beta_{12i}das\_chest_i + \epsilon_i
++ \beta_{5i}induction_i + \beta_{6i}made\_in_i + \beta_{7i}upgrade\_storage_i + \\ 
++ \beta_{8i}usb\_type\_c_i  + \beta_{9i}battery_i + \epsilon_i
 \end{split}
 $$ {#eq-level-hedonic}
 
-On voit que dans le modèle de l'@eq-level-hedonic, il n'y a pour l'instant aucun effet d'interaction ou d'effet non-linéaire. Pour autant, les résultats sont déjà **très satisfaisants** avec un $R^2_{adj} > 0.9$
+On voit que dans le modèle de l'@eq-level-hedonic, il n'y a aucun effet d'interaction ou d'effet non-linéaire. Pour autant, les résultats sont déjà **très satisfaisants** avec un $R^2_{adj} > 0.8$.
 
 \newpage
 
@@ -1106,7 +1117,7 @@ par(cex.axis = 0.8)
 
 L'importance d'une variable, dans ce contexte, est égale à la somme des probabilités pour les modèles dans lesquels la variable apparaît. Ainsi, une variable présente dans de nombreux modèles avec des poids importants recevra une valeur d'importance élevée. La ligne rouge verticale est tracée à 0.8, correspondant au seuil différenciant les variables importantes des variables moins importantes, mais ce choix (80%) est arbitraire.
 
-Ainsi, on remarque que 11 variables sont présentes dans l'ensemble des modèles, donc ces variables sont très importantes. Ensuite, une seule variable est au-dessus de la ligne de *cutoff* mais inférieure à 1 : *das_head*. L'ensemble des autres variables sont comprises entre 0 et 0.25. On peut donc considérer que l'importance de ces variables dans notre modèle est négligeable.
+Ainsi, on remarque que 6 variables sont présentes dans l'ensemble des modèles, donc ces variables sont très importantes pour notre modélisation. Ensuite, trois variables sont au-dessus de la ligne de *cutoff* mais inférieure à 1 : *usb_type_c*, *upgrade_storage* et *made_in*. L'ensemble des autres variables sont comprises entre 0 et 0.25. On peut donc considérer que l'importance de ces variables dans notre modèle est négligeable.
 
 ```{r results, results="asis"}
 res_gen <- summary(genetic_alg)
@@ -1129,41 +1140,185 @@ stargazer(
 
 ### Interpétations Modèle niveau-niveau
 
--   Si la capacité de stockage (*storage*) augmente de 1 Go, alors, le prix augmente de 0.74 €, *cet. par.*
+-   Posséder un dispositif de charge à induction (*induction = `TRUE`*) augmente le prix de 234.76 €, *cet. par.*
+
+-   Si la capacité de stockage (*storage*) augmente de 1 Go, alors, le prix augmente de 0.883 €, *cet. par.*
+
+<!---   Lorsque le *ppi* (*pixels par pouce*) augmente d'une unité, alors le prix diminue de 5.52 €, *cet. par.* -->
 
 -   En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
 
-    -   La marque la plus valorisée derrière *Apple* est *Sony* avec 433.39 € de différence par rapport à *Apple*.
-    -   La marque la moins valorisée est *Nothing* avec 896.87 € de différence par rapport à *Apple*
+    -   La marque la plus valorisée derrière *Apple* est *Samsung* avec 363.62 € de différence par rapport à *Apple*.
+    -   La marque la moins valorisée est *Oppo* avec 610.1 € de différence par rapport à *Apple*
 
--   Une augmentation d'un Go de *ram* augmente le prix de 42.63 €, *cet. par.*
+<!---   Si la taille de l'écran augmente de 1 pouce, alors le prix diminue de 345.2 €, *cet. par.* -->
+
+-   Une augmentation d'un Go de *ram* augmente le prix de 32.32 €, *cet. par.*
 
 -   Pour le type d'écran (*screen_type*), la catégorie de référence est *borderless* (un écran sans bordure).
 
-    -   Disposer d'un écran à bord incurvé diminue le prix de 147.11 € par rapport à la catégorie de référence, *cet. par.*
-    -   Pour l'écran plat, le prix diminue de 100.5 € par rapport à la catégorie de référence, *cet. par.*
-    -   Avoir un écran pliable fait augmenter le prix de 316.85 € par rapport à la catégorie de référence, *cet. par.*
+    -   Disposer d'un écran à bord incurvé diminue le prix de 234.96 € par rapport à la catégorie de référence, *cet. par.*
+    -   Pour l'écran plat, le prix diminue de 68.99 € par rapport à un écran sans bordure, *cet. par.*
+    -   Avoir un écran pliable fait augmenter le prix de 302.71 € par rapport à la catégorie de référence, *cet. par.*
 
--   Posséder un dispositif de charge à induction (*induction = `TRUE`*) augmente le prix de 156.81 €, *cet. par.*
+- Si la batterie (*battery*) augmente d'un mAh (MilliAmpère Heure), alors le prix augmente de 0.133 €, *cet. par.*
 
--   Si la taille de l'écran augmente de 1 pouce, alors le prix augmente de 154.69 €, *cet. par.*
-
--   L'indice de réparabilité (*repairability_index*) est compris entre 1 et 10. Une augmentation de 1 point de cet indice implique une augmentation de 108.97 €, *cet. par.*
+-   Si le téléphone dispose d'une USB type C (*usb_type_c = `TRUE`*), alors le prix augmente de 89.83 €, *cet.par.*
 
 -   Concernant le lieu de fabrication (*made_in*), la catégorie de référence est la *Chine*.
 
-    -   Les coefficients associés aux catégories *Inde* et *Viêt Nam* ne sont pas significatives, c'est-à-dire qu'il n'y a pas de différence significative de prix avec un smartphone produit en *Chine*.
-    -   Comparé à un téléphone fabriqué en Chine, un téléphone produit au *Japon* augmente le prix de 562.52 €, suivi de la *Thaïlande* avec une augmentation de 540.91 € et enfin de *Taïwan* avec une augmentation du prix de 376.4 €, *cet. par.*
+    -   Le coefficient associé à la catégorie *Viêt Nam* n'est pas significatif, c'est-à-dire qu'il n'y a pas de différence significative de prix avec un smartphone produit en *Chine*.
+    -   Comparé à un téléphone fabriqué en Chine, un téléphone produit au *Thaïlande* augmente le prix de 507.6.4 €, suivi du *Japon* avec une augmentation du prix de 399.04 €, *cet. par.*
 
--   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage* = `TRUE`*), alors le prix diminue de 133.05 €,* cet. par.\* Comme nous l'avions remarqué dans la partie de statistiques descriptives.
+-   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage* = `TRUE`), alors le prix diminue de 123.04 €, *cet.par* ; comme nous l'avions remarqué dans la partie de statistiques descriptives.
 
--   Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de 145.99 €, *cet.par.*
+<!--- Pour les variables concernant la résolution de l'écran : 
+    -  Si la résolution de l'écran (*resolution_1*) augmente de 1 pixel dans la première dimension, alors le prix du téléphone augmente de 0.698 €, *cet. par.*
+    - Si la résolution de l'écran (*resolution_2*) augmente de 1 pixel dans la deuxième dimension, alors le prix du téléphone augmente de 0.853 €, *cet. par.*-->
 
--   Pour les variables liées au DAS, l'effet de *das_limbs* est positif sur le prix, tandis que l'effet de *das_head* est quant à lui négatif. L'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de 72.88 € alors que cette même augmentation diminue le prix de 105.16 € pour *das_head*, *cet.par.* Néanmoins, l'effet peut être globalement vu comme négatif étant donné la valeur des coefficients.
 
-$R^2_{adj} = 0.923$ donc 92.3% de la variance de la variable expliquée (price) est expliquée par la variance des variables explicatives du modèle.
+
+$R^2_{adj} = 0.877$ donc 87.7% de la variance de la variable expliquée (price) est expliquée par la variance des variables explicatives du modèle.
 
 \newpage
+
+### Vérification des hypothèses
+
+Un aspect crucial lors de la construction des modèles de régression linéaire est d’évaluer la qualité de l’ajustement du modèle, mais aussi de vérifier certaines hypothèses comme l'espérance nulle des résidus, leur homoscédasticité, l'absence de multicolinéarité, etc.
+
+Pour ce faire, on peut utiliser les packages `{performance}` et `{see}` en conjonction[^9].
+
+[^9]: Plus d'infos sur les packages : [`see`](https://easystats.github.io/see/articles/performance.html) et [`performance`](https://easystats.github.io/performance/index.html)
+
+Commençons par nous intéresser à la multicolinéarité dans notre régression.
+
+::: callout-tip
+## Mesure de la multicolinéarité
+
+Le Variance Inflation Factor (*VIF*) est une mesure permettant d'analyser l'ampleur de la multicolinéarité des termes du modèle. Plus précisément :
+
+\vspace{1em}
+
+-   Un *VIF* inférieur à 5 indique une faible corrélation de ce prédicteur avec d'autres prédicteurs.
+-   Une valeur comprise entre 5 et 10 indique une corrélation modérée.
+-   Enfin, des valeurs de *VIF* supérieures à 10 sont le signe d'une corrélation très élevée.
+
+\vspace{1em}
+
+Ce que le VIF apporte en plus d'une simple analyse des corrélations est l'analyse d'un cas où une variable est fortement corrélée à une combinaison linéaire de plusieurs variables.
+:::
+
+```{r collinearity_level, fig.width=6}
+check_collinearity(genreg) |>
+    select("Term", "VIF", "VIF_CI_low", "VIF_CI_high", "Tolerance") |>
+    kbl(
+        booktabs = TRUE, digits = 2,
+        col.names = c("Variable", "VIF", "IC {low}", "IC {high}", "Tolérance"), caption = "Vérification de la multicolinéarité."
+    ) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+```
+
+-   *Note* : La **Tolérance** correspond à $\dfrac{1}{\text{VIF}}$, c'est-à-dire que plus le *VIF* sera élevé, et plus la **Tolérance** sera proche de 0.
+
+\newpage
+
+Avec un *VIF* estimé de 137.76, il n'est pas surprenant de constater que la marque est extrêmement corrélée à une combinaison linéaire de plusieurs variables. On peut par exemple penser au choix de localisation de la production, le fait de disposer ou non d'un port USB type C, etc. On peut faire la même remarque pour le lieu de fabrication. La valeur du *VIF* pour les autres variables est néanmoins tout le temps inférieur à 5.
+
+Ensuite, nous pouvons mettre en œuvre une vérification visuelle de l'ajustement du modèle, en plus des métriques couramment utilisées. La vérification prédictive a posteriori permet de simuler des données répliquées avec le modèle ajusté puis les comparer aux données observées.
+
+$\Rightarrow$ **L’objectif est de détecter si le modèle est inadéquat pour décrire les données.**
+
+*Note* : Les données utilisées pour la vérification prédictive postérieure sont simulées à partir de la *distribution prédictive postérieure*. Celle-ci est construite après avoir utilisé les données observées $y$ et les prédicteurs $X$ pour mettre à jour les croyances sur les paramètres inconnus $\theta$ dans le modèle. Pour chaque tirage des paramètres $\theta$ à partir de la distribution a posteriori $p(\theta|y,X)$, un vecteur complet de résultats est généré.
+
+```{r posterior_level}
+#| fig.width: 8
+#| fig-align: center
+performance::check_posterior_predictions(genreg)
+```
+
+- La distribution des prix est bimodale, mais le modèle a du mal à représenter le second pic de la distribution, notamment pour la plage des téléphones allant de 200 à 500 €.
+
+```{r hyp2_level}
+pvalue_hyp2_level <- t.test(genreg$residuals)$p.value
+```
+
+
+**Testons ensuite une hypothèse essentielle : l'homoscédasticité des résidus.**
+
+L'homoscédasticité pour les modèles de régression linéaire signifie que les résidus du modèle ont une variance constante. Si cette hypothèse n'est pas respectée, alors les *erreurs-types* et les $p-values$ du modèle ne sont plus fiables. On peut par exemple détecter la présence d'hétéroscédasticité graphiquement :
+
+```{r}
+#| label: level_hetero
+#| fig-align: center
+#| fig.width: 6
+#| fig-cap: "Homoscédasticité des résidus."
+ggplot(genreg, aes(x = .fitted, y = .resid)) +
+    geom_point() +
+    geom_hline(yintercept = 0, color = "darkgreen") +
+    labs(x = expression(hat(y[i])), y = expression(e[i]))
+```
+
+Il est clair que notre modèle présente des résidus hétéroscédastiques. On peut aussi le vérifier avec le test de *Breusch-Pagan*. Les hypothèses $H_0$ et $H_1$ sont les suivantes :
+
+$$
+\begin{cases}
+H_0 : V(\epsilon_i) = \sigma^2_i\\
+H_1 : V(\epsilon_i) = \sigma^2
+\end{cases}
+$$
+
+```{r bp_test_level}
+bp_pvalue_level <- round(bptest(genreg)$p.value, 2)
+```
+
+\vspace{1em}
+
+-   La $p-value$ issue du test est égale à `r bp_pvalue_level`, donc l'hypothèse d'homoscédasticité des résidus n'est pas vérifiée.
+
+On peut aussi s'intéresser à l'influence des valeurs extrêmes dans notre régression.
+
+```{r outliers_level, fig.width=6, fig.height=3}
+#| fig-align: center
+#| fig-cap: "Influence des valeurs extrêmes."
+outliers <- check_outliers(genreg)
+plot(outliers, type = "dots")
+```
+
+On s'aperçoit ici que tous les points sont à l'intérieur des *contour lines*, c'est-à-dire qu'il n'y a pas vraiment de valeur extrême.
+
+D'autre part, on peut aussi s'intéresser à la normalité des résidus.
+
+```{r normality_level, fig.width=6, fig.height=3}
+#| fig-align: center
+#| fig-cap: "Histogramme des résidus avec loi normale superposée."
+mean_resid <- mean(genreg$resid)
+sd_resid <- sd(genreg$resid)
+
+ggplot(genreg, aes(x = .resid)) +
+    geom_histogram(aes(y = after_stat(density)), bins = 40, fill = "black", color = "white", alpha = 0.7) +
+    stat_function(fun = dnorm, args = list(mean = mean_resid, sd = sd_resid), color = "darkgreen", size = 1) +
+    labs(x = "Résidus", y = "Densité")
+
+skewness_genreg <- skewness(genreg$residuals)
+```
+
+On voit que le coefficient d'asymétrie est positif **(`r round(skewness_genreg,2)`)**. Cette asymétrie indique une concentration de valeurs sur le côté gauche de la distribution, on peut d'ailleurs l'observer sur l'histogramme.
+
+Enfin, effectuons un test de *Student* pour vérifier si $E(\epsilon_i) = 0$. Les hypothèses $H_0$ et $H_1$ sont les suivantes :
+
+$$
+\begin{cases}
+H_0 : E(\epsilon_i) = 0\\
+H_1 : E(\epsilon_i) \neq 0
+\end{cases}
+$$
+
+\vspace{1em}
+
+-   La $p-value$ issue du test est égale à `r pvalue_hyp2_level`, donc on rejette $H_0$. Les résidus ne sont donc pas ici d'éspérance nulle, ce qu'on avait pu confirmer graphiquement plus haut.
+
+**Prendre le logarithme de la variable dépendante *(price)* peut aider à stabiliser la variance et réduire l'hétéroscédasticité, d'où le second modèle ci-dessous.**
 
 ## Modèle Hédonique log-niveau
 
@@ -1172,7 +1327,7 @@ Dans cette partie, nous n'effectuerons pas de sélection de variables avec `{glm
 ::: callout-warning
 ## Difficultés de convergence d'un modèle SFA
 
-Dans une **SFA**, les difficultés de convergence peuvent être dues à de vastes zones très plates de la fonction de vraisemblance, pouvant être causées par une forte multicolinéarité entre l'intercept du modèle de frontière et l'intercept du modèle d'inefficacité. Par conséquent, supprimer l'intercept du modèle d'inefficacité améliore parfois la convergence, mais risque aussi d'introduire un biais de variable omise.
+Dans une **SFA**, les difficultés de convergence peuvent être dues à de vastes zones très plates de la fonction de vraisemblance.
 
 \vspace{1em}
 
@@ -1192,21 +1347,21 @@ Après plusieurs essais, le modèle que nous avons choisi d'étudier est :
 $$
 \begin{split}
 \ln(price_i) = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}induction_i \\
-+ \beta_{5i}screen\_size_i + \beta_{6i}made\_in_i + \beta_{7i}upgrade\_storage_i \\
-+ \beta_{8i}das\_head_i + \beta_{9i}das\_limbs_i + \beta_{10i}das\_chest_i  \\
-+ \beta_{11i}fast\_charging_i + \beta_{12i}network_i + \beta_{13i}ppi_i + \epsilon_i
++ \beta_{5i}screen\_size_i + \beta_{6i}made\_in_i + \beta_{7i}upgrade\_storage_i + \beta_{8i}das\_limbs_i  \\
++ \beta_{9i}screen\_type + \beta_{10i}network_i + \beta_{11i}ppi_i + \epsilon_i
 \end{split}
 $$ {#eq-log-hedonic}
-
-Par rapport au modèle en niveau, il n'y a plus les variables *screen_type* et *repairability_index*, qui posaient des problèmes de convergence. D'autres variables ont néanmoins été introduites comme *network* ou *ppi*.
 
 ------------------------------------------------------------------------
 
 ```{r log_hedonic, results="asis"}
 df_phones <- df_phones |>
-    mutate(logprice = log(price))
+    mutate(
+        logprice = log(price)
+    )
 
-loghedonic <- lm(logprice ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + das_chest + fast_charging + network + ppi,
+loghedonic <- lm(
+    logprice ~ storage + brand + ram + induction + screen_size + screen_type + made_in + upgrade_storage + das_limbs + network + ppi,
     data = df_phones
 )
 
@@ -1226,69 +1381,44 @@ stargazer(loghedonic,
 
 -   En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
 
-    -   La marque la plus valorisée derrière *Apple* est *Samsung* avec une différence de prix de $15.1\%$.
-    -   La marque la moins valorisée est *Honor* avec une différence de prix de $98.7\%$ par rapport à *Apple*.
+    -   La marque la plus valorisée derrière *Apple* est *Samsung* avec une différence de prix de $41.1\%$.
+    -   La marque la moins valorisée est *Xiaomi* avec une différence de prix de $100.5\%$ par rapport à *Apple*.
 
--   Si la *ram* augmente de 1 Go, alors le prix augmente de $8.2\%$, *cet. par.*
+-   Si la *ram* augmente de 1 Go, alors le prix augmente de $7.7\%$, *cet. par.*
 
--   Si le téléphone dispose d'une charge à induction (*induction = `TRUE`*), alors le prix augmente de $27.2\%$, *cet. par.*
+-   Si le téléphone dispose d'une charge à induction (*induction = `TRUE`*), alors le prix augmente de $21.2\%$, *cet. par.*
 
--   Si la taille de l'écran augmente de 1 pouce (*screen_size*), alors le prix augmente de $24.1\%$, *cet. par.*
+-   Si la taille de l'écran augmente de 1 pouce (*screen_size*), alors le prix augmente de $13.4\%$, *cet. par.*
+
+-   Pour le type d’écran (*screen_type*), la catégorie de référence est *borderless* (un écran sans bordure) :
+    - Les coefficients associés à la catégorie *screen_typeBords incurvés* et *screen_typePlat* ne sont pas significatifs.
+    <!--- Disposer d’un écran à bord incurvé (*screen_typeBords incurvés*) diminue le prix de $10.9\%$ par rapport à la catégorie de référence, *cet. par*.
+    - Pour l’écran plat (*screen_typePlat*), le prix diminue de $3.5\%$ par rapport à un écran sans bordure, *cet. par*.-->
+    - Avoir un écran pliable fait augmenter le prix de $37.3\%$ par rapport à l'écran *borderless*, *cet. par*.
 
 -   Pour le lieu de fabrication (*made_in*), la catégorie de référence est la *Chine*.
 
-    -   Le coefficient associé à la catégorie *Inde* n'est pas significatif.
-    -   Un téléphone qui est fabriqué au *Viêt Nam* est $14.9\%$ moins cher qu'un téléphone fabriqué en *Chine*, *cet. par.*
-    -   Comparé à un téléphone produit en *Chine*, un téléphone produit en *Thaïlande* augmente le prix de $54.3\%$, suivi de *Taïwan* avec une augmentation de $47.5\%$ et enfin du *Japon* avec une augmentation du prix de $41.4\%$, *cet. par.*
+    -   Les coefficients associés à la catégorie *Japon* et *Viêt Nam* ne sont pas significatifs.
+   <!-- -   Un téléphone qui est fabriqué au *Viêt Nam* est $9.3\%$ moins cher qu'un téléphone fabriqué en *Chine*, *cet. par.*-->
+    -   Comparé à un téléphone produit en *Chine*, un téléphone produit en *Thaïlande* augmente le prix de $69.8\%$, *cet. par.*
 
--   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage = `TRUE`*), alors le prix diminue de $36.3\%$, *cet. par*.
+-   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage = `TRUE`*), alors le prix diminue de $28.2\%$, *cet. par*.
 
--   Pour les variables liées au DAS :
+-   Pour la variable liée au DAS :
 
-    -   l'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de $9.2\%$, *cet. par.*
-    -   au contraire, le prix diminue de $20.9\%$ pour le *das_head* et de $29.9\%$ pour le *das_chest* lorsque qu'ils augmentent d'une unité de W/kg, *cet. par.*
+    -   l'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de $9.7\%$, *cet. par.*
 
--   Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de $13.9\%$, *cet.par.*
-
--   Si le téléphone est compatible avec la 5G (*network5G = `TRUE`*), alors le prix augmente de $30.6\%$, *cet. par.*
+-   Si le téléphone est compatible avec la 5G (*network5G = `TRUE`*), alors le prix augmente de $19.7\%$, *cet. par.*
 
 -   Lorsque le *ppi* (*pixels par pouce*) augmente d'une unité, alors le prix augmente de $0.1\%$, *cet. par.*
 
-$R^2_{adj} = 0.929$ donc 92.9% de la variance de la variable expliquée est expliquée par la variance des variables explicatives du modèle.
+$R^2_{adj} = 0.923$ donc 92.3% de la variance de la variable expliquée est expliquée par la variance des variables explicatives du modèle.
 
 \newpage
 
 ### Vérification des hypothèses
 
-Un aspect crucial lors de la construction des modèles de régression linéaire est d’évaluer la qualité de l’ajustement du modèle, mais aussi de vérifier certaines hypothèses comme :
-
-1.  La linéarité dans les paramètres.
-2.  Des résidus d'espérance nulle.
-3.  L'absence de multicolinéarité.
-4.  L'homoscédasticité des résidus.
-
-Pour ce faire, on peut utiliser les packages `{performance}` et `{see}` en conjonction[^9].
-
-[^9]: Plus d'infos sur les packages : [`see`](https://easystats.github.io/see/articles/performance.html) et [`performance`](https://easystats.github.io/performance/index.html)
-
-```{r hyp2}
-pvalue_hyp2 <- t.test(loghedonic$residuals)$p.value
-```
-
-L'hypothèse **(1)** est vérifiée par la formulation de notre modèle. Pour l'hypothèse **(2)**, on peut effectuer un test de *Student* pour vérifier si $E(\epsilon_i) = 0$. Les hypothèses $H_0$ et $H_1$ sont les suivantes :
-
-$$
-\begin{cases}
-H_0 : E(\epsilon_i) = 0\\
-H_1 : E(\epsilon_i) \neq 0
-\end{cases}
-$$
-
-\vspace{1em}
-
--   La $p-value$ issue du test est égale à `r pvalue_hyp2`, donc l'hypothèse **(2)** est vérifiée.
-
-```{r collinearity, fig.width=6}
+```{r collinearity_log, fig.width=6}
 check_collinearity(loghedonic) |>
     select("Term", "VIF", "VIF_CI_low", "VIF_CI_high", "Tolerance") |>
     kbl(
@@ -1299,92 +1429,69 @@ check_collinearity(loghedonic) |>
     row_spec(0, bold = T)
 ```
 
--   *Note* : La **Tolérance** correspond à $\dfrac{1}{\text{VIF}}$, c'est-à-dire que plus le *VIF* sera élevé, et plus la **Tolérance** sera proche de 0.
+On remarque un *VIF* plus élevé pour la marque, mais autrement les valeurs de *VIF* restent similaires et inférieures à 5.
 
-\newpage
+Ensuite, passons à la vérification prédictive a posteriori
 
-::: callout-tip
-## Mesure de la multicolinéarité
-
-Le Variance Inflation Factor (*VIF*) est une mesure permettant d'analyser l'ampleur de la multicolinéarité des termes du modèle. Plus précisément :
-
-\vspace{1em}
-
--   Un *VIF* inférieur à 5 indique une faible corrélation de ce prédicteur avec d'autres prédicteurs.
--   Une valeur comprise entre 5 et 10 indique une corrélation modérée.
--   Enfin, des valeurs de *VIF* supérieures à 10 sont le signe d'une corrélation très élevée.
-
-\vspace{1em}
-
-Ce que le VIF apporte en plus d'une simple analyse des corrélations est l'analyse d'un cas où une variable est fortement corrélée à une combinaison linéaire de plusieurs variables.
-:::
-
-Avec un *VIF* estimé de 470.82, il n'est pas surprenant de constater que la marque est extrêmement corrélée à une combinaison linéaire de plusieurs variables. On peut par exemple penser au choix de localisation de la production, le fait de disposer ou non d'un port USB type C, etc. L'hypothèse **(3)** n'est donc pas vérifiée, mais cela est cohérent dans le cadre du modèle.
-
-------------------------------------------------------------------------
-
-Concernant l'hypothèse **(4)** - l'Homoscédasticité pour les modèles de régression linéaire signifie que les résidus du modèle ont une variance constante. Si cette hypothèse n'est pas respectée, alors les *erreurs-types* et les $p-values$ du modèle ne sont plus fiables. On peut par exemple détecter la présente d'hétéroscédasticité graphiquement :
-
-```{r heteroscedasticity, fig.width=6}
+```{r posterior_log}
+#| fig.width: 8
 #| fig-align: center
+performance::check_posterior_predictions(loghedonic)
+```
+
+- La distribution a changé car notre variable à prédire est devenue *logprice*. On voit que même si le modèle a du mal à prédire une certaine portion de la distribution, il s'en sort très bien sur les extrémités et globalement l'adéquation du modèle semble meilleure.
+
+**Testons ensuite l'homoscédasticité des résidus pour ce modèle.**
+
+```{r}
+#| label: log_hetero
+#| fig-align: center
+#| fig.width: 6
 #| fig-cap: "Homoscédasticité des résidus."
-heterosced <- check_heteroscedasticity(loghedonic)
-plot(heterosced)
+ggplot(loghedonic, aes(x = .fitted, y = .resid)) +
+    geom_point() +
+    geom_hline(yintercept = 0, color = "darkgreen") +
+    labs(x = expression(hat(y[i])), y = expression(e[i]))
 ```
 
--   Il est clair que notre modèle présente des résidus hétéroscédastiques. On peut aussi le vérifier avec le test de *Breusch-Pagan*. Les hypothèses $H_0$ et $H_1$ sont les suivantes :
+On discerne graphiquement qu'il n'y a plus de problème d'hétéroscédasticité ici, ce qui nous est confirmé par le test de *Breusch-Pagan*.
 
-$$
-\begin{cases}
-H_0 : V(\epsilon_i) = \sigma^2\\
-H_1 : V(\epsilon_i) = \sigma^2_i
-\end{cases}
-$$
-
-```{r bp_test}
-bp_pvalue <- round(bptest(loghedonic)$p.value, 2)
+```{r bp_test_log}
+bp_pvalue_level <- round(bptest(loghedonic)$p.value, 2)
 ```
 
-\vspace{1em}
+-   En effet, la $p-value$ issue du test est égale à `r bp_pvalue_level`, donc l'hypothèse d'homoscédasticité des résidus est vérifiée.
 
--   La $p-value$ issue du test est égale à `r bp_pvalue`, donc l'hypothèse **(4)** n'est pas vérifiée.
+On peut aussi se pencher sur l'influence des valeurs extrêmes dans notre régression.
 
-**Il existe néanmoins plusieurs façons de corriger le problème d'hétéroscédasticité que nous verrons dans la section suivante.**
-
-En complément, on peut aussi tester la normalité des résidus, et vérifier si certaines observations ont une influence très importante.
-
-```{r normality, fig.width=6, fig.height=3}
-#| fig-align: center
-#| fig-cap: "Normalité des résidus (QQ Plot)."
-norm <- check_normality(loghedonic)
-plot(norm, type = "qq")
-```
-
-```{r outliers, fig.width=6, fig.height=3}
+```{r outliers_log, fig.width=6, fig.height=3}
 #| fig-align: center
 #| fig-cap: "Influence des valeurs extrêmes."
 outliers <- check_outliers(loghedonic)
 plot(outliers, type = "dots")
 ```
 
-- Les résidus ne suivent pas une loi normale et les *outliers* n'influent pas sur les résultats des prédictions.
+Globalement la même interprétation que dans la partie **level-level** peut être faite.
 
-\newpage
+D'autre part, il est possible de s'intéresser également à la normalité des résidus.
 
-Enfin, on peut aussi mettre en œuvre une vérification visuelle de l'ajustement du modèle, en plus des métriques couramment utilisées. La vérification prédictive a posteriori permet de simuler des données répliquées avec le modèle ajusté puis les comparer aux données observées.
-
-$\Rightarrow$ **L’objectif est de détecter si le modèle est inadéquat pour décrire les données.**
-
-*Note* : Les données utilisées pour la vérification prédictive postérieure sont simulées à partir de la *distribution prédictive postérieure*. Celle-ci est construite après avoir utilisé les données observées $y$ et les prédicteurs $X$ pour mettre à jour les croyances sur les paramètres inconnus $\theta$ dans le modèle. Pour chaque tirage des paramètres $\theta$ à partir de la distribution a posteriori $p(\theta|y,X)$, un vecteur complet de résultats est généré.
-
-```{r posterior}
-#| fig.width: 8
+```{r normality_log, fig.width=6, fig.height=3}
 #| fig-align: center
+#| fig-cap: "Histogramme des résidus avec loi normale superposée."
+mean_resid <- mean(loghedonic$resid)
+sd_resid <- sd(loghedonic$resid)
 
-check_posterior_predictions(loghedonic)
+ggplot(loghedonic, aes(x = .resid)) +
+    geom_histogram(aes(y = after_stat(density)), bins = 40, fill = "black", color = "white", alpha = 0.7) +
+    stat_function(fun = dnorm, args = list(mean = mean_resid, sd = sd_resid), color = "darkgreen", size = 1) +
+    labs(x = "Résidus", y = "Densité")
+
+skewness_loghedonic <- skewness(loghedonic$residuals)
 ```
 
-- La distribution des prix est bimodale, mais le modèle a du mal à représenter le second pic de la distribution. Cependant, les prédictions sont assez proches de la réalité.
+On voit que le coefficient d'asymétrie est toujours positif **(`r round(skewness_loghedonic,2)`)**. @kumbhakar2015 mentionnent l'utilisation de ce coefficient d'asymétrie comme *"test"* préalable à la spécification d'une **SFA**.
+
+L'idée derrière le test est la suivante : pour une spécification SFA frontière de coût avec erreur composée, la distribution des résidus de l'estimation par MCO doit avoir une asymétrie positive. Si cette asymétrie est positive, alors elle permet de confirmer l'existence d'une erreur unilatérale et donc la forme fonctionnelle SFA sera appropriée, ce qui semble être le cas ici.
 
 ## Modèle SFA - Frontière de coût
 
@@ -1395,13 +1502,12 @@ Il faut maintenant sélectionner la distribution des $u_i$. Deux distributions s
 -   La distribution normale tronquée : `truncNorm = TRUE`.
 -   La distribution semi-normale : `truncNorm = FALSE`.
 
-Nous avons décidé de choisir la distribution *semi-normale.  
+Nous avons décidé de choisir la distribution *semi-normale*.  
 $$
 \begin{split}
 \ln(price_i) = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}induction_i \\
-+ \beta_{5i}screen\_size_i + \beta_{6i}made\_in_i + \beta_{7i}upgrade\_storage_i \\
-+ \beta_{8i}das\_head_i + \beta_{9i}das\_limbs_i + \beta_{10i}das\_chest_i  \\
-+ \beta_{11i}fast\_charging_i + \beta_{12i}network_i + \beta_{13i}ppi_i + \underbrace{\epsilon_i}_{u_i + v_i}
++ \beta_{5i}screen\_size_i + \beta_{6i}made\_in_i + \beta_{7i}upgrade\_storage_i + \beta_{8i}das\_limbs_i  \\
++ \beta_{9i}screen\_type + \beta_{10i}network_i + \beta_{11i}ppi_i + \underbrace{\epsilon_i}_{u_i + v_i}
 \end{split}
 $$ {#eq-sfa-cost}
 
@@ -1421,13 +1527,15 @@ stars <- function(pvalue) {
 ```
 
 ```{r stochastic_cost}
-scf <- sfa(log(price) ~ storage + brand + ram + induction + screen_size + made_in + upgrade_storage + das_head + das_limbs + fast_charging + das_chest + network + ppi,
+scf <- sfa(
+    log(price) ~ storage + brand + ram + induction + screen_size + screen_type
+        + made_in + upgrade_storage + das_limbs + network + ppi,
     data = df_phones,
     truncNorm = FALSE,
     ineffDecrease = FALSE
 )
 
-scf_summary <- summary(scf)
+scf_summary <- summary(scf, extraPar = TRUE)
 ```
 
 \newpage
@@ -1459,36 +1567,42 @@ scf_results |>
 L'estimateur utilisé dans la régression hédonique *log*$-$*level* est l'estimateur MCO. Celui-ci vise à minimiser la somme des carrés des différences entre les valeurs observées ($y_i$) et celles prédites par le modèle ($\hat{y_i}$). Dans le modèle SFA, on utilise plutôt l'approche du MV (Maximum de Vraisemblance) pour estimer les paramètres. Au lieu de se concentrer sur la minimisation des résidus, le MV cherche à maximiser la probabilité d'observer les données réellement observées, c'est-à-dire qu'il cherche à maximiser la fonction de vraisemblance.
 :::
 
-- Si la capacité de stockage (*storage*) augmente de 1 Go, alors le prix augmente de 0.052%, *cet. par.*
+- Si la capacité de stockage (*storage*) augmente de 1 Go, alors le prix augmente de $0.06\%$, *cet. par.*
 
 - En ayant comme catégorie de référence *Apple* pour la variable marque (*brand*), on peut voir que toutes les marques ont un impact négatif sur le prix, *cet. par.*
 
-    - La marque la plus valorisée derrière *Apple* est *Samsung* avec une différence de prix de $25.7\%$.
-    - La marque la moins valorisée est *Honor* avec une différence de prix de $103.3\%$ par rapport à *Apple*.
+    - La marque la plus valorisée derrière *Apple* est *Samsung* avec une différence de prix de $49.6\%$.
+    - La marque la moins valorisée est *Honor* avec une différence de prix de $103.4\%$ par rapport à *Apple*.
 
-- Si la *ram* augmente de 1 Go, alors le prix augmente de $8.4\%$, *cet. par.*
+- Si la *ram* augmente de 1 Go, alors le prix augmente de $7.63\%$, *cet. par.*
 
-- Si le téléphone dispose d'une charge à induction (*induction = `TRUE`*), alors le prix augmente de $28.9\%$, *cet. par.*
+- Si le téléphone dispose d'une charge à induction (*induction = `TRUE`*), alors le prix augmente de $21.85\%$, *cet. par.*
 
-- Si la taille de l'écran augmente de 1 pouce (*screen_size*), alors le prix augmente de $25\%$, *cet. par.*
+- Si la taille de l'écran augmente de 1 pouce (*screen_size*), alors le prix augmente de $13.26\%$, *cet. par.*
+
+-   Pour le type d’écran (*screen_type*), la catégorie de référence est *borderless* (un écran sans bordure) :
+    - Les coefficients associés à la catégorie *screen_typeBords incurvés* et *screen_typePlat* ne sont pas significatifs.
+    <!--- Disposer d’un écran à bord incurvé (*screen_typeBords incurvés*) diminue le prix de $8.97\%$ par rapport à la catégorie de référence, *cet. par*.
+    - Pour l’écran plat (*screen_typePlat*), le prix diminue de $2.62\%$ par rapport à un écran sans bordure, *cet. par*.-->
+    - Avoir un écran pliable fait augmenter le prix de $37.78\%$ par rapport à l'écran *borderless*, *cet. par*.
+
 
 -   Pour le lieu de fabrication (*made_in*), la catégorie de référence est la *Chine*.
 
-    -   Le coefficient associé à la catégorie *Inde* et *Viêt Nam* n'est pas significatif.
-    -   Comparé à un téléphone produit en *Chine*, un téléphone produit en *Thaïlande* augmente le prix de $56\%$, suivi de *Taïwan* avec une augmentation de $51.6\%$ et enfin du *Japon* avec une augmentation du prix de $42\%$, *cet. par.*
+    -   Le coefficient associé à la catégorie *Japon* et *Viêt Nam* n'est pas significatif.
+    -   Comparé à un téléphone produit en *Chine*, un téléphone produit en *Thaïlande* augmente le prix de $69.92\%$, *cet. par.*
 
--   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage = `TRUE`*), alors le prix diminue de $32.9\%$, *cet. par*.
+-   Si le téléphone dispose d'un moyen d'augmenter sa capacité de stockage (*upgrade_storage = `TRUE`*), alors le prix diminue de $26.19\%$, *cet. par*.
 
--   Pour les variables liées au DAS :
+-   Pour la variable liée au DAS :
 
-    -   L'augmentation d'une unité de Watts par kilogramme du *das_limbs* augmente le prix de $7.8\%$, *cet. par.*
-    -   Au contraire, le prix diminue de $19.9\%$ pour le *das_head* et de $25.8\%$ pour le *das_chest* lorsque qu'ils augmentent d'une unité de W/kg, *cet. par.*
+    -   L'augmentation d'une unité de Watts par kilogramme du *das_limbs* diminue le prix de $12.15\%$, *cet. par.*
 
--   Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de $17.1\%$, *cet.par.*
+<!---   Si le téléphone dispose d'une charge rapide (*fast_charging = `TRUE`*), alors le prix diminue de $17.1\%$, *cet.par.*-->
 
--   Si le téléphone est compatible avec la 5G (*network5G = `TRUE`*), alors le prix augmente de $30.5\%$, *cet. par.*
+-   Si le téléphone est compatible avec la 5G (*network5G = `TRUE`*), alors le prix augmente de $20.22\%$, *cet. par.*
 
--   Lorsque le *ppi* (*pixels par pouce*) augmente d'une unité, alors le prix augmente de $0.09\%$, *cet. par.*
+-   Lorsque le *ppi* (*pixels par pouce*) augmente d'une unité, alors le prix augmente de $0.12\%$, *cet. par.*
 
 \newpage
 
@@ -1508,7 +1622,7 @@ loghedonic_results <- cbind(
     round(loghedonic_summary$coefficients[, 2], 4)
 )
 
-scf_results_2 <- scf_results[1:30, 1:3]
+scf_results_2 <- scf_results[1:22, 1:3]
 
 loghedonic_scf_results <- cbind(loghedonic_results, scf_results_2)
 
@@ -1553,9 +1667,9 @@ Avec $y$ le vecteur de $\ln(price)$ et $X$ la matrice de variables indépendante
 
 ```{r}
 lrtest <- lrtest(scf)
-pvalue_lrtest <- round(lrtest$`Pr(>Chisq)`[2],2)
+pvalue_lrtest <- round(lrtest$`Pr(>Chisq)`[2], 2)
 
-#AIC(scf) < AIC(loghedonic)
+# AIC(scf) < AIC(loghedonic)
 ```
 
 $\Rightarrow$ On rejette l'hypothèse nulle $H_0$ car la $p-value$ issue du test $=$ **`r pvalue_lrtest`** $< 0.05$.
@@ -1599,9 +1713,9 @@ brand_groups |>
 ```
 
 -   *Oppo* est la marque qui possède la pire relation prix\~attributs de notre sélection.
--   *Nothing* est la marque qui possède la meilleure relation prix\~attributs de notre sélection.
+-   *Sony* est la marque qui possède la meilleure relation prix\~attributs de notre sélection.
 
-*Apple* fait partie du Top 3 des marques les plus efficaces, derrière *Nothing* et *Fairphone* (Il faut néanmoins se souvenir que ces 2 marques ne proposent que très peu de modèles de téléphones, contre 105 pour *Apple*).
+*Apple* fait partie du Top 2 des marques les plus efficaces, derrière *Sony* et suivi de *Xiaomi* (Il faut néanmoins se souvenir que la marque *Sony* ne propose que très peu de modèles de téléphones, 11 contre 105 pour *Apple*).
 
 **Enfin, on peut aussi s'intéresser aux téléphones les plus proches/les plus éloignés de la frontière de coût.**
 
@@ -1618,24 +1732,25 @@ new_df |>
 
 \newpage
 
-- Avec une efficacité de 0.564 et un prix de 1022.14 €, le *OPPO Find X5* est très loin de la frontière de coût : son prix est 43.6% *trop cher*.
+- Avec une efficacité de 0.575 et un prix de 899 €, le *Xiaomi 13* est très loin de la frontière de coût : son prix est 42.5% *trop cher*.
 
-- Le *Samsung XCOVER 5* est un autre cas *polaire* : même un téléphone moyen de gamme d'une marque comme *Samsung* peut être un mauvais rapport qualité-prix.
+- Le *Samsung Galaxy S22 +* est un autre cas *polaire* : même un téléphone haut de gamme d'une marque comme *Samsung* peut être un mauvais rapport qualité-prix.
 
 ```{r best}
 new_df |>
     select(model, efficiency, ram, storage, price, logprice, prediction) |>
     arrange(efficiency) |>
     mutate(price = paste(price, "€")) |>
-    slice_tail(n = 5) |>
+    slice_tail(n = 8) |>
+    distinct(model, .keep_all = TRUE) |>
     kbl(booktabs = TRUE, digits = 3, caption = "Les 5 téléphones les plus efficaces.") |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
     row_spec(0, bold = T)
 ```
 
--   L'*ASUS ROG Phone 6* possède un très bon score d'efficacité, supérieur à 0.95. Avec un prix de 799 €, ce téléphone est donc un excellent rapport qualité-prix. Cela peut s'expliquer par sa capacité de stockage de 512 Go et son importante RAM de 16 Go.
+-   Le *Samsung Galaxy A04s* possède un très bon score d'efficacité, supérieur à 0.943. Avec un prix de 133.4 €, ce téléphone est donc un excellent rapport qualité-prix. 
 
--   Le *XIAOMI Redmi Note 10* est quant à lui le téléphone le plus efficace de l'ensemble de notre échantillon.
+-   L'*iPhone 12* est quant à lui le téléphone le plus efficace de l'ensemble de notre échantillon.
 
 ```{r kbl_expensive}
 new_df |>
@@ -1643,7 +1758,7 @@ new_df |>
     distinct() |>
     arrange(price) |>
     mutate(price = paste(price, "€")) |>
-    slice_head(n = 6) |>
+    slice_head(n = 9) |>
     distinct(model, .keep_all = TRUE) |>
     kbl(booktabs = TRUE, digits = 3, caption = "Les 5 téléphones les moins chers.") |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
@@ -1652,7 +1767,7 @@ new_df |>
 
 -   Parmi ces téléphones les moins chers, on remarque qu'il y a une prépondérance de modèles issus de marque *Xiaomi*. Cela est cohérent avec nos observations dans la partie de **statistiques descriptives**.
 
--   Par ailleurs, les 5 téléphones les moins chers sont en dessous de la barre symbolique des 100 € et pour autant, leur efficacité est supérieure à $0.9$ pour l'ensemble des modèles. Les téléphones peu chers ne sont donc pas forcément signe d'un mauvais *rapport "qualité-prix"*. 
+-   Par ailleurs, les 5 téléphones les moins chers sont en dessous de la barre symbolique des 100 € et pour autant, leur efficacité est supérieure à $0.89$ pour l'ensemble des modèles. Les téléphones peu chers ne sont donc pas forcément signe d'un mauvais *rapport "qualité-prix"*. 
 
 ```{r kbl_inexpensive}
 new_df |>
@@ -1809,11 +1924,11 @@ dim_4_vars$labels$title <- ""
 (dim_1_vars + dim_2_vars) / (dim_3_vars + dim_4_vars)
 ```
 
-- Les variables contribuant le plus à la dimension 1 sont *logprice*,  *upgrade_storage*, *network*, *brand*, *induction*, *ram* et *storage*.
+- Les variables contribuant le plus à la dimension 1 sont *logprice*,  *upgrade_storage*, *induction*, *ppi*, *network*, et *brand*.
 
 - Dans la dimension 2, les proportions de contribution sont elles partagées entre 3 variables : *brand*, *screen_size* et *ram*
 
-- Pour la dimension 3 et 4, *brand* est une variable qui contribue encore plus à la construction des axes avec plus de 50% de contribution.
+- Pour la dimension 3 et 4, *brand* est une variable qui contribue encore plus à la construction des axes avec environ 50% ou plus de contribution.
 
 ```{r}
 #| fig.width: 6
