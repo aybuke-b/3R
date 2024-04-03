@@ -1980,7 +1980,7 @@ Les $\eta^2$ permettent de distinguer les variables les plus structurantes d'un 
 
 - Les variables *ram* et *screen_size* sont aussi très structurantes dans la dimension 2.
 
-Opposition entre la marque et le prix (dim 1/2)
+
 
 ```{r}
 #| fig.width: 4.5
@@ -2017,6 +2017,15 @@ Les variables présentent une contribution relativement faible aux dimensions 3 
 En ce qui concerne l'axe F3, on constate que le **ppi** contribue un peu plus que les autres, suivi par *storage* et *ram*.
 
 Pour l'axe F4, c'est la variable *screen_size* qui contribue le plus, suivie par *efficiency*, tandis que *logprice* contribue pratiquement pas. Il est également à noter que toutes ces variables sont positionnées du côté négatif de l'axe.
+
+# Analyse des évolutions tarifaires sur deux périodes
+
+En référence à l'étude d'@arrondo2018, et disposant de données respectivement d'octobre 2023 et de février 2024, nous avons souhaité examiner si les prix des téléphones disponibles sur ces deux périodes ont diminué ou non. Cette analyse vise à identifier les téléphones affichant des tarifs excessifs.
+
+
+
+
+
 
 # Comparateur 
 
