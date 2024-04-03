@@ -1816,6 +1816,7 @@ Les tableaux de la section précédente nous donnent un aperçu des valeurs extr
 #| fig.height: 3.5
 #| fig-align: center
 #| fig-cap: "Efficacités en fonction des prix."
+#| label: fig-efficiency-smartspecs
 
 new_df |> ggplot(aes(x = price, y = efficiency)) +
     geom_point() +
@@ -2054,6 +2055,36 @@ En revanche le troisième point est presque toujours indiqué quelque part avec 
 
 
 ## Smart Specs
+
+***Smart Specs*** est plus qu'un simple comparateur de smartphones puisqu'il inclut une dimension de modélisation, et plus précisément un score déterminé par un modèle SFA. De plus, il propose une fonctionnalité unique de comparaison des caractéristiques qui se distingue des autres comparateurs en analysant de manière détaillée les caractéristiques similaires entre deux modèles de téléphones, offrant ainsi une approche point par point.
+
+D'autre part, ***Smart Specs*** offre une panoplie de fonctionnalités variées, telles que : 
+
+- des statistiques descriptives élémentaires
+- une restitution d'informations approfondie
+- une interface visuelle dynamique avec de multiples fonctionnalités
+- un moteur basé sur un modèle **SFA**
+
+
+L'aspect central de cette application réside dans son onglet "Efficacité". Cet onglet présente deux indicateurs principaux : le nombre de téléphones efficaces et inefficaces. Ces données sont générées à partir d'un nuage de points représentant l'efficacité en fonction du prix, visible ci-dessous : 
+
+```{=tex}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/graphefficacité.jpg}
+    \caption{Comparateur d'efficacité}
+    \label{fig:example}
+\end{figure}
+```
+
+Les téléphones situés dans la zone rouge sont considérés comme inefficaces en termes de rapport qualité-prix, tandis que ceux situés au-dessus sont considérés comme offrant un bon rapport qualité-prix.
+
+Le seuil d'efficacité, établi à 0.8, est déterminé en se basant sur l'efficacité moyenne ainsi que sur la @fig-efficiency-smartspecs.
+Il convient de noter que l'utilisateur a la possibilité d'ajuster ce seuil selon ses préférences pour un contrôle plus personnalisé.
+
+::: {.callout-tip}
+"L'application est à découvrir en suivant ce lien : [https://smart-specs.streamlit.app/](https://smart-specs.streamlit.app/)"
+:::
 
 # Conclusion
 
