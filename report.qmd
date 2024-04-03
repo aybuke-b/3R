@@ -2071,7 +2071,7 @@ L'aspect central de cette application réside dans son onglet "Efficacité". Cet
 ```{=tex}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{imgs/graphefficacité.jpg}
+    \includegraphics[width=0.9\textwidth]{imgs/graphefficacité.jpg}
     \caption{Comparateur d'efficacité}
     \label{fig:example}
 \end{figure}
@@ -2083,7 +2083,10 @@ Le seuil d'efficacité, établi à 0.8, est déterminé en se basant sur l'effic
 Il convient de noter que l'utilisateur a la possibilité d'ajuster ce seuil selon ses préférences pour un contrôle plus personnalisé.
 
 ::: {.callout-tip}
-"L'application est à découvrir en suivant ce lien : [https://smart-specs.streamlit.app/](https://smart-specs.streamlit.app/)"
+
+## Lien de l'application déployée
+
+L'application est à découvrir en suivant ce lien : [https://smart-specs.streamlit.app/](https://smart-specs.streamlit.app/)
 :::
 
 # Conclusion
