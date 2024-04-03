@@ -61,12 +61,13 @@ library(factoextra)
 ```{r}
 #| label: scientific_notation
 options(scipen = 999)
+options(knitr.kable.NA = "")
 ```
 
 ```{r}
 #| label: theme_setting
 theme_set(theme_minimal())
-thematic::thematic_on(fg = "black", accent = "purple", font = "PT Sans")
+thematic::thematic_on(fg = "black", bg = "white", accent = "purple", font = "PT Sans")
 # Configure le thème ggplot2 globalement
 ```
 
@@ -1221,13 +1222,13 @@ check_collinearity(genreg) |>
 
 -   *Note* : La **Tolérance** correspond à $\dfrac{1}{\text{VIF}}$, c'est-à-dire que plus le *VIF* sera élevé, et plus la **Tolérance** sera proche de 0.
 
+Avec un *VIF* estimé de 137.76, il n'est pas surprenant de constater que la marque est extrêmement corrélée à une combinaison linéaire de plusieurs variables. On peut par exemple penser au choix de localisation de la production, le fait de disposer ou non d'un port USB type C, etc. La valeur du *VIF* pour les autres variables est néanmoins tout le temps inférieur à 5.
+
 \newpage
 
-Avec un *VIF* estimé de 137.76, il n'est pas surprenant de constater que la marque est extrêmement corrélée à une combinaison linéaire de plusieurs variables. On peut par exemple penser au choix de localisation de la production, le fait de disposer ou non d'un port USB type C, etc. On peut faire la même remarque pour le lieu de fabrication. La valeur du *VIF* pour les autres variables est néanmoins tout le temps inférieur à 5.
+**Ensuite, nous pouvons mettre en œuvre une vérification visuelle de l'ajustement du modèle, en plus des métriques couramment utilisées.**
 
-Ensuite, nous pouvons mettre en œuvre une vérification visuelle de l'ajustement du modèle, en plus des métriques couramment utilisées. La vérification prédictive a posteriori permet de simuler des données répliquées avec le modèle ajusté puis les comparer aux données observées.
-
-$\Rightarrow$ **L’objectif est de détecter si le modèle est inadéquat pour décrire les données.**
+La vérification prédictive a posteriori permet de simuler des données répliquées avec le modèle ajusté puis les comparer aux données observées. Son objectif est de détecter si le modèle est inadéquat pour décrire les données.
 
 *Note* : Les données utilisées pour la vérification prédictive postérieure sont simulées à partir de la *distribution prédictive postérieure*. Celle-ci est construite après avoir utilisé les données observées $y$ et les prédicteurs $X$ pour mettre à jour les croyances sur les paramètres inconnus $\theta$ dans le modèle. Pour chaque tirage des paramètres $\theta$ à partir de la distribution a posteriori $p(\theta|y,X)$, un vecteur complet de résultats est généré.
 
@@ -1246,12 +1247,13 @@ pvalue_hyp2_level <- t.test(genreg$residuals)$p.value
 
 **Testons ensuite une hypothèse essentielle : l'homoscédasticité des résidus.**
 
-L'homoscédasticité pour les modèles de régression linéaire signifie que les résidus du modèle ont une variance constante. Si cette hypothèse n'est pas respectée, alors les *erreurs-types* et les $p-values$ du modèle ne sont plus fiables. On peut par exemple détecter la présence d'hétéroscédasticité graphiquement :
+L'homoscédasticité pour les modèles de régression linéaire signifie que les résidus du modèle ont une variance constante. Si cette hypothèse n'est pas respectée, alors les *erreurs-types* et les $p-values$ du modèle ne sont plus fiables.
 
 ```{r}
 #| label: level_hetero
 #| fig-align: center
 #| fig.width: 6
+#| fig.height: 2.5
 #| fig-cap: "Homoscédasticité des résidus."
 ggplot(genreg, aes(x = .fitted, y = .resid)) +
     geom_point() +
@@ -1276,7 +1278,7 @@ bp_pvalue_level <- round(bptest(genreg)$p.value, 2)
 
 -   La $p-value$ issue du test est égale à `r bp_pvalue_level`, donc l'hypothèse d'homoscédasticité des résidus n'est pas vérifiée.
 
-On peut aussi s'intéresser à l'influence des valeurs extrêmes dans notre régression.
+**Intéressons-nous également à l'influence des valeurs extrêmes dans notre régression.**
 
 ```{r outliers_level, fig.width=6, fig.height=3}
 #| fig-align: center
@@ -1287,9 +1289,9 @@ plot(outliers, type = "dots")
 
 On s'aperçoit ici que tous les points sont à l'intérieur des *contour lines*, c'est-à-dire qu'il n'y a pas vraiment de valeur extrême.
 
-D'autre part, on peut aussi s'intéresser à la normalité des résidus.
+**D'autre part, on peut aussi se pencher sur l'hypothèse de normalité des résidus.**
 
-```{r normality_level, fig.width=6, fig.height=3}
+```{r normality_level, fig.width=6, fig.height=2.75}
 #| fig-align: center
 #| fig-cap: "Histogramme des résidus avec loi normale superposée."
 mean_resid <- mean(genreg$resid)
@@ -1298,7 +1300,7 @@ sd_resid <- sd(genreg$resid)
 ggplot(genreg, aes(x = .resid)) +
     geom_histogram(aes(y = after_stat(density)), bins = 40, fill = "black", color = "white", alpha = 0.7) +
     stat_function(fun = dnorm, args = list(mean = mean_resid, sd = sd_resid), color = "darkgreen", size = 1) +
-    labs(x = "Résidus", y = "Densité")
+    labs(x = "", y = "Densité")
 
 skewness_genreg <- skewness(genreg$residuals)
 ```
@@ -1319,6 +1321,8 @@ $$
 -   La $p-value$ issue du test est égale à `r pvalue_hyp2_level`, donc on rejette $H_0$. Les résidus ne sont donc pas ici d'éspérance nulle, ce qu'on avait pu confirmer graphiquement plus haut.
 
 **Prendre le logarithme de la variable dépendante *(price)* peut aider à stabiliser la variance et réduire l'hétéroscédasticité, d'où le second modèle ci-dessous.**
+
+\newpage
 
 ## Modèle Hédonique log-niveau
 
@@ -1342,8 +1346,9 @@ Dans le package `{frontier}` que nous utilisons pour effectuer la SFA, ces diffi
 Cela signifie que l'estimation du paramètre $\gamma$ est soit proche de la limite inférieure de son espace de paramètres (0), soit proche de la limite supérieure de son espace de paramètres (1). Par exemple, un $\gamma$ proche de zéro indique qu'il n'y a presque aucune inefficacité, donc qu'il serait possible d'estimer le modèle par MCO, tandis qu'un $\gamma$ proche de un indique qu'il n'y a presque aucun bruit, donc qu'il serait possible d'utiliser une DEA. Plus globalement, cela indique une mauvaise spécification du modèle ou que d'autres modèles pourraient être plus appropriés dans ce cadre.
 :::
 
-Après plusieurs essais, le modèle que nous avons choisi d'étudier est :
+\vspace{3em}
 
+Après plusieurs essais, le modèle que nous avons choisi d'étudier est :
 $$
 \begin{split}
 \ln(price_i) = \beta_0 + \beta_{1i} storage_i + \beta_{2i}brand_i + \beta_{3i}ram_i + \beta_{4i}induction_i \\
@@ -1353,6 +1358,10 @@ $$
 $$ {#eq-log-hedonic}
 
 ------------------------------------------------------------------------
+
+\newpage
+
+\vspace{15em}
 
 ```{r log_hedonic, results="asis"}
 df_phones <- df_phones |>
@@ -1429,9 +1438,15 @@ check_collinearity(loghedonic) |>
     row_spec(0, bold = T)
 ```
 
+\vspace{1em}
+
 On remarque un *VIF* plus élevé pour la marque, mais autrement les valeurs de *VIF* restent similaires et inférieures à 5.
 
-Ensuite, passons à la vérification prédictive a posteriori
+\vspace{1em}
+
+**Ensuite, passons à la vérification prédictive a posteriori.**
+
+\vspace{1em}
 
 ```{r posterior_log}
 #| fig.width: 8
@@ -1441,7 +1456,9 @@ performance::check_posterior_predictions(loghedonic)
 
 - La distribution a changé car notre variable à prédire est devenue *logprice*. On voit que même si le modèle a du mal à prédire une certaine portion de la distribution, il s'en sort très bien sur les extrémités et globalement l'adéquation du modèle semble meilleure.
 
-**Testons ensuite l'homoscédasticité des résidus pour ce modèle.**
+\newpage
+
+**Testons aussi l'homoscédasticité des résidus pour ce modèle.**
 
 ```{r}
 #| label: log_hetero
@@ -1462,7 +1479,7 @@ bp_pvalue_level <- round(bptest(loghedonic)$p.value, 2)
 
 -   En effet, la $p-value$ issue du test est égale à `r bp_pvalue_level`, donc l'hypothèse d'homoscédasticité des résidus est vérifiée.
 
-On peut aussi se pencher sur l'influence des valeurs extrêmes dans notre régression.
+**On peut alors se pencher sur l'influence des valeurs extrêmes dans notre régression.**
 
 ```{r outliers_log, fig.width=6, fig.height=3}
 #| fig-align: center
@@ -1473,9 +1490,9 @@ plot(outliers, type = "dots")
 
 Globalement la même interprétation que dans la partie **level-level** peut être faite.
 
-D'autre part, il est possible de s'intéresser également à la normalité des résidus.
+**D'autre part, il est possible de s'intéresser également à la normalité des résidus.**
 
-```{r normality_log, fig.width=6, fig.height=3}
+```{r normality_log, fig.width=6, fig.height=2.5}
 #| fig-align: center
 #| fig-cap: "Histogramme des résidus avec loi normale superposée."
 mean_resid <- mean(loghedonic$resid)
@@ -1489,9 +1506,12 @@ ggplot(loghedonic, aes(x = .resid)) +
 skewness_loghedonic <- skewness(loghedonic$residuals)
 ```
 
-On voit que le coefficient d'asymétrie est toujours positif **(`r round(skewness_loghedonic,2)`)**. @kumbhakar2015 mentionnent l'utilisation de ce coefficient d'asymétrie comme *"test"* préalable à la spécification d'une **SFA**.
+On voit que le coefficient d'asymétrie est toujours positif **(`r round(skewness_loghedonic,2)`)**. 
+
+@kumbhakar2015 mentionnent l'utilisation de ce coefficient d'asymétrie comme *"test"* préalable à la spécification d'une **SFA**.
 
 L'idée derrière le test est la suivante : pour une spécification SFA frontière de coût avec erreur composée, la distribution des résidus de l'estimation par MCO doit avoir une asymétrie positive. Si cette asymétrie est positive, alors elle permet de confirmer l'existence d'une erreur unilatérale et donc la forme fonctionnelle SFA sera appropriée, ce qui semble être le cas ici.
+
 
 ## Modèle SFA - Frontière de coût
 
@@ -1547,15 +1567,19 @@ scf_results <- cbind(
     round(scf_summary$mleParam[, 2], 4)
 )
 
-scf_results |>
+scf_results[-c(25:33), ] |>
     kbl(booktabs = TRUE, caption = "Résultats de l'estimation du modèle SFA (Cost Frontier).", col.names = c("Coefficient", "Significativité", "Erreur Std")) |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
     row_spec(0, bold = T)
 ```
 
+\vspace{2em}
+
 - **SigmaSq** ($\sigma^2$) représente la variance de l'erreur composite $\epsilon_i$ dans le modèle.
 
 - **gamma** ($\gamma$) représente le paramètre d'inefficacité stochastique. $u_i$​ est modélisé en fonction de ce $\gamma$ estimé pour capturer l'inefficacité inobservable.
+
+- **gammaVar** correspond à la part de variance totale qui est due à l'inefficacité. Dans notre cas, 37,5% de la variance totale est due à l'innefficacité.
 
 \newpage
 
@@ -1604,7 +1628,7 @@ L'estimateur utilisé dans la régression hédonique *log*$-$*level* est l'estim
 
 -   Lorsque le *ppi* (*pixels par pouce*) augmente d'une unité, alors le prix augmente de $0.12\%$, *cet. par.*
 
-\newpage
+
 
 ### Analyse comparative des deux modèles
 
@@ -1712,6 +1736,8 @@ brand_groups |>
     row_spec(0, bold = T)
 ```
 
+\newpage
+
 -   *Oppo* est la marque qui possède la pire relation prix\~attributs de notre sélection.
 -   *Sony* est la marque qui possède la meilleure relation prix\~attributs de notre sélection.
 
@@ -1729,8 +1755,6 @@ new_df |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
     row_spec(0, bold = T)
 ```
-
-\newpage
 
 - Avec une efficacité de 0.575 et un prix de 899 €, le *Xiaomi 13* est très loin de la frontière de coût : son prix est 42.5% *trop cher*.
 
@@ -1751,6 +1775,8 @@ new_df |>
 -   Le *Samsung Galaxy A04s* possède un très bon score d'efficacité, supérieur à 0.943. Avec un prix de 133.4 €, ce téléphone est donc un excellent rapport qualité-prix. 
 
 -   L'*iPhone 12* est quant à lui le téléphone le plus efficace de l'ensemble de notre échantillon.
+
+\newpage
 
 ```{r kbl_expensive}
 new_df |>
@@ -1943,7 +1969,7 @@ eta_dim_34 <- factoextra::fviz_famd_var(afdm_res, repel = TRUE, axes = c(3, 4))
 eta_dim_12 + eta_dim_34
 ```
 
-\newpage
+
 
 Les $\eta^2$ permettent de distinguer les variables les plus structurantes d'un axe 
 
@@ -1993,11 +2019,9 @@ Pour l'axe F4, c'est la variable *screen_size* qui contribue le plus, suivie par
 
 # Comparateur 
 
-En se basant sur notre problématique, nous voulions, en plus d'une estimation économétrique qui présente son lot de complexité, créer une application, et plus précisément un **comparateur d'efficacité**.
+En se basant sur notre problématique, nous voulions, en plus d'une estimation économétrique que nous avons vue plus haut, créer une application, et plus précisément un **comparateur d'efficacité**.
 
-En premier lieu, il convient de se poser une question qui semble évidente à première vue, mais qui, quand on s'y penche de plus près, est assez sophistiquée. 
-
-- Cette question c'est : *"Qu'est ce qu'un comparateur exactement ?"*
+En premier lieu, il convient de se poser la question : *"Qu'est ce qu'un comparateur exactement ?"*
 
 ::: {.callout-tip}
 
@@ -2007,18 +2031,15 @@ En premier lieu, il convient de se poser une question qui semble évidente à pr
 - Principalement axé sur les prix, il peut également prendre en compte les aspects techniques et la qualité des produits.
 :::
 
-On retrouve l'utilisation des comparateurs dans de nombreux domaines tels que les comparateurs de vols, d'assurances, de voitures, ou encore de banques.
+On retrouve l'utilisation des comparateurs dans de nombreux domaines tels que les comparateurs de vols, d'assurances, de voitures, ou encore de banques. En bref, il existe une variété de cas d'usage et un nombre croissant d'utilisateurs faisant appel à ces comparateurs avant d'acheter un bien ou un service.
 
-En bref il existe une variété de cas d'usage et un nombre croissant d'utilisateurs faisant appel à ces comparateurs avant d'acheter un bien ou un service.
-
-
-D'autre part, il y a des questions juridiques, économiques, statistiques et algorithmiques qui se posent.
+D'autre part, un certain nombre de questions juridiques, économiques, statistiques et algorithmiques se posent.
 
 En effet, les opérateurs de plateforme en ligne doivent délivrer au consommateur une information **loyale**, **claire** et **transparente**, selon l’article [L. 111-7 du code de la consommation](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033219601).
 
-**Les comparateurs en ligne sont donc eux aussi soumis à ces obligations de loyauté et de transparence.**
+**Les comparateurs en ligne sont donc eux aussi soumis à ces obligations de loyauté et de transparence. À ce titre, ils doivent :**
 
-1. Page dédiée accessible depuis toutes les autres pages du comparateur informant le fonctionnement de celui-ci.
+1. Avoir une page dédiée accessible depuis toutes les autres pages du comparateur informant le fonctionnement de celui-ci.
 
 2. Faire figurer sur chaque page de résultats  les informations concernant les critères de classement.
 
@@ -2026,7 +2047,6 @@ En effet, les opérateurs de plateforme en ligne doivent délivrer au consommate
 
 
 Il va sans dire que très peu de comparateurs respectent le premier point, souvent pour une raison simple : ce sont juste des listings de prix de téléphones du moins cher au plus cher, donc il n'y a pas vraiment de fonctionnement à proprement parler. De même, concernant les critères de classement. 
-
 
 En revanche le troisième point est presque toujours indiqué quelque part avec la mention *publicité* ou *annonce* quand il y a un partenariat rémunéré, et c'est normal car une grande partie des revenus de ces comparateurs provient de ces partenariats donc ils font assez attention à ce point.
 
