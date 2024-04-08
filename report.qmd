@@ -1863,7 +1863,7 @@ afdm_res <- FAMD(afdm_df, ncp = 10)
 #| fig-align: center
 #| fig-cap: "Inerties."
 
-scree <- factoextra::fviz_screeplot(afdm_res, barfill = highlight, barcolor = highlight, addlabels = TRUE, main = "", ylim = c(0, 22.5), ylab = "")
+scree <- factoextra::fviz_screeplot(afdm_res, barfill = highlight, barcolor = highlight, addlabels = TRUE, main = "", ylim = c(0, 25), ylab = "")
 
 scree
 
@@ -2022,9 +2022,154 @@ Pour l'axe F4, c'est la variable *screen_size* qui contribue le plus, suivie par
 
 En référence à l'étude d'@arrondo2018, et disposant de données respectivement d'octobre 2023 et de février 2024, nous avons souhaité examiner si les prix des téléphones disponibles sur ces deux périodes ont diminué ou non. Cette analyse vise à identifier les téléphones affichant des tarifs excessifs.
 
+Il est à noter qu'une telle analyse est assez complexe techniquement. En effet, aucune clé unique identifiable n'existe pour distinguer les téléphones, il faut donc en créer une **artificiellement**, comme suit :
+
+$$
+unique\_{key} = model + ram + storage + color
+$$
+
+```{r}
+root <- getwd()
+
+df_path_1 <- file.path(root, "Web_Scraping", "data", "df_clean.csv")
+df_path_2 <- file.path(root, "Web_Scraping", "data", "df_clean_2.csv")
+
+df_1 <- read_delim(df_path_1, delim = ";")
+df_2 <- read_delim(df_path_2, delim = ";")
+
+scf_period_1 <- sfa(
+    log(price) ~ storage + brand + ram + induction + screen_size
+        + made_in + upgrade_storage + das_limbs + network + ppi,
+    data = df_1,
+    truncNorm = FALSE,
+    ineffDecrease = FALSE
+)
+
+period_1 <- df_1 |>
+    select(
+        brand,
+        model,
+        price,
+        logprice,
+        screen_size,
+        network,
+        screen_type,
+        induction,
+        ram,
+        storage,
+        made_in,
+        ppi,
+        upgrade_storage,
+        das_limbs,
+        color
+    ) |>
+    mutate(period = 1)
+
+period_1 <- bind_cols(efficiencies(scf_period_1) |> as_tibble(), period_1)
+
+period_2 <- df_2 |>
+    select(
+        brand,
+        model,
+        price,
+        logprice,
+        screen_size,
+        network,
+        screen_type,
+        induction,
+        ram,
+        storage,
+        made_in,
+        ppi,
+        upgrade_storage,
+        das_limbs,
+        color
+    ) |>
+    mutate(period = 2)
+
+periods <- bind_rows(period_1, period_2)
+
+periods <- periods |> unite("unique_key", c(model, color, ram, storage), sep = "_", remove = FALSE)
+
+# on fait un group by par clé unique,
+# puis un distinct de période.
+# Quand ce distinct = 2, alors le téléphone existe dans les deux périodes !
+
+valid <- periods |>
+    group_by(unique_key) |>
+    summarise(periods_exist = n_distinct(period)) |>
+    filter(periods_exist == 2) |>
+    select(unique_key) |>
+    pull()
+
+valid_v2 <- periods |>
+    filter(unique_key %in% c(valid)) |>
+    group_by(unique_key) |>
+    summarise(nb = n()) |>
+    filter(nb == 2) |>
+    select(unique_key) |>
+    pull()
+
+dt <- periods |>
+    filter(unique_key %in% c(valid_v2)) |>
+    arrange(unique_key)
+
+clean_data <- pivot_wider(
+    dt,
+    names_from = period,
+    values_from = c(price, logprice, efficiency),
+    names_sep = "_"
+) |>
+    mutate(
+        price_diff = price_1 - price_2,
+        group = case_when(
+            price_diff < 0 ~ "+ Period 2",
+            price_diff == 0 ~ "= Period 2",
+            price_diff > 0 ~ "- Period 2"
+        )
+    ) |>
+    filter(!is.na(price_diff))
+
+n_prices <- clean_data |>
+    select(model, efficiency_1, price_1, price_2, price_diff, group) |>
+    arrange(price_diff) |>
+    group_by(group) |>
+    summarise(n = n())
+
+prices_less <- n_prices |>
+    filter(group == "- Period 2") |>
+    pull()
+prices_equal <- n_prices |>
+    filter(group == "= Period 2") |>
+    pull()
+prices_more <- n_prices |>
+    filter(group == "+ Period 2") |>
+    pull()
+
+clean_data |>
+    select(model, efficiency_1, price_1, price_2, price_diff, group) |>
+    arrange(price_diff) |>
+    group_by(group) |>
+    summarise(
+        mean_eff = mean(efficiency_1),
+        median_eff = median(efficiency_1)
+    )
+
+# mean_eff = mean(efficiency_1),
+# median_eff = median(efficiency_1),
+# mean(price_diff),
 
 
+# globalement on voit que les téléphoens dotn le prix a baissé en période 2 ont une efficacité moins importante que les téléphones dont le prix a augmenté
+```
 
+En concaténant ces 4 variables, la clé unique pour chaque téléphone entre les 2 périodes est créée, et après un certain nombre d'opérations de manipulation de données, il en résulte que **`r clean_data |> nrow()`** téléphones sont présents en période 1 et 2. Parmi ces téléphones, **`r prices_less`**, soit `r (prices_less/clean_data |> nrow())*100` %, ont vu leur prix diminuer en période 2, **`r prices_equal`** ont le même prix qu'en première période, et enfin, **`r prices_more`** téléphones ont un prix plus important en période 2. 
+
+Contre-intuitif à première vue, si le prix de certains téléphones est plus élevé en seconde période, c'est probablement car ils disposaient d'une promotion en première période.
+
+::: {.callout-warning}
+**Ajouter les 5 téléphones dont la différence de prix est la plus élevée (price_diff), reformater le tableau median/mean efficiency avec kable, et ajouter la petite interpr"tation aussi.**
+:::
 
 
 # Comparateur 
@@ -2102,26 +2247,15 @@ L'application est à découvrir en suivant ce lien : [https://smart-specs.stream
 
 La réalisation d'une étude utilisant les modèles SFA pour évaluer les prix des smartphones a permis de mieux comprendre les dynamiques complexes de ce marché en constante évolution. En explorant la littérature existante sur la SFA et la régression hédonique des prix, nous avons découvert les fondements théoriques de ces modèles, leurs apports ainsi que leurs limites.
 
-Les statistiques descriptives réalisées sur 487 smartphones vendus par un revendeur français *(octobre 2023)* ont révélé une distribution étalée des prix, confirmant la nature hautement différenciée des smartphones. En utilisant des modèles de régression hédonique, nous avons réussi à prédire avec précision les prix en utilisant différents types de spécifications, notamment *niveau-niveau* en *log-niveau*. Ces résultats ont été extrêmement satisfaisants, démontrant la capacité des modèles à correctement inférer les prix des smartphones en fonction de leurs caractéristiques.
+Les statistiques descriptives réalisées sur 487 smartphones vendus par un revendeur français *(octobre 2023)* ont révélé une distribution bimodale des prix, confirmant la nature hautement différenciée des smartphones. Grâce à des modèles de régression hédonique, nous avons réussi à prédire avec précision les prix en utilisant différents types de spécifications, d'abord en *niveau-niveau* puis en *log-niveau*. Ces résultats ont été extrêmement satisfaisants, démontrant la capacité des modèles à correctement inférer les prix des smartphones en fonction de leurs caractéristiques.
 
 Cependant, pour aller au-delà de la simple prédiction des prix, nous avons également appliqué un modèle SFA, spécifiquement la *Cost Frontier Analysis*, afin d'évaluer l'efficacité des prix des téléphones en tenant compte de leurs caractéristiques. Cela nous a permis de déterminer les téléphones offrant le meilleur rapport qualité-prix, offrant ainsi une perspective supplémentaire dans la compréhension du pricing de ces téléphones.
 
-La prochaine étape de ce projet consistera à créer une application comparative. Celle-ci permettra aux utilisateurs *(tout du moins nous l'espérons)*, de spécifier les caractéristiques recherchées dans un téléphone. En utilisant le modèle SFA que nous avons développé, un score sera généré pour chaque téléphone, classant ainsi les appareils du plus efficace au moins efficace en fonction des critères spécifiés. Cette application offrira une solution pratique et personnalisée aux utilisateurs pour prendre des décisions informées lors de l'achat ou de la production de smartphones.
+La dernière étape de ce projet consista à créer une application comparative. Celle-ci permet aux utilisateurs de spécifier les caractéristiques recherchées dans un téléphone. En utilisant le modèle SFA que nous avons développé, un score est généré pour chaque téléphone, classant ainsi les appareils du plus efficace au moins efficace en fonction des critères spécifiés. Cette application offre une solution pratique et personnalisée aux utilisateurs pour prendre des décisions informées lors de l'achat d'un nouveau smartphone.
 
 En résumé, cette étude approfondie combinant la régression hédonique, la SFA et l'analyse des prix des smartphones a non seulement permis de prédire précisément les prix en fonction des caractéristiques, mais a également jeté les bases d'une application offrant des recommandations personnalisées basées sur l'efficacité des prix des téléphones. Ce projet ouvre des perspectives intéressantes pour aider les consommateurs et les producteurs à prendre des décisions éclairées dans un marché aussi dynamique et complexe que celui des smartphones.
 
 \macrostars
-
-```{r predicts}
-# prediction <- predict(genreg)
-# true <- df$price
-# model <- df$model
-# data.frame(true, prediction, model)
-
-# faire un tableau des prédictions les plus proches et éloignées
-
-# faire un modèle avec correction d'hétéroscédasticité. robuste.
-```
 
 # Annexe {.appendix}
 
