@@ -1863,7 +1863,7 @@ afdm_res <- FAMD(afdm_df, ncp = 10)
 #| fig-align: center
 #| fig-cap: "Inerties."
 
-scree <- factoextra::fviz_screeplot(afdm_res, barfill = highlight, barcolor = highlight, addlabels = TRUE, main = "", ylim = c(0, 25), ylab = "")
+scree <- factoextra::fviz_screeplot(afdm_res, barfill = highlight, barcolor = highlight, addlabels = TRUE, main = "", ylim = c(0, 35), ylab = "")
 
 scree
 
@@ -1996,9 +1996,9 @@ circle_dim_12
 ```
 
 
-D'après le nuage des variables, on peut voir que les variables qui contribuent à l'axe F1 sont le *logprice*, *ppi*, *storage* ainsi que *ram*. On peut donc supposer que les 3 caractéristiques constituent la majeure partie de la variation observée dans la variable *logprice*.
+D'après le nuage des variables, on peut voir que les variables qui contribuent à l'axe $F_1$ sont le *logprice*, *ppi*, *storage* ainsi que *ram*. On peut donc supposer que les 3 caractéristiques constituent la majeure partie de la variation observée dans la variable *logprice*.
 
-Pour l’axe F2, ce sont principalement les variables *screen_size* et *efficiency* qui contribuent le plus à cet axe. On peut observer que l'efficacité (*efficiency*) est moins bien représentée que *screen_size*, comme le suggère la différence dans la longueur des flèches associées à ces variables.
+Pour l’axe $F_2$, ce sont principalement les variables *screen_size* et *efficiency* qui contribuent le plus à cet axe. On peut observer que l'efficacité (*efficiency*) est moins bien représentée que *screen_size*, comme le suggère la différence dans la longueur des flèches associées à ces variables.
 
 
 ```{r}
@@ -2010,13 +2010,10 @@ Pour l’axe F2, ce sont principalement les variables *screen_size* et *efficien
 circle_dim_34
 ```
 
-Les variables ne contribuent pas beaucoup aux dimensions 3 et 4.
-Pour l'axe F3, la *ppi* contribuent pas mal suivi de *storage*, *ram*.
+L'ensemble des variables contribue assez peu aux dimensions 3 et 4.
+Pour l'axe $F_3$, la *ppi* contribue de manière plus importante, suivie ensuite de *storage* et *ram*.
 
-Les variables présentent une contribution relativement faible aux dimensions 3 et 4 de l'analyse. 
-En ce qui concerne l'axe F3, on constate que le **ppi** contribue un peu plus que les autres, suivi par *storage* et *ram*.
-
-Pour l'axe F4, c'est la variable *screen_size* qui contribue le plus, suivie par *efficiency*, tandis que *logprice* contribue pratiquement pas. Il est également à noter que toutes ces variables sont positionnées du côté négatif de l'axe.
+Pour l'axe $F_4$, c'est la variable *screen_size* qui contribue le plus, suivie par *efficiency*, tandis que la contribution de *logprice* est négligeable. Il est également à noter que toutes ces variables sont positionnées du côté négatif de l'axe.
 
 # Analyse des évolutions tarifaires sur deux périodes
 
@@ -2145,32 +2142,42 @@ prices_equal <- n_prices |>
 prices_more <- n_prices |>
     filter(group == "+ Period 2") |>
     pull()
-
-clean_data |>
-    select(model, efficiency_1, price_1, price_2, price_diff, group) |>
-    arrange(price_diff) |>
-    group_by(group) |>
-    summarise(
-        mean_eff = mean(efficiency_1),
-        median_eff = median(efficiency_1)
-    )
-
-# mean_eff = mean(efficiency_1),
-# median_eff = median(efficiency_1),
-# mean(price_diff),
-
-
-# globalement on voit que les téléphoens dotn le prix a baissé en période 2 ont une efficacité moins importante que les téléphones dont le prix a augmenté
 ```
 
 En concaténant ces 4 variables, la clé unique pour chaque téléphone entre les 2 périodes est créée, et après un certain nombre d'opérations de manipulation de données, il en résulte que **`r clean_data |> nrow()`** téléphones sont présents en période 1 et 2. Parmi ces téléphones, **`r prices_less`**, soit `r (prices_less/clean_data |> nrow())*100` %, ont vu leur prix diminuer en période 2, **`r prices_equal`** ont le même prix qu'en première période, et enfin, **`r prices_more`** téléphones ont un prix plus important en période 2. 
 
 Contre-intuitif à première vue, si le prix de certains téléphones est plus élevé en seconde période, c'est probablement car ils disposaient d'une promotion en première période.
 
-::: {.callout-warning}
-**Ajouter les 5 téléphones dont la différence de prix est la plus élevée (price_diff), reformater le tableau median/mean efficiency avec kable, et ajouter la petite interpr"tation aussi.**
-:::
+On peut également regarder l'efficacité moyenne des groupes en fonction de si leur prix a baissé, augmenté ou est resté stable entre les deux périodes.
 
+```{r}
+clean_data |>
+    select(model, efficiency_1, price_1, price_2, price_diff, group) |>
+    arrange(price_diff) |>
+    group_by(group) |>
+    summarise(
+        mean_eff = round(mean(efficiency_1), 3),
+        median_eff = round(median(efficiency_1), 3)
+    ) |>
+    kbl(caption = "Efficacité par groupe de variation de prix", booktabs = T, col.names = c("Groupe", "Efficacité moyenne", "Efficacité médiane"), escape = F) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+```
+
+Entre les périodes 1 et 2, le prix de certains téléphones a augmenté (groupe **+**). Ces téléphones avaient une efficacité moyenne et médiane de 0.85 et respectivement 0.874 en période 1. D'autres téléphones ont quant à eux vu leur prix diminuer (groupe **-**) en période 2, et leur efficacité moyenne et médiane en période 1 sont inférieures à celles des téléphones dont le prix a augmenté. Cette observation nous indique qu'il semble exister un lien entre l'efficacité (calculée par la SFA en période 1) et la réduction de prix appliquée en période 2.
+
+D'autre part, on peut aussi s'intéresser aux téléphones ayant enregistré la baisse de prix la plus significative.
+```{r}
+most_exp <- clean_data |>
+    select(model, price_1, price_2, price_diff) |>
+    arrange(desc(price_diff)) |>
+    slice_head(n = 5) |>
+    kbl(caption = "", booktabs = T, col.names = c("Modèle", "Prix période 1", "Prix période 2", "Différence de prix"), escape = F) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+```
+
+- Le Samsung Galaxy Z Fold 4 est le téléphone qui présente la plus forte baisse de prix, passant de 1799 € à 1070.32 €, soit une réduction de presque 730 €.
 
 # Comparateur 
 
@@ -2247,7 +2254,7 @@ L'application est à découvrir en suivant ce lien : [https://smart-specs.stream
 
 La réalisation d'une étude utilisant les modèles SFA pour évaluer les prix des smartphones a permis de mieux comprendre les dynamiques complexes de ce marché en constante évolution. En explorant la littérature existante sur la SFA et la régression hédonique des prix, nous avons découvert les fondements théoriques de ces modèles, leurs apports ainsi que leurs limites.
 
-Les statistiques descriptives réalisées sur 487 smartphones vendus par un revendeur français *(octobre 2023)* ont révélé une distribution bimodale des prix, confirmant la nature hautement différenciée des smartphones. Grâce à des modèles de régression hédonique, nous avons réussi à prédire avec précision les prix en utilisant différents types de spécifications, d'abord en *niveau-niveau* puis en *log-niveau*. Ces résultats ont été extrêmement satisfaisants, démontrant la capacité des modèles à correctement inférer les prix des smartphones en fonction de leurs caractéristiques.
+Les statistiques descriptives réalisées sur 432 smartphones vendus par un revendeur français *(février 2023)* ont révélé une distribution bimodale des prix, confirmant la nature hautement différenciée des smartphones. Grâce à des modèles de régression hédonique, nous avons réussi à prédire avec précision les prix en utilisant différents types de spécifications, d'abord en *niveau-niveau* puis en *log-niveau*. Ces résultats ont été extrêmement satisfaisants, démontrant la capacité des modèles à correctement inférer les prix des smartphones en fonction de leurs caractéristiques.
 
 Cependant, pour aller au-delà de la simple prédiction des prix, nous avons également appliqué un modèle SFA, spécifiquement la *Cost Frontier Analysis*, afin d'évaluer l'efficacité des prix des téléphones en tenant compte de leurs caractéristiques. Cela nous a permis de déterminer les téléphones offrant le meilleur rapport qualité-prix, offrant ainsi une perspective supplémentaire dans la compréhension du pricing de ces téléphones.
 
