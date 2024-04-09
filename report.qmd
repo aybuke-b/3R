@@ -2146,14 +2146,7 @@ prices_more <- n_prices |>
     filter(group == "+ Period 2") |>
     pull()
 
-clean_data |>
-    select(model, efficiency_1, price_1, price_2, price_diff, group) |>
-    arrange(price_diff) |>
-    group_by(group) |>
-    summarise(
-        mean_eff = mean(efficiency_1),
-        median_eff = median(efficiency_1)
-    )
+
 
 # mean_eff = mean(efficiency_1),
 # median_eff = median(efficiency_1),
@@ -2166,6 +2159,40 @@ clean_data |>
 En concaténant ces 4 variables, la clé unique pour chaque téléphone entre les 2 périodes est créée, et après un certain nombre d'opérations de manipulation de données, il en résulte que **`r clean_data |> nrow()`** téléphones sont présents en période 1 et 2. Parmi ces téléphones, **`r prices_less`**, soit `r (prices_less/clean_data |> nrow())*100` %, ont vu leur prix diminuer en période 2, **`r prices_equal`** ont le même prix qu'en première période, et enfin, **`r prices_more`** téléphones ont un prix plus important en période 2. 
 
 Contre-intuitif à première vue, si le prix de certains téléphones est plus élevé en seconde période, c'est probablement car ils disposaient d'une promotion en première période.
+
+On peut également regarder l'efficacité moyenne des groupes en fonction de si leur prix a baissé, augmenté ou est resté stable entre les deux périodes.
+
+```{r}
+clean_data |>
+    select(model, efficiency_1, price_1, price_2, price_diff, group) |>
+    arrange(price_diff) |>
+    group_by(group) |>
+    summarise(
+        mean_eff = round(mean(efficiency_1),3),
+        median_eff = round(median(efficiency_1),3)
+    ) |>
+    kbl(caption = "", booktabs = T, col.names = c("Groupe", "Efficacité moyenne", "Efficacité médiane"), escape = F) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+```
+
+Certains téléphones ont augmenté en valeur entre les périodes 1 et 2, ce qui se traduit par une efficacité moyenne de 0.850. D'autres ont vu leurs prix diminuer en période 2, entraînant une efficacité moyenne légèrement inférieure de 0.836. En revanche, pour les téléphones dont le prix est resté constant, l'efficacité moyenne atteint 0.867.
+
+
+D'autre part, on peut aussi s'intéresser aux téléphones ayant enregistré la baisse de prix la plus significative.
+```{r}
+most_exp <- clean_data |>
+    select(model, price_1, price_2, price_diff) |>
+    arrange(desc(price_diff)) |>
+    slice_head(n = 5) |>
+    kbl(caption = "", booktabs = T, col.names = c("Modèle", "Prix période 1", "Prix période 2", "Différence de prix"), escape = F) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+```
+
+- Le Samsung Galaxy Z Fold 4 est le téléphone qui présente la plus forte baisse de prix, passant de 1799 € à 1070.32 €, soit une réduction de presque 730 €.
+
+- 
 
 ::: {.callout-warning}
 **Ajouter les 5 téléphones dont la différence de prix est la plus élevée (price_diff), reformater le tableau median/mean efficiency avec kable, et ajouter la petite interpr"tation aussi.**
