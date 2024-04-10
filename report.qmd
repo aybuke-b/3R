@@ -2172,12 +2172,35 @@ most_exp <- clean_data |>
     select(model, price_1, price_2, price_diff) |>
     arrange(desc(price_diff)) |>
     slice_head(n = 5) |>
-    kbl(caption = "", booktabs = T, col.names = c("Modèle", "Prix période 1", "Prix période 2", "Différence de prix"), escape = F) |>
+    kbl(caption = "Les 5 téléphones avec les plus grandes variations de prix entre les deux périodes", booktabs = T, col.names = c("Modèle", "Prix période 1", "Prix période 2", "Différence de prix"), escape = F) |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
     row_spec(0, bold = T)
+
+most_exp
 ```
 
+- Les téléphones ayant enregistré les plus importantes baisses de prix sont tous des modèles haut de gamme.
+
 - Le Samsung Galaxy Z Fold 4 est le téléphone qui présente la plus forte baisse de prix, passant de 1799 € à 1070.32 €, soit une réduction de presque 730 €.
+
+On peut aussi examiner les modèles de téléphones pour lesquels le prix est resté inchangé entre les deux périodes.
+
+```{r}
+prix_stagne <- clean_data |>
+    select(model, price_1, price_2, price_diff) |>
+    arrange(desc(price_diff)) |>
+    filter(price_diff == 0) |>
+    slice_head(n = 10) |>
+    distinct(model, .keep_all = TRUE) |>
+    kbl(caption = "5 téléphones avec des prix stables entre les deux périodes", booktabs = T, col.names = c("Modèle", "Prix période 1", "Prix période 2", "Différence de prix"), escape = F) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+
+prix_stagne
+```
+
+
+On observe que les téléphones dont le prix n'a pas changé sont principalement des Motorolas ou, de manière plus générale, des téléphones considérés comme bas de gamme.
 
 # Comparateur 
 
