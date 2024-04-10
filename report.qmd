@@ -1953,7 +1953,7 @@ dim_4_vars$labels$title <- ""
 
 - Les variables contribuant le plus à la dimension 1 sont *logprice*,  *upgrade_storage*, *induction*, *ppi*, *network*, et *brand*.
 
-- Dans la dimension 2, les proportions de contribution sont elles partagées entre 3 variables : *brand*, *screen_size* et *ram*
+- Dans la dimension 2, les proportions de contribution sont, elles, partagées entre 3 variables : *brand*, *screen_size* et *ram*
 
 - Pour la dimension 3 et 4, *brand* est une variable qui contribue encore plus à la construction des axes avec environ 50% ou plus de contribution.
 
@@ -2171,7 +2171,7 @@ D'autre part, on peut aussi s'intéresser aux téléphones ayant enregistré la 
 most_exp <- clean_data |>
     select(model, price_1, price_2, price_diff) |>
     arrange(desc(price_diff)) |>
-    mutate(price_1 = paste(price_1, "€"), price_2 = paste(price_2, "€"), price_diff = paste(price_diff, "€"))  |>
+    mutate(price_1 = paste(price_1, "€"), price_2 = paste(price_2, "€"), price_diff = paste(price_diff, "€")) |>
     slice_head(n = 5) |>
     kbl(caption = "Les 5 téléphones avec les plus grandes variations de prix entre les deux périodes", booktabs = T, col.names = c("Modèle", "Prix période 1", "Prix période 2", "Différence de prix"), escape = F) |>
     kable_styling(latex_options = c("striped", "hold_position")) |>
@@ -2186,10 +2186,12 @@ most_exp
 
 On peut aussi examiner les modèles de téléphones pour lesquels le prix est resté inchangé entre les deux périodes.
 
+\vspace{3em}
+
 ```{r}
 prix_stagne <- clean_data |>
     select(model, price_1, price_2, price_diff) |>
-    mutate(price_1 = paste(price_1, "€"), price_2 = paste(price_2, "€"))  |>
+    mutate(price_1 = paste(price_1, "€"), price_2 = paste(price_2, "€")) |>
     arrange(desc(price_diff)) |>
     filter(price_diff == 0) |>
     slice_head(n = 10) |>
@@ -2201,8 +2203,7 @@ prix_stagne <- clean_data |>
 prix_stagne
 ```
 
-
-On observe que les téléphones dont le prix n'a pas changé sont principalement des Motorolas ou, de manière plus générale, des téléphones considérés comme bas de gamme.
+On observe que les téléphones dont le prix n'a pas changé sont principalement des **MOTOROLA**, et de manière plus générale, des téléphones considérés comme bas de gamme.
 
 # Comparateur 
 
@@ -2228,14 +2229,14 @@ En effet, les opérateurs de plateforme en ligne doivent délivrer au consommate
 
 1. Avoir une page dédiée accessible depuis toutes les autres pages du comparateur informant le fonctionnement de celui-ci.
 
-2. Faire figurer sur chaque page de résultats  les informations concernant les critères de classement.
+2. Faire figurer sur chaque page de résultats les informations concernant les critères de classement.
 
 3. Indiquer via la mention explicite **« annonce »** les résultats liés à des partenariats rémunérés.
 
 
 Il va sans dire que très peu de comparateurs respectent le premier point, souvent pour une raison simple : ce sont juste des listings de prix de téléphones du moins cher au plus cher, donc il n'y a pas vraiment de fonctionnement à proprement parler. De même, concernant les critères de classement. 
 
-En revanche le troisième point est presque toujours indiqué quelque part avec la mention *publicité* ou *annonce* quand il y a un partenariat rémunéré, et c'est normal car une grande partie des revenus de ces comparateurs provient de ces partenariats donc ils font assez attention à ce point.
+En revanche, le troisième point est presque toujours indiqué quelque part avec la mention *publicité* ou *annonce* quand il y a un partenariat rémunéré, et c'est normal car une grande partie des revenus de ces comparateurs provient de ces partenariats donc ils font assez attention à ce point.
 
 ***L'avantage de notre comparateur c'est qu'il respecte les deux premiers points, sans se soucier du troisième puisque nous n'avons pas de partenariats rémunérés. Tout ça permet d'offrir une grande transparence pour le consommateur.***
 
