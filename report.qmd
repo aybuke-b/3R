@@ -93,7 +93,7 @@ Nous tenons à remercier chaleureusement Monsieur [*Alain BOUSQUET*](https://fr.
 
 # Introduction
 
-En tant que consommateur, nous nous retrouvons souvent face à une question infiniment plus complexe qu'elle n'en a l'air. En des termes simples, elle se traduit par : Pourquoi ce prix ? Pour quelle raison ce stylo, cette nouvelle télévision, ou ce smartphone coûte tant ? Est-ce une simple question de coût de production, de marge ? Ou bien cela prend-il en compte d'autres éléments, tels que la valeur perçue par le consommateur, les caractéristiques spécifiques d'un produit, ou encore le service qu'il rend ?
+En tant que consommateur, nous nous retrouvons souvent face à une question infiniment plus complexe qu'elle n'en a l'air. En des termes simples, elle se traduit par : pourquoi ce prix ? Pour quelle raison ce stylo, cette nouvelle télévision, ou ce smartphone coûte tant ? Est-ce une simple question de coût de production, de marge ? Ou bien cela prend-il en compte d'autres éléments, tels que la valeur perçue par le consommateur, les caractéristiques spécifiques d'un produit, ou encore le service qu'il rend ?
 
 Dans ce cadre, une approche essentielle dans l'analyse des prix est celle des prix hédoniques. Celle-ci considère que le prix d'un bien ou d'un service est influencé non seulement par ses caractéristiques, mais aussi par la valeur subjective que les individus accordent à ces caractéristiques. Ainsi, la méthode des prix hédoniques examine comment des éléments spécifiques tels que la qualité ou les fonctionnalités d'un produit impactent sa valeur perçue, reflétée dans son prix.
 
@@ -131,11 +131,11 @@ Pour répondre à cette difficulté, @lancaster1966 propose un nouveau cadre con
 
 *Illustrons ces points avec quelques exemples* :
 
--   Un ordinateur n'est pas acheté pour le simple plaisir de posséder un ordinateur. Il est acheté car il permet de naviguer sur Internet, écrire des cours, programmer, regarder une série, etc. C'est donc pour les **services qu'il nous rend**, ce qui est modélisé ici par les caractéristiques possédées du bien.
+- Un ordinateur n'est pas acheté pour le simple plaisir de posséder un ordinateur. Il est acheté car il permet de naviguer sur Internet, écrire des cours, programmer, regarder une série, etc. C'est donc pour les **services qu'il nous rend**, ce qui est modélisé ici par les caractéristiques possédées du bien.
 
--   Les biens possèdent généralement un grand nombre de caractéristiques. Prenons l'exemple d'une gourde : la couleur, la forme, les dimensions et la capacité isothermique sont autant de caractéristiques qui peuvent influer sur la décision d'achat et la disposition à payer.
+- Les biens possèdent généralement un grand nombre de caractéristiques. Prenons l'exemple d'une gourde : la couleur, la forme, les dimensions et la capacité isothermique sont autant de caractéristiques qui peuvent influer sur la décision d'achat et la disposition à payer.
 
--   En consommant du lait et du café séparément, les caractéristiques retirées du lait sont de la vitamine D et du calcium, tandis que pour le café les caractéristiques retirées sont de la caféine, une boisson chaude, un *"boost"* le matin. En revanche, consommer un café latte permettra d'obtenir une boisson plus douce, moins caféiné, un goût différent. En bref, les caractéristiques retirées du mélange sont différentes.
+- En consommant du lait et du café séparément, les caractéristiques retirées du lait sont de la vitamine D et du calcium, tandis que pour le café les caractéristiques retirées sont de la caféine, une boisson chaude, un *"boost"* le matin. En revanche, consommer un café latte permettra d'obtenir une boisson plus douce, moins caféiné, un goût différent. En bref, les caractéristiques retirées du mélange sont différentes.
 
 Dans le modèle de Lancaster, on pose une relation **linéaire** entre les prix des biens et leurs caractéristiques. Le prix total $p$ d'un bien peut donc être considéré comme la somme des prix individuels associé à chaque caractéristique. Cela découle du fait que les attributs des biens étudiés peuvent être considérés comme des composantes distinctes et séparables.
 
@@ -145,9 +145,9 @@ Dans le modèle de Lancaster, on pose une relation **linéaire** entre les prix 
 
 @rosen1974 étend ce qui a été apporté par le cadre théorique de @lancaster1966. La principale différence est qu'il s'intéresse à **l’équilibre de marché de biens différenciés** (là où Lancaster s'intéresse uniquement à la demande) avec :
 
--   un continuum de biens du côté de l’offre.
+- un continuum de biens du côté de l’offre.
 
--   un continuum de consommateurs hétérogènes du côté de la demande.
+- un continuum de consommateurs hétérogènes du côté de la demande.
 
 Dans ce modèle, la relation entre les prix des biens et leurs attributs peut-être **non-linéaire** et permet aussi de capter des effets d'interaction entre plusieurs variables. Au coût d'une modélisation plus complexe que dans le modèle de @lancaster1966, les résultats gagnent en robustesse.
 
@@ -194,16 +194,16 @@ On peut en déduire que les consommateurs achetant le *bien 5* valorisent plus l
 
 *En fait, la différenciation horizontale et verticale des produits implique qu'une vaste gamme de paniers est disponible dans cet espace de consommation !*
 
--   **Différenciation Horizontale** $\Rightarrow$ A prix donné, il n'y a pas unanimité dans le choix des consommateurs entre 2 biens (jaune et rouge) : ce sont des différences de goûts.
+- **Différenciation Horizontale** $\Rightarrow$ A prix donné, il n'y a pas unanimité dans le choix des consommateurs entre 2 biens (jaune et rouge) : ce sont des différences de goûts.
 
--   **Différenciation Verticale** $\Rightarrow$ A prix donné, il y a unanimité dans le choix des consommateurs entre 2 voitures biens : l'un est meilleur que l'autre.
+- **Différenciation Verticale** $\Rightarrow$ A prix donné, il y a unanimité dans le choix des consommateurs entre 2 voitures biens : l'un est meilleur que l'autre.
 
 Il faut aussi noter que dans le modèle de Rosen, le consommateur n'achète qu'**une seule** unité de bien qui est une combinaison d'attributs $z_1, z_2, \dots, z_n$. Historiquement, cela s'explique car Rosen s'intéresse principalement aux biens durables (logements, voitures, smartphones...). Il est en effet beaucoup plus simple d'obtenir des caractéristiques observables sur ces biens durables : que ce soit le nombre de pièces pour un logement, la superficie, ou bien la puissance et la longueur d'une voiture.
 
 De toutes ces informations, on peut formuler 2 questions.
 
--   Pour le **producteur**, quelle combinaison de caractéristiques lui permet de maximiser son profit ?
--   Pour le **consommateur**, quelle combinaison de caractéristiques lui rapporte le plus d'utilité sous contrainte budgétaire ?
+- Pour le **producteur**, quelle combinaison de caractéristiques lui permet de maximiser son profit ?
+- Pour le **consommateur**, quelle combinaison de caractéristiques lui rapporte le plus d'utilité sous contrainte budgétaire ?
 
 On aboutit à une relation fonctionnelle entre les caractéristiques des biens et leur prix, appelée fonction de prix hédonique $p(z)$.
 
@@ -225,11 +225,11 @@ Il n'en reste pas moins qu'il subsiste un problème indéniable : ce qu'on aimer
 
 **Objectif** : Examiner comment les données du marché immobilier peuvent être utilisées pour évaluer la *Willingness To Pay* des consommateurs pour une meilleure qualité de l'air.
 
--   Le modèle suppose que les ménages prennent en compte le niveau de pollution de l'air, la quantité et la qualité du logement et d'autres caractéristiques de quartier pour faire leur choix.
+- Le modèle suppose que les ménages prennent en compte le niveau de pollution de l'air, la quantité et la qualité du logement et d'autres caractéristiques de quartier pour faire leur choix.
 
 \newpage
 
--   La fonction de la valeur hédonique du logement traduit les attributs du logement en prix, et suppose que les consommateurs perçoivent avec précision ces attributs et que le marché est en équilibre à court terme.
+- La fonction de la valeur hédonique du logement traduit les attributs du logement en prix, et suppose que les consommateurs perçoivent avec précision ces attributs et que le marché est en équilibre à court terme.
 
 *Définition des variables*
 
@@ -1863,7 +1863,7 @@ afdm_res <- FAMD(afdm_df, ncp = 10)
 #| fig-align: center
 #| fig-cap: "Inerties."
 
-scree <- factoextra::fviz_screeplot(afdm_res, barfill = highlight, barcolor = highlight, addlabels = TRUE, main = "", ylim = c(0, 22.5), ylab = "")
+scree <- factoextra::fviz_screeplot(afdm_res, barfill = highlight, barcolor = highlight, addlabels = TRUE, main = "", ylim = c(0, 35), ylab = "")
 
 scree
 
@@ -1953,7 +1953,7 @@ dim_4_vars$labels$title <- ""
 
 - Les variables contribuant le plus à la dimension 1 sont *logprice*,  *upgrade_storage*, *induction*, *ppi*, *network*, et *brand*.
 
-- Dans la dimension 2, les proportions de contribution sont elles partagées entre 3 variables : *brand*, *screen_size* et *ram*
+- Dans la dimension 2, les proportions de contribution sont, elles, partagées entre 3 variables : *brand*, *screen_size* et *ram*
 
 - Pour la dimension 3 et 4, *brand* est une variable qui contribue encore plus à la construction des axes avec environ 50% ou plus de contribution.
 
@@ -1996,9 +1996,9 @@ circle_dim_12
 ```
 
 
-D'après le nuage des variables, on peut voir que les variables qui contribuent à l'axe F1 sont le *logprice*, *ppi*, *storage* ainsi que *ram*. On peut donc supposer que les 3 caractéristiques constituent la majeure partie de la variation observée dans la variable *logprice*.
+D'après le nuage des variables, on peut voir que les variables qui contribuent à l'axe $F_1$ sont le *logprice*, *ppi*, *storage* ainsi que *ram*. On peut donc supposer que les 3 caractéristiques constituent la majeure partie de la variation observée dans la variable *logprice*.
 
-Pour l’axe F2, ce sont principalement les variables *screen_size* et *efficiency* qui contribuent le plus à cet axe. On peut observer que l'efficacité (*efficiency*) est moins bien représentée que *screen_size*, comme le suggère la différence dans la longueur des flèches associées à ces variables.
+Pour l’axe $F_2$, ce sont principalement les variables *screen_size* et *efficiency* qui contribuent le plus à cet axe. On peut observer que l'efficacité (*efficiency*) est moins bien représentée que *screen_size*, comme le suggère la différence dans la longueur des flèches associées à ces variables.
 
 
 ```{r}
@@ -2010,22 +2010,200 @@ Pour l’axe F2, ce sont principalement les variables *screen_size* et *efficien
 circle_dim_34
 ```
 
-Les variables ne contribuent pas beaucoup aux dimensions 3 et 4.
-Pour l'axe F3, la *ppi* contribuent pas mal suivi de *storage*, *ram*.
+L'ensemble des variables contribue assez peu aux dimensions 3 et 4.
+Pour l'axe $F_3$, la *ppi* contribue de manière plus importante, suivie ensuite de *storage* et *ram*.
 
-Les variables présentent une contribution relativement faible aux dimensions 3 et 4 de l'analyse. 
-En ce qui concerne l'axe F3, on constate que le **ppi** contribue un peu plus que les autres, suivi par *storage* et *ram*.
-
-Pour l'axe F4, c'est la variable *screen_size* qui contribue le plus, suivie par *efficiency*, tandis que *logprice* contribue pratiquement pas. Il est également à noter que toutes ces variables sont positionnées du côté négatif de l'axe.
+Pour l'axe $F_4$, c'est la variable *screen_size* qui contribue le plus, suivie par *efficiency*, tandis que la contribution de *logprice* est négligeable. Il est également à noter que toutes ces variables sont positionnées du côté négatif de l'axe.
 
 # Analyse des évolutions tarifaires sur deux périodes
 
 En référence à l'étude d'@arrondo2018, et disposant de données respectivement d'octobre 2023 et de février 2024, nous avons souhaité examiner si les prix des téléphones disponibles sur ces deux périodes ont diminué ou non. Cette analyse vise à identifier les téléphones affichant des tarifs excessifs.
 
+Il est à noter qu'une telle analyse est assez complexe techniquement. En effet, aucune clé unique identifiable n'existe pour distinguer les téléphones, il faut donc en créer une **artificiellement**, comme suit :
 
+$$
+unique\_{key} = model + ram + storage + color
+$$
 
+```{r}
+root <- getwd()
 
+df_path_1 <- file.path(root, "Web_Scraping", "data", "df_clean.csv")
+df_path_2 <- file.path(root, "Web_Scraping", "data", "df_clean_2.csv")
 
+df_1 <- read_delim(df_path_1, delim = ";")
+df_2 <- read_delim(df_path_2, delim = ";")
+
+scf_period_1 <- sfa(
+    log(price) ~ storage + brand + ram + induction + screen_size
+        + made_in + upgrade_storage + das_limbs + network + ppi,
+    data = df_1,
+    truncNorm = FALSE,
+    ineffDecrease = FALSE
+)
+
+period_1 <- df_1 |>
+    select(
+        brand,
+        model,
+        price,
+        logprice,
+        screen_size,
+        network,
+        screen_type,
+        induction,
+        ram,
+        storage,
+        made_in,
+        ppi,
+        upgrade_storage,
+        das_limbs,
+        color
+    ) |>
+    mutate(period = 1)
+
+period_1 <- bind_cols(efficiencies(scf_period_1) |> as_tibble(), period_1)
+
+period_2 <- df_2 |>
+    select(
+        brand,
+        model,
+        price,
+        logprice,
+        screen_size,
+        network,
+        screen_type,
+        induction,
+        ram,
+        storage,
+        made_in,
+        ppi,
+        upgrade_storage,
+        das_limbs,
+        color
+    ) |>
+    mutate(period = 2)
+
+periods <- bind_rows(period_1, period_2)
+
+periods <- periods |> unite("unique_key", c(model, color, ram, storage), sep = "_", remove = FALSE)
+
+# on fait un group by par clé unique,
+# puis un distinct de période.
+# Quand ce distinct = 2, alors le téléphone existe dans les deux périodes !
+
+valid <- periods |>
+    group_by(unique_key) |>
+    summarise(periods_exist = n_distinct(period)) |>
+    filter(periods_exist == 2) |>
+    select(unique_key) |>
+    pull()
+
+valid_v2 <- periods |>
+    filter(unique_key %in% c(valid)) |>
+    group_by(unique_key) |>
+    summarise(nb = n()) |>
+    filter(nb == 2) |>
+    select(unique_key) |>
+    pull()
+
+dt <- periods |>
+    filter(unique_key %in% c(valid_v2)) |>
+    arrange(unique_key)
+
+clean_data <- pivot_wider(
+    dt,
+    names_from = period,
+    values_from = c(price, logprice, efficiency),
+    names_sep = "_"
+) |>
+    mutate(
+        price_diff = price_1 - price_2,
+        group = case_when(
+            price_diff < 0 ~ "+ Period 2",
+            price_diff == 0 ~ "= Period 2",
+            price_diff > 0 ~ "- Period 2"
+        )
+    ) |>
+    filter(!is.na(price_diff))
+
+n_prices <- clean_data |>
+    select(model, efficiency_1, price_1, price_2, price_diff, group) |>
+    arrange(price_diff) |>
+    group_by(group) |>
+    summarise(n = n())
+
+prices_less <- n_prices |>
+    filter(group == "- Period 2") |>
+    pull()
+prices_equal <- n_prices |>
+    filter(group == "= Period 2") |>
+    pull()
+prices_more <- n_prices |>
+    filter(group == "+ Period 2") |>
+    pull()
+```
+
+En concaténant ces 4 variables, la clé unique pour chaque téléphone entre les 2 périodes est créée, et après un certain nombre d'opérations de manipulation de données, il en résulte que **`r clean_data |> nrow()`** téléphones sont présents en période 1 et 2. Parmi ces téléphones, **`r prices_less`**, soit `r (prices_less/clean_data |> nrow())*100` %, ont vu leur prix diminuer en période 2, **`r prices_equal`** ont le même prix qu'en première période, et enfin, **`r prices_more`** téléphones ont un prix plus important en période 2. 
+
+Contre-intuitif à première vue, si le prix de certains téléphones est plus élevé en seconde période, c'est probablement car ils disposaient d'une promotion en première période.
+
+On peut également regarder l'efficacité moyenne des groupes en fonction de si leur prix a baissé, augmenté ou est resté stable entre les deux périodes.
+
+```{r}
+clean_data |>
+    select(model, efficiency_1, price_1, price_2, price_diff, group) |>
+    arrange(price_diff) |>
+    group_by(group) |>
+    summarise(
+        mean_eff = round(mean(efficiency_1), 3),
+        median_eff = round(median(efficiency_1), 3)
+    ) |>
+    kbl(caption = "Efficacité par groupe de variation de prix", booktabs = T, col.names = c("Groupe", "Efficacité moyenne", "Efficacité médiane"), escape = F) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+```
+
+Entre les périodes 1 et 2, le prix de certains téléphones a augmenté (groupe **+**). Ces téléphones avaient une efficacité moyenne et médiane de 0.85 et respectivement 0.874 en période 1. D'autres téléphones ont quant à eux vu leur prix diminuer (groupe **-**) en période 2, et leur efficacité moyenne et médiane en période 1 sont inférieures à celles des téléphones dont le prix a augmenté. Cette observation nous indique qu'il semble exister un lien entre l'efficacité (calculée par la SFA en période 1) et la réduction de prix appliquée en période 2.
+
+D'autre part, on peut aussi s'intéresser aux téléphones ayant enregistré la baisse de prix la plus significative.
+```{r}
+most_exp <- clean_data |>
+    select(model, price_1, price_2, price_diff) |>
+    arrange(desc(price_diff)) |>
+    mutate(price_1 = paste(price_1, "€"), price_2 = paste(price_2, "€"), price_diff = paste(price_diff, "€")) |>
+    slice_head(n = 5) |>
+    kbl(caption = "Les 5 téléphones avec les plus grandes variations de prix entre les deux périodes", booktabs = T, col.names = c("Modèle", "Prix période 1", "Prix période 2", "Différence de prix"), escape = F) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+
+most_exp
+```
+
+- Les téléphones ayant enregistré les plus importantes baisses de prix sont tous des modèles haut de gamme.
+
+- Le Samsung Galaxy Z Fold 4 est le téléphone qui présente la plus forte baisse de prix, passant de 1799 € à 1070.32 €, soit une réduction de presque 730 €.
+
+On peut aussi examiner les modèles de téléphones pour lesquels le prix est resté inchangé entre les deux périodes.
+
+\vspace{3em}
+
+```{r}
+prix_stagne <- clean_data |>
+    select(model, price_1, price_2, price_diff) |>
+    mutate(price_1 = paste(price_1, "€"), price_2 = paste(price_2, "€")) |>
+    arrange(desc(price_diff)) |>
+    filter(price_diff == 0) |>
+    slice_head(n = 10) |>
+    distinct(model, .keep_all = TRUE) |>
+    kbl(caption = "5 téléphones avec des prix stables entre les deux périodes", booktabs = T, col.names = c("Modèle", "Prix période 1", "Prix période 2", "Différence de prix"), escape = F) |>
+    kable_styling(latex_options = c("striped", "hold_position")) |>
+    row_spec(0, bold = T)
+
+prix_stagne
+```
+
+On observe que les téléphones dont le prix n'a pas changé sont principalement des **MOTOROLA**, et de manière plus générale, des téléphones considérés comme bas de gamme.
 
 # Comparateur 
 
@@ -2051,14 +2229,14 @@ En effet, les opérateurs de plateforme en ligne doivent délivrer au consommate
 
 1. Avoir une page dédiée accessible depuis toutes les autres pages du comparateur informant le fonctionnement de celui-ci.
 
-2. Faire figurer sur chaque page de résultats  les informations concernant les critères de classement.
+2. Faire figurer sur chaque page de résultats les informations concernant les critères de classement.
 
 3. Indiquer via la mention explicite **« annonce »** les résultats liés à des partenariats rémunérés.
 
 
 Il va sans dire que très peu de comparateurs respectent le premier point, souvent pour une raison simple : ce sont juste des listings de prix de téléphones du moins cher au plus cher, donc il n'y a pas vraiment de fonctionnement à proprement parler. De même, concernant les critères de classement. 
 
-En revanche le troisième point est presque toujours indiqué quelque part avec la mention *publicité* ou *annonce* quand il y a un partenariat rémunéré, et c'est normal car une grande partie des revenus de ces comparateurs provient de ces partenariats donc ils font assez attention à ce point.
+En revanche, le troisième point est presque toujours indiqué quelque part avec la mention *publicité* ou *annonce* quand il y a un partenariat rémunéré, et c'est normal car une grande partie des revenus de ces comparateurs provient de ces partenariats donc ils font assez attention à ce point.
 
 ***L'avantage de notre comparateur c'est qu'il respecte les deux premiers points, sans se soucier du troisième puisque nous n'avons pas de partenariats rémunérés. Tout ça permet d'offrir une grande transparence pour le consommateur.***
 
@@ -2102,26 +2280,15 @@ L'application est à découvrir en suivant ce lien : [https://smart-specs.stream
 
 La réalisation d'une étude utilisant les modèles SFA pour évaluer les prix des smartphones a permis de mieux comprendre les dynamiques complexes de ce marché en constante évolution. En explorant la littérature existante sur la SFA et la régression hédonique des prix, nous avons découvert les fondements théoriques de ces modèles, leurs apports ainsi que leurs limites.
 
-Les statistiques descriptives réalisées sur 487 smartphones vendus par un revendeur français *(octobre 2023)* ont révélé une distribution étalée des prix, confirmant la nature hautement différenciée des smartphones. En utilisant des modèles de régression hédonique, nous avons réussi à prédire avec précision les prix en utilisant différents types de spécifications, notamment *niveau-niveau* en *log-niveau*. Ces résultats ont été extrêmement satisfaisants, démontrant la capacité des modèles à correctement inférer les prix des smartphones en fonction de leurs caractéristiques.
+Les statistiques descriptives réalisées sur 432 smartphones vendus par un revendeur français *(février 2023)* ont révélé une distribution bimodale des prix, confirmant la nature hautement différenciée des smartphones. Grâce à des modèles de régression hédonique, nous avons réussi à prédire avec précision les prix en utilisant différents types de spécifications, d'abord en *niveau-niveau* puis en *log-niveau*. Ces résultats ont été extrêmement satisfaisants, démontrant la capacité des modèles à correctement inférer les prix des smartphones en fonction de leurs caractéristiques.
 
 Cependant, pour aller au-delà de la simple prédiction des prix, nous avons également appliqué un modèle SFA, spécifiquement la *Cost Frontier Analysis*, afin d'évaluer l'efficacité des prix des téléphones en tenant compte de leurs caractéristiques. Cela nous a permis de déterminer les téléphones offrant le meilleur rapport qualité-prix, offrant ainsi une perspective supplémentaire dans la compréhension du pricing de ces téléphones.
 
-La prochaine étape de ce projet consistera à créer une application comparative. Celle-ci permettra aux utilisateurs *(tout du moins nous l'espérons)*, de spécifier les caractéristiques recherchées dans un téléphone. En utilisant le modèle SFA que nous avons développé, un score sera généré pour chaque téléphone, classant ainsi les appareils du plus efficace au moins efficace en fonction des critères spécifiés. Cette application offrira une solution pratique et personnalisée aux utilisateurs pour prendre des décisions informées lors de l'achat ou de la production de smartphones.
+La dernière étape de ce projet consista à créer une application comparative. Celle-ci permet aux utilisateurs de spécifier les caractéristiques recherchées dans un téléphone. En utilisant le modèle SFA que nous avons développé, un score est généré pour chaque téléphone, classant ainsi les appareils du plus efficace au moins efficace en fonction des critères spécifiés. Cette application offre une solution pratique et personnalisée aux utilisateurs pour prendre des décisions informées lors de l'achat d'un nouveau smartphone.
 
 En résumé, cette étude approfondie combinant la régression hédonique, la SFA et l'analyse des prix des smartphones a non seulement permis de prédire précisément les prix en fonction des caractéristiques, mais a également jeté les bases d'une application offrant des recommandations personnalisées basées sur l'efficacité des prix des téléphones. Ce projet ouvre des perspectives intéressantes pour aider les consommateurs et les producteurs à prendre des décisions éclairées dans un marché aussi dynamique et complexe que celui des smartphones.
 
 \macrostars
-
-```{r predicts}
-# prediction <- predict(genreg)
-# true <- df$price
-# model <- df$model
-# data.frame(true, prediction, model)
-
-# faire un tableau des prédictions les plus proches et éloignées
-
-# faire un modèle avec correction d'hétéroscédasticité. robuste.
-```
 
 # Annexe {.appendix}
 
